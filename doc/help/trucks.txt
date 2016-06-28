@@ -1,0 +1,9 @@
+Usage: board [-h] [--help] [--version] [files...]
+
+  Compiles skatejs components.
+
+Options
+  -h, --help              Display help and exit
+  --version               Print the version and exit
+
+tracks@1.0.0

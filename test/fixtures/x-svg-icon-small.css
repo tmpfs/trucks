@@ -1,0 +1,4 @@
+object[icon-size="small"], * /deep/ object[icon-size="small"] {
+  width: 16px;
+  height: 16px;
+}

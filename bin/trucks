@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+const util = require('../lib/util')
+const cli = require('../cli/trucks');
+cli(util.finish);

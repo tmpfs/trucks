@@ -1,0 +1,36 @@
+<template>
+  <object type="image/svg+xml" data="`${elem.icon}`" icon icon-size="`${elem.size}`"></object>
+</template>
+
+<style>
+  object[icon], * /deep/ object[icon] {
+    display: inline-block;  
+    pointer-events: none;
+  }
+</style>
+
+<!--
+  Example of including an external stylesheet.
+
+  Normally it would be considered best practice to have all component styles inline or in external stylesheets, however this is a test fixture.
+-->
+<link rel="stylesheet" href="x-svg-icon-small.css">
+
+<script>
+  skate.define('x-svg-icon', {
+    props: {
+      icon: {
+        attribute: true,
+        render: (elem, data) => {
+          return data.newValue !== data.oldValue;
+        }
+      },
+      'icon-size': {
+        attribute: true,
+        render: (elem, data) => {
+          return data.newValue !== data.oldValue;
+        }
+      }
+    }
+  });
+</script>

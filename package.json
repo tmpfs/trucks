@@ -1,0 +1,16 @@
+{
+  "name": "trucks",
+  "version": "1.0.0",
+  "description": "Skatejs compiler and component manager",
+  "bin": "./bin/trucks",
+  "author": "muji <noop@xpm.io>",
+  "license": "MIT",
+  "dependencies": {
+    "acorn": "~3.2.0",
+    "cheerio": "~0.20.0"
+  },
+  "devDependencies": {
+    "mkcli": "~1.0.32"
+  },
+  "scripts": {}
+}

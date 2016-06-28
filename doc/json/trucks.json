@@ -1,0 +1,39 @@
+{
+  "description": "Compiles skatejs components.",
+  "names": [
+    "board"
+  ],
+  "type": "program",
+  "name": "board",
+  "summary": "compiles skatejs components",
+  "synopsis": [
+    "[flags] [options] [files...]"
+  ],
+  "options": {
+    "help": {
+      "key": "help",
+      "description": "Display help and exit",
+      "names": [
+        "-h",
+        "--help"
+      ],
+      "type": "flag",
+      "name": "--help"
+    },
+    "version": {
+      "key": "version",
+      "description": "Print the version and exit",
+      "names": [
+        "--version"
+      ],
+      "type": "flag",
+      "name": "--version"
+    }
+  },
+  "zsh": [
+    {
+      "info": "zsh",
+      "literal": ":file:_files -g '*.html'"
+    }
+  ]
+}

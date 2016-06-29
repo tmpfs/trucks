@@ -61,11 +61,20 @@ function extract(result, opts, cb) {
     // use our plugin to gather component definitions in the AST
     options.plugins.unshift(component);
 
-    const res = babel.transform(script.contents, options);
+    // inject file name for compiler errors
+    options.filename = script.file;
+
+    let res;
+    
+    try {
+      res = babel.transform(script.contents, options);
+    }catch(e) {
+      return cb(e); 
+    }
 
     script.result = res;
 
-    // no components defined
+    // no components defined, ie: `skate.define()` not called
     if(!count) {
       return cb(new Error(`${script.file} does not define a component`)); 
     }

@@ -26,6 +26,7 @@ function extract(result, opts, cb) {
     }
 
     const components = {};
+    let count = 0;
 
     // find skate.define() component declarations in the AST
     function component(babel) {
@@ -52,6 +53,8 @@ function extract(result, opts, cb) {
 
               // map the AST expression node by component tag name
               components[name] = expr;
+
+              count++;
             } 
           }
         }
@@ -64,6 +67,11 @@ function extract(result, opts, cb) {
     });
 
     script.result = res;
+
+    // no components defined
+    if(!count) {
+      return cb(new Error(`${script.file} does not define a component`)); 
+    }
 
     // inject list of components defined by each script
     script.components = components;

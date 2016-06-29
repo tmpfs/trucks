@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const STYLE = 'style';
+const TEMPLATE = 'template';
 
 /**
  *  Compile all inline and external stylesheets to an array of CSS strings.
@@ -85,17 +86,34 @@ function scripts(definition, result, el, cb) {
  */
 function templates(definition, result, el, cb) {
   const file = definition.file;
+  const base = path.dirname(file);
   const $ = definition.dom;
 
-  // inline template elements
-  result.tpl.push(
-    {
-      parent: definition.parent,
-      file: file,
-      contents: $.html(el),
-      inline: true
-    });
-  cb();
+  // inline template element
+  if(el.name === TEMPLATE) {
+    result.tpl.push(
+      {
+        parent: definition.parent,
+        file: file,
+        contents: $.html(el),
+        inline: true
+      });
+    cb();
+  // external template reference
+  }else{
+    const href = path.normalize(path.join(base, $(el).attr('href')));
+    fs.readFile(href, (err, contents) => {
+      if(err) {
+        return cb(err); 
+      } 
+      result.tpl.push({
+        parent: definition.parent,
+        file: href,
+        contents: contents.toString()});
+      cb();
+    })
+  }
+
 }
 
 /**
@@ -157,8 +175,8 @@ function component(collection, list, result, cb) {
           return cb(err); 
         }
 
-        // process inline template elements
-        elements = $('template').toArray();
+        // process inline and external template elements
+        elements = $('template, link[rel="import"][href]').toArray();
 
         iterator(definition, result, elements, templates, (err) => {
           if(err) {

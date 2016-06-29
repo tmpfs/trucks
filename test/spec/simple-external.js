@@ -4,8 +4,7 @@ var expect = require('chai').expect
 describe('trucks:', function() {
 
   it('should compile simple inline component', function(done) {
-    const src = 'test/fixtures/simple-external/components.html'
-      , file = 'test/fixtures/simple-external/simple-component.html';
+    const src = 'test/fixtures/simple-external/components.html';
     trucks(
       {
         files: [src]
@@ -19,8 +18,9 @@ describe('trucks:', function() {
         expect(result.tpl).to.be.an('array').to.have.length(1);
 
         expect(result.tpl[0].parent).to.eql(src);
-        expect(result.tpl[0].file).to.eql(file);
-        expect(result.tpl[0].inline).to.eql(true);
+        expect(result.tpl[0].file).to.eql(
+          'test/fixtures/simple-external/simple-template.html');
+        expect(result.tpl[0].inline).to.eql(undefined);
         expect(result.tpl[0].contents).to.be.a('string');
 
         expect(result.css[0].parent).to.eql(src);

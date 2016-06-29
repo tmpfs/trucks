@@ -50,7 +50,7 @@ trucks({files: ['example/components.html']}, (err, res) => {
 The equivalent command line:
 
 ```shell
-trucks test/fixtures/components.html
+trucks example/components.html
 ```
 
 ## Compiler

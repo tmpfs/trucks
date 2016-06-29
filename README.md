@@ -29,6 +29,7 @@ npm i -g trucks
   - [trucks.parse](#trucksparse)
   - [trucks.transform](#truckstransform)
   - [trucks.generate](#trucksgenerate)
+  - [trucks.write](#truckswrite)
 - [Developer](#developer)
   - [Build](#build)
   - [Test](#test)
@@ -208,6 +209,8 @@ Compile component HTML files to CSS and Javascript.
 #### Options
 
 * `files` Array list of HTML files to compile.
+* `css` String path to write the generated stylesheet.
+* `js` String path to write the generated javascript.
 
 ### trucks.load
 
@@ -260,6 +263,23 @@ Concatenates the transformed result to stylesheet and javascript strings.
 * `result` Object The result from the transform compiler phase.
 * `opts` Object processing options.
 * `cb` Function callback function.
+
+### trucks.write
+
+```javascript
+trucks.write(result, opts, cb)
+```
+
+Writes the generated result to stylesheet and javascript files.
+
+* `result` Object The result from the generate compiler phase.
+* `opts` Object processing options.
+* `cb` Function callback function.
+
+#### Options
+
+* `css` String path to write the generated stylesheet.
+* `js` String path to write the generated javascript.
 
 ## Developer
 

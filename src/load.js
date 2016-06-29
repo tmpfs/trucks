@@ -137,6 +137,9 @@ function includes(map, cb) {
   next();
 }
 
+/**
+ *  @private
+ */
 function load(opts, cb) {
   opts = opts || {};
 

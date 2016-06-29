@@ -1,6 +1,13 @@
 const EOL = require('os').EOL;
 
-function generate(result, cb) {
+/**
+ *  @private
+ */
+function generate(result, opts, cb) {
+  if(typeof opts === 'function') {
+    cb = opts;
+    opts = null;
+  }
 
   // concatenate all style contents
   const styles = result.css.map((style) => {

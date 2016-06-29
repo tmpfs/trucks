@@ -19,15 +19,15 @@ function trucks(opts, cb) {
     if(err) {
       return cb(err); 
     } 
-    parse(loaded, (err, parsed) => {
+    parse(loaded, opts, (err, parsed) => {
       if(err) {
         return cb(err); 
       }
-      transform(parsed, (err, transformed) => {
+      transform(parsed, opts, (err, transformed) => {
         if(err) {
           return cb(err); 
         }
-        generate(transformed, (err, generated) => {
+        generate(transformed, opts, (err, generated) => {
           if(err) {
             return cb(err); 
           }
@@ -39,9 +39,46 @@ function trucks(opts, cb) {
   })
 }
 
+/**
+ *  Read the component definition file contents.
+ *
+ *  @function trucks.load
+ *  @param {Object} opts processing options.
+ *  @param {Function} cb callback function.
+ *
+ *  @option {Array} files list of HTML files to compile.
+ */
 trucks.load = load;
+
+/**
+ *  Parses the loaded file data to stylesheet and javascript strings.
+ *
+ *  @function trucks.parse
+ *  @param {Object} result The result from the load compiler phase.
+ *  @param {Object} [opts] processing options.
+ *  @param {Function} cb callback function.
+ */
 trucks.parse = parse;
+
+/**
+ *  Transforms the parsed result compiling the html `<template>` element 
+ *  corresponding to a javascript component definition to a function.
+ *
+ *  @function trucks.transform
+ *  @param {Object} result The result from the parse compiler phase.
+ *  @param {Object} [opts] processing options.
+ *  @param {Function} cb callback function.
+ */
 trucks.transform = transform;
+
+/**
+ *  Concatenates the transformed result to stylesheet and javascript strings.
+ *
+ *  @function trucks.generate
+ *  @param {Object} result The result from the transform compiler phase.
+ *  @param {Object} [opts] processing options.
+ *  @param {Function} cb callback function.
+ */
 trucks.generate = generate;
 
 module.exports = trucks;

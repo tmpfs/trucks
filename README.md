@@ -25,6 +25,10 @@ npm i -g trucks
   - [Generate](#generate)
 - [API](#api)
   - [trucks](#trucks)
+  - [trucks.load](#trucksload)
+  - [trucks.parse](#trucksparse)
+  - [trucks.transform](#truckstransform)
+  - [trucks.generate](#trucksgenerate)
 - [Developer](#developer)
   - [Build](#build)
   - [Test](#test)
@@ -204,6 +208,58 @@ Compile component HTML files to CSS and Javascript.
 #### Options
 
 * `files` Array list of HTML files to compile.
+
+### trucks.load
+
+```javascript
+trucks.load(opts, cb)
+```
+
+Read the component definition file contents.
+
+* `opts` Object processing options.
+* `cb` Function callback function.
+
+#### Options
+
+* `files` Array list of HTML files to compile.
+
+### trucks.parse
+
+```javascript
+trucks.parse(result[, opts], cb)
+```
+
+Parses the loaded file data to stylesheet and javascript strings.
+
+* `result` Object The result from the load compiler phase.
+* `opts` Object processing options.
+* `cb` Function callback function.
+
+### trucks.transform
+
+```javascript
+trucks.transform(result[, opts], cb)
+```
+
+Transforms the parsed result compiling the html `<template>` element
+corresponding to a javascript component definition to a function.
+
+* `result` Object The result from the parse compiler phase.
+* `opts` Object processing options.
+* `cb` Function callback function.
+
+### trucks.generate
+
+```javascript
+trucks.generate(result[, opts], cb)
+```
+
+Concatenates the transformed result to stylesheet and javascript strings.
+
+* `result` Object The result from the transform compiler phase.
+* `opts` Object processing options.
+* `cb` Function callback function.
 
 ## Developer
 

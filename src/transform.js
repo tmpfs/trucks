@@ -7,7 +7,7 @@ const DEFINE = 'define';
  *
  *  @private
  */
-function extract(result, cb) {
+function extract(result, opts, cb) {
   const babel = require('babel-core');
 
   result.js = result.js || [];
@@ -78,8 +78,15 @@ function extract(result, cb) {
   next();
 }
 
-function transform(result, cb) {
-  extract(result, cb);
+/**
+ *  @private
+ */
+function transform(result, opts, cb) {
+  if(typeof opts === 'function') {
+    cb = opts;
+    opts = null;
+  }
+  extract(result, opts, cb);
 }
 
 module.exports = transform;

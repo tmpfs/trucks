@@ -19,10 +19,10 @@ npm i -g trucks
 - [Install](#install)
 - [Usage](#usage)
 - [Compiler](#compiler)
-- [Load](#load)
-- [Parse](#parse)
-- [Transform](#transform)
-- [Generate](#generate)
+  - [Load](#load)
+  - [Parse](#parse)
+  - [Transform](#transform)
+  - [Generate](#generate)
 - [API](#api)
   - [trucks](#trucks)
 - [Developer](#developer)
@@ -67,7 +67,7 @@ The compiler executes the following phases:
 * `generate`: Convert the transformed components to css and javascript strings.
 * `write`: Write the generated styles and javascript to files.
 
-## Load
+### Load
 
 Given a components file [components.html](https://github.com/tmpfs/trucks/blob/master/example/compiler/components.html) such as:
 
@@ -95,7 +95,7 @@ The load phase will build the result object:
 
 Imported component file paths are resolved relative to the declaring file.
 
-## Parse
+### Parse
 
 The parse phase takes the output from the load phase and extracts the css, javascript and template elements:
 
@@ -146,13 +146,13 @@ The parse phase takes the output from the load phase and extracts the css, javas
 }
 ```
 
-## Transform
+### Transform
 
 The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
 
 > TODO: implement and document the tranform phase
 
-## Generate
+### Generate
 
 After transformation the generate phase will concatenate all the css and transformed javascript code.
 

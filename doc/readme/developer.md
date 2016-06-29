@@ -1,5 +1,15 @@
 ## Developer
 
+Install dependencies and build the source files `npm i && npm run build` from [src](/src) to [lib](/lib).
+
+### Build
+
+Convert the ES6 sources to ES2015:
+
+```
+npm run build
+```
+
 ### Test
 
 To run the test suite:
@@ -34,8 +44,8 @@ npm run clean
 
 ### Readme
 
-To build the readme file from the partial definitions (requires [mdp][]):
+To build the readme file [mkdoc][] is required (`npm i -g mkdoc`):
 
 ```
-npm run readme
+mk readme
 ```

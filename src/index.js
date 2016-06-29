@@ -21,7 +21,7 @@ function trucks(opts, cb) {
       if(err) {
         return cb(err); 
       }
-      console.log(result);
+      //console.log(result);
       cb(null, result);
     });
   })

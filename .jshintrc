@@ -12,18 +12,5 @@
   "mocha"                   : true,
   "unused"                  : true,
   "asi"                     : true,
-  "predef"                  : [
-                                "navigator",
-                                "window",
-                                "document",
-                                "history",
-                                "Image",
-                                "XMLHttpRequest",
-                                "Blob",
-                                "WebSocket",
-                                "customElements",
-                                "HTMLElement",
-                                "skate",
-                                "skatejs"
-                              ]
+  "predef"                  : ["skate"]
 }

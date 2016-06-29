@@ -14,8 +14,7 @@
     "excludeFiles": [
       "doc/readme",
       "node_modules",
-      "build/assets/js/app.js",
-      "build/assets/js/events.js",
+      "lib",
       "coverage",
       "target"
     ]

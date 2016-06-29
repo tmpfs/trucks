@@ -152,6 +152,29 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
 
 > TODO: implement and document the transform phase
 
+```json
+{
+  "js": [
+    {
+      "parent": "example/compiler/components.html",
+      "file": "example/compiler/x-icon.html",
+      "contents": "skate.define('x-icon', {});",
+      "inline": true,
+      "code": "skate.define('x-icon', {});"
+    },
+    {
+      "parent": "example/compiler/components.html",
+      "file": "example/compiler/x-button.html",
+      "contents": "skate.define('x-button', {});",
+      "inline": true,
+      "code": "skate.define('x-button', {});"
+    }
+  ]
+}
+```
+
+Note that some data has been omitted from the example output for brevity.
+
 ### Generate
 
 After transformation the generate phase will concatenate all the css and transformed javascript code.
@@ -163,7 +186,7 @@ After transformation the generate phase will concatenate all the css and transfo
 }
 ```
 
-Note some data omitted from the example output for brevity.
+Note that some data has been omitted from the example output for brevity.
 
 ## API
 

@@ -13,9 +13,17 @@ trucks.load({files: ['example/compiler/components.html']}, (err, loaded) => {
         throw err; 
       }
 
-      // NOTE: as we now have the AST injected there are circular references
+      // remove irrelevant info for this example output
+      delete transformed.css;
+      delete transformed.tpl;
 
-      //console.log(JSON.stringify(transformed, undefined, 2));
+      // clean circular references
+      transformed.js.forEach((script) => {
+        delete script.result;
+        delete script.components;
+      })
+
+      console.log(JSON.stringify(transformed, undefined, 2));
     });
   })
 });

@@ -22,7 +22,7 @@ function styles(definition, result, el, cb) {
         contents: $(el).text(),
         inline: true
       });
-    return cb();
+    cb();
 
   // external stylesheet reference
   }else{
@@ -95,7 +95,7 @@ function templates(definition, result, el, cb) {
       contents: $.html(el),
       inline: true
     });
-  return cb();
+  cb();
 }
 
 /**

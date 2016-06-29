@@ -95,7 +95,7 @@ Imported component file paths are resolved relative to the declaring file.
 
 ## Parse
 
-The parse phase takes the output from the load phase and extracts the css, javascript and template parts:
+The parse phase takes the output from the load phase and extracts the css, javascript and template elements:
 
 ```json
 {

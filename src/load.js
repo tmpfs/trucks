@@ -1,8 +1,6 @@
-'use strict';
-
-var fs = require('fs'),
-    path = require('path'),
-    cheerio = require('cheerio');
+const fs = require('fs')
+  , path = require('path')
+  , cheerio = require('cheerio');
 
 /** 
  *  Loads and parses the input source files.
@@ -13,24 +11,24 @@ var fs = require('fs'),
  *  @param {Function} cb callback function.
  */
 function sources(files, cb) {
-  var map = {};
+  let map = {}; 
 
   function next(err) {
-    if (err) {
-      return cb(err);
+    if(err) {
+      return cb(err); 
     }
-    var file = files.shift();
-    if (!file) {
-      return cb(null, map);
+    const file = files.shift();
+    if(!file) {
+      return cb(null, map); 
     }
 
-    fs.readFile(file, function (err, contents) {
-      if (err) {
-        return cb(err);
+    fs.readFile(file, (err, contents) => {
+      if(err) {
+        return cb(err); 
       }
       map[file] = contents.toString();
       next();
-    });
+    })
   }
 
   next();
@@ -45,19 +43,19 @@ function sources(files, cb) {
  *  @param {Function} cb callback function.
  */
 function imports(map, cb) {
-  var k = void 0,
-      base = void 0,
-      relative = void 0,
-      $ = void 0,
-      out = {};
+  let k
+    , base
+    , relative
+    , $
+    , out = {};
 
   function it(index, elem) {
-    var href = $(elem).attr('href');
+    const href = $(elem).attr('href');
     relative = path.normalize(path.join(base, href));
     out[k].push(relative);
   }
 
-  for (k in map) {
+  for(k in map) {
     out[k] = [];
     base = path.dirname(k);
     $ = cheerio.load(map[k]);
@@ -71,33 +69,33 @@ function imports(map, cb) {
  *  @private
  */
 function read(name, imports, out, cb) {
-  out[name] = [];
+  out[name] = []; 
 
   function next() {
-    var file = imports.shift();
-    if (!file) {
-      return cb();
+    const file = imports.shift();
+    if(!file) {
+      return cb(); 
     }
 
-    fs.readFile(file, function (err, contents) {
-      if (err) {
-        return cb(err);
+    fs.readFile(file, (err, contents) => {
+      if(err) {
+        return cb(err); 
       }
 
-      var map = {
+      const map = {
         file: file,
         contents: contents.toString()
-      };
+      }
 
       // empty component file
-      if (!map.contents) {
-        return cb(new Error('component file ' + file + ' is empty'));
+      if(!map.contents) {
+        return cb(new Error(`component file ${file} is empty`));
       }
 
       out[name].push(map);
 
       next();
-    });
+    })
   }
 
   next();
@@ -112,18 +110,18 @@ function read(name, imports, out, cb) {
  *  @param {Function} cb callback function.
  */
 function includes(map, cb) {
-  var keys = Object.keys(map);
+  const keys = Object.keys(map);
 
-  var out = {};
+  const out = {};
 
   function next(err) {
-    if (err) {
-      return cb(err);
+    if(err) {
+      return cb(err); 
     }
-    var file = keys.shift();
-    var imports = map[file];
-    if (!file) {
-      return cb(null, out);
+    const file = keys.shift();
+    const imports = map[file];
+    if(!file) {
+      return cb(null, out); 
     }
 
     out[file] = [];
@@ -136,27 +134,26 @@ function includes(map, cb) {
 function load(opts, cb) {
   opts = opts || {};
 
-  if (!opts.files || !opts.files.length) {
+  if(!opts.files || !opts.files.length) {
     return cb(new Error('no input files specified'));
   }
 
-  sources(opts.files || [], function (err, map) {
-    if (err) {
-      return cb(err);
-    }
-    imports(map, function (err, files) {
-      if (err) {
-        return cb(err);
+  sources(opts.files || [], (err, map) => {
+    if(err) {
+      return cb(err); 
+    } 
+    imports(map, (err, files) => {
+      if(err) {
+        return cb(err); 
       }
-      includes(files, function (err, contents) {
-        if (err) {
-          return cb(err);
+      includes(files, (err, contents) => {
+        if(err) {
+          return cb(err); 
         }
         cb(null, contents);
-      });
-    });
-  });
+      })
+    })
+  })
 }
 
 module.exports = load;
-//# sourceMappingURL=load.js.map

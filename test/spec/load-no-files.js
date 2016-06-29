@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-  , trucks = require('../..');
+  , trucks = require('../../lib');
 
 describe('trucks:', function() {
 

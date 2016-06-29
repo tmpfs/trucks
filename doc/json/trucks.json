@@ -10,6 +10,32 @@
     "[flags] [options] [files...]"
   ],
   "options": {
+    "css": {
+      "key": "css",
+      "description": "Stylesheet output file.",
+      "names": [
+        "-c",
+        "--css"
+      ],
+      "type": "option",
+      "extra": " [file]",
+      "required": false,
+      "multiple": false,
+      "name": "--css"
+    },
+    "js": {
+      "key": "js",
+      "description": "Javascript output file.",
+      "names": [
+        "-j",
+        "--js"
+      ],
+      "type": "option",
+      "extra": " [file]",
+      "required": false,
+      "multiple": false,
+      "name": "--js"
+    },
     "help": {
       "key": "help",
       "description": "Display help and exit",

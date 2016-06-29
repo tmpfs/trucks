@@ -22,7 +22,37 @@ function write(result, opts, cb) {
     return cb(new Error('no javascript data available to write')); 
   }
 
-  cb(null, result);
+  function writer(path, contents) {
+    return function write(cb) {
+      console.log('write file to %s', path);
+      console.log('write file contents %s', contents);
+      fs.writeFile(path, contents, cb);
+    } 
+  }
+
+  const writers = [];
+
+  if(opts.css) {
+    writers.push(writer(opts.css, result.stylesheet)); 
+  }
+  
+  if(opts.js) {
+    writers.push(writer(opts.js, result.javascript)); 
+  }
+
+  function next(err) {
+    if(err) {
+      return cb(err); 
+    } 
+
+    const fn = writers.shift();
+    if(!fn) {
+      return cb(null, result); 
+    }
+
+    fn(next);
+  }
+  next();
 }
 
 module.exports = write;

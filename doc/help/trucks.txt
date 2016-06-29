@@ -1,9 +1,11 @@
-Usage: board [-h] [--help] [--version] [files...]
+Usage: board [-h] [--help] [--version] [--css <file>] [--js <file>] [files...]
 
   Compiles skatejs components.
 
 Options
+  -c, --css=[file]        Stylesheet output file.
+  -j, --js=[file]         Javascript output file.
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-tracks@1.0.0
+trucks@0.1.0

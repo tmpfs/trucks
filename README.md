@@ -46,7 +46,7 @@ npm i -g trucks
 Programmatic usage:
 
 ```javascript
-const trucks = require('../../lib/index');
+const trucks = require('trucks');
 
 trucks({files: ['example/components.html']}, (err, res) => {
   if(err) {
@@ -349,7 +349,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on June 29, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on June 30, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
 [mkdoc]: https://github.com/mkdoc/mkdoc

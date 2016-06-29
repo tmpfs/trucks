@@ -170,12 +170,12 @@ Note some data omitted from the example output for brevity.
 ### trucks
 
 ```javascript
-trucks((Object), cb)
+trucks(opts, cb)
 ```
 
 Compile component HTML files to CSS and Javascript.
 
-* `(Object)` opts processing options.
+* `opts` Object processing options.
 * `cb` Function callback function.
 
 #### Options

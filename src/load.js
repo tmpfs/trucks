@@ -147,7 +147,7 @@ function load(opts, cb) {
     return cb(new Error('no input files specified'));
   }
 
-  sources(opts.files || [], (err, map) => {
+  sources(opts.files, (err, map) => {
     if(err) {
       return cb(err); 
     } 

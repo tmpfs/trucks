@@ -157,8 +157,9 @@ function component(collection, list, result, cb) {
           return cb(err); 
         }
 
-        // proces inline template elements
+        // process inline template elements
         elements = $('template').toArray();
+
         iterator(definition, result, elements, templates, (err) => {
           if(err) {
             return cb(err); 

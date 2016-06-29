@@ -1,10 +1,10 @@
 var expect = require('chai').expect
   , trucks = require('../../lib');
 
-describe('trucks:', function() {
+describe('load:', function() {
 
   it('should error with no input files', function(done) {
-    trucks({}, (err) => {
+    trucks(null, (err) => {
       function fn() {
         throw err;
       }

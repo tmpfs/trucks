@@ -13,7 +13,7 @@ const load = require('./load')
 function trucks(opts, cb) {
   opts = opts || {};
 
-  load(opts || [], (err, contents) => {
+  load(opts, (err, contents) => {
     if(err) {
       return cb(err); 
     } 
@@ -26,5 +26,8 @@ function trucks(opts, cb) {
     });
   })
 }
+
+trucks.load = load;
+trucks.parse = parse;
 
 module.exports = trucks;

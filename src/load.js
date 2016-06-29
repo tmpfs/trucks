@@ -59,7 +59,13 @@ function imports(map, cb) {
     out[k] = [];
     base = path.dirname(k);
     $ = cheerio.load(map[k]);
-    $('link[rel="import"][href]').each(it);
+    const elements = $('link[rel="import"][href]');
+
+    if(!elements.length) {
+      return cb(new Error(`component file ${k} does not import components`)); 
+    }
+      
+    elements.each(it);
   }
 
   cb(null, out);

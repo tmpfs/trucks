@@ -31,10 +31,6 @@ function extract(result, opts, cb) {
       return {
         visitor: {
           CallExpression: (expr) => {
-            if(!expr.node || !t.isCallExpression(expr.node)) {
-              return; 
-            }
-
             const callee = expr.node.callee;
             const args = expr.node.arguments;
 

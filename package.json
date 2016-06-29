@@ -26,7 +26,7 @@
   },
   "scripts": {
     "clean": "rm -rf coverage target",
-    "build": "babel --presets es2015 src --out-dir lib --source-maps",
+    "build": "babel --presets es2015 src --out-dir lib",
     "prepublish": "npm run build",
     "lint": "jshint . && jscs .",
     "pretest": "rm -rf target && mkdir target && npm run build",

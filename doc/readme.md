@@ -16,7 +16,7 @@ Compiles [skatejs][] components declared as HTML to javascript and css files.
 <? @include {=readme}
       usage.md ?>
 
-<? @exec mkapi index.js --level=2 --title=API ?>
+<? @exec mkapi src/index.js --level=2 --title=API ?>
 
 <? @include {=readme}
       license.md

@@ -1,0 +1,29 @@
+{
+  "esversion"               : 6,
+  "laxcomma"                : true,
+  "laxbreak"                : true,
+  "node"                    : true,
+  "curly"                   : true,
+  "bitwise"                 : false,
+  "undef"                   : true,
+  "eqeqeq"                  : true,
+  "validthis"               : true,
+  "noarg"                   : true,
+  "mocha"                   : true,
+  "unused"                  : true,
+  "asi"                     : true,
+  "predef"                  : [
+                                "navigator",
+                                "window",
+                                "document",
+                                "history",
+                                "Image",
+                                "XMLHttpRequest",
+                                "Blob",
+                                "WebSocket",
+                                "customElements",
+                                "HTMLElement",
+                                "skate",
+                                "skatejs"
+                              ]
+}

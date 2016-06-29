@@ -1,6 +1,6 @@
 {
   "name": "trucks",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Skatejs compiler and component manager",
   "bin": "./bin/trucks",
   "author": "muji <noop@xpm.io>",

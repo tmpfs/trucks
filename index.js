@@ -1,32 +1,29 @@
-const sources = require('./lib/sources');
-const imports = require('./lib/imports');
-const includes = require('./lib/includes');
-const parser = require('./lib/parser');
+const load = require('./lib/load')
+  , parse = require('./lib/parse');
 
+/**
+ *  Compile component HTML files to CSS and Javascript.
+ *
+ *  @function trucks
+ *  @param (Object) opts processing options.
+ *  @param {Function} cb callback function.
+ *
+ *  @option {Array} files list of HTML files to compile.
+ */
 function trucks(opts, cb) {
   opts = opts || {};
 
-  sources(opts.files || [], (err, map) => {
+  load(opts || [], (err, contents) => {
     if(err) {
       return cb(err); 
     } 
-    imports(map, (err, files) => {
+    parse(contents, function(err, result) {
       if(err) {
         return cb(err); 
       }
-      includes(files, (err, contents) => {
-        if(err) {
-          return cb(err); 
-        }
-        parser(contents, function(err, result) {
-          if(err) {
-            return cb(err); 
-          }
-          console.log(result);
-          cb(null, result);
-        });
-      })
-    })
+      console.log(result);
+      cb(null, result);
+    });
   })
 }
 

@@ -19,3 +19,9 @@ The load phase will build the result object:
 <? @exec {json} node doc/readme/compiler-load.js ?>
 
 Imported component file paths are resolved relative to the declaring file.
+
+## Parse
+
+The parse phase takes the output from the load phase and extracts the css, javascript and template parts:
+
+<? @exec {json} node doc/readme/compiler-parse.js ?>

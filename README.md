@@ -20,6 +20,7 @@ npm i -g trucks
 - [Usage](#usage)
 - [Compiler](#compiler)
 - [Load](#load)
+- [Parse](#parse)
 - [API](#api)
   - [trucks](#trucks)
 - [Developer](#developer)
@@ -91,6 +92,31 @@ The load phase will build the result object:
 ```
 
 Imported component file paths are resolved relative to the declaring file.
+
+## Parse
+
+The parse phase takes the output from the load phase and extracts the css, javascript and template parts:
+
+```json
+{
+  "css": [
+    {
+      "parent": "example/compiler/components.html",
+      "file": "example/compiler/x-icon.html",
+      "contents": "x-icon {\n    /* components styles */\n  }",
+      "inline": true
+    }
+  ],
+  "js": [
+    {
+      "parent": "example/compiler/components.html",
+      "file": "example/compiler/x-icon.html",
+      "contents": "skate.define('x-icon', {});",
+      "inline": true
+    }
+  ]
+}
+```
 
 ## API
 

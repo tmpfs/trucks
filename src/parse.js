@@ -18,7 +18,12 @@ function styles(definition, result, el, cb) {
   // inline style element
   if(el.name === STYLE) {
     result.css.push(
-      {file: file, contents: $(el).text().trim(), inline: true});
+      {
+        parent: definition.parent,
+        file: file,
+        contents: $(el).text().trim(),
+        inline: true
+      });
     return cb();
 
   // external stylesheet reference
@@ -28,7 +33,10 @@ function styles(definition, result, el, cb) {
       if(err) {
         return cb(err); 
       } 
-      result.css.push({file: href, contents: contents.toString()});
+      result.css.push({
+        parent: definition.parent,
+        file: href,
+        contents: contents.toString()});
       cb();
     })
   }
@@ -48,7 +56,12 @@ function scripts(definition, result, el, cb) {
   // inline script element
   if(!src) {
     result.js.push(
-      {file: file, contents: $(el).text().trim(), inline: true});
+      {
+        parent: definition.parent,
+        file: file,
+        contents: $(el).text().trim(),
+        inline: true
+      });
     return cb();
 
   // external script reference
@@ -58,7 +71,10 @@ function scripts(definition, result, el, cb) {
       if(err) {
         return cb(err); 
       } 
-      result.js.push({file: href, contents: contents.toString()});
+      result.js.push({
+        parent: definition.parent,
+        file: href,
+        contents: contents.toString()});
       cb();
     })
   }
@@ -101,6 +117,8 @@ function component(collection, list, result, cb) {
     if(!definition) {
       return cb(); 
     }
+
+    definition.parent = collection;
 
     const $ = definition.dom = cheerio.load(definition.contents);
 

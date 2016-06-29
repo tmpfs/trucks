@@ -4,7 +4,7 @@
 [![npm version](http://img.shields.io/npm/v/trucks.svg?v=2)](https://npmjs.org/package/trucks)
 [![Coverage Status](https://coveralls.io/repos/tmpfs/trucks/badge.svg?branch=master&service=github&v=4)](https://coveralls.io/github/tmpfs/trucks?branch=master)
 
-> Skatejs compiler and component manager
+> Web component compiler and package manager
 
 Compiles [skatejs][] components declared as HTML to javascript and css files.
 
@@ -14,9 +14,14 @@ Compiles [skatejs][] components declared as HTML to javascript and css files.
 npm i -g trucks
 ```
 
+## Abstract
+
+[Web components][webcomponents] are a collection of emerging standards that allow developers to create custom UI elements.
+
 ---
 
 - [Install](#install)
+- [Abstract](#abstract)
 - [Usage](#usage)
 - [Compiler](#compiler)
   - [Load](#load)
@@ -352,6 +357,10 @@ MIT
 Created by [mkdoc](https://github.com/mkdoc/mkdoc) on June 30, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
+[webcomponents]: https://github.com/w3c/webcomponents
+[custom-elements]: https://www.w3.org/TR/custom-elements/
+[polymer]: https://www.polymer-project.org/1.0/
+[csp]: http://content-security-policy.com/
 [mkdoc]: https://github.com/mkdoc/mkdoc
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info

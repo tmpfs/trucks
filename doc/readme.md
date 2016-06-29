@@ -2,12 +2,13 @@
 
 <? @include readme/badges.md ?>
 
-> Skatejs compiler and component manager
+> Web component compiler and package manager
 
 Compiles [skatejs][] components declared as HTML to javascript and css files.
 
 <? @include {=readme}
-      install.md ?>
+      install.md 
+      abstract.md ?>
 
 ***
 <!-- @toc -->

@@ -136,7 +136,7 @@ function component(collection, list, result, cb) {
     }
     const definition = list.shift();
     if(!definition) {
-      return cb(); 
+      return cb(null, result); 
     }
 
     definition.parent = collection;
@@ -164,7 +164,7 @@ function component(collection, list, result, cb) {
           if(err) {
             return cb(err); 
           }
-          cb(null, result);
+          next();
         });
       });
     })

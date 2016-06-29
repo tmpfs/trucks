@@ -105,6 +105,12 @@ The parse phase takes the output from the load phase and extracts the css, javas
       "file": "example/compiler/x-icon.html",
       "contents": "x-icon {\n    /* components styles */\n  }",
       "inline": true
+    },
+    {
+      "parent": "example/compiler/components.html",
+      "file": "example/compiler/x-button.html",
+      "contents": "x-button {\n    /* components styles */\n  }",
+      "inline": true
     }
   ],
   "js": [
@@ -113,6 +119,12 @@ The parse phase takes the output from the load phase and extracts the css, javas
       "file": "example/compiler/x-icon.html",
       "contents": "skate.define('x-icon', {});",
       "inline": true
+    },
+    {
+      "parent": "example/compiler/components.html",
+      "file": "example/compiler/x-button.html",
+      "contents": "skate.define('x-button', {});",
+      "inline": true
     }
   ],
   "tpl": [
@@ -120,6 +132,12 @@ The parse phase takes the output from the load phase and extracts the css, javas
       "parent": "example/compiler/components.html",
       "file": "example/compiler/x-icon.html",
       "contents": "<template id=\"x-icon\">\n\n</template>",
+      "inline": true
+    },
+    {
+      "parent": "example/compiler/components.html",
+      "file": "example/compiler/x-button.html",
+      "contents": "<template id=\"x-button\">\n\n</template>",
       "inline": true
     }
   ]

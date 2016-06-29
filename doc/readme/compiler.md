@@ -17,3 +17,5 @@ Given a components file [components.html](/example/compiler/components.html) suc
 The load phase will build the result object:
 
 <? @exec {json} node doc/readme/compiler-load.js ?>
+
+Imported component file paths are resolved relative to the declaring file.

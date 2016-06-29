@@ -90,6 +90,8 @@ The load phase will build the result object:
 }
 ```
 
+Imported component file paths are resolved relative to the declaring file.
+
 ## API
 
 ### trucks

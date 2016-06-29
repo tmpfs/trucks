@@ -5,10 +5,13 @@
   "bin": "./bin/trucks",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmpfs/trucks"
+  },
   "dependencies": {
     "acorn": "~3.2.0",
     "babel-core": "~6.10.4",
-    "babylon": "~6.8.2",
     "cheerio": "~0.20.0"
   },
   "devDependencies": {

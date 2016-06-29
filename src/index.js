@@ -24,7 +24,6 @@ function trucks(opts, cb) {
       return cb(err); 
     } 
     parse(loaded, opts, (err, parsed) => {
-      /* istanbul ignore next: parse does not currently error */
       if(err) {
         return cb(err); 
       }

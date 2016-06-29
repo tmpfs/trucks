@@ -195,8 +195,10 @@ function component(collection, list, result, cb) {
           return cb(err); 
         }
 
+        cb(null, result);
+
         // find component javascript definitions
-        defs(result, next);
+        //defs(result, next);
       });
     })
   }

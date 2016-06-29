@@ -3,7 +3,7 @@
 The compiler executes the following phases:
 
 * `load`: Load all source HTML files given with the `files` option and resolve the HTML imports.
-* `parse`: Parse the imported files resolving inline and external styles and javascript and inline template elements.
+* `parse`: Parse the imported files resolving styles, javascript and template elements.
 * `transform`: Transform the imported component files compiling `<template>` elements to javascript.
 * `generate`: Convert the transformed components to css and javascript strings.
 * `write`: Write the generated styles and javascript to files.
@@ -30,7 +30,7 @@ The parse phase takes the output from the load phase and extracts the css, javas
 
 The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
 
-> TODO: implement and document the tranform phase
+> TODO: implement and document the transform phase
 
 ### Generate
 

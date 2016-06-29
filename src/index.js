@@ -1,7 +1,8 @@
 const load = require('./load')
   , parse = require('./parse')
   , transform = require('./transform')
-  , generate = require('./generate');
+  , generate = require('./generate')
+  , write = require('./write');
 
 /**
  *  Compile component HTML files to CSS and Javascript.
@@ -11,6 +12,8 @@ const load = require('./load')
  *  @param {Function} cb callback function.
  *
  *  @option {Array} files list of HTML files to compile.
+ *  @option {String} css path to write the generated stylesheet.
+ *  @option {String} js path to write the generated javascript.
  */
 function trucks(opts, cb) {
   opts = opts || {};
@@ -31,8 +34,12 @@ function trucks(opts, cb) {
           if(err) {
             return cb(err); 
           }
-
-          cb(null, generated);
+          write(generated, opts, (err, written) => {
+            if(err) {
+              return cb(err); 
+            }
+            cb(null, written);
+          });
         });
       });
     });
@@ -80,5 +87,18 @@ trucks.transform = transform;
  *  @param {Function} cb callback function.
  */
 trucks.generate = generate;
+
+/**
+ *  Writes the generated result to stylesheet and javascript files.
+ *
+ *  @function trucks.write
+ *  @param {Object} result The result from the generate compiler phase.
+ *  @param {Object} [opts] processing options.
+ *  @param {Function} cb callback function.
+ *
+ *  @option {String} css path to write the generated stylesheet.
+ *  @option {String} js path to write the generated javascript.
+ */
+trucks.write = write;
 
 module.exports = trucks;

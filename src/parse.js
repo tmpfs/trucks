@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const cheerio = require('cheerio');
 
 const STYLE = 'style';
 
@@ -58,7 +57,7 @@ function scripts(definition, result, el, cb) {
       {
         parent: definition.parent,
         file: file,
-        contents: $(el).text().trim(),
+        contents: $(el).text(),
         inline: true
       });
     return cb();
@@ -99,7 +98,6 @@ function templates(definition, result, el, cb) {
   return cb();
 }
 
-
 /**
  *  Iterate the elements returned by a DOM query.
  *
@@ -129,6 +127,8 @@ function iterator(definition, result, elements, it, cb) {
  *  @private
  */
 function component(collection, list, result, cb) {
+  const cheerio = require('cheerio');
+
   function next(err) {
     if(err) {
       return cb(err); 

@@ -31,6 +31,7 @@ function trucks(opts, cb) {
           return cb(err); 
         }
         generate(transformed, opts, (err, generated) => {
+          /* istanbul ignore next: generate does not currently error */
           if(err) {
             return cb(err); 
           }

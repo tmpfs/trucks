@@ -64,7 +64,7 @@ trucks.load = load;
  *  Parses the loaded file data to stylesheet and javascript strings.
  *
  *  @function trucks.parse
- *  @param {Object} result The result from the load compiler phase.
+ *  @param {Object} loaded The result from the load phase.
  *  @param {Object} [opts] processing options.
  *  @param {Function} cb callback function.
  */
@@ -75,7 +75,7 @@ trucks.parse = parse;
  *  corresponding to a javascript component definition to a function.
  *
  *  @function trucks.transform
- *  @param {Object} result The result from the parse compiler phase.
+ *  @param {Object} parsed The result from the parse phase.
  *  @param {Object} [opts] processing options.
  *  @param {Function} cb callback function.
  */
@@ -85,7 +85,7 @@ trucks.transform = transform;
  *  Concatenates the transformed result to stylesheet and javascript strings.
  *
  *  @function trucks.generate
- *  @param {Object} result The result from the transform compiler phase.
+ *  @param {Object} transformed The result from the transform phase.
  *  @param {Object} [opts] processing options.
  *  @param {Function} cb callback function.
  *
@@ -97,7 +97,7 @@ trucks.generate = generate;
  *  Writes the generated result to stylesheet and javascript files.
  *
  *  @function trucks.write
- *  @param {Object} result The result from the generate compiler phase.
+ *  @param {Object} generated The result from the generate phase.
  *  @param {Object} opts processing options.
  *  @param {Function} cb callback function.
  *

@@ -89,12 +89,12 @@ function extract(result, opts, cb) {
 /**
  *  @private
  */
-function transform(result, opts, cb) {
+function transform(parsed, opts, cb) {
   if(typeof opts === 'function') {
     cb = opts;
     opts = null;
   }
-  extract(result, opts, cb);
+  extract(parsed, opts, cb);
 }
 
 module.exports = transform;

@@ -194,13 +194,13 @@ function component(collection, list, result, cb) {
 /**
  *  @private
  */
-function parse(contents, opts, cb) {
+function parse(loaded, opts, cb) {
   if(typeof opts === 'function') {
     cb = opts;
     opts = null;
   }
 
-  const keys = Object.keys(contents);
+  const keys = Object.keys(loaded);
   const result = {css: [], js: [], tpl: []};
 
   function next(err) {
@@ -212,7 +212,7 @@ function parse(contents, opts, cb) {
     if(!collection) {
       return cb(null, result); 
     }
-    component(collection, contents[collection], result, next);
+    component(collection, loaded[collection], result, next);
   }
 
   next();

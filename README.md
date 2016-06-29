@@ -231,37 +231,37 @@ Read the component definition file contents.
 ### trucks.parse
 
 ```javascript
-trucks.parse(result[, opts], cb)
+trucks.parse(loaded[, opts], cb)
 ```
 
 Parses the loaded file data to stylesheet and javascript strings.
 
-* `result` Object The result from the load compiler phase.
+* `loaded` Object The result from the load phase.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
 ### trucks.transform
 
 ```javascript
-trucks.transform(result[, opts], cb)
+trucks.transform(parsed[, opts], cb)
 ```
 
 Transforms the parsed result compiling the html `<template>` element
 corresponding to a javascript component definition to a function.
 
-* `result` Object The result from the parse compiler phase.
+* `parsed` Object The result from the parse phase.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
 ### trucks.generate
 
 ```javascript
-trucks.generate(result[, opts], cb)
+trucks.generate(transformed[, opts], cb)
 ```
 
 Concatenates the transformed result to stylesheet and javascript strings.
 
-* `result` Object The result from the transform compiler phase.
+* `transformed` Object The result from the transform phase.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
@@ -272,12 +272,12 @@ Concatenates the transformed result to stylesheet and javascript strings.
 ### trucks.write
 
 ```javascript
-trucks.write(result, opts, cb)
+trucks.write(generated, opts, cb)
 ```
 
 Writes the generated result to stylesheet and javascript files.
 
-* `result` Object The result from the generate compiler phase.
+* `generated` Object The result from the generate phase.
 * `opts` Object processing options.
 * `cb` Function callback function.
 

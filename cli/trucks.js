@@ -66,10 +66,6 @@ function main(argv, conf, cb) {
 
     this.files = req.unparsed;
 
-    if(!this.files.length) {
-      return cb(new Error('no input files specified'));
-    }
-
     trucks(this, cb);
   })
 }

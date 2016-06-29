@@ -1,6 +1,5 @@
 const fs = require('fs')
-  , path = require('path')
-  , cheerio = require('cheerio');
+  , path = require('path');
 
 /** 
  *  Loads and parses the input source files.
@@ -40,6 +39,9 @@ function sources(files, cb) {
  *  @param {Function} cb callback function.
  */
 function imports(map, cb) {
+
+  const cheerio = require('cheerio');
+
   let k
     , base
     , relative
@@ -92,7 +94,7 @@ function read(name, imports, out, cb) {
 
       // empty component file
       if(!map.contents) {
-        return cb(new Error(`component file ${file} is empty`));
+        return cb(new Error(`empty component file ${file}`));
       }
 
       out[name].push(map);

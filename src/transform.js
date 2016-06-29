@@ -10,15 +10,12 @@ const DEFINE = 'define';
 function extract(result, opts, cb) {
   const babel = require('babel-core');
 
-  result.js = result.js || [];
+  result.js = result.js;
 
   // do not modify result object
   const js = result.js.slice();
 
-  function next(err) {
-    if(err) {
-      return cb(err); 
-    }
+  function next() {
 
     const script = js.shift();
     if(!script) {
@@ -61,10 +58,14 @@ function extract(result, opts, cb) {
       }
     }
 
+    const options = opts.babel;
+
+    options.plugins = Array.isArray(options.plugins) ? options.plugins : [];
+
     // use our plugin to gather component definitions in the AST
-    const res = babel.transform(script.contents, {
-      plugins: [component]
-    });
+    options.plugins.unshift(component);
+
+    const res = babel.transform(script.contents, options);
 
     script.result = res;
 
@@ -94,6 +95,10 @@ function transform(parsed, opts, cb) {
     cb = opts;
     opts = null;
   }
+
+  opts = opts || {};
+  opts.babel = opts.babel || {};
+
   extract(parsed, opts, cb);
 }
 

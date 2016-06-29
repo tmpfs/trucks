@@ -12,6 +12,7 @@ const load = require('./load')
  *  @param {Function} cb callback function.
  *
  *  @option {Array} files list of HTML files to compile.
+ *  @option {Object} babel options to pass to babel transform.
  *  @option {String} css path to write the generated stylesheet.
  *  @option {String} js path to write the generated javascript.
  *  @option {String} eol override the default EOL for concatenation.
@@ -77,6 +78,8 @@ trucks.parse = parse;
  *  @param {Object} parsed The result from the parse phase.
  *  @param {Object} [opts] processing options.
  *  @param {Function} cb callback function.
+ *
+ *  @option {Object} babel options to pass to babel transform.
  */
 trucks.transform = transform;
 

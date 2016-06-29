@@ -194,11 +194,12 @@ function component(collection, list, result, cb) {
 function parse(loaded, opts, cb) {
   // NOTE: not currently any options for the parse
   // NOTE: phase but use consistent function signature
-
   if(typeof opts === 'function') {
     cb = opts;
     opts = null;
   }
+
+  opts = opts || {};
 
   const keys = Object.keys(loaded);
   const result = {css: [], js: [], tpl: []};

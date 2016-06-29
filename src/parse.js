@@ -147,10 +147,7 @@ function iterator(definition, result, elements, it, cb) {
 function component(collection, list, result, cb) {
   const cheerio = require('cheerio');
 
-  function next(err) {
-    if(err) {
-      return cb(err); 
-    }
+  function next() {
     const definition = list.shift();
     if(!definition) {
       return cb(null, result); 
@@ -195,10 +192,13 @@ function component(collection, list, result, cb) {
  *  @private
  */
 function parse(loaded, opts, cb) {
-  if(typeof opts === 'function') {
-    cb = opts;
-    opts = null;
-  }
+  // NOTE: not currently any options for the parse
+  // NOTE: phase but use consistent function signature
+
+  //if(typeof opts === 'function') {
+    //cb = opts;
+    //opts = null;
+  //}
 
   const keys = Object.keys(loaded);
   const result = {css: [], js: [], tpl: []};

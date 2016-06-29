@@ -12,7 +12,19 @@
     "cheerio": "~0.20.0"
   },
   "devDependencies": {
-    "mkcli": "~1.0.32"
+    "chai": "~3.5.0",
+    "coveralls": "~2.11.9",
+    "istanbul": "~0.4.4",
+    "mkcli": "~1.0.32",
+    "mocha": "~2.5.3"
   },
-  "scripts": {}
+  "scripts": {
+    "clean": "rm -rf coverage target",
+    "lint": "jshint . && jscs .",
+    "pretest": "rm -rf target && mkdir target",
+    "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",
+    "precover": "npm run pretest",
+    "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  }
 }

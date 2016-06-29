@@ -13,10 +13,7 @@ const fs = require('fs')
 function sources(files, cb) {
   let map = {}; 
 
-  function next(err) {
-    if(err) {
-      return cb(err); 
-    }
+  function next() {
     const file = files.shift();
     if(!file) {
       return cb(null, map); 

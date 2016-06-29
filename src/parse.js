@@ -81,6 +81,27 @@ function scripts(definition, result, el, cb) {
 }
 
 /**
+ *  Compile all inline `<template>` elements an array of HTML strings.
+ *
+ *  @private
+ */
+function templates(definition, result, el, cb) {
+  const file = definition.file;
+  const $ = definition.dom;
+
+  // inline template elements
+  result.tpl.push(
+    {
+      parent: definition.parent,
+      file: file,
+      contents: $.html(el),
+      inline: true
+    });
+  return cb();
+}
+
+
+/**
  *  Iterate the elements returned by a DOM query.
  *
  *  @private
@@ -137,10 +158,14 @@ function component(collection, list, result, cb) {
           return cb(err); 
         }
 
-        cb(null, result);
-
-        // find component javascript definitions
-        //defs(result, next);
+        // proces inline template elements
+        elements = $('template').toArray();
+        iterator(definition, result, elements, templates, (err) => {
+          if(err) {
+            return cb(err); 
+          }
+          cb(null, result);
+        });
       });
     })
   }
@@ -157,7 +182,7 @@ function component(collection, list, result, cb) {
  */
 function parser(contents, cb) {
   const keys = Object.keys(contents);
-  const result = {css: [], js: []};
+  const result = {css: [], js: [], tpl: []};
 
   function next(err) {
     if(err) {

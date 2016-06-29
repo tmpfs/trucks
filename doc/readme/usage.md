@@ -2,7 +2,7 @@
 
 Programmatic usage:
 
-<? @source {javascript=s/(\.\.\/)+index/trucks/gm} usage.js ?>
+<? @source {javascript=s/(\.\.\/)+\/lib\/index/trucks/gm} usage.js ?>
 
 The equivalent command line:
 

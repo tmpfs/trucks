@@ -20,7 +20,7 @@ function styles(definition, result, el, cb) {
       {
         parent: definition.parent,
         file: file,
-        contents: $(el).text().trim(),
+        contents: $(el).text(),
         inline: true
       });
     return cb();

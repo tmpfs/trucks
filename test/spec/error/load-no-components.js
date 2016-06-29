@@ -1,10 +1,10 @@
 var expect = require('chai').expect
-  , trucks = require('../../lib');
+  , trucks = require('../../../lib');
 
 describe('load:', function() {
 
   it('should error with no component imports', function(done) {
-    trucks({files: ['test/fixtures/empty-components.html']}, (err) => {
+    trucks({files: ['test/fixtures/error/empty-components.html']}, (err) => {
       function fn() {
         throw err;
       }

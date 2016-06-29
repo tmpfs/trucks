@@ -110,13 +110,13 @@ The parse phase takes the output from the load phase and extracts the css, javas
     {
       "parent": "example/compiler/components.html",
       "file": "example/compiler/x-icon.html",
-      "contents": "x-icon {\n    /* components styles */\n  }",
+      "contents": "\n  x-icon {\n    /* components styles */\n  }\n",
       "inline": true
     },
     {
       "parent": "example/compiler/components.html",
       "file": "example/compiler/x-button.html",
-      "contents": "x-button {\n    /* components styles */\n  }",
+      "contents": "\n  x-button {\n    /* components styles */\n  }\n",
       "inline": true
     }
   ],
@@ -124,13 +124,13 @@ The parse phase takes the output from the load phase and extracts the css, javas
     {
       "parent": "example/compiler/components.html",
       "file": "example/compiler/x-icon.html",
-      "contents": "skate.define('x-icon', {});",
+      "contents": "\n  skate.define('x-icon', {});\n",
       "inline": true
     },
     {
       "parent": "example/compiler/components.html",
       "file": "example/compiler/x-button.html",
-      "contents": "skate.define('x-button', {});",
+      "contents": "\n  skate.define('x-button', {});\n",
       "inline": true
     }
   ],
@@ -163,16 +163,16 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
     {
       "parent": "example/compiler/components.html",
       "file": "example/compiler/x-icon.html",
-      "contents": "skate.define('x-icon', {});",
+      "contents": "\n  skate.define('x-icon', {});\n",
       "inline": true,
-      "code": "skate.define('x-icon', {});"
+      "code": "\nskate.define('x-icon', {});"
     },
     {
       "parent": "example/compiler/components.html",
       "file": "example/compiler/x-button.html",
-      "contents": "skate.define('x-button', {});",
+      "contents": "\n  skate.define('x-button', {});\n",
       "inline": true,
-      "code": "skate.define('x-button', {});"
+      "code": "\nskate.define('x-button', {});"
     }
   ]
 }
@@ -186,8 +186,8 @@ After transformation the generate phase will concatenate all the css and transfo
 
 ```json
 {
-  "stylesheet": "x-icon {\n    /* components styles */\n  }\nx-button {\n    /* components styles */\n  }",
-  "javascript": "skate.define('x-icon', {});\nskate.define('x-button', {});"
+  "stylesheet": "\n  x-icon {\n    /* components styles */\n  }\n\n\n  x-button {\n    /* components styles */\n  }\n",
+  "javascript": "\nskate.define('x-icon', {});\n\nskate.define('x-button', {});"
 }
 ```
 
@@ -211,6 +211,7 @@ Compile component HTML files to CSS and Javascript.
 * `files` Array list of HTML files to compile.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
+* `eol` String override the default EOL for concatenation.
 
 ### trucks.load
 
@@ -263,6 +264,10 @@ Concatenates the transformed result to stylesheet and javascript strings.
 * `result` Object The result from the transform compiler phase.
 * `opts` Object processing options.
 * `cb` Function callback function.
+
+#### Options
+
+* `eol` String override the default EOL for concatenation.
 
 ### trucks.write
 

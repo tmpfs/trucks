@@ -14,6 +14,7 @@ const load = require('./load')
  *  @option {Array} files list of HTML files to compile.
  *  @option {String} css path to write the generated stylesheet.
  *  @option {String} js path to write the generated javascript.
+ *  @option {String} eol override the default EOL for concatenation.
  */
 function trucks(opts, cb) {
   opts = opts || {};
@@ -87,6 +88,8 @@ trucks.transform = transform;
  *  @param {Object} result The result from the transform compiler phase.
  *  @param {Object} [opts] processing options.
  *  @param {Function} cb callback function.
+ *
+ *  @option {String} eol override the default EOL for concatenation.
  */
 trucks.generate = generate;
 

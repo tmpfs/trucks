@@ -1,6 +1,7 @@
 const load = require('./load')
   , parse = require('./parse')
-  , transform = require('./transform');
+  , transform = require('./transform')
+  , generate = require('./generate');
 
 /**
  *  Compile component HTML files to CSS and Javascript.
@@ -14,16 +15,25 @@ const load = require('./load')
 function trucks(opts, cb) {
   opts = opts || {};
 
-  load(opts, (err, contents) => {
+  load(opts, (err, loaded) => {
     if(err) {
       return cb(err); 
     } 
-    parse(contents, (err, result) => {
+    parse(loaded, (err, parsed) => {
       if(err) {
         return cb(err); 
       }
-      transform(result, (err, compiled) => {
-        cb(null, compiled);
+      transform(parsed, (err, transformed) => {
+        if(err) {
+          return cb(err); 
+        }
+        generate(transformed, (err, generated) => {
+          if(err) {
+            return cb(err); 
+          }
+
+          cb(null, generated);
+        });
       });
     });
   })
@@ -32,5 +42,6 @@ function trucks(opts, cb) {
 trucks.load = load;
 trucks.parse = parse;
 trucks.transform = transform;
+trucks.generate = generate;
 
 module.exports = trucks;

@@ -7,7 +7,7 @@ const DEFINE = 'define';
  *
  *  @private
  */
-function defs(result, cb) {
+function extract(result, cb) {
   const babel = require('babel-core');
 
   result.js = result.js || [];
@@ -22,7 +22,7 @@ function defs(result, cb) {
 
     const script = js.shift();
     if(!script) {
-      return cb(); 
+      return cb(null, result); 
     }
 
     const components = {};
@@ -63,10 +63,14 @@ function defs(result, cb) {
       plugins: [component]
     });
 
-    script.res = res;
+    script.result = res;
 
     // inject list of components defined by each script
     script.components = components;
+
+    // FIXME: needs to point to the transformed javascript code
+    // FIXME: using original source for now
+    script.code = res.code;
 
     next();
   }
@@ -75,7 +79,7 @@ function defs(result, cb) {
 }
 
 function transform(result, cb) {
-  defs(result, cb);
+  extract(result, cb);
 }
 
 module.exports = transform;

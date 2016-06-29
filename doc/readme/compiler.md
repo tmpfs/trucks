@@ -6,7 +6,7 @@ The compiler executes the following phases:
 * `parse`: Parse the imported files resolving inline and external styles and javascript and inline template elements.
 * `transform`: Transform the imported component files compiling `<template>` elements to javascript.
 * `generate`: Convert the transformed components to css and javascript strings.
-* `write`: Write the generated code to disc.
+* `write`: Write the generated styles and javascript to files.
 
 ## Load
 
@@ -26,3 +26,16 @@ The parse phase takes the output from the load phase and extracts the css, javas
 
 <? @exec {json} node doc/readme/compiler-parse.js ?>
 
+## Transform
+
+The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
+
+> TODO: implement and document the tranform phase
+
+## Generate
+
+After transformation the generate phase will concatenate all the css and transformed javascript code.
+
+<? @exec {json} node doc/readme/compiler-generate.js ?>
+
+Note some data omitted from the example output for brevity.

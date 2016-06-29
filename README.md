@@ -19,6 +19,7 @@ npm i -g trucks
 - [Install](#install)
 - [Usage](#usage)
 - [Compiler](#compiler)
+- [Load](#load)
 - [API](#api)
   - [trucks](#trucks)
 - [Developer](#developer)
@@ -62,6 +63,33 @@ The compiler executes the following phases:
 * `transform`: Transform the imported component files compiling `<template>` elements to javascript.
 * `generate`: Convert the transformed components to css and javascript strings.
 * `write`: Write the generated code to disc.
+
+## Load
+
+Given a components file [components.html](https://github.com/tmpfs/trucks/blob/master/example/compiler/components.html) such as:
+
+```html
+<link rel="import" href="x-icon.html">
+<link rel="import" href="x-button.html">
+```
+
+The load phase will build the result object:
+
+```json
+{
+  "example/compiler/components.html": [
+    {
+      "file": "example/compiler/x-icon.html",
+      "contents": "<template id=\"x-icon\">\n\n</template>\n\n<style>\n  x-icon {\n    /* components styles */\n  }\n</style>\n\n<script>\n  skate.define('x-icon', {});\n</script>\n"
+    },
+    {
+      "file": "example/compiler/x-button.html",
+      "contents": "<template id=\"x-button\">\n\n</template>\n\n<style>\n  x-button {\n    /* components styles */\n  }\n</style>\n\n<script>\n  skate.define('x-button', {});\n</script>\n"
+    }
+  ]
+}
+```
+
 ## API
 
 ### trucks

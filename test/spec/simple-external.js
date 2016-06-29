@@ -3,9 +3,9 @@ var expect = require('chai').expect
 
 describe('trucks:', function() {
 
-  it('should compile simple component', function(done) {
-    const src = 'test/fixtures/simple/components.html'
-      , file = 'test/fixtures/simple/simple-component.html';
+  it('should compile simple inline component', function(done) {
+    const src = 'test/fixtures/simple-external/components.html'
+      , file = 'test/fixtures/simple-external/simple-component.html';
     trucks(
       {
         files: [src]
@@ -24,13 +24,15 @@ describe('trucks:', function() {
         expect(result.tpl[0].contents).to.be.a('string');
 
         expect(result.css[0].parent).to.eql(src);
-        expect(result.css[0].file).to.eql(file);
-        expect(result.css[0].inline).to.eql(true);
+        expect(result.css[0].file).to.eql(
+          'test/fixtures/simple-external/simple-component.css');
+        expect(result.css[0].inline).to.eql(undefined);
         expect(result.css[0].contents).to.be.a('string');
 
         expect(result.js[0].parent).to.eql(src);
-        expect(result.js[0].file).to.eql(file);
-        expect(result.js[0].inline).to.eql(true);
+        expect(result.js[0].file).to.eql(
+          'test/fixtures/simple-external/simple-component.js');
+        expect(result.js[0].inline).to.eql(undefined);
         expect(result.js[0].contents).to.be.a('string');
 
         // babel ast result

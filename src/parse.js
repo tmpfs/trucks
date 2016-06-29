@@ -3,7 +3,6 @@ const fs = require('fs');
 const cheerio = require('cheerio');
 
 const STYLE = 'style';
-const LINK = 'link';
 
 /**
  *  Compile all inline and external stylesheets to an array of CSS strings.
@@ -27,7 +26,7 @@ function styles(definition, result, el, cb) {
     return cb();
 
   // external stylesheet reference
-  }else if(el.name === LINK) {
+  }else{
     const href = path.normalize(path.join(base, $(el).attr('href')));
     fs.readFile(href, (err, contents) => {
       if(err) {

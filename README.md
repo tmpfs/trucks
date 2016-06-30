@@ -94,12 +94,6 @@ trucks({files: ['example/components.html']}, (err, res) => {
 });
 ```
 
-The equivalent command line:
-
-```shell
-trucks example/components.html
-```
-
 ## Compiler
 
 The compiler executes the following phases:

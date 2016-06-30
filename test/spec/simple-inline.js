@@ -13,6 +13,7 @@ describe('trucks:', function() {
       (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');
+        expect(result.options).to.be.an('object');
 
         // parse phase data
         expect(result.css).to.be.an('array').to.have.length(1);

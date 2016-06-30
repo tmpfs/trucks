@@ -202,7 +202,7 @@ function parse(loaded, opts, cb) {
   opts = opts || {};
 
   const keys = Object.keys(loaded);
-  const result = {css: [], js: [], tpl: []};
+  const result = {css: [], js: [], tpl: [], options: opts};
 
   function next(err) {
     if(err) {

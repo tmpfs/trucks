@@ -4,7 +4,7 @@ Install dependencies and build the source files `npm i && npm run build` from [s
 
 ### Build
 
-Convert the ES6 sources to ES2015:
+Convert the ES6 sources:
 
 ```
 npm run build

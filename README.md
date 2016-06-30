@@ -16,12 +16,45 @@ npm i -g trucks
 
 ## Abstract
 
-[Web components][webcomponents] are a collection of emerging standards that allow developers to create custom UI elements.
+[Web components][webcomponents] are a collection of emerging standards that allow developers to create re-usable custom user interface elements.
+
+The web components specifications are:
+
+* [Shadow DOM][shadow-dom]
+* [Custom Elements][custom-elements]
+* [HTML Imports][html-imports]
+* [HTML Templates][html-templates]
+
+At the time of writing very few browsers support all of these emerging standards so polyfills are required.
+
+There are several problems with the state of the current frameworks.
+
+### Polymer
+
+The [polymer project][polymer] has a large suite of components but these components are all defined using inline scripts and inline styles which is very convenient from an authoring point of view (component encapsulation) but has issues when you need a strict [content security policy][csp] that disables inline styles and scripts.
+
+### Skate
+
+The [skatejs][] project has a very efficient design using a virtual dom that incrementally renders component view changes. It is the smallest of the frameworks and because it does not depend upon [HTML Templates][html-templates] or [HTML Imports][html-imports] a component can be created using javascript and css.
+
+However this makes it difficult to easily encapsulate a component definition into a single file.
+
+### React
+
+The [react framework][react] is [not tracking the webcomponents standards][react-webcomponents] and therefore for those that prefer to use web standards is not really an option. But you can compile [skatejs][] component definitions to react components using the [react integration][react-integration] module.
+
+### Trucks
+
+The [trucks][] library aims to bring component encapsulation to [skatejs][] and allow [polymer][] component definitions to be compiled to bypass the [content security policy][csp] problem.
 
 ---
 
 - [Install](#install)
 - [Abstract](#abstract)
+  - [Polymer](#polymer)
+  - [Skate](#skate)
+  - [React](#react)
+  - [Trucks](#trucks)
 - [Usage](#usage)
 - [Compiler](#compiler)
   - [Load](#load)
@@ -29,7 +62,7 @@ npm i -g trucks
   - [Transform](#transform)
   - [Generate](#generate)
 - [API](#api)
-  - [trucks](#trucks)
+  - [trucks](#trucks-1)
   - [trucks.load](#trucksload)
   - [trucks.parse](#trucksparse)
   - [trucks.transform](#truckstransform)
@@ -302,7 +335,7 @@ Install dependencies and build the source files `npm i && npm run build` from [s
 
 ### Build
 
-Convert the ES6 sources to ES2015:
+Convert the ES6 sources:
 
 ```
 npm run build
@@ -356,10 +389,17 @@ MIT
 
 Created by [mkdoc](https://github.com/mkdoc/mkdoc) on June 30, 2016
 
+[trucks]: https://github.com/tmpfs/trucks
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
+[shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
 [custom-elements]: https://www.w3.org/TR/custom-elements/
+[html-imports]: https://w3c.github.io/webcomponents/spec/imports/
+[html-templates]: https://html.spec.whatwg.org/multipage/scripting.html#the-template-element
 [polymer]: https://www.polymer-project.org/1.0/
+[react]: https://facebook.github.io/react/
+[react-webcomponents]: https://github.com/facebook/react/issues/5052
+[react-integration]: https://github.com/skatejs/react-integration
 [csp]: http://content-security-policy.com/
 [mkdoc]: https://github.com/mkdoc/mkdoc
 [jshint]: http://jshint.com

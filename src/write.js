@@ -32,7 +32,7 @@ function write(generated, opts, cb) {
   }
 
   if(opts.html) {
-    writers.push(writer(opts.js, generated.html)); 
+    writers.push(writer(opts.html, generated.html)); 
   }
 
   function next(err) {

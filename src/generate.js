@@ -15,6 +15,12 @@ function generate(transformed, opts, cb) {
     return cb(new Error('eol option must be a string')); 
   }
 
+  // concatenate all templates
+  const templates = transformed.tpl.map((tpl) => {
+    return tpl.contents;
+  })
+  transformed.html = templates.join(opts.eol || EOL);
+
   // concatenate all style contents
   const styles = transformed.css.map((style) => {
     return style.contents;

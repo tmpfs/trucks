@@ -6,12 +6,14 @@ describe('trucks:', function() {
   it('should write output files', function(done) {
     const src = 'test/fixtures/simple-inline/components.html'
       , css = 'target/simple.css'
-      , js = 'target/simple.js';
+      , js = 'target/simple.js'
+      , html = 'target/simple.html';
     trucks(
       {
         files: [src],
         css: css,
-        js: js
+        js: js,
+        html: html
       },
       (err, result) => {
         expect(err).to.eql(null);

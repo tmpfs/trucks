@@ -7,7 +7,8 @@ describe('generate:', function() {
     trucks.generate(
       {
         css: [],
-        js: []
+        js: [],
+        tpl: []
       }, (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');

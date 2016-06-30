@@ -19,7 +19,6 @@
     "chai": "~3.5.0",
     "coveralls": "~2.11.9",
     "istanbul": "~0.4.4",
-    "mkcli": "~1.0.32",
     "mocha": "~2.5.3"
   },
   "scripts": {

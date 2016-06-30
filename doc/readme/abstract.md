@@ -23,7 +23,7 @@ The [skatejs][] project has a very efficient design using a virtual dom that inc
 
 ### React
 
-The [react framework][react] is [not tracking the webcomponents standards][react-webcomponents] and therefore for those that prefer to use web standards is not really an option. But you can compile [skatejs][] component definitions to react components using the [react integration][react-integration] module.
+The [react framework][react] is [not tracking the webcomponents standards][react-webcomponents] and therefore for those that prefer to use web standards it's not really an option. But you can compile [skatejs][] component definitions to react components using the [react integration][react-integration] module.
 
 ### Trucks
 

@@ -1,9 +1,8 @@
 const path = require('path')
   , cli = require('mkcli')
   , pkg = require('../package.json')
-  , prg = cli.load(require('../doc/json/trucks.json'));
-
-const trucks = require('..');
+  , prg = cli.load(require('../doc/json/trucks.json'))
+  , trucks = require('trucks');
 
 /**
  *  @name trucks

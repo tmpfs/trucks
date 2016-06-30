@@ -1,0 +1,15 @@
+[trucks]: https://github.com/tmpfs/trucks
+[skatejs]: https://github.com/skatejs/skatejs
+[webcomponents]: https://github.com/w3c/webcomponents
+[shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
+[custom-elements]: https://www.w3.org/TR/custom-elements/
+[html-imports]: https://w3c.github.io/webcomponents/spec/imports/
+[html-templates]: https://html.spec.whatwg.org/multipage/scripting.html#the-template-element
+[polymer]: https://www.polymer-project.org/1.0/
+[react]: https://facebook.github.io/react/
+[react-webcomponents]: https://github.com/facebook/react/issues/5052
+[react-integration]: https://github.com/skatejs/react-integration
+[csp]: http://content-security-policy.com/
+[mkdoc]: https://github.com/mkdoc/mkdoc
+[jshint]: http://jshint.com
+[jscs]: http://jscs.info

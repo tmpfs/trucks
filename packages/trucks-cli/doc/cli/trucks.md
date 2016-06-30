@@ -1,6 +1,6 @@
 # Name
 
-board - compiles web components
+trucks - compiles web components
 
 # Synopsis
 

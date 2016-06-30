@@ -1,5 +1,5 @@
-Usage: board [-h] [--help] [--version] [--html <file>] [--css <file>] [--js
-             <file>] [files...]
+Usage: trucks [-h] [--help] [--version] [--html <file>] [--css <file>] [--js
+              <file>] [files...]
 
   Compiles web components.
 
@@ -10,4 +10,4 @@ Options
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks@0.1.1
+trucks-cli@1.0.0

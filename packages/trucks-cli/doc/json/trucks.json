@@ -1,10 +1,10 @@
 {
   "description": "Compiles web components to separate files for javascript, styles and template markup.",
   "names": [
-    "board"
+    "trucks"
   ],
   "type": "program",
-  "name": "board",
+  "name": "trucks",
   "summary": "compiles web components",
   "synopsis": [
     "[flags] [options] [files...]"

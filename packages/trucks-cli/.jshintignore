@@ -1,0 +1,6 @@
+node_modules
+coverage
+target
+app/node_modules
+build/assets/js/app.js
+build/assets/js/events.js

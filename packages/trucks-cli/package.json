@@ -1,7 +1,8 @@
 {
-  "name": "trucks",
-  "version": "0.1.2",
+  "name": "trucks-cli",
+  "version": "1.0.0",
   "description": "Web component compiler and package manager",
+  "bin": "./bin/trucks",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -9,13 +10,7 @@
     "type": "git",
     "url": "https://github.com/tmpfs/trucks"
   },
-  "dependencies": {
-    "babel-core": "~6.10.4",
-    "cheerio": "~0.20.0"
-  },
   "devDependencies": {
-    "babel-cli": "~6.10.1",
-    "babel-preset-es2015": "~6.9.0",
     "chai": "~3.5.0",
     "coveralls": "~2.11.9",
     "istanbul": "~0.4.4",
@@ -24,13 +19,14 @@
   },
   "scripts": {
     "clean": "rm -rf coverage target",
-    "build": "babel --presets es2015 src --out-dir lib",
-    "prepublish": "npm run build",
     "lint": "jshint . && jscs .",
     "pretest": "rm -rf target && mkdir target && npm run build",
     "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",
     "precover": "npm run pretest",
     "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "dependencies": {
+    "trucks": "~0.1.2"
   }
 }

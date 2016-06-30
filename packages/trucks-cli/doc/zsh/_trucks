@@ -1,5 +1,5 @@
-#compdef board
-_board(){
+#compdef trucks
+_trucks(){
   typeset -A opt_args;
   local context state state_descr line ret=1;
   local actions options commands;
@@ -26,4 +26,4 @@ _board(){
   return $ret;
 }
 
-_board "$@"
+_trucks "$@"

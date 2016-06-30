@@ -4,7 +4,7 @@
 
 > Web component compiler and package manager
 
-Compiles [skatejs][] components declared as HTML to javascript and css files.
+Compiles web components declared as HTML to javascript and css files, supports [skatejs][] and [polymer][].
 
 <? @include {=readme}
       install.md 

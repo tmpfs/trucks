@@ -1,11 +1,11 @@
 {
-  "description": "Compiles skatejs components.",
+  "description": "Compiles web components to separate files for javascript, styles and HTML.",
   "names": [
     "board"
   ],
   "type": "program",
   "name": "board",
-  "summary": "compiles skatejs components",
+  "summary": "compiles web components",
   "synopsis": [
     "[flags] [options] [files...]"
   ],

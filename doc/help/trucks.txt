@@ -1,6 +1,6 @@
 Usage: board [-h] [--help] [--version] [--css <file>] [--js <file>] [files...]
 
-  Compiles skatejs components.
+  Compiles web components.
 
 Options
   -c, --css=[file]        Stylesheet output file.
@@ -8,4 +8,4 @@ Options
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks@0.1.0
+trucks@0.1.1

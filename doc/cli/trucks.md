@@ -1,6 +1,6 @@
 # Name
 
-board - compiles skatejs components
+board - compiles web components
 
 # Synopsis
 
@@ -14,7 +14,7 @@ board - compiles skatejs components
 
 # Description
 
-Compiles skatejs components.
+Compiles web components to separate files for javascript, styles and markup.
 
 # Options
 

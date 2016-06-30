@@ -14,6 +14,8 @@ Compiles web components declared as HTML to javascript and css files, supports [
 npm i trucks --save-dev
 ```
 
+For the command line interface see [trucks-cli][].
+
 ## Abstract
 
 [Web components][webcomponents] are a collection of emerging standards that allow developers to create re-usable custom user interface elements.
@@ -388,6 +390,7 @@ MIT
 Created by [mkdoc](https://github.com/mkdoc/mkdoc) on June 30, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/

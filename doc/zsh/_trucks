@@ -5,7 +5,8 @@ _board(){
   local actions options commands;
 
   options=(
-    "(-c --css)"{-c=,--css=}"[Stylesheet output file.]:file:_files" 
+    "(-m --html)"{-m=,--html=}"[Template output file.]:file:_files" 
+    "(-s --css)"{-s=,--css=}"[Stylesheet output file.]:file:_files" 
     "(-j --js)"{-j=,--js=}"[Javascript output file.]:file:_files" 
     "(-h --help)"{-h,--help}"[Display help and exit]" 
     "--version[Print the version and exit]"

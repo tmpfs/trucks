@@ -14,11 +14,12 @@ board - compiles web components
 
 # Description
 
-Compiles web components to separate files for javascript, styles and markup.
+Compiles web components to separate files for javascript, styles and template markup.
 
 # Options
 
-+ `-c, --css [file]` Stylesheet output file.
++ `-m, --html [file]` Template output file. 
++ `-s, --css [file]` Stylesheet output file.
 + `-j, --js [file]` Javascript output file.
 + `-h, --help` Display help and exit
 + `--version` Print the version and exit

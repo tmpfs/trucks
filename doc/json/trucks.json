@@ -1,5 +1,5 @@
 {
-  "description": "Compiles web components to separate files for javascript, styles and HTML.",
+  "description": "Compiles web components to separate files for javascript, styles and template markup.",
   "names": [
     "board"
   ],
@@ -10,11 +10,24 @@
     "[flags] [options] [files...]"
   ],
   "options": {
+    "html": {
+      "key": "html",
+      "description": "Template output file.",
+      "names": [
+        "-m",
+        "--html"
+      ],
+      "type": "option",
+      "extra": " [file]",
+      "required": false,
+      "multiple": false,
+      "name": "--html"
+    },
     "css": {
       "key": "css",
       "description": "Stylesheet output file.",
       "names": [
-        "-c",
+        "-s",
         "--css"
       ],
       "type": "option",

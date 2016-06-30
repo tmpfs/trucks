@@ -1,9 +1,11 @@
-Usage: board [-h] [--help] [--version] [--css <file>] [--js <file>] [files...]
+Usage: board [-h] [--help] [--version] [--html <file>] [--css <file>] [--js
+             <file>] [files...]
 
   Compiles web components.
 
 Options
-  -c, --css=[file]        Stylesheet output file.
+  -m, --html=[file]       Template output file.
+  -s, --css=[file]        Stylesheet output file.
   -j, --js=[file]         Javascript output file.
   -h, --help              Display help and exit
   --version               Print the version and exit

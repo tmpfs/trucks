@@ -11,6 +11,10 @@ function generate(transformed, opts, cb) {
 
   opts = opts || {};
 
+  if(opts.eol !== undefined && typeof opts.eol !== 'string') {
+    return cb(new Error('eol option must be a string')); 
+  }
+
   // concatenate all style contents
   const styles = transformed.css.map((style) => {
     return style.contents;

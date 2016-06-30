@@ -19,7 +19,10 @@ describe('trucks:', function() {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');
 
-        console.log(result);
+        expect(result.files).to.be.an('object');
+        expect(result.files.html.file).to.eql(html);
+        expect(result.files.css.file).to.eql(css);
+        expect(result.files.js.file).to.eql(js);
         done();
       }
     );

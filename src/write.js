@@ -1,4 +1,7 @@
-const fs = require('fs');
+const fs = require('fs')
+  , HTML = 'html'
+  , CSS = 'css'
+  , JS = 'js';
 
 /**
  *  @private
@@ -15,24 +18,40 @@ function write(generated, opts, cb) {
     return cb(new Error('no javascript data available to write')); 
   }
 
-  function writer(path, contents) {
+
+  // track files that were written consumers (such as a cli)
+  // might want to stat afterwards for bytes written
+  generated.files = {};
+
+  function writer(key, path, contents) {
     return function write(cb) {
-      fs.writeFile(path, contents, cb);
+      fs.writeFile(path, contents, (err) => {
+        if(err) {
+          return cb(err); 
+        } 
+
+        generated.files[key] = {
+          file: path,
+          contents: contents
+        }
+
+        cb();
+      });
     } 
   }
 
   const writers = [];
 
+  if(opts.html) {
+    writers.push(writer(HTML, opts.html, generated.html)); 
+  }
+
   if(opts.css) {
-    writers.push(writer(opts.css, generated.stylesheet)); 
+    writers.push(writer(CSS, opts.css, generated.stylesheet)); 
   }
   
   if(opts.js) {
-    writers.push(writer(opts.js, generated.javascript)); 
-  }
-
-  if(opts.html) {
-    writers.push(writer(opts.html, generated.html)); 
+    writers.push(writer(JS, opts.js, generated.javascript)); 
   }
 
   function next(err) {

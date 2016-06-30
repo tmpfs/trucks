@@ -31,6 +31,10 @@ function write(generated, opts, cb) {
     writers.push(writer(opts.js, generated.javascript)); 
   }
 
+  if(opts.html) {
+    writers.push(writer(opts.js, generated.html)); 
+  }
+
   function next(err) {
     if(err) {
       return cb(err); 

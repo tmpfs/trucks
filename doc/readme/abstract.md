@@ -19,9 +19,7 @@ The [polymer project][polymer] has a large suite of components but these compone
 
 ### Skate
 
-The [skatejs][] project has a very efficient design using a virtual dom that incrementally renders component view changes. It is the smallest of the frameworks and because it does not depend upon [HTML Templates][html-templates] or [HTML Imports][html-imports] a component can be created using javascript and css.
-
-However this makes it difficult to easily encapsulate a component definition into a single file.
+The [skatejs][] project has a very efficient design using a virtual dom that incrementally renders component view changes. It is the smallest of the frameworks and because it does not depend upon [HTML Templates][html-templates] or [HTML Imports][html-imports] a component can be created using javascript and css. However this makes it difficult to easily encapsulate a component definition into a single file.
 
 ### React
 

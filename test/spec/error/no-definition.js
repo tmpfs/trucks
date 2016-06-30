@@ -12,7 +12,8 @@ describe('transform:', function() {
         }
         expect(fn).throws(/does not define a component/);
         done();
-    });
+      }
+    );
   });
 
 });

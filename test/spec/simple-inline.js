@@ -9,7 +9,8 @@ describe('trucks:', function() {
     trucks(
       {
         files: [src]
-      }, (err, result) => {
+      },
+      (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');
 
@@ -46,7 +47,8 @@ describe('trucks:', function() {
         expect(result.javascript).to.be.a('string');
 
         done();
-    });
+      }
+    );
   });
 
 });

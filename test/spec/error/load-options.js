@@ -12,7 +12,8 @@ describe('load:', function() {
         }
         expect(fn).throws(/no input files/);
         done();
-    });
+      }
+    );
   });
 
   it('should error on load with non-existent file', function(done) {
@@ -24,7 +25,8 @@ describe('load:', function() {
         }
         expect(fn).throws(/ENOENT/);
         done();
-    });
+      }
+    );
   });
 
 });

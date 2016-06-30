@@ -5,11 +5,13 @@ describe('transform:', function() {
 
   it('should handle no options', function(done) {
     trucks.transform(
-      {js: []}, (err, result) => {
+      {js: []},
+      (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');
         done();
-    });
+      }
+    );
   });
 
   it('should transform with plugins option', function(done) {
@@ -20,7 +22,8 @@ describe('transform:', function() {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');
         done();
-    });
+      }
+    );
   });
 
 });

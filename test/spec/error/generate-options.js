@@ -12,7 +12,8 @@ describe('generate:', function() {
         }
         expect(fn).throws(/eol option/);
         done();
-    });
+      }
+    );
   });
 
 });

@@ -21,7 +21,8 @@ describe('trucks:', function() {
         }
         expect(fn).throws(/ENOENT/);
         done();
-    });
+      }
+    );
   });
 
 });

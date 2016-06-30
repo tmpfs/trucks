@@ -13,7 +13,8 @@ describe('parse:', function() {
         expect(fn).throws(/ENOENT/);
         expect(fn).throws(/non-existent.js/);
         done();
-    });
+      }
+    );
   });
 
 });

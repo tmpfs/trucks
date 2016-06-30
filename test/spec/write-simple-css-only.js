@@ -10,12 +10,14 @@ describe('trucks:', function() {
       {
         files: [src],
         css: css
-      }, (err, result) => {
+      },
+      (err, result) => {
         expect(err).to.eql(null);
 
         console.log(result);
         done();
-    });
+      }
+    );
   });
 
 });

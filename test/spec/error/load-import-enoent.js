@@ -12,7 +12,8 @@ describe('load:', function() {
         }
         expect(fn).throws(/ENOENT/);
         done();
-    });
+      }
+    );
   });
 
 });

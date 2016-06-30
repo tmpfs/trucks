@@ -13,7 +13,8 @@ describe('write:', function() {
         }
         expect(fn).throws(/no stylesheet data/);
         done();
-    });
+      }
+    );
   });
 
   it('should error on write with no javascript', function(done) {
@@ -26,7 +27,8 @@ describe('write:', function() {
         }
         expect(fn).throws(/no javascript data/);
         done();
-    });
+      }
+    );
   });
 
   it('should error on write with non-existent path', function(done) {
@@ -39,7 +41,8 @@ describe('write:', function() {
         }
         expect(fn).throws(/ENOENT/);
         done();
-    });
+      }
+    );
   });
 
 });

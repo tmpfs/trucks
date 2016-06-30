@@ -13,7 +13,8 @@ describe('transform:', function() {
         expect(fn).throws(Error);
         expect(fn).throws(/mock.js/);
         done();
-    });
+      }
+    );
   });
 
 });

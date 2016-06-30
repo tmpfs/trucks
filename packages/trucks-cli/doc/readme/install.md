@@ -1,5 +1,5 @@
 ## Install
 
 ```
-npm i -g trucks
+npm i -g trucks-cli
 ```

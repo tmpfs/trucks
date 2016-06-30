@@ -1,5 +1,5 @@
 ## Install
 
 ```
-npm i -g trucks
+npm i trucks --save-dev
 ```

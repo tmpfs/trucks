@@ -1,14 +1,16 @@
 ## Developer
 
-Install dependencies and build the source files `npm i && npm run build` from [src](/src) to [lib](/lib).
+Install dependencies with `npm i` and install [mkdoc][] globally (`npm i -g mkdoc`).
 
 ### Build
 
-Convert the ES6 sources:
+To build all the command line interface files run:
 
 ```
-npm run build
+mk cli
 ```
+
+To see all available tasks run `mk --tasks`.
 
 ### Test
 

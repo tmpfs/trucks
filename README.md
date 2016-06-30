@@ -11,7 +11,7 @@ Compiles web components declared as HTML to javascript and css files, supports [
 ## Install
 
 ```
-npm i -g trucks
+npm i trucks --save-dev
 ```
 
 ## Abstract

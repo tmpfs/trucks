@@ -58,7 +58,7 @@ function isEmpty(obj) {
  *
  *  @throws Error if a template element does not define an identifier.
  *
- *  @returns Object representing the templates as AST programs.
+ *  @returns an object representing the templates as AST programs.
  */
 function compile(html, opts) {
   const cheerio = require('cheerio');

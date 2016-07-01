@@ -126,7 +126,7 @@ const trucks = require('trucks')
 console.log(result.code);
 ```
 
-Returns Object representing the templates as AST programs.
+Returns an object representing the templates as AST programs.
 
 * `html` String an HTML string.
 * `opts` Object processing options.

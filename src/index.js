@@ -16,6 +16,7 @@ const load = require('./load')
  *  @option {Object} babel options to pass to babel transform.
  *  @option {String} css path to write the generated stylesheet.
  *  @option {String} js path to write the generated javascript.
+ *  @option {String} html path to write the generated template markup.
  *  @option {String} eol override the default EOL for concatenation.
  */
 function trucks(opts, cb) {
@@ -107,6 +108,7 @@ trucks.generate = generate;
  *
  *  @option {String} css path to write the generated stylesheet.
  *  @option {String} js path to write the generated javascript.
+ *  @option {String} html path to write the generated template markup.
  */
 trucks.write = write;
 

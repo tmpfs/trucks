@@ -17,6 +17,7 @@ Compile component HTML files to CSS, Javascript and HTML.
 * `babel` Object options to pass to babel transform.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
+* `html` String path to write the generated template markup.
 * `eol` String override the default EOL for concatenation.
 
 ### trucks.load
@@ -95,6 +96,7 @@ Writes the generated result to stylesheet and javascript files.
 
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
+* `html` String path to write the generated template markup.
 
 ### trucks.compile
 

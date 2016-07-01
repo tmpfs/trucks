@@ -19,9 +19,9 @@ function isEmpty(obj) {
 }
 
 /**
- *  Compile an HTML string to a babel AST path.
+ *  Compile an HTML string to a babel AST program.
  *
- *  @function compile
+ *  @function trucks.compile
  *  @param {String} html an HTML string.
  *  @param {Object} opts processing options.
  *
@@ -102,7 +102,7 @@ function getCallExpression(t, method, args) {
 /**
  *  Convert a single DOM `<template>` element to an AST object.
  *
- *  @function template
+ *  @private {function} template
  *  @param {Object} el the element DOM.
  *  @param {Object} opts processing options.
  *
@@ -177,7 +177,7 @@ function template(el, opts) {
  *  Transform a DOM representation of HTML templates to an array of 
  *  function bodies for each `<template>` element.
  *
- *  @function transform
+ *  @private {function} transform
  *  @param {Object} dom the DOM object.
  *  @param {Object} opts processing options.
  *

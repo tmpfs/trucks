@@ -62,12 +62,6 @@ The [trucks][] library aims to bring component encapsulation to [skatejs][] and 
   - [Transform](#transform)
   - [Generate](#generate)
 - [API](#api)
-  - [trucks](#trucks-1)
-  - [trucks.load](#trucksload)
-  - [trucks.parse](#trucksparse)
-  - [trucks.transform](#truckstransform)
-  - [trucks.generate](#trucksgenerate)
-  - [trucks.write](#truckswrite)
 - [Developer](#developer)
   - [Build](#build)
   - [Test](#test)
@@ -179,7 +173,8 @@ The parse phase takes the output from the load phase and extracts the css, javas
       "contents": "<template id=\"x-button\">\n\n</template>",
       "inline": true
     }
-  ]
+  ],
+  "options": {}
 }
 ```
 
@@ -206,7 +201,8 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
       "inline": true,
       "code": "\nskate.define('x-button', {});"
     }
-  ]
+  ],
+  "options": {}
 }
 ```
 
@@ -227,101 +223,7 @@ Note that some data has been omitted from the example output for brevity.
 
 ## API
 
-### trucks
-
-```javascript
-trucks(opts, cb)
-```
-
-Compile component HTML files to CSS and Javascript.
-
-* `opts` Object processing options.
-* `cb` Function callback function.
-
-#### Options
-
-* `files` Array list of HTML files to compile.
-* `babel` Object options to pass to babel transform.
-* `css` String path to write the generated stylesheet.
-* `js` String path to write the generated javascript.
-* `eol` String override the default EOL for concatenation.
-
-### trucks.load
-
-```javascript
-trucks.load(opts, cb)
-```
-
-Read the component definition file contents.
-
-* `opts` Object processing options.
-* `cb` Function callback function.
-
-#### Options
-
-* `files` Array list of HTML files to compile.
-
-### trucks.parse
-
-```javascript
-trucks.parse(loaded[, opts], cb)
-```
-
-Parses the loaded file data to stylesheet and javascript strings.
-
-* `loaded` Object The result from the load phase.
-* `opts` Object processing options.
-* `cb` Function callback function.
-
-### trucks.transform
-
-```javascript
-trucks.transform(parsed[, opts], cb)
-```
-
-Transforms the parsed result compiling the html `<template>` element
-corresponding to a javascript component definition to a function.
-
-* `parsed` Object The result from the parse phase.
-* `opts` Object processing options.
-* `cb` Function callback function.
-
-#### Options
-
-* `babel` Object options to pass to babel transform.
-
-### trucks.generate
-
-```javascript
-trucks.generate(transformed[, opts], cb)
-```
-
-Concatenates the transformed result to stylesheet and javascript strings.
-
-* `transformed` Object The result from the transform phase.
-* `opts` Object processing options.
-* `cb` Function callback function.
-
-#### Options
-
-* `eol` String override the default EOL for concatenation.
-
-### trucks.write
-
-```javascript
-trucks.write(generated, opts, cb)
-```
-
-Writes the generated result to stylesheet and javascript files.
-
-* `generated` Object The result from the generate phase.
-* `opts` Object processing options.
-* `cb` Function callback function.
-
-#### Options
-
-* `css` String path to write the generated stylesheet.
-* `js` String path to write the generated javascript.
+For the API docs see [API.md](https://github.com/tmpfs/trucks/blob/master/doc/API.md).
 
 ## Developer
 
@@ -381,7 +283,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on June 30, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 1, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

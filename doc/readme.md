@@ -18,7 +18,9 @@ Compiles web components declared as HTML to javascript and css files, supports [
       usage.md 
       compiler.md ?>
 
-<? @exec mkapi src/index.js --level=2 --title=API ?>
+## API
+
+For the API docs see [API.md](/doc/API.md).
 
 <? @include {=readme}
       developer.md

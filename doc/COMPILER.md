@@ -103,8 +103,6 @@ The parse phase takes the output from the load phase and extracts the css, javas
 
 The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
 
-> TODO: implement and document the transform phase
-
 ```json
 {
   "js": [

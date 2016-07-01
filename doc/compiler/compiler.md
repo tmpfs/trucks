@@ -34,8 +34,6 @@ The parse phase takes the output from the load phase and extracts the css, javas
 
 The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
 
-> TODO: implement and document the transform phase
-
 <? @exec {json} node doc/compiler/compiler-transform.js ?>
 
 Note that some data has been omitted from the example output for brevity.

@@ -6,7 +6,7 @@ const load = require('./load')
   , write = require('./write');
 
 /**
- *  Compile component HTML files to CSS and Javascript.
+ *  Compile component HTML files to CSS, Javascript and HTML.
  *
  *  @function trucks
  *  @param {Object} opts processing options.

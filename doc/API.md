@@ -6,7 +6,7 @@
 trucks(opts, cb)
 ```
 
-Compile component HTML files to CSS and Javascript.
+Compile component HTML files to CSS, Javascript and HTML.
 
 * `opts` Object processing options.
 * `cb` Function callback function.

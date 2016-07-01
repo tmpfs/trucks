@@ -22,7 +22,10 @@ Compiles web components declared as HTML to javascript and css files, supports [
 
 For the API docs see [API.md](/doc/API.md).
 
+## Developer
+
+Information on how to build this project is in [DEVELOPER.md](/doc/DEVELOPER.md).
+
 <? @include {=readme}
-      developer.md
       license.md
       links.md ?>

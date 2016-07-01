@@ -2,6 +2,8 @@
 
 Install dependencies and build the source files `npm i && npm run build` from [src](/src) to [lib](/lib).
 
+To build the documentation [mkdoc][] is required (`npm i -g mkdoc`).
+
 ### Build
 
 Convert the ES6 sources:
@@ -44,8 +46,16 @@ npm run clean
 
 ### Readme
 
-To build the readme file [mkdoc][] is required (`npm i -g mkdoc`):
+To build the readme file:
 
 ```
 mk readme
+```
+
+### API
+
+To build the API docs:
+
+```
+npm run api
 ```

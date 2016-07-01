@@ -1,6 +1,9 @@
 const TAG = 'tag'
+    , ID = 'id'
     , SKATE = 'skate'
     , VDOM = 'vdom'
+    , RENDER = 'render'
+    , ELEM = 'elem'
     , ELEMENT = 'element'
     , TEXT = 'text';
   
@@ -48,12 +51,12 @@ function compile(html, opts) {
   if(opts.literals === undefined) {
     opts.literals = {}; 
   // truthy enable all template literals
-  }else if(opts.literals && typeof opts.literals !== 'object') {
+  }else if(opts.literals && opts.literals !== Object(opts.literals)) {
     opts.literals = {text: true, attribute: true}; 
   }
 
   opts.dom = cheerio.load(html, opts.load);
-  opts.attr = opts.attr || 'id';
+  opts.attr = opts.attr || ID;
 
   opts.skate = opts.skate || SKATE;
   opts.vdom = opts.vdom || VDOM;
@@ -128,8 +131,8 @@ function getCallExpression(t, method, args) {
  *  @returns a function declaration.
  */
 function render(t, body, name, arg) {
-  name = name || 'render';
-  arg = arg || 'elem';
+  name = name || RENDER;
+  arg = arg || ELEM;
   return t.functionDeclaration(
     t.identifier(name), [t.identifier(arg)], t.blockStatement(body));
 }

@@ -22,7 +22,6 @@
     "mocha": "~2.5.3"
   },
   "scripts": {
-    "api": "mkapi src/index.js src/compile.js --level=2 --title=API > doc/API.md",
     "clean": "rm -rf coverage target",
     "build": "babel --presets es2015 src --out-dir lib",
     "prepublish": "npm run build",

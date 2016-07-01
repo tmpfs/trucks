@@ -1,25 +1,3 @@
-## API
-
----
-
-- [API](#api)
-- [trucks](#trucks)
-  - [Options](#options)
-- [trucks.load](#trucksload)
-  - [Options](#options-1)
-- [trucks.parse](#trucksparse)
-- [trucks.transform](#truckstransform)
-  - [Options](#options-2)
-- [trucks.generate](#trucksgenerate)
-  - [Options](#options-3)
-- [trucks.write](#truckswrite)
-  - [Options](#options-4)
-- [trucks.compile](#truckscompile)
-  - [Options](#options-5)
-  - [Throws](#throws)
-
----
-
 ## trucks
 
 ```javascript
@@ -165,8 +143,4 @@ Returns an object representing the templates as AST programs.
 ### Throws
 
 * `Error` if a template element does not define an identifier.
-
----
-
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 2, 2016
 

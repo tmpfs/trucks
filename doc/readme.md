@@ -17,6 +17,7 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
 <? @include {=readme}
       usage.md 
       overview.md
+      components.md
       compiler.md ?>
 
 ## API

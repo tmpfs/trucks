@@ -21,7 +21,6 @@ const load = require('./load')
  */
 function trucks(opts, cb) {
   opts = opts || {};
-
   load(opts, (err, loaded) => {
     if(err) {
       return cb(err); 
@@ -84,8 +83,9 @@ trucks.parse = parse;
  */
 trucks.transform = transform;
 
-// NOTE: this function is documented in src/compile.js
+// NOTE: these functions are documented in src/compile.js
 trucks.compile = compile;
+trucks.map = compile.map;
 
 /**
  *  Concatenates the transformed result to stylesheet and javascript strings.

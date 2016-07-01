@@ -56,6 +56,8 @@ function isEmpty(obj) {
  *  @option {Object|Boolean} [literals] flags for template literal support.
  *  @option {Object} [load] options to use when parsing the DOM.
  *
+ *  @throws Error if a template element does not define an identifier.
+ *
  *  @returns {Array} of objects representing the function bodies as AST nodes.
  */
 function compile(html, opts) {
@@ -297,11 +299,18 @@ function template(el, opts) {
 
   convert(el.childNodes, body);
 
-  const tpl = $(el);
+  const tpl = $(el)
+    , id = tpl.attr(opts.attr);
+
+  if(!id) {
+    throw new Error(
+      `template declared with no identifier (${opts.attr} attribute)`);
+  }
+
   return {
     element: el,
     attributes: tpl.attr(),
-    id: tpl.attr(opts.attr),
+    id: id,
     name: tpl.get(0).tagName,
     body: t.program(body),
     render: t.program([render(t, body, opts)])

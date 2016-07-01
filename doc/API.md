@@ -142,3 +142,7 @@ Returns of objects representing the function bodies as AST nodes.
 * `literals` Object|Boolean flags for template literal support.
 * `load` Object options to use when parsing the DOM.
 
+#### Throws
+
+* `Error` if a template element does not define an identifier.
+

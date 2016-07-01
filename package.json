@@ -1,6 +1,6 @@
 {
   "name": "trucks",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Web component compiler and package manager",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
@@ -21,7 +21,6 @@
     "istanbul": "~0.4.4",
     "mocha": "~2.5.3"
   },
-
   "scripts": {
     "api": "mkapi src/index.js src/compile.js --level=2 --title=API > doc/API.md",
     "clean": "rm -rf coverage target",

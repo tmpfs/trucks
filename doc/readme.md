@@ -18,6 +18,7 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
       usage.md 
       overview.md
       components.md
+      roadmap.md
       compiler.md ?>
 
 ## API

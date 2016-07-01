@@ -4,11 +4,12 @@
 
 > Web component compiler and package manager
 
-Compiles web components declared as HTML to javascript and css files, supports [skatejs][] and [polymer][].
+Compiles web components declared as HTML to separate Javascript, CSS and HTML files. Supports [skatejs][] and [polymer][].
 
 <? @include {=readme}
       install.md 
-      abstract.md ?>
+      abstract.md
+      overview.md ?>
 
 ***
 <!-- @toc -->

@@ -31,6 +31,7 @@ function isEmpty(obj) {
  *  @option {String=element} [element] the name of the element function.
  *  @option {String=text} [text] the name of the text function.
  *  @option {Object} [literals] flags for template literal support.
+ *  @option {Object} [load] options to use when parsing the DOM.
  *
  *  @returns {Array} of objects representing the function bodies as AST nodes.
  */
@@ -38,7 +39,13 @@ function compile(html, opts) {
   const cheerio = require('cheerio');
   opts = opts || {};
 
-  opts.dom = cheerio.load(html);
+  opts.load = opts.load || {};
+
+  if(opts.load.normalizeWhitespace === undefined) {
+    opts.load.normalizeWhitespace = true; 
+  }
+
+  opts.dom = cheerio.load(html, opts.load);
   opts.attr = opts.attr || 'id';
 
   opts.skate = opts.skate || SKATE;
@@ -162,8 +169,9 @@ function template(el, opts) {
           convert(child.childNodes, block);
 
           // NOTE: no function arguments
-          const func = t.arrowFunctionExpression([], t.blockStatement(block));
-          args.push(func);
+          args.push(
+            t.arrowFunctionExpression([], t.blockStatement(block))
+          );
         }
 
         // call skate.vdom.element();
@@ -171,14 +179,20 @@ function template(el, opts) {
           getCallExpression(t, ELEMENT, args));
       // child text node
       }else{
+        const text = el.text();
         let arg;
+
+        // skip text nodes that are just whitespace
+        if(opts.load.normalizeWhitespace && /^\s*$/.test(text)) {
+          continue; 
+        }
 
         // draft support for template literals in text nodes
         if(opts.literals && opts.literals.text) {
           arg = babel.transform(
-            '`' + el.text() + '`').ast.program.body[0].expression;
+            '`' + text + '`').ast.program.body[0].expression;
         }else{
-          arg = t.stringLiteral(el.text());
+          arg = t.stringLiteral(text);
         }
         // call skate.vdom.text();
         args = [arg];

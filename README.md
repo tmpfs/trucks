@@ -6,7 +6,7 @@
 
 > Web component compiler and package manager
 
-Compiles web components declared as HTML to javascript and css files, supports [skatejs][] and [polymer][].
+Compiles web components declared as HTML to separate Javascript, CSS and HTML files. Supports [skatejs][] and [polymer][].
 
 ## Install
 
@@ -47,6 +47,37 @@ The [react framework][react] is [not tracking the webcomponents standards][react
 
 The [trucks][] library aims to bring component encapsulation to [skatejs][] and allow [polymer][] component definitions to be compiled to bypass the [content security policy][csp] problem.
 
+## Overview
+
+The library takes an HTML template and compiles it to a `render` function.
+
+An HTML template such as:
+
+```html
+<template id="x-blog-post">
+  <div class="post">
+    <h3>${elem.title}</h3>
+    <p>Article content</p>
+  </div>
+</template>
+```
+
+Will result in the compiled function:
+
+```javascript
+function render(elem) {
+  skate.vdom.element("div", {
+    class: "post"
+  }, () => {
+    skate.vdom.element("h3", () => {
+      skate.vdom.text(`${ elem.title }`);
+    });
+    skate.vdom.element("p", () => {
+      skate.vdom.text(`Article content`);
+    });
+  });
+}```
+
 ---
 
 - [Install](#install)
@@ -55,6 +86,7 @@ The [trucks][] library aims to bring component encapsulation to [skatejs][] and 
   - [Skate](#skate)
   - [React](#react)
   - [Trucks](#trucks)
+- [Overview](#overview)
 - [Usage](#usage)
 - [Compiler](#compiler)
   - [Load](#load)

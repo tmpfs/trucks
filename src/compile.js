@@ -70,14 +70,19 @@ function compile(html, opts) {
   opts.element = opts.element || ELEMENT;
   opts.text = opts.text || TEXT;
 
-  return transform(opts.dom, opts);
+  opts.name = opts.name || RENDER;
+  opts.arg = opts.arg || ELEM;
+
+  const templates = transform(opts.dom, opts);
+
+  return {list: templates, map: map(templates, opts)};
 }
 
 /**
  *  Converts the output of a compile pass to an object map of component 
  *  identifiers to render functions.
  *
- *  @function trucks.map
+ *  @private {function} trucks.map
  *  @param {Array} templates list of compiled template programs.
  *  @param {Object} opts processing options.
  *
@@ -89,12 +94,11 @@ function map(templates, opts) {
   let out = [];
 
   const t = require('babel-core').types;
-  const name = opts.name || RENDER;
-  const arg = opts.arg || ELEM;
 
   templates.forEach((tpl) => {
     let expr = t.functionExpression(
-      t.identifier(name), [t.identifier(arg)], t.blockStatement(tpl.body.body));
+      t.identifier(opts.name),
+      [t.identifier(opts.arg)], t.blockStatement(tpl.body.body));
 
     // NOTE: must use stringLiteral() rather than identifier() to quote
     // NOTE: the object property which must contain a hyphen for component

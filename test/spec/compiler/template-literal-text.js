@@ -10,16 +10,16 @@ describe('compiler:', function() {
 
     const res = trucks.compile(tpl, {literals: {text: true}});
 
-    expect(res).to.be.an('array').to.have.length(1);
+    expect(res.list).to.be.an('array').to.have.length(1);
 
     // component id
-    expect(res[0].id).to.eql('x-foo');
+    expect(res.list[0].id).to.eql('x-foo');
 
     // function body AST
-    expect(res[0].body).to.be.an('object');
+    expect(res.list[0].body).to.be.an('object');
 
     // NOTE: this test is on the render() function not on the function body
-    const result = babel.transformFromAst(res[0].render);
+    const result = babel.transformFromAst(res.list[0].render);
     expect(result.code).to.eql(
       'function render(elem) {\n'
         + '  skate.vdom.element("span", () => {\n'

@@ -83,9 +83,8 @@ trucks.parse = parse;
  */
 trucks.transform = transform;
 
-// NOTE: these functions are documented in src/compile.js
+// NOTE: this function is documented in src/compile.js
 trucks.compile = compile;
-trucks.map = compile.map;
 
 /**
  *  Concatenates the transformed result to stylesheet and javascript strings.

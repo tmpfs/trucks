@@ -12,11 +12,11 @@ const TAG = 'tag'
  *
  *  @private
  */
+
 function isEmpty(obj) {
-  for(let key in obj) {
-    if(obj.hasOwnProperty(key)) {
-      return false;
-    }
+  let key;
+  for(key in obj) {
+    return false;
   }
   return true;
 }

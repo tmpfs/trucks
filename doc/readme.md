@@ -8,8 +8,7 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
 
 <? @include {=readme}
       install.md 
-      abstract.md
-      overview.md ?>
+      abstract.md ?>
 
 ***
 <!-- @toc -->
@@ -17,6 +16,7 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
 
 <? @include {=readme}
       usage.md 
+      overview.md
       compiler.md ?>
 
 ## API

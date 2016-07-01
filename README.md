@@ -47,6 +47,42 @@ The [react framework][react] is [not tracking the webcomponents standards][react
 
 The [trucks][] library aims to bring component encapsulation to [skatejs][] and allow [polymer][] component definitions to be compiled to bypass the [content security policy][csp] problem.
 
+---
+
+- [Install](#install)
+- [Abstract](#abstract)
+  - [Polymer](#polymer)
+  - [Skate](#skate)
+  - [React](#react)
+  - [Trucks](#trucks)
+- [Usage](#usage)
+- [Overview](#overview)
+- [Compiler](#compiler)
+  - [Load](#load)
+  - [Parse](#parse)
+  - [Transform](#transform)
+  - [Generate](#generate)
+- [API](#api)
+- [Developer](#developer)
+- [License](#license)
+
+---
+
+## Usage
+
+Programmatic usage:
+
+```javascript
+const trucks = require('trucks');
+
+trucks({files: ['example/components.html']}, (err, res) => {
+  if(err) {
+    throw err; 
+  }
+  console.log(res);
+});
+```
+
 ## Overview
 
 The library takes an HTML template and compiles it to a `render` function.
@@ -80,42 +116,6 @@ function render(elem) {
 ```
 
 Note that whitespace in the source template is normalized by default and that support for template literals needs to be enabled when compiling.
-
----
-
-- [Install](#install)
-- [Abstract](#abstract)
-  - [Polymer](#polymer)
-  - [Skate](#skate)
-  - [React](#react)
-  - [Trucks](#trucks)
-- [Overview](#overview)
-- [Usage](#usage)
-- [Compiler](#compiler)
-  - [Load](#load)
-  - [Parse](#parse)
-  - [Transform](#transform)
-  - [Generate](#generate)
-- [API](#api)
-- [Developer](#developer)
-- [License](#license)
-
----
-
-## Usage
-
-Programmatic usage:
-
-```javascript
-const trucks = require('trucks');
-
-trucks({files: ['example/components.html']}, (err, res) => {
-  if(err) {
-    throw err; 
-  }
-  console.log(res);
-});
-```
 
 ## Compiler
 

@@ -84,6 +84,7 @@ trucks.parse = parse;
  */
 trucks.transform = transform;
 
+// NOTE: this function is documented in src/compile.js
 trucks.compile = compile;
 
 /**

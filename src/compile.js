@@ -33,6 +33,7 @@ function isEmpty(obj) {
  *  @option {String=vdom} [vdom] the name of the vdom property.
  *  @option {String=element} [element] the name of the element function.
  *  @option {String=text} [text] the name of the text function.
+ *  @option {Boolean=true} [normalize] normalize whitespace in templates.
  *  @option {Object|Boolean} [literals] flags for template literal support.
  *  @option {Object} [load] options to use when parsing the DOM.
  *
@@ -44,7 +45,13 @@ function compile(html, opts) {
 
   opts.load = opts.load || {};
 
-  if(opts.load.normalizeWhitespace === undefined) {
+  if(opts.normalize === undefined) {
+    opts.normalize = true; 
+  }else{
+    opts.normalize = Boolean(opts.normalize);
+  }
+
+  if(opts.normalize) {
     opts.load.normalizeWhitespace = true; 
   }
 
@@ -211,7 +218,7 @@ function template(el, opts) {
         let arg;
 
         // skip text nodes that are just whitespace
-        if(opts.load.normalizeWhitespace && /^\s*$/.test(text)) {
+        if(opts.normalize && /^\s*$/.test(text)) {
           continue; 
         }
 

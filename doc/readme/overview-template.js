@@ -4,4 +4,4 @@ const fs = require('fs')
   , trucks = require('../../lib');
 
 const compiled = trucks.compile(contents, {literals: {text: true}});
-process.stdout.write(babel.transformFromAst(compiled[0].render).code);
+console.log(babel.transformFromAst(compiled[0].render).code);

@@ -1,23 +1,12 @@
 ## Developer
 
-Install dependencies and build the source files `npm i && npm run build` from [src](https://github.com/tmpfs/trucks/blob/master/src) to [lib](https://github.com/tmpfs/trucks/blob/master/lib).
+Install dependencies and build the source files `npm i && npm run build` from [src](/src) to [lib](/lib).
 
 To build the documentation [mkdoc][] is required (`npm i -g mkdoc`).
 
----
-
-- [Developer](#developer)
-  - [Build](#build)
-  - [Test](#test)
-  - [Cover](#cover)
-  - [Lint](#lint)
-  - [Clean](#clean)
-  - [Readme](#readme)
-  - [Developer](#developer-1)
-  - [Compiler](#compiler)
-  - [API](#api)
-
----
+***
+<!-- @toc -->
+***
 
 ### Build
 
@@ -90,8 +79,3 @@ To build the API docs:
 ```
 npm run api
 ```
-
----
-
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 2, 2016
-

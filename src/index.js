@@ -1,6 +1,7 @@
 const load = require('./load')
   , parse = require('./parse')
   , transform = require('./transform')
+  , compile = require('./compile')
   , generate = require('./generate')
   , write = require('./write');
 
@@ -81,6 +82,8 @@ trucks.parse = parse;
  *  @option {Object} babel options to pass to babel transform.
  */
 trucks.transform = transform;
+
+trucks.compile = compile;
 
 /**
  *  Concatenates the transformed result to stylesheet and javascript strings.

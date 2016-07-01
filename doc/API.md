@@ -106,6 +106,8 @@ trucks.compile(html, opts)
 
 Compile an HTML string to a babel AST program.
 
+Returns of objects representing the function bodies as AST nodes.
+
 * `html` String an HTML string.
 * `opts` Object processing options.
 

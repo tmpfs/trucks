@@ -31,7 +31,7 @@ function isEmpty(obj) {
  *  @option {String=element} [element] the name of the element function.
  *  @option {String=text} [text] the name of the text function.
  *
- *  @return {Array} of objects representing the function bodies as AST nodes.
+ *  @returns {Array} of objects representing the function bodies as AST nodes.
  */
 function compile(html, opts) {
   const cheerio = require('cheerio');

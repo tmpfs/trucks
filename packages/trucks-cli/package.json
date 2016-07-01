@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Web component compiler and package manager (cli)",
   "bin": "./bin/trucks",
+  "man": "./doc/man/trucks.1",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",

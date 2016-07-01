@@ -19,9 +19,6 @@ describe('compiler:', function() {
     const result = babel.transformFromAst(res[0].body);
     expect(result.code).to.eql('skate.vdom.element("span");');
 
-    const render = babel.transformFromAst(res[0].render);
-    console.log(render.code);
-
     done();
   });
 

@@ -118,6 +118,6 @@ Returns of objects representing the function bodies as AST nodes.
 * `vdom` String=vdom the name of the vdom property.
 * `element` String=element the name of the element function.
 * `text` String=text the name of the text function.
-* `literals` Object flags for template literal support.
+* `literals` Object|Boolean flags for template literal support.
 * `load` Object options to use when parsing the DOM.
 

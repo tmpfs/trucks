@@ -30,7 +30,7 @@ function isEmpty(obj) {
  *  @option {String=vdom} [vdom] the name of the vdom property.
  *  @option {String=element} [element] the name of the element function.
  *  @option {String=text} [text] the name of the text function.
- *  @option {Object} [literals] flags for template literal support.
+ *  @option {Object|Boolean} [literals] flags for template literal support.
  *  @option {Object} [load] options to use when parsing the DOM.
  *
  *  @returns {Array} of objects representing the function bodies as AST nodes.
@@ -43,6 +43,13 @@ function compile(html, opts) {
 
   if(opts.load.normalizeWhitespace === undefined) {
     opts.load.normalizeWhitespace = true; 
+  }
+
+  if(opts.literals === undefined) {
+    opts.literals = {}; 
+  // truthy enable all template literals
+  }else if(opts.literals && typeof opts.literals !== 'object') {
+    opts.literals = {text: true, attribute: true}; 
   }
 
   opts.dom = cheerio.load(html, opts.load);
@@ -188,7 +195,7 @@ function template(el, opts) {
         }
 
         // draft support for template literals in text nodes
-        if(opts.literals && opts.literals.text) {
+        if(opts.literals.text) {
           arg = babel.transform(
             '`' + text + '`').ast.program.body[0].expression;
         }else{

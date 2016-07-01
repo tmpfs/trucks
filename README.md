@@ -369,6 +369,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 1, 2016
 [react-webcomponents]: https://github.com/facebook/react/issues/5052
 [react-integration]: https://github.com/skatejs/react-integration
 [csp]: http://content-security-policy.com/
+[npm]: https://www.npmjs.com/
 [postcss]: https://github.com/postcss/postcss
 [mkdoc]: https://github.com/mkdoc/mkdoc
 [jshint]: http://jshint.com

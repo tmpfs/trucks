@@ -68,7 +68,13 @@ function readme(cb) {
     .on('finish', cb);
 }
 
+// @task docs build all docs
+function docs(cb){
+  cb();
+}
+
 mk.task(api);
 mk.task(developer);
 mk.task(compiler);
 mk.task(readme);
+mk.task([api, developer, compiler, readme], docs)

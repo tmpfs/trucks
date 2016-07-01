@@ -85,7 +85,7 @@ trucks({files: ['example/components.html']}, (err, res) => {
 
 ## Overview
 
-At it's core the library takes an HTML template and compiles it to a `render` function.
+The library takes an HTML template and compiles it to a `render` function.
 
 An HTML template such as:
 

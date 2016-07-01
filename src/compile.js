@@ -24,6 +24,25 @@ function isEmpty(obj) {
  *  Compile an HTML string to a list of babel AST programs representing each 
  *  `<template>` element in the input HTML.
  *
+ *  The return object contains a `list` array with information about each 
+ *  compiled `<template>` element including the compiled function `body` and 
+ *  a `render` function as an AST program.
+ *
+ *  It also contains a `map` object which is an AST program representing a map 
+ *  of component identifiers (extracted from the template `id` attribute by 
+ *  default) to render functions. 
+ *
+ *  To generate the string code for the template map:
+ *
+ *  ```javascript
+ *  const trucks = require('trucks')
+ *    , babel = require('babel-code')
+ *    , tpl = '<template id="x-component"></template>'
+ *    , info = trucks.compile(tpl)
+ *    , result = babel.transformFromAst(info.map);
+ *  console.log(result.code);
+ *  ```
+ *
  *  @function trucks.compile
  *  @param {String} html an HTML string.
  *  @param {Object} opts processing options.

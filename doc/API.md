@@ -104,7 +104,27 @@ Writes the generated result to stylesheet and javascript files.
 trucks.compile(html, opts)
 ```
 
-Compile an HTML string to a babel AST program.
+Compile an HTML string to a list of babel AST programs representing each
+`<template>` element in the input HTML.
+
+The return object contains a `list` array with information about each
+compiled `<template>` element including the compiled function `body` and
+a `render` function as an AST program.
+
+It also contains a `map` object which is an AST program representing a map
+of component identifiers (extracted from the template `id` attribute by
+default) to render functions.
+
+To generate the string code for the template map:
+
+```javascript
+const trucks = require('trucks')
+, babel = require('babel-code')
+, tpl = '<template id="x-component"></template>'
+, info = trucks.compile(tpl)
+, result = babel.transformFromAst(info.map);
+console.log(result.code);
+```
 
 Returns of objects representing the function bodies as AST nodes.
 
@@ -118,6 +138,7 @@ Returns of objects representing the function bodies as AST nodes.
 * `vdom` String=vdom the name of the vdom property.
 * `element` String=element the name of the element function.
 * `text` String=text the name of the text function.
+* `normalize` Boolean=true normalize whitespace in templates.
 * `literals` Object|Boolean flags for template literal support.
 * `load` Object options to use when parsing the DOM.
 

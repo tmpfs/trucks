@@ -36,7 +36,7 @@ function isEmpty(obj) {
  *
  *  ```javascript
  *  const trucks = require('trucks')
- *    , babel = require('babel-code')
+ *    , babel = require('babel-core')
  *    , tpl = '<template id="x-component"></template>'
  *    , info = trucks.compile(tpl)
  *    , result = babel.transformFromAst(info.map);
@@ -58,7 +58,7 @@ function isEmpty(obj) {
  *
  *  @throws Error if a template element does not define an identifier.
  *
- *  @returns {Array} of objects representing the function bodies as AST nodes.
+ *  @returns Object representing the templates as AST programs.
  */
 function compile(html, opts) {
   const cheerio = require('cheerio');

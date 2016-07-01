@@ -119,14 +119,14 @@ To generate the string code for the template map:
 
 ```javascript
 const trucks = require('trucks')
-, babel = require('babel-code')
+, babel = require('babel-core')
 , tpl = '<template id="x-component"></template>'
 , info = trucks.compile(tpl)
 , result = babel.transformFromAst(info.map);
 console.log(result.code);
 ```
 
-Returns of objects representing the function bodies as AST nodes.
+Returns Object representing the templates as AST programs.
 
 * `html` String an HTML string.
 * `opts` Object processing options.

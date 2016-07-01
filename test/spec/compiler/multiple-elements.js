@@ -16,8 +16,8 @@ describe('compiler:', function() {
     // function body AST
     expect(res[0].body).to.be.an('object');
 
-    const {code} = babel.transformFromAst(res[0].body);
-    expect(code).to.eql(
+    const result = babel.transformFromAst(res[0].body);
+    expect(result.code).to.eql(
       'skate.vdom.element("span");\n' + 
       'skate.vdom.element("em");' 
     );

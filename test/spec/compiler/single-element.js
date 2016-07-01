@@ -5,7 +5,7 @@ var expect = require('chai').expect
 describe('compiler:', function() {
 
   it('should generate AST for single element', function(done) {
-    var tpl = '<template id="x-foo"><span></span></template>';
+    const tpl = '<template id="x-foo"><span></span></template>';
     const res = trucks.compile(tpl);
 
     expect(res).to.be.an('array').to.have.length(1);

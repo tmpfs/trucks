@@ -4,8 +4,8 @@ var expect = require('chai').expect
 
 describe('compiler:', function() {
 
-  it('should generate AST for multiple elements', function(done) {
-    const tpl = '<template id="x-foo"><span></span><em></em></template>';
+  it('should generate AST for element w/ text node', function(done) {
+    const tpl = '<template id="x-foo"><span>Foo</span></template>';
     const res = trucks.compile(tpl);
 
     expect(res).to.be.an('array').to.have.length(1);
@@ -18,9 +18,9 @@ describe('compiler:', function() {
 
     const result = babel.transformFromAst(res[0].body);
     expect(result.code).to.eql(
-      'skate.vdom.element("span");\n' + 
-      'skate.vdom.element("em");' 
-    );
+      'skate.vdom.element("span", () => {\n'
+        + '  skate.vdom.text("Foo");\n' 
+        + '});');
 
     done();
   });

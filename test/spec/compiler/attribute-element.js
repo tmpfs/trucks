@@ -5,7 +5,7 @@ var expect = require('chai').expect
 describe('compiler:', function() {
 
   it('should generate AST for element with attributes', function(done) {
-    var tpl = '<template id="x-foo">'
+    const tpl = '<template id="x-foo">'
       + '<span id="myid" class="inline"></span></template>';
 
     const res = trucks.compile(tpl);

@@ -1,4 +1,5 @@
-const SKATE = 'skate'
+const TAG = 'tag'
+    , SKATE = 'skate'
     , VDOM = 'vdom'
     , ELEMENT = 'element'
     , TEXT = 'text';
@@ -112,30 +113,62 @@ function template(el, opts) {
     , t = require('babel-core').types
     , body = [];
 
-  function convert(nodes) {
-    nodes.each((i, child) => {
-      const args = [t.stringLiteral(child.tagName)];
+  function convert(childNodes, body) {
+    let i
+      , args = []
+      , expr;
 
-      // push attributes into function call when not empty
-      const attrs = $(child).attr();
-      if(!isEmpty(attrs)) {
-        args.push(getObjectExpression(t, attrs));
+    for(i = 0;i < childNodes.length;i++) {
+      const child = childNodes[i];
+      const el = $(child);
+
+      // child tag node (element)
+      if(child.type === TAG) {
+        args = [t.stringLiteral(child.name)];
+
+        // push attributes into function call when not empty
+        const attrs = el.attr();
+        if(!isEmpty(attrs)) {
+          args.push(getObjectExpression(t, attrs));
+        }
+
+        // got some child nodes to process
+        if(child.childNodes && child.childNodes.length) {
+       
+          // get function expression
+          const block = [];
+
+          convert(child.childNodes, block);
+
+          // NOTE: no function arguments
+          const func = t.arrowFunctionExpression([], t.blockStatement(block));
+          args.push(func);
+        }
+
+        // call skate.vdom.element();
+        expr = t.expressionStatement(
+          getCallExpression(t, ELEMENT, args));
+      // child text node
+      }else{
+        // call skate.vdom.text();
+        args = [t.stringLiteral(el.text())];
+        expr = t.expressionStatement(
+          getCallExpression(t, TEXT, args));
       }
 
-      const expr = t.expressionStatement(
-        getCallExpression(t, ELEMENT, args));
-
       body.push(expr);
-    });
+    //});
+    }
   }
 
-  convert($(el.children()));
+  convert(el.childNodes, body);
 
+  const tpl = $(el);
   return {
     element: el,
-    attributes: el.attr(),
-    id: el.attr(opts.attr),
-    name: el.get(0).tagName,
+    attributes: tpl.attr(),
+    id: tpl.attr(opts.attr),
+    name: tpl.get(0).tagName,
     body: t.program(body)
   }
 }
@@ -156,7 +189,7 @@ function transform(dom, opts) {
     , templates = $('template');
 
   templates.each((i, el) => {
-    out.push(template($(el), opts));
+    out.push(template(el, opts));
   })
 
   return out;

@@ -52,6 +52,14 @@ To build the readme file:
 mk readme
 ```
 
+### Compiler
+
+To build the compiler docs:
+
+```
+mk compiler
+```
+
 ### API
 
 To build the API docs:

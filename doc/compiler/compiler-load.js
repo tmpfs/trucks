@@ -1,6 +1,6 @@
 var trucks = require('../../lib/index');
 
-trucks.load({files: ['example/compiler/components.html']}, (err, loaded) => {
+trucks.load({files: ['doc/compiler/components.html']}, (err, loaded) => {
   if(err) {
     throw err; 
   }

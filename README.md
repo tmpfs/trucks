@@ -62,10 +62,6 @@ The [trucks][] library aims to bring component encapsulation to [skatejs][] and 
   - [Packages](#packages)
   - [Styles](#styles)
 - [Compiler](#compiler)
-  - [Load](#load)
-  - [Parse](#parse)
-  - [Transform](#transform)
-  - [Generate](#generate)
 - [API](#api)
 - [Developer](#developer)
 - [License](#license)
@@ -209,136 +205,7 @@ The suggestion is that this would be implemented as [postcss plugins][postcss].
 
 ## Compiler
 
-The compiler executes the following phases:
-
-* `load`: Load all source HTML files given with the `files` option and resolve the HTML imports.
-* `parse`: Parse the imported files resolving styles, javascript and template elements.
-* `transform`: Transform the imported component files compiling `<template>` elements to javascript.
-* `generate`: Convert the transformed components to css and javascript strings.
-* `write`: Write the generated styles and javascript to files.
-
-### Load
-
-Given a components file [components.html](https://github.com/tmpfs/trucks/blob/master/example/compiler/components.html) such as:
-
-```html
-<link rel="import" href="x-icon.html">
-<link rel="import" href="x-button.html">
-```
-
-The load phase will build the result object:
-
-```json
-{
-  "example/compiler/components.html": [
-    {
-      "file": "example/compiler/x-icon.html",
-      "contents": "<template id=\"x-icon\">\n\n</template>\n\n<style>\n  x-icon {\n    /* components styles */\n  }\n</style>\n\n<script>\n  skate.define('x-icon', {});\n</script>\n"
-    },
-    {
-      "file": "example/compiler/x-button.html",
-      "contents": "<template id=\"x-button\">\n\n</template>\n\n<style>\n  x-button {\n    /* components styles */\n  }\n</style>\n\n<script>\n  skate.define('x-button', {});\n</script>\n"
-    }
-  ]
-}
-```
-
-Imported component file paths are resolved relative to the declaring file.
-
-### Parse
-
-The parse phase takes the output from the load phase and extracts the css, javascript and template elements:
-
-```json
-{
-  "css": [
-    {
-      "parent": "example/compiler/components.html",
-      "file": "example/compiler/x-icon.html",
-      "contents": "\n  x-icon {\n    /* components styles */\n  }\n",
-      "inline": true
-    },
-    {
-      "parent": "example/compiler/components.html",
-      "file": "example/compiler/x-button.html",
-      "contents": "\n  x-button {\n    /* components styles */\n  }\n",
-      "inline": true
-    }
-  ],
-  "js": [
-    {
-      "parent": "example/compiler/components.html",
-      "file": "example/compiler/x-icon.html",
-      "contents": "\n  skate.define('x-icon', {});\n",
-      "inline": true
-    },
-    {
-      "parent": "example/compiler/components.html",
-      "file": "example/compiler/x-button.html",
-      "contents": "\n  skate.define('x-button', {});\n",
-      "inline": true
-    }
-  ],
-  "tpl": [
-    {
-      "parent": "example/compiler/components.html",
-      "file": "example/compiler/x-icon.html",
-      "contents": "<template id=\"x-icon\">\n\n</template>",
-      "inline": true
-    },
-    {
-      "parent": "example/compiler/components.html",
-      "file": "example/compiler/x-button.html",
-      "contents": "<template id=\"x-button\">\n\n</template>",
-      "inline": true
-    }
-  ],
-  "options": {}
-}
-```
-
-### Transform
-
-The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
-
-> TODO: implement and document the transform phase
-
-```json
-{
-  "js": [
-    {
-      "parent": "example/compiler/components.html",
-      "file": "example/compiler/x-icon.html",
-      "contents": "\n  skate.define('x-icon', {});\n",
-      "inline": true,
-      "code": "\nskate.define('x-icon', {});"
-    },
-    {
-      "parent": "example/compiler/components.html",
-      "file": "example/compiler/x-button.html",
-      "contents": "\n  skate.define('x-button', {});\n",
-      "inline": true,
-      "code": "\nskate.define('x-button', {});"
-    }
-  ],
-  "options": {}
-}
-```
-
-Note that some data has been omitted from the example output for brevity.
-
-### Generate
-
-After transformation the generate phase will concatenate all the css and transformed javascript code.
-
-```json
-{
-  "stylesheet": "\n  x-icon {\n    /* components styles */\n  }\n\n\n  x-button {\n    /* components styles */\n  }\n",
-  "javascript": "\nskate.define('x-icon', {});\n\nskate.define('x-button', {});"
-}
-```
-
-Note that some data has been omitted from the example output for brevity.
+For insights into the compiler phases and data structures see [COMPILER.md](https://github.com/tmpfs/trucks/blob/master/doc/COMPILER.md).
 
 ## API
 
@@ -354,7 +221,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 1, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 2, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

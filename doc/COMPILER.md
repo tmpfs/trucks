@@ -15,6 +15,7 @@ The compiler executes the following phases:
   - [Parse](#parse)
   - [Transform](#transform)
   - [Generate](#generate)
+  - [Write](#write)
 
 ---
 
@@ -140,6 +141,10 @@ After transformation the generate phase will concatenate all the css and transfo
 ```
 
 Note that some data has been omitted from the example output for brevity.
+
+### Write
+
+The final phase writes the generated files to disc.
 
 ---
 

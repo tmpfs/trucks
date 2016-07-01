@@ -47,3 +47,7 @@ After transformation the generate phase will concatenate all the css and transfo
 <? @exec {json} node doc/compiler/compiler-generate.js ?>
 
 Note that some data has been omitted from the example output for brevity.
+
+### Write
+
+The final phase writes the generated files to disc.

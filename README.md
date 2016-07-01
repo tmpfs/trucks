@@ -78,6 +78,8 @@ function render(elem) {
   });
 }```
 
+Note that whitespace in the source template is normalized by default and that support for template literals needs to be enabled when compiling.
+
 ---
 
 - [Install](#install)

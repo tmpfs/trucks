@@ -274,7 +274,4 @@ function transform(dom, opts) {
   return out;
 }
 
-compile.transform = transform;
-compile.template = template;
-
 module.exports = compile;

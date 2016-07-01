@@ -1,7 +1,7 @@
 const SKATE = 'skate'
     , VDOM = 'vdom'
     , ELEMENT = 'element'
-    //, text = 'text';
+    , TEXT = 'text';
   
 /**
  *  Utility to determine if an object is empty.
@@ -24,7 +24,13 @@ function isEmpty(obj) {
  *  @param {String} html an HTML string.
  *  @param {Object} opts processing options.
  *
- *  @return {Array} of function bodies.
+ *  @option {String=id} [attr] the attribute name used for the component id.
+ *  @option {String=skate} [skate] the name of the skatejs variable.
+ *  @option {String=vdom} [vdom] the name of the vdom property.
+ *  @option {String=element} [element] the name of the element function.
+ *  @option {String=text} [text] the name of the text function.
+ *
+ *  @return {Array} of objects representing the function bodies as AST nodes.
  */
 function compile(html, opts) {
   const cheerio = require('cheerio');
@@ -32,6 +38,11 @@ function compile(html, opts) {
 
   opts.dom = cheerio.load(html);
   opts.attr = opts.attr || 'id';
+
+  opts.skate = opts.skate || SKATE;
+  opts.vdom = opts.vdom || VDOM;
+  opts.element = opts.element || ELEMENT;
+  opts.text = opts.text || TEXT;
 
   return transform(opts.dom, opts);
 }

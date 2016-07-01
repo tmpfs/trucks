@@ -106,7 +106,7 @@ function getCallExpression(t, method, args) {
  *  @param {Object} el the element DOM.
  *  @param {Object} opts processing options.
  *
- *  @return {Object} function body AST.
+ *  @returns {Object} function body AST.
  */
 function template(el, opts) {
   const $ = opts.dom
@@ -181,7 +181,7 @@ function template(el, opts) {
  *  @param {Object} dom the DOM object.
  *  @param {Object} opts processing options.
  *
- *  @return {Array} of function bodies.
+ *  @returns {Array} of function bodies.
  */
 function transform(dom, opts) {
   const out = []

@@ -157,7 +157,6 @@ function template(el, opts) {
       }
 
       body.push(expr);
-    //});
     }
   }
 

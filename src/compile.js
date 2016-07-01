@@ -89,8 +89,6 @@ function compile(html, opts) {
  *  @returns {Object} AST program mapping components to render functions.
  */
 function map(templates, opts) {
-  opts = opts || {};
-
   let out = [];
 
   const t = require('babel-core').types;

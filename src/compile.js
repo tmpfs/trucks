@@ -72,12 +72,13 @@ function compile(html, opts) {
  *  @private {function} getObjectExpression
  *  @param {Object} t the babel types object.
  *  @param {Object} map the object to convert to an AST expression.
+ *  @param {Function} it iterator function to transform property values.
  */
-function getObjectExpression(t, map) {
+function getObjectExpression(t, map, it) {
   const out = [];
   for(let k in map) {
     out.push(
-      t.objectProperty(t.identifier(k), t.stringLiteral(map[k]))
+      t.objectProperty(t.identifier(k), it(map[k]))
     );
   }
   return t.objectExpression(out);
@@ -148,6 +149,16 @@ function template(el, opts) {
     , t = babel.types
     , body = [];
 
+
+  function propertyString(val) {
+    return t.stringLiteral(val);
+  }
+
+  function propertyTemplate(val) {
+    return babel.transform(
+      '`' + val  + '`').ast.program.body[0].expression;
+  }
+
   function convert(childNodes, body) {
     let i
       , args = []
@@ -164,7 +175,14 @@ function template(el, opts) {
         // push attributes into function call when not empty
         const attrs = el.attr();
         if(!isEmpty(attrs)) {
-          args.push(getObjectExpression(t, attrs));
+          let it = propertyString;
+
+          // parse attribute value as template literal
+          if(opts.literals.attribute) {
+            it = propertyTemplate;
+          }
+
+          args.push(getObjectExpression(t, attrs, it));
         }
 
         // got some child nodes to process

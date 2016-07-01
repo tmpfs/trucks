@@ -4,11 +4,11 @@ var expect = require('chai').expect
 
 describe('compiler:', function() {
 
-  it('should generate AST for template literal (text)', function(done) {
+  it('should generate AST for template literal (attr)', function(done) {
     const tpl = '<template id="x-foo">'
-      + '<span>name: ${elem.tagName}</span></template>';
+      + '<span name="${elem.tagName}"></span></template>';
 
-    const res = trucks.compile(tpl, {literals: {text: true}});
+    const res = trucks.compile(tpl, {literals: {attribute: true}});
 
     expect(res).to.be.an('array').to.have.length(1);
 
@@ -22,8 +22,8 @@ describe('compiler:', function() {
     const result = babel.transformFromAst(res[0].render);
     expect(result.code).to.eql(
       'function render(elem) {\n'
-        + '  skate.vdom.element("span", () => {\n'
-        + '    skate.vdom.text(`name: ${ elem.tagName }`);\n'
+        + '  skate.vdom.element("span", {\n'
+        + '    name: `${ elem.tagName }`\n'
         + '  });\n'
         + '}'
       );

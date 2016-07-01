@@ -4,7 +4,7 @@ var expect = require('chai').expect
 
 describe('compiler:', function() {
 
-  it('should generate AST for single element', function(done) {
+  it('should generate AST for render function', function(done) {
     const tpl = '<template id="x-foo"><span></span></template>';
     const res = trucks.compile(tpl);
 
@@ -16,11 +16,13 @@ describe('compiler:', function() {
     // function body AST
     expect(res[0].body).to.be.an('object');
 
-    const result = babel.transformFromAst(res[0].body);
-    expect(result.code).to.eql('skate.vdom.element("span");');
-
-    const render = babel.transformFromAst(res[0].render);
-    console.log(render.code);
+    // NOTE: this test is on the render() function not on the function body
+    const result = babel.transformFromAst(res[0].render);
+    expect(result.code).to.eql(
+      'function render(elem) {\n'
+        + '  skate.vdom.element("span");\n'
+        + '}'
+      );
 
     done();
   });

@@ -100,6 +100,25 @@ function getCallExpression(t, method, args) {
 }
 
 /**
+ *  Wraps the function body in a function declaration with as single `elem` 
+ *  arguments.
+ *
+ *  @private {function} render
+ *  @param {Object} t the babel types object.
+ *  @param {Array} body list of function body expressions.
+ *  @param {String=render} name the function name.
+ *  @param {String=elem} name the function argument.
+ *
+ *  @returns a function declaration.
+ */
+function render(t, body, name, arg) {
+  name = name || 'render';
+  arg = arg || 'elem';
+  return t.functionDeclaration(
+    t.identifier(name), [t.identifier(arg)], t.blockStatement(body));
+}
+
+/**
  *  Convert a single DOM `<template>` element to an AST object.
  *
  *  @private {function} template
@@ -110,7 +129,8 @@ function getCallExpression(t, method, args) {
  */
 function template(el, opts) {
   const $ = opts.dom
-    , t = require('babel-core').types
+    , babel = require('babel-core')
+    , t = babel.types
     , body = [];
 
   function convert(childNodes, body) {
@@ -150,8 +170,17 @@ function template(el, opts) {
           getCallExpression(t, ELEMENT, args));
       // child text node
       }else{
+        let arg;
+
+        // draft support for template literals in text nodes
+        if(opts.literals && opts.literals.text) {
+          arg = babel.transform(
+            '`' + el.text() + '`').ast.program.body[0].expression;
+        }else{
+          arg = t.stringLiteral(el.text());
+        }
         // call skate.vdom.text();
-        args = [t.stringLiteral(el.text())];
+        args = [arg];
         expr = t.expressionStatement(
           getCallExpression(t, TEXT, args));
       }
@@ -168,7 +197,8 @@ function template(el, opts) {
     attributes: tpl.attr(),
     id: tpl.attr(opts.attr),
     name: tpl.get(0).tagName,
-    body: t.program(body)
+    body: t.program(body),
+    render: t.program([render(t, body)])
   }
 }
 

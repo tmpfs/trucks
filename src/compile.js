@@ -2,6 +2,20 @@ const SKATE = 'skate'
     , VDOM = 'vdom'
     , ELEMENT = 'element'
     //, text = 'text';
+  
+/**
+ *  Utility to determine if an object is empty.
+ *
+ *  @private
+ */
+function isEmpty(obj) {
+  for(let key in obj) {
+    if(obj.hasOwnProperty(key)) {
+      return false;
+    }
+  }
+  return true;
+}
 
 /**
  *  Compile an HTML string to a babel AST path.
@@ -20,6 +34,26 @@ function compile(html, opts) {
   opts.attr = opts.attr || 'id';
 
   return transform(opts.dom, opts);
+}
+
+/**
+ *  Get an object expression from a javascript object.
+ *
+ *  Designed for the attributes map so only support ObjectProperty 
+ *  expressions and assumes all values are string literals.
+ *
+ *  @private {function} getObjectExpression
+ *  @param {Object} t the babel types object.
+ *  @param {Object} map the object to convert to an AST expression.
+ */
+function getObjectExpression(t, map) {
+  const out = [];
+  for(let k in map) {
+    out.push(
+      t.objectProperty(t.identifier(k), t.stringLiteral(map[k]))
+    );
+  }
+  return t.objectExpression(out);
 }
 
 /**
@@ -63,15 +97,22 @@ function getCallExpression(t, method, args) {
  *  @return {Object} function body AST.
  */
 function template(el, opts) {
-
   const $ = opts.dom
     , t = require('babel-core').types
     , body = [];
 
   function convert(nodes) {
     nodes.each((i, child) => {
+      const args = [t.stringLiteral(child.tagName)];
+
+      // push attributes into function call when not empty
+      const attrs = $(child).attr();
+      if(!isEmpty(attrs)) {
+        args.push(getObjectExpression(t, attrs));
+      }
+
       const expr = t.expressionStatement(
-        getCallExpression(t, ELEMENT, [t.stringLiteral(child.tagName)]));
+        getCallExpression(t, ELEMENT, args));
 
       body.push(expr);
     });

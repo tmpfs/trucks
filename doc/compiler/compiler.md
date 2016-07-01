@@ -14,7 +14,7 @@ The compiler executes the following phases:
 
 ### Load
 
-Given a components file [components.html](/example/compiler/components.html) such as:
+Given a components file [components.html](/doc/compiler/components.html) such as:
 
 <? @source {html} components.html ?>
 

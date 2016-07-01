@@ -20,7 +20,7 @@ The compiler executes the following phases:
 
 ### Load
 
-Given a components file [components.html](https://github.com/tmpfs/trucks/blob/master/example/compiler/components.html) such as:
+Given a components file [components.html](https://github.com/tmpfs/trucks/blob/master/doc/compiler/components.html) such as:
 
 ```html
 <link rel="import" href="x-icon.html">

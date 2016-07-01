@@ -178,11 +178,9 @@ function getCallExpression(t, method, args) {
  *
  *  @returns a function declaration.
  */
-function render(t, body, name, arg) {
-  name = name || RENDER;
-  arg = arg || ELEM;
+function render(t, body, opts) {
   return t.functionDeclaration(
-    t.identifier(name), [t.identifier(arg)], t.blockStatement(body));
+    t.identifier(opts.name), [t.identifier(opts.arg)], t.blockStatement(body));
 }
 
 /**
@@ -289,7 +287,7 @@ function template(el, opts) {
     id: tpl.attr(opts.attr),
     name: tpl.get(0).tagName,
     body: t.program(body),
-    render: t.program([render(t, body)])
+    render: t.program([render(t, body, opts)])
   }
 }
 

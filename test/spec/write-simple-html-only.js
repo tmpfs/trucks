@@ -3,19 +3,19 @@ var expect = require('chai').expect
 
 describe('trucks:', function() {
 
-  it('should write css output', function(done) {
+  it('should write html output', function(done) {
     const src = 'test/fixtures/simple-inline/components.html'
-      , css = 'target/simple-css-only.css';
+      , html = 'target/simple-html-only.html';
     trucks(
       {
         files: [src],
-        css: css
+        html: html
       },
       (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');
         expect(result.files).to.be.an('object');
-        expect(result.files.css.file).to.eql(css);
+        expect(result.files.html.file).to.eql(html);
         done();
       }
     );

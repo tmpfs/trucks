@@ -24,6 +24,7 @@ npm i trucks-cli --save-dev
 
 - [Install](#install)
 - [Documentation](#documentation)
+- [Usage](#usage)
 - [Completion](#completion)
 - [Developer](#developer)
   - [Build](#build)
@@ -49,6 +50,30 @@ If the program is installed globally the man page will be installed:
 ```
 man trucks
 ```
+
+## Usage
+
+To compile components to the current working directory:
+
+```shell
+trucks src/*.html
+```
+
+Will generate `components.html`, `components.css` and `components.js` in the current working directory. The output file name is `components` by default use the `--name` option to change the name of the generated files.
+
+Use the `--out` option to specify the output directory:
+
+```shell
+trucks src/*.html -o build
+```
+
+Configuration files can be loaded and merged with the default options using the `--conf` option:
+
+```shell
+trucks src/*.html -o build --conf options.js
+```
+
+For full documentation see the [man page](https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli/doc/man/trucks.1).
 
 ## Completion
 

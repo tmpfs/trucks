@@ -15,6 +15,7 @@ Command line interface for the [trucks][] libary.
 
 <? @include {=readme}
       documentation.md
+      usage.md
       completion.md
       developer.md
       license.md

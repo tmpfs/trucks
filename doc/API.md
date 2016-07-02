@@ -151,10 +151,10 @@ To generate the string code for the template map:
 
 ```javascript
 const trucks = require('trucks')
-, babel = require('babel-core')
-, tpl = '<template id="x-component"></template>'
-, info = trucks.compile(tpl)
-, result = babel.transformFromAst(info.map);
+  , babel = require('babel-core')
+  , tpl = '<template id="x-component"></template>'
+  , info = trucks.compile(tpl)
+  , result = babel.transformFromAst(info.map);
 console.log(result.code);
 ```
 

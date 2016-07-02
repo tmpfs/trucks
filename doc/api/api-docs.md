@@ -54,7 +54,7 @@ Parses the loaded file data to stylesheet and javascript strings.
 trucks.transform(parsed[, opts], cb)
 ```
 
-Transforms the parsed result compiling the html `<template>` element
+Transforms the parsed result compiling the html `<template>` element 
 corresponding to a javascript component definition to a function.
 
 * `parsed` Object The result from the parse phase.
@@ -89,10 +89,10 @@ trucks.write(generated, opts, cb)
 
 Writes the generated result to stylesheet and javascript files.
 
-If the `out` option is given then all files are written to the target
+If the `out` option is given then all files are written to the target 
 directory using the `name` option, file extensions are added automatically.
 
-When the `html`, `css` and `js` options are given they override any paths
+When the `html`, `css` and `js` options are given they override any paths 
 built using the `out` and `name` options.
 
 * `generated` Object The result from the generate phase.
@@ -114,25 +114,25 @@ built using the `out` and `name` options.
 trucks.compile(html, opts)
 ```
 
-Compile an HTML string to a list of babel AST programs representing each
+Compile an HTML string to a list of babel AST programs representing each 
 `<template>` element in the input HTML.
 
-The return object contains a `list` array with information about each
-compiled `<template>` element including the compiled function `body` and
+The return object contains a `list` array with information about each 
+compiled `<template>` element including the compiled function `body` and 
 a `render` function as an AST program.
 
-It also contains a `map` object which is an AST program representing a map
-of component identifiers (extracted from the template `id` attribute by
-default) to render functions.
+It also contains a `map` object which is an AST program representing a map 
+of component identifiers (extracted from the template `id` attribute by 
+default) to render functions. 
 
 To generate the string code for the template map:
 
 ```javascript
 const trucks = require('trucks')
-, babel = require('babel-core')
-, tpl = '<template id="x-component"></template>'
-, info = trucks.compile(tpl)
-, result = babel.transformFromAst(info.map);
+  , babel = require('babel-core')
+  , tpl = '<template id="x-component"></template>'
+  , info = trucks.compile(tpl)
+  , result = babel.transformFromAst(info.map);
 console.log(result.code);
 ```
 

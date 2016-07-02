@@ -14,6 +14,12 @@ Command line interface for the [trucks][] libary.
 npm i -g trucks-cli
 ```
 
+Or just for your project:
+
+```
+npm i trucks-cli --save-dev
+```
+
 ---
 
 - [Install](#install)
@@ -90,7 +96,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on June 30, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 2, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [skatejs]: https://github.com/skatejs/skatejs

@@ -25,7 +25,7 @@
   },
   "scripts": {
     "clean": "rm -rf coverage target",
-    "lint": "jshint . && jscs .",
+    "lint": "jshint cli test/spec && jscs cli test/spec",
     "target": "rm -rf target && mkdir target",
     "pretest": "npm run target",
     "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",

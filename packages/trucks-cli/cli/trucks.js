@@ -32,8 +32,7 @@ function main(argv, conf, cb) {
   /* istanbul ignore next: never read from stdin in test env */
   conf.input = conf.input || process.stdin;
 
-  var opts = {
-    }
+  var opts = {}
     , help = require('mkcli/plugin/help')
     , runtime = {
         base: path.normalize(path.join(__dirname, '..')),

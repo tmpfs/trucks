@@ -2,6 +2,7 @@
 node_modules
 coverage
 target
+/components.*
 *.bak
 *.zip
 *.tgz

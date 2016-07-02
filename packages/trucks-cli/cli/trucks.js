@@ -58,14 +58,8 @@ function main(argv, conf, cb) {
 
     this.files = req.unparsed;
 
-    // no stylesheet file path specified, use `components.css` in cwd
-    if(!this.css) {
-      this.css = path.join(process.cwd(), 'components.css');
-    }
-
-    // no javascript file path specified, use `components.js` in cwd
-    if(!this.js) {
-      this.js = path.join(process.cwd(), 'components.js');
+    if(!this.out) {
+      this.out = process.cwd();
     }
 
     trucks(this, cb);

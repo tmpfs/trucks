@@ -53,15 +53,15 @@ man trucks
 
 ## Usage
 
-To compile components to the current working directory:
+To compile components pass HTML source files, for example:
 
 ```shell
 trucks src/*.html
 ```
 
-Will generate `components.html`, `components.css` and `components.js` in the current working directory. The output file name is `components` by default use the `--name` option to change the name of the generated files.
+Which will generate `components.html`, `components.css` and `components.js` in the current working directory. The output file name is `components` by default; use the `--name` option to change the name of the generated files.
 
-Use the `--out` option to specify the output directory:
+Change the output directory with the `--out` option:
 
 ```shell
 trucks src/*.html -o build

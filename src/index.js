@@ -14,9 +14,11 @@ const load = require('./load')
  *
  *  @option {Array} files list of HTML files to compile.
  *  @option {Object} babel options to pass to babel transform.
+ *  @option {String} out output directory for files.
+ *  @option {String=components} name name of the output files.
+ *  @option {String} html path to write the generated template markup.
  *  @option {String} css path to write the generated stylesheet.
  *  @option {String} js path to write the generated javascript.
- *  @option {String} html path to write the generated template markup.
  *  @option {String} eol override the default EOL for concatenation.
  */
 function trucks(opts, cb) {
@@ -101,14 +103,22 @@ trucks.generate = generate;
 /**
  *  Writes the generated result to stylesheet and javascript files.
  *
+ *  If the `out` option is given then all files are written to the target 
+ *  directory using the `name` option, file extensions are added automatically.
+ *
+ *  When the `html`, `css` and `js` options are given they override any paths 
+ *  built using the `out` and `name` options.
+ *
  *  @function trucks.write
  *  @param {Object} generated The result from the generate phase.
  *  @param {Object} opts processing options.
  *  @param {Function} cb callback function.
  *
+ *  @option {String} out output directory for files.
+ *  @option {String=components} name name of the output files.
+ *  @option {String} html path to write the generated template markup.
  *  @option {String} css path to write the generated stylesheet.
  *  @option {String} js path to write the generated javascript.
- *  @option {String} html path to write the generated template markup.
  */
 trucks.write = write;
 

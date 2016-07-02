@@ -1,4 +1,6 @@
 const fs = require('fs')
+  , path = require('path')
+  , NAME = 'components'
   , HTML = 'html'
   , CSS = 'css'
   , JS = 'js';
@@ -7,17 +9,6 @@ const fs = require('fs')
  *  @private
  */
 function write(generated, opts, cb) {
-  // no file paths specified, nothing to write
-  if(!opts.css && !opts.js) {
-    return cb(null, generated); 
-  }
-
-  if(opts.css && !generated.stylesheet) {
-    return cb(new Error('no stylesheet data available to write')); 
-  }else if(opts.js && !generated.javascript) {
-    return cb(new Error('no javascript data available to write')); 
-  }
-
 
   // track files that were written consumers (such as a cli)
   // might want to stat afterwards for bytes written
@@ -40,18 +31,54 @@ function write(generated, opts, cb) {
     } 
   }
 
+  let html
+    , css
+    , js;
+
+  // output directory and file name
+  if(opts.out === String(opts.out)) {
+    opts.name = opts.name || NAME;
+
+    // build output paths using `out` directory and `name` options
+    html = path.join(opts.out, `${opts.name}.${HTML}`);
+    css = path.join(opts.out, `${opts.name}.${CSS}`);
+    js = path.join(opts.out, `${opts.name}.${JS}`);
+  }
+
+  // specific overrides for each output type
+  if(opts.html === String(opts.html)) {
+    html = opts.html; 
+  }
+
+  if(opts.css === String(opts.css)) {
+    css = opts.css; 
+  }
+
+  if(opts.js === String(opts.js)) {
+    js = opts.js; 
+  }
+
+  if(html && !generated.html) {
+    return cb(new Error('no html data available to write')); 
+  }else if(css && !generated.stylesheet) {
+    return cb(new Error('no stylesheet data available to write')); 
+  }else if(js && !generated.javascript) {
+    return cb(new Error('no javascript data available to write')); 
+  }
+
+
   const writers = [];
 
-  if(opts.html) {
-    writers.push(writer(HTML, opts.html, generated.html)); 
+  if(html) {
+    writers.push(writer(HTML, html, generated.html)); 
   }
 
-  if(opts.css) {
-    writers.push(writer(CSS, opts.css, generated.stylesheet)); 
+  if(css) {
+    writers.push(writer(CSS, css, generated.stylesheet)); 
   }
   
-  if(opts.js) {
-    writers.push(writer(JS, opts.js, generated.javascript)); 
+  if(js) {
+    writers.push(writer(JS, js, generated.javascript)); 
   }
 
   function next(err) {

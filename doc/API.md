@@ -35,9 +35,11 @@ Compile component files to CSS, Javascript and HTML.
 
 * `files` Array list of HTML files to compile.
 * `babel` Object options to pass to babel transform.
+* `out` String output directory for files.
+* `name` String=components name of the output files.
+* `html` String path to write the generated template markup.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
-* `html` String path to write the generated template markup.
 * `eol` String override the default EOL for concatenation.
 
 ## trucks.load
@@ -108,15 +110,23 @@ trucks.write(generated, opts, cb)
 
 Writes the generated result to stylesheet and javascript files.
 
+If the `out` option is given then all files are written to the target
+directory using the `name` option, file extensions are added automatically.
+
+When the `html`, `css` and `js` options are given they override any paths
+built using the `out` and `name` options.
+
 * `generated` Object The result from the generate phase.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
 ### Options
 
+* `out` String output directory for files.
+* `name` String=components name of the output files.
+* `html` String path to write the generated template markup.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
-* `html` String path to write the generated template markup.
 
 ## trucks.compile
 

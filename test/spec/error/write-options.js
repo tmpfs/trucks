@@ -3,6 +3,20 @@ var expect = require('chai').expect
 
 describe('write:', function() {
 
+  it('should error on write with no html', function(done) {
+    trucks.write(
+      {},
+      {html: 'target/error.html'},
+      (err) => {
+        function fn() {
+          throw err;
+        }
+        expect(fn).throws(/no html data/);
+        done();
+      }
+    );
+  });
+
   it('should error on write with no stylesheet', function(done) {
     trucks.write(
       {},

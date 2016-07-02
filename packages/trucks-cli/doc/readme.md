@@ -1,4 +1,4 @@
-# Trucks Command Line Interface
+# Trucks (CLI) 
 
 <? @include readme/badges.md ?>
 

@@ -1,4 +1,4 @@
-# Trucks Command Line Interface
+# Trucks (CLI)
 
 [![Build Status](https://travis-ci.org/tmpfs/trucks.svg?v=2)](https://travis-ci.org/tmpfs/trucks)
 [![npm version](http://img.shields.io/npm/v/trucks.svg?v=2)](https://npmjs.org/package/trucks)
@@ -48,8 +48,6 @@ man trucks
 - [License](#license)
 
 ---
-
-<!-- <? @include {=readme} ?> -->
 
 ## Developer
 

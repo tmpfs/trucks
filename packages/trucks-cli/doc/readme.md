@@ -8,7 +8,8 @@ Command line interface for the [trucks][] libary.
 
 <? @include {=readme}
       install.md
-      documentation.md ?>
+      documentation.md
+      completion.md ?>
 
 ***
 <!-- @toc -->

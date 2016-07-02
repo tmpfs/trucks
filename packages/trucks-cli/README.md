@@ -34,10 +34,15 @@ If the program is installed globally the man page will be installed:
 man trucks
 ```
 
+## Completion
+
+Completion is available for `zsh`, to install copy [/packages/trucks-cli/doc/zsh/_trucks] to a directory in `$fpath`, see the [completion docs](https://github.com/mkdoc/mkcli#completion) for more information.
+
 ---
 
 - [Install](#install)
 - [Documentation](#documentation)
+- [Completion](#completion)
 - [Developer](#developer)
   - [Build](#build)
   - [Test](#test)

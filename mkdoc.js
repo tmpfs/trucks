@@ -22,6 +22,21 @@ function api(cb) {
     .on('finish', cb);
 }
 
+// @task options build the options file
+function options(cb) {
+  mk.doc('doc/options/options.md')
+    .pipe(mk.pi())
+    .pipe(mk.ref())
+    .pipe(mk.abs())
+    .pipe(mk.msg())
+    .pipe(mk.toc({depth: 2, max: 3}))
+    //.pipe(mk.ast.stringify())
+    //.pipe(process.stdout)
+    .pipe(mk.out())
+    .pipe(mk.dest('doc/OPTIONS.md'))
+    .on('finish', cb);
+}
+
 // @task developer build the developer file
 function developer(cb) {
   mk.doc('doc/developer/developer.md')
@@ -36,7 +51,6 @@ function developer(cb) {
     .pipe(mk.dest('doc/DEVELOPER.md'))
     .on('finish', cb);
 }
-
 
 // @task compiler build the compiler file
 function compiler(cb) {
@@ -74,7 +88,8 @@ function docs(cb){
 }
 
 mk.task(api);
+mk.task(options);
 mk.task(developer);
 mk.task(compiler);
 mk.task(readme);
-mk.task([api, developer, compiler, readme], docs)
+mk.task([api, options, developer, compiler, readme], docs)

@@ -23,7 +23,7 @@ const load = require('./load')
  *  @option {String} eol override the default EOL for concatenation.
  */
 function trucks(opts, cb) {
-  opts = opts || {};
+  opts = opts || require('../defaults');
   load(opts, (err, loaded) => {
     if(err) {
       return cb(err); 

@@ -20,17 +20,21 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
       components.md
       roadmap.md ?>
 
+## Options
+
+An overview of the available options is in [OPTIONS](/doc/OPTIONS.md) see [API](/doc/API.md) for more detail.
+
 ## Compiler
 
-For insights into the compiler phases and data structures see [COMPILER.md](/doc/COMPILER.md).
+For insights into the compiler phases and data structures see [COMPILER](/doc/COMPILER.md).
 
 ## API
 
-For the API docs see [API.md](/doc/API.md).
+For the API docs see [API](/doc/API.md).
 
 ## Developer
 
-Information on how to build this project is in [DEVELOPER.md](/doc/DEVELOPER.md).
+Information on how to build this project is in [DEVELOPER](/doc/DEVELOPER.md).
 
 <? @include {=readme}
       license.md

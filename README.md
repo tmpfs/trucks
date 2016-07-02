@@ -61,6 +61,7 @@ The [trucks][] library aims to bring component encapsulation to [skatejs][] and 
 - [Roadmap](#roadmap)
   - [Packages](#packages)
   - [Styles](#styles)
+- [Options](#options)
 - [Compiler](#compiler)
 - [API](#api)
 - [Developer](#developer)
@@ -203,17 +204,21 @@ This would reduce the file size of component styles and prevent consumers from b
 
 The suggestion is that this would be implemented as [postcss plugins][postcss].
 
+## Options
+
+An overview of the available options is in [OPTIONS](https://github.com/tmpfs/trucks/blob/master/doc/OPTIONS.md) see [API](https://github.com/tmpfs/trucks/blob/master/doc/API.md) for more detail.
+
 ## Compiler
 
-For insights into the compiler phases and data structures see [COMPILER.md](https://github.com/tmpfs/trucks/blob/master/doc/COMPILER.md).
+For insights into the compiler phases and data structures see [COMPILER](https://github.com/tmpfs/trucks/blob/master/doc/COMPILER.md).
 
 ## API
 
-For the API docs see [API.md](https://github.com/tmpfs/trucks/blob/master/doc/API.md).
+For the API docs see [API](https://github.com/tmpfs/trucks/blob/master/doc/API.md).
 
 ## Developer
 
-Information on how to build this project is in [DEVELOPER.md](https://github.com/tmpfs/trucks/blob/master/doc/DEVELOPER.md).
+Information on how to build this project is in [DEVELOPER](https://github.com/tmpfs/trucks/blob/master/doc/DEVELOPER.md).
 
 ## License
 

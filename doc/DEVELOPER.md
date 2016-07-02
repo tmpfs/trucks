@@ -14,9 +14,10 @@ To build the documentation [mkdoc][] is required (`npm i -g mkdoc`).
   - [Clean](#clean)
   - [Docs](#docs)
   - [Readme](#readme)
+  - [API](#api)
+  - [Options](#options)
   - [Developer](#developer-1)
   - [Compiler](#compiler)
-  - [API](#api)
 
 ---
 
@@ -76,9 +77,25 @@ To build the readme file:
 mk readme
 ```
 
+### API
+
+To build the API doc:
+
+```
+mk api
+```
+
+### Options
+
+To build the options doc:
+
+```
+mk options
+```
+
 ### Developer
 
-To build the developer docs:
+To build the developer doc:
 
 ```
 mk developer
@@ -86,18 +103,10 @@ mk developer
 
 ### Compiler
 
-To build the compiler docs:
+To build the compiler doc:
 
 ```
 mk compiler
-```
-
-### API
-
-To build the API docs:
-
-```
-mk api
 ```
 
 ---

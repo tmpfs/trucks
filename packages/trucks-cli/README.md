@@ -20,9 +20,24 @@ Or just for your project:
 npm i trucks-cli --save-dev
 ```
 
+## Documentation
+
+Use the `--help` or `-h` option for program help:
+
+```
+trucks -h
+```
+
+If the program is installed globally the man page will be installed:
+
+```
+man trucks
+```
+
 ---
 
 - [Install](#install)
+- [Documentation](#documentation)
 - [Developer](#developer)
   - [Build](#build)
   - [Test](#test)

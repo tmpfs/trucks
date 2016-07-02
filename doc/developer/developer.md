@@ -48,6 +48,14 @@ Remove generated files:
 npm run clean
 ```
 
+### Docs
+
+To build all documentation files:
+
+```
+mk docs
+```
+
 ### Readme
 
 To build the readme file:
@@ -77,5 +85,5 @@ mk compiler
 To build the API docs:
 
 ```
-npm run api
+mk api
 ```

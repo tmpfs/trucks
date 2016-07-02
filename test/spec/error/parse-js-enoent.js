@@ -5,7 +5,10 @@ describe('parse:', function() {
 
   it('should error on non-existent js file', function(done) {
     trucks(
-        {files: ['test/fixtures/error/js-enoent/components.html']},
+      {
+        files: ['test/fixtures/error/js-enoent/components.html'],
+        name: 'js-enoent'
+      },
       (err) => {
         function fn() {
           throw err;

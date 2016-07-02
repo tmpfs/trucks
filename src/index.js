@@ -1,4 +1,6 @@
-const load = require('./load')
+const merge = require('merge')
+  , path = require('path')
+  , load = require('./load')
   , parse = require('./parse')
   , transform = require('./transform')
   , compile = require('./compile')
@@ -13,6 +15,7 @@ const load = require('./load')
  *  @param {Function} cb callback function.
  *
  *  @option {Array} files list of HTML files to compile.
+ *  @option {Array|String} conf configuration files to load as options.
  *  @option {Object} babel options to pass to babel transform.
  *  @option {String} out output directory for files.
  *  @option {String=components} name name of the output files.
@@ -23,24 +26,57 @@ const load = require('./load')
  *  @option {String} eol override the default EOL for concatenation.
  */
 function trucks(opts, cb) {
-  opts = opts || require('../defaults');
-  load(opts, (err, loaded) => {
+  let options = require('../defaults')
+    , conf
+    , config;
+
+  opts = opts || {};
+
+  if(opts.conf === String(opts.conf)) {
+    opts.conf = [opts.conf];
+  }
+
+  // list of configuration files to require and merge
+  if(Array.isArray(opts.conf)) {
+    conf = opts.conf;
+    delete opts.conf;
+
+    let i, file;
+    for(i = 0;i < conf.length;i++) {
+      file = conf[i];
+      if(!path.isAbsolute(file)) {
+        file = path.join(process.cwd(), file);
+      }
+      try {
+        config = require(file);
+        options = merge(true, options, config);
+      }catch(e) {
+        return cb(e); 
+      }
+    }
+  }
+
+  // finally merge in passed options
+  options = merge(true, options, opts);
+
+  load(options, (err, loaded) => {
     if(err) {
       return cb(err); 
     } 
-    parse(loaded, opts, (err, parsed) => {
+
+    parse(loaded, options, (err, parsed) => {
       if(err) {
         return cb(err); 
       }
-      transform(parsed, opts, (err, transformed) => {
+      transform(parsed, options, (err, transformed) => {
         if(err) {
           return cb(err); 
         }
-        generate(transformed, opts, (err, generated) => {
+        generate(transformed, options, (err, generated) => {
           if(err) {
             return cb(err); 
           }
-          write(generated, opts, (err, written) => {
+          write(generated, options, (err, written) => {
             if(err) {
               return cb(err); 
             }
@@ -50,6 +86,8 @@ function trucks(opts, cb) {
       });
     });
   })
+
+  return options;
 }
 
 /**

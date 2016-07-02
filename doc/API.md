@@ -34,6 +34,7 @@ Compile component files to CSS, Javascript and HTML.
 #### Options
 
 * `files` Array list of HTML files to compile.
+* `conf` Array|String configuration files to load as options.
 * `babel` Object options to pass to babel transform.
 * `out` String output directory for files.
 * `name` String=components name of the output files.

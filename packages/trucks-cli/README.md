@@ -20,6 +20,22 @@ Or just for your project:
 npm i trucks-cli --save-dev
 ```
 
+---
+
+- [Install](#install)
+- [Documentation](#documentation)
+- [Completion](#completion)
+- [Developer](#developer)
+  - [Build](#build)
+  - [Test](#test)
+  - [Cover](#cover)
+  - [Lint](#lint)
+  - [Clean](#clean)
+  - [Readme](#readme)
+- [License](#license)
+
+---
+
 ## Documentation
 
 Use the `--help` or `-h` option for program help:
@@ -37,22 +53,6 @@ man trucks
 ## Completion
 
 Completion is available for zsh. To install copy [_trucks](https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli/doc/zsh/_trucks) to a directory in `$fpath`, see the [completion docs](https://github.com/mkdoc/mkcli#completion) for more information.
-
----
-
-- [Install](#install)
-- [Documentation](#documentation)
-- [Completion](#completion)
-- [Developer](#developer)
-  - [Build](#build)
-  - [Test](#test)
-  - [Cover](#cover)
-  - [Lint](#lint)
-  - [Clean](#clean)
-  - [Readme](#readme)
-- [License](#license)
-
----
 
 ## Developer
 

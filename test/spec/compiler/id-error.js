@@ -1,5 +1,4 @@
 var expect = require('chai').expect
-  , babel = require('babel-core')
   , trucks = require('../../../lib');
 
 describe('compiler:', function() {

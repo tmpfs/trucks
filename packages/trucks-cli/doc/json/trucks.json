@@ -10,9 +10,35 @@
     "[flags] [options] [files...]"
   ],
   "options": {
+    "out": {
+      "key": "out",
+      "description": "Output directory.",
+      "names": [
+        "-o",
+        "--out"
+      ],
+      "type": "option",
+      "extra": " [dir]",
+      "required": false,
+      "multiple": false,
+      "name": "--out"
+    },
+    "name": {
+      "key": "name",
+      "description": "Name for output files.",
+      "names": [
+        "-n",
+        "--name"
+      ],
+      "type": "option",
+      "extra": " [val]",
+      "required": false,
+      "multiple": false,
+      "name": "--name"
+    },
     "html": {
       "key": "html",
-      "description": "Template output file.",
+      "description": "Markup output file.",
       "names": [
         "-m",
         "--html"

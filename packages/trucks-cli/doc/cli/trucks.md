@@ -18,7 +18,9 @@ Compiles web components to separate files for javascript, styles and template ma
 
 # Options
 
-+ `-m, --html [file]` Template output file. 
++ `-o, --out [dir]` Output directory.
++ `-n, --name [val]` Name for output files.
++ `-m, --html [file]` Markup output file. 
 + `-s, --css [file]` Stylesheet output file.
 + `-j, --js [file]` Javascript output file.
 + `-h, --help` Display help and exit

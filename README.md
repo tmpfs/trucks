@@ -84,6 +84,8 @@ trucks({files: ['example/components.html']}, (err, res) => {
 });
 ```
 
+For command line usage see [trucks-cli][].
+
 ## Overview
 
 The library takes an HTML template and compiles it to a `render` function.

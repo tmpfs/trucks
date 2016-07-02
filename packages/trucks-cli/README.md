@@ -144,6 +144,7 @@ MIT
 Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 2, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -155,6 +156,8 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 2, 2016
 [react-webcomponents]: https://github.com/facebook/react/issues/5052
 [react-integration]: https://github.com/skatejs/react-integration
 [csp]: http://content-security-policy.com/
+[npm]: https://www.npmjs.com/
+[postcss]: https://github.com/postcss/postcss
 [mkdoc]: https://github.com/mkdoc/mkdoc
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info

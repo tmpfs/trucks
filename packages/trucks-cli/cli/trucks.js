@@ -56,8 +56,6 @@ function main(argv, conf, cb) {
       return cb(err); 
     }
 
-    console.log(Array.isArray(this.conf));
-
     this.files = req.unparsed;
 
     // no stylesheet file path specified, use `components.css` in cwd

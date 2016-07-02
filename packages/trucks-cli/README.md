@@ -36,7 +36,7 @@ man trucks
 
 ## Completion
 
-Completion is available for `zsh`, to install copy [/packages/trucks-cli/doc/zsh/_trucks] to a directory in `$fpath`, see the [completion docs](https://github.com/mkdoc/mkcli#completion) for more information.
+Completion is available for zsh. To install copy [_trucks](https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli/doc/zsh/_trucks) to a directory in `$fpath`, see the [completion docs](https://github.com/mkdoc/mkcli#completion) for more information.
 
 ---
 

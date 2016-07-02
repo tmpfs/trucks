@@ -20,4 +20,6 @@ Configuration files can be loaded and merged with the default options using the 
 trucks src/*.html -o build --conf options.js
 ```
 
+See [OPTIONS](/doc/OPTIONS.md) for the options that may be specified in configuration files.
+
 For full documentation see the [man page](/packages/trucks-cli/doc/man/trucks.1).

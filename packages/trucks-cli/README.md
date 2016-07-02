@@ -73,6 +73,8 @@ Configuration files can be loaded and merged with the default options using the 
 trucks src/*.html -o build --conf options.js
 ```
 
+See [OPTIONS](https://github.com/tmpfs/trucks/blob/master/doc/OPTIONS.md) for the options that may be specified in configuration files.
+
 For full documentation see the [man page](https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli/doc/man/trucks.1).
 
 ## Completion

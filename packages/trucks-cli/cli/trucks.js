@@ -4,6 +4,9 @@ const path = require('path')
   , prg = cli.load(require('../doc/json/trucks.json'))
   , trucks = require('trucks');
 
+// override package name
+pkg.name = 'trucks';
+
 /**
  *  @name trucks
  *  @cli doc/cli/trucks.md
@@ -16,7 +19,7 @@ function main(argv, conf, cb) {
     argv = null;
   }
 
-  /* istanbul ignore if: always pass conf in test env */
+  /* istanbul ignore next: never pass conf in test env */
   if(typeof conf === 'function') {
     cb = conf;
     conf = null;
@@ -24,6 +27,10 @@ function main(argv, conf, cb) {
 
   /* istanbul ignore next: always pass conf in test env */
   conf = conf || {};
+  /* istanbul ignore next: never print to stdout in test env */
+  conf.output = conf.output || process.stdout;
+  /* istanbul ignore next: never read from stdin in test env */
+  conf.input = conf.input || process.stdin;
 
   var opts = {
     }
@@ -58,6 +65,7 @@ function main(argv, conf, cb) {
 
     this.files = req.unparsed;
 
+    /* istanbul ignore next: don't want to write to cwd in test env */
     if(!this.out) {
       this.out = process.cwd();
     }
@@ -65,5 +73,7 @@ function main(argv, conf, cb) {
     trucks(this, cb);
   })
 }
+
+main.pkg = pkg;
 
 module.exports = main;

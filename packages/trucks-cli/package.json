@@ -24,7 +24,8 @@
   "scripts": {
     "clean": "rm -rf coverage target",
     "lint": "jshint . && jscs .",
-    "pretest": "rm -rf target && mkdir target && npm run build",
+    "target": "rm -rf target && mkdir target",
+    "pretest": "npm run target",
     "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",
     "precover": "npm run pretest",
     "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}",

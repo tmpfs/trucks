@@ -1,4 +1,4 @@
-## trucks
+### trucks
 
 ```javascript
 trucks(opts, cb)
@@ -9,7 +9,7 @@ Compile component files to CSS, Javascript and HTML.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
-### Options
+#### Options
 
 * `files` Array list of HTML files to compile.
 * `babel` Object options to pass to babel transform.
@@ -21,7 +21,7 @@ Compile component files to CSS, Javascript and HTML.
 * `force` Boolean overwrite files that already exist.
 * `eol` String override the default EOL for concatenation.
 
-## trucks.load
+### trucks.load
 
 ```javascript
 trucks.load(opts, cb)
@@ -32,11 +32,11 @@ Read the component definition file contents.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
-### Options
+#### Options
 
 * `files` Array list of HTML files to compile.
 
-## trucks.parse
+### trucks.parse
 
 ```javascript
 trucks.parse(loaded[, opts], cb)
@@ -48,7 +48,7 @@ Parses the loaded file data to stylesheet and javascript strings.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
-## trucks.transform
+### trucks.transform
 
 ```javascript
 trucks.transform(parsed[, opts], cb)
@@ -61,11 +61,11 @@ corresponding to a javascript component definition to a function.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
-### Options
+#### Options
 
 * `babel` Object options to pass to babel transform.
 
-## trucks.generate
+### trucks.generate
 
 ```javascript
 trucks.generate(transformed[, opts], cb)
@@ -77,11 +77,11 @@ Concatenates the transformed result to stylesheet and javascript strings.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
-### Options
+#### Options
 
 * `eol` String override the default EOL for concatenation.
 
-## trucks.write
+### trucks.write
 
 ```javascript
 trucks.write(generated, opts, cb)
@@ -99,7 +99,7 @@ built using the `out` and `name` options.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
-### Options
+#### Options
 
 * `out` String output directory for files.
 * `name` String=components name of the output files.
@@ -108,7 +108,7 @@ built using the `out` and `name` options.
 * `js` String path to write the generated javascript.
 * `force` Boolean overwrite files that already exist.
 
-## trucks.compile
+### trucks.compile
 
 ```javascript
 trucks.compile(html, opts)
@@ -141,7 +141,7 @@ Returns an object representing the templates as AST programs.
 * `html` String an HTML string.
 * `opts` Object processing options.
 
-### Options
+#### Options
 
 * `attr` String=id the attribute name used for the component id.
 * `skate` String=skate the name of the skatejs variable.
@@ -152,7 +152,7 @@ Returns an object representing the templates as AST programs.
 * `literals` Object|Boolean flags for template literal support.
 * `load` Object options to use when parsing the DOM.
 
-### Throws
+#### Throws
 
 * `Error` if a template element does not define an identifier.
 

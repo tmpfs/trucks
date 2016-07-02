@@ -19,6 +19,7 @@ const load = require('./load')
  *  @option {String} html path to write the generated template markup.
  *  @option {String} css path to write the generated stylesheet.
  *  @option {String} js path to write the generated javascript.
+ *  @option {Boolean} force overwrite files that already exist.
  *  @option {String} eol override the default EOL for concatenation.
  */
 function trucks(opts, cb) {
@@ -119,6 +120,7 @@ trucks.generate = generate;
  *  @option {String} html path to write the generated template markup.
  *  @option {String} css path to write the generated stylesheet.
  *  @option {String} js path to write the generated javascript.
+ *  @option {Boolean} force overwrite files that already exist.
  */
 trucks.write = write;
 

@@ -18,6 +18,7 @@ Compile component files to CSS, Javascript and HTML.
 * `html` String path to write the generated template markup.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
+* `force` Boolean overwrite files that already exist.
 * `eol` String override the default EOL for concatenation.
 
 ## trucks.load
@@ -105,6 +106,7 @@ built using the `out` and `name` options.
 * `html` String path to write the generated template markup.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
+* `force` Boolean overwrite files that already exist.
 
 ## trucks.compile
 

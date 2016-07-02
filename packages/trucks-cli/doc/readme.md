@@ -14,8 +14,6 @@ Command line interface for the [trucks][] libary.
 <!-- @toc -->
 ***
 
-<!-- <? @include {=readme} ?> -->
-
 <? @include {=readme}
       developer.md
       license.md

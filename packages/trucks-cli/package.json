@@ -2,7 +2,9 @@
   "name": "trucks-cli",
   "version": "1.0.1",
   "description": "Web component compiler and package manager (cli)",
-  "bin": "./bin/trucks",
+  "bin": {
+    "trucks": "./bin/trucks"
+  },
   "man": "./doc/man/trucks.1",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

@@ -28,11 +28,11 @@ npm i trucks-cli --save-dev
 - [Completion](#completion)
 - [Developer](#developer)
   - [Build](#build)
+  - [Readme](#readme)
   - [Test](#test)
   - [Cover](#cover)
   - [Lint](#lint)
   - [Clean](#clean)
-  - [Readme](#readme)
 - [License](#license)
 
 ---
@@ -95,6 +95,14 @@ mk cli
 
 To see all available tasks run `mk --tasks`.
 
+### Readme
+
+To build the readme file:
+
+```
+mk readme
+```
+
 ### Test
 
 To run the test suite:
@@ -125,14 +133,6 @@ Remove generated files:
 
 ```
 npm run clean
-```
-
-### Readme
-
-To build the readme file [mkdoc][] is required (`npm i -g mkdoc`):
-
-```
-mk readme
 ```
 
 ## License

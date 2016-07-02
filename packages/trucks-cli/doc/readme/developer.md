@@ -12,6 +12,14 @@ mk cli
 
 To see all available tasks run `mk --tasks`.
 
+### Readme
+
+To build the readme file:
+
+```
+mk readme
+```
+
 ### Test
 
 To run the test suite:
@@ -44,10 +52,3 @@ Remove generated files:
 npm run clean
 ```
 
-### Readme
-
-To build the readme file [mkdoc][] is required (`npm i -g mkdoc`):
-
-```
-mk readme
-```

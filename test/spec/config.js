@@ -8,7 +8,7 @@ function assert(result) {
 
   expect(result.options.name).to.eql('mock-config');
 
-  let stat = fs.statSync('target/mock-config.html');
+  var stat = fs.statSync('target/mock-config.html');
   expect(stat).to.be.an('object');
   expect(stat.isFile()).to.eql(true);
   expect(stat.size).to.be.gt(0);

@@ -36,6 +36,19 @@
       "multiple": false,
       "name": "--name"
     },
+    "conf": {
+      "key": "conf",
+      "description": "Configuration files to require.",
+      "names": [
+        "-c",
+        "--conf"
+      ],
+      "type": "option",
+      "extra": " [file...]",
+      "required": false,
+      "multiple": true,
+      "name": "--conf"
+    },
     "html": {
       "key": "html",
       "description": "Markup output file.",

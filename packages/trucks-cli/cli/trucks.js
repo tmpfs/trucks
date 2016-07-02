@@ -24,23 +24,15 @@ function main(argv, conf, cb) {
 
   /* istanbul ignore next: always pass conf in test env */
   conf = conf || {};
-  /* istanbul ignore next: never print to stdout in test env */
-  conf.output = conf.output || process.stdout;
-  /* istanbul ignore next: never read from stdin in test env */
-  conf.input = conf.input || process.stdin;
 
   var opts = {
-      // read from stdin before files, but be aware that file
-      // information is lost so relative includes will not work as expected
-      input: conf.input, 
-      output: conf.output,
-      serialize: true
     }
     , help = require('mkcli/plugin/help')
     , runtime = {
         base: path.normalize(path.join(__dirname, '..')),
         target: opts,
         hints: prg,
+        multiple: prg,
         help: {
           file: 'doc/help/trucks.txt',
           output: conf.output
@@ -53,6 +45,7 @@ function main(argv, conf, cb) {
         plugins: [
           require('mkcli/plugin/hints'),
           require('mkcli/plugin/argv'),
+          require('mkcli/plugin/multiple'),
           help,
           require('mkcli/plugin/version')
         ]
@@ -62,6 +55,8 @@ function main(argv, conf, cb) {
     if(err || req.aborted) {
       return cb(err); 
     }
+
+    console.log(Array.isArray(this.conf));
 
     this.files = req.unparsed;
 

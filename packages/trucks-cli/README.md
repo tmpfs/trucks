@@ -75,7 +75,7 @@ trucks src/*.html -o build --conf options.js
 
 See [OPTIONS](https://github.com/tmpfs/trucks/blob/master/doc/OPTIONS.md) for the options that may be specified in configuration files.
 
-For full documentation see the [man page](https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli/doc/man/trucks.1).
+For full cli documentation see the [man page](https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli/doc/man/trucks.1) and consult the [trucks][] readme for programmatic usage and more information.
 
 ## Completion
 

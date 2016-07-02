@@ -8,7 +8,6 @@
   "man": "./doc/man/trucks.1",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
-  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/tmpfs/trucks"
@@ -19,7 +18,6 @@
   },
   "devDependencies": {
     "chai": "~3.5.0",
-    "coveralls": "~2.11.9",
     "istanbul": "~0.4.4",
     "mocha": "~2.5.3"
   },
@@ -30,7 +28,6 @@
     "pretest": "npm run target",
     "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",
     "precover": "npm run pretest",
-    "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}"
   }
 }

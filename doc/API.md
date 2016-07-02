@@ -2,22 +2,22 @@
 
 ---
 
+- [API](#api)
+  - [trucks](#trucks)
+    - [Options](#options)
+  - [trucks.load](#trucksload)
+    - [Options](#options-1)
+  - [trucks.parse](#trucksparse)
+  - [trucks.transform](#truckstransform)
+    - [Options](#options-2)
+  - [trucks.generate](#trucksgenerate)
+    - [Options](#options-3)
+  - [trucks.write](#truckswrite)
+    - [Options](#options-4)
+  - [trucks.compile](#truckscompile)
+    - [Options](#options-5)
+    - [Throws](#throws)
 
-  - [API](#api)
-    - [trucks](#trucks)
-      - [Options](#options)
-    - [trucks.load](#trucksload)
-      - [Options](#options-1)
-    - [trucks.parse](#trucksparse)
-    - [trucks.transform](#truckstransform)
-      - [Options](#options-2)
-    - [trucks.generate](#trucksgenerate)
-      - [Options](#options-3)
-    - [trucks.write](#truckswrite)
-      - [Options](#options-4)
-    - [trucks.compile](#truckscompile)
-      - [Options](#options-5)
-      - [Throws](#throws)
 ---
 
 ### trucks

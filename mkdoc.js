@@ -14,7 +14,7 @@ function api(cb) {
     .pipe(mk.ref())
     .pipe(mk.abs())
     .pipe(mk.msg())
-    .pipe(mk.toc({}))
+    .pipe(mk.toc({depth: 2}))
     //.pipe(mk.ast.stringify())
     //.pipe(process.stdout)
     .pipe(mk.out())

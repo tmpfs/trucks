@@ -173,7 +173,7 @@ function component(collection, list, result, cb) {
         }
 
         // process inline and external template elements
-        elements = $('template, link[rel="import"][href]').toArray();
+        elements = $('template, link[rel="template"][href]').toArray();
 
         iterator(definition, result, elements, templates, (err) => {
           if(err) {

@@ -37,10 +37,12 @@ You can then include the resulting component files in your HTML page(s):
 Complex components can reference external files if you prefer:
 
 ```html
-<link rel="import" href="x-icon-template.html">
+<link rel="template" href="x-icon-template.html">
 <link rel="stylesheet" href="x-icon.css">
 <script src="x-icon.js"></script>
 ```
+
+Note that the `rel` attribute is set to `template` rather than `import` when referencing external `<template>` elements from component files so that recursive component imports can be supported.
 
 Components defined for [skatejs][] can ignore the HTML file as the templates are compiled to javascript.
 

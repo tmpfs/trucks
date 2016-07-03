@@ -5,7 +5,10 @@ const TAG = 'tag'
     , RENDER = 'render'
     , ELEM = 'elem'
     , ELEMENT = 'element'
-    , TEXT = 'text';
+    , TEXT = 'text'
+    , TEMPLATES = 'templates' 
+    , MAIN = 'template'
+    , TAG_NAME = 'tagName';
   
 /**
  *  Utility to determine if an object is empty.
@@ -94,9 +97,53 @@ function compile(html, opts) {
   opts.name = opts.name || RENDER;
   opts.arg = opts.arg || ELEM;
 
+  opts.main = opts.main || MAIN;
+
   const templates = transform(opts.dom, opts);
 
-  return {list: templates, map: map(templates, opts)};
+  return {
+    list: templates,
+    map: map(templates, opts),
+    main: main(opts)
+  };
+}
+
+/**
+ *  Build a main function that accepts an `elem` argument and performs a 
+ *  lookup in the templates map to execute the template function.
+ *
+ *  @private {function} main
+ *  @param {Object} opts processing options.
+ *
+ *  @returns program representing the main function.
+ */
+function main(opts) {
+  const t = require('babel-core').types;
+
+  // main function declaration
+  let expr = t.functionDeclaration(
+      t.identifier(opts.main),
+      [t.identifier(ELEM)],
+      t.blockStatement(
+        [
+          t.returnStatement(
+            t.callExpression(
+              t.memberExpression(
+                t.identifier(TEMPLATES),
+                t.memberExpression(
+                  t.identifier(ELEM),
+                  t.identifier(TAG_NAME)
+                ),
+                true
+              ),
+              [t.identifier(ELEM)]
+            )  
+          )
+        ] 
+      )
+    );
+
+  return t.program([expr]);
 }
 
 /**
@@ -128,7 +175,7 @@ function map(templates, opts) {
   })
   const program = t.variableDeclaration(
     'const', 
-    [t.variableDeclarator(t.identifier('templates'), t.objectExpression(out))]
+    [t.variableDeclarator(t.identifier(TEMPLATES), t.objectExpression(out))]
   )
   return t.program([program]);
 }

@@ -115,16 +115,18 @@ built using the `out` and `name` options.
 trucks.compile(html, opts)
 ```
 
+```javascript
+const trucks = require('trucks')
+  , tpl = '<template id="x-component"></template>'
+  , {map, main, list} = trucks.compile(tpl);
+```
+
 Compile an HTML string to a list of babel AST programs representing each 
 `<template>` element in the input HTML.
 
-The return object contains a `list` array with information about each 
-compiled `<template>` element including the compiled function `body` and 
-a `render` function as an AST program.
-
-It also contains a `map` object which is an AST program representing a map 
-of component identifiers (extracted from the template `id` attribute by 
-default) to render functions. 
+The return object contains a `map` object which is an AST program 
+representing a map of component identifiers (extracted from the template 
+`id` attribute by default) to render functions. 
 
 To generate the string code for the template map:
 
@@ -137,6 +139,15 @@ const trucks = require('trucks')
 console.log(result.code);
 ```
 
+The main function is exposed on the return object as a `main` property, it 
+is an AST program.
+
+The return object also contains a `list` array with information about each 
+compiled `<template>` element including the compiled function `body` and 
+a `render` function as an AST program. Typically there is no need for 
+consumers to use this property as the `map` and `main` fields are enough 
+to generate the compiled code.
+
 Returns an object representing the templates as AST programs.
 
 * `html` String an HTML string.
@@ -144,11 +155,13 @@ Returns an object representing the templates as AST programs.
 
 #### Options
 
-* `attr` String=id the attribute name used for the component id.
-* `skate` String=skate the name of the skatejs variable.
-* `vdom` String=vdom the name of the vdom property.
-* `element` String=element the name of the element function.
-* `text` String=text the name of the text function.
+* `attr` String=id attribute name used for the component id.
+* `skate` String=skate name of the skatejs variable.
+* `vdom` String=vdom name of the vdom property.
+* `element` String=element name of the element function.
+* `text` String=text name of the text function.
+* `templates` String=templates name of the templates map.
+* `main` String=template name of the main function.
 * `normalize` Boolean=true normalize whitespace in templates.
 * `literals` Object|Boolean flags for template literal support.
 * `load` Object options to use when parsing the DOM.

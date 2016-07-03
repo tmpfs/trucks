@@ -27,13 +27,9 @@ function isEmpty(obj) {
  *  Compile an HTML string to a list of babel AST programs representing each 
  *  `<template>` element in the input HTML.
  *
- *  The return object contains a `list` array with information about each 
- *  compiled `<template>` element including the compiled function `body` and 
- *  a `render` function as an AST program.
- *
- *  It also contains a `map` object which is an AST program representing a map 
- *  of component identifiers (extracted from the template `id` attribute by 
- *  default) to render functions. 
+ *  The return object contains a `map` object which is an AST program 
+ *  representing a map of component identifiers (extracted from the template 
+ *  `id` attribute by default) to render functions. 
  *
  *  To generate the string code for the template map:
  *
@@ -46,15 +42,26 @@ function isEmpty(obj) {
  *  console.log(result.code);
  *  ```
  *
+ *  The main function is exposed on the return object as a `main` property, it 
+ *  is an AST program.
+ *
+ *  The return object also contains a `list` array with information about each 
+ *  compiled `<template>` element including the compiled function `body` and 
+ *  a `render` function as an AST program. Typically there is no need for 
+ *  consumers to use this property as the `map` and `main` fields are enough 
+ *  to generate the compiled code.
+ *
  *  @function trucks.compile
  *  @param {String} html an HTML string.
  *  @param {Object} opts processing options.
  *
- *  @option {String=id} [attr] the attribute name used for the component id.
- *  @option {String=skate} [skate] the name of the skatejs variable.
- *  @option {String=vdom} [vdom] the name of the vdom property.
- *  @option {String=element} [element] the name of the element function.
- *  @option {String=text} [text] the name of the text function.
+ *  @option {String=id} [attr] attribute name used for the component id.
+ *  @option {String=skate} [skate] name of the skatejs variable.
+ *  @option {String=vdom} [vdom] name of the vdom property.
+ *  @option {String=element} [element] name of the element function.
+ *  @option {String=text} [text] name of the text function.
+ *  @option {String=templates} [templates] name of the templates map.
+ *  @option {String=template} [main] name of the main function.
  *  @option {Boolean=true} [normalize] normalize whitespace in templates.
  *  @option {Object|Boolean} [literals] flags for template literal support.
  *  @option {Object} [load] options to use when parsing the DOM.
@@ -62,6 +69,12 @@ function isEmpty(obj) {
  *  @throws Error if a template element does not define an identifier.
  *
  *  @returns an object representing the templates as AST programs.
+ *
+ *  @usage
+ *
+ *  const trucks = require('trucks')
+ *    , tpl = '<template id="x-component"></template>'
+ *    , {map, main, list} = trucks.compile(tpl);
  */
 function compile(html, opts) {
   const cheerio = require('cheerio');
@@ -98,6 +111,7 @@ function compile(html, opts) {
   opts.arg = opts.arg || ELEM;
 
   opts.main = opts.main || MAIN;
+  opts.templates = opts.templates || TEMPLATES;
 
   const templates = transform(opts.dom, opts);
 
@@ -129,7 +143,7 @@ function main(opts) {
           t.returnStatement(
             t.callExpression(
               t.memberExpression(
-                t.identifier(TEMPLATES),
+                t.identifier(opts.templates),
                 t.memberExpression(
                   t.identifier(ELEM),
                   t.identifier(TAG_NAME)
@@ -175,7 +189,12 @@ function map(templates, opts) {
   })
   const program = t.variableDeclaration(
     'const', 
-    [t.variableDeclarator(t.identifier(TEMPLATES), t.objectExpression(out))]
+    [
+      t.variableDeclarator(
+        t.identifier(opts.templates),
+        t.objectExpression(out)
+      )
+    ]
   )
   return t.program([program]);
 }

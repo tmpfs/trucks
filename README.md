@@ -120,6 +120,41 @@ function render(elem) {
 
 Note that whitespace in the source template is normalized by default and that support for template literals needs to be enabled when compiling.
 
+The compiler then creates a map of component identifiers to template render functions:
+
+```javascript
+const templates = {
+  "x-blog-post": function render(elem) {
+    skate.vdom.element("div", {
+      class: "post"
+    }, () => {
+      skate.vdom.element("h3", () => {
+        skate.vdom.text(`${ elem.title }`);
+      });
+      skate.vdom.element("p", () => {
+        skate.vdom.text(`Article content`);
+      });
+    });
+  }
+};
+```
+
+And exposes a main function that performs a lookup in the template map by element tag name:
+
+```javascript
+function template(elem) {
+  return templates[elem.tagName](elem);
+}
+```
+
+Component authors may now proxy the `render` function to the `template` function, for example:
+
+```javascript
+skate.define('x-blog-post', {
+  render: template
+});
+```
+
 This compile phase is not required for [polymer][] components as they already use HTML templates.
 
 ## Components
@@ -230,7 +265,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 2, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 3, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

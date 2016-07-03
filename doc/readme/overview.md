@@ -12,4 +12,20 @@ Will result in the compiled function:
 
 Note that whitespace in the source template is normalized by default and that support for template literals needs to be enabled when compiling.
 
+The compiler then creates a map of component identifiers to template render functions:
+
+<? @exec {javascript} node doc/readme/overview-template-map.js ?>
+
+And exposes a main function that performs a lookup in the template map by element tag name:
+
+<? @exec {javascript} node doc/readme/overview-template-main.js ?>
+
+Component authors may now proxy the `render` function to the `template` function, for example:
+
+```javascript
+skate.define('x-blog-post', {
+  render: template
+});
+```
+
 This compile phase is not required for [polymer][] components as they already use HTML templates.

@@ -202,6 +202,8 @@ function component(collection, list, result, cb) {
 
     definition.parent = collection;
 
+    //console.log('definition: %s', definition.contents);
+
     const $ = definition.dom = cheerio.load(definition.contents);
 
     // process styles first and maintain declaration order

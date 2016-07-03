@@ -4,6 +4,8 @@ const fs = require('fs')
 /** 
  *  Loads and parses the input source files.
  *
+ *  Produces a map of file names to file contents.
+ *
  *  @private {function} sources
  *
  *  @param {Array} files list of input HTML files.
@@ -31,7 +33,8 @@ function sources(files, cb) {
 }
 
 /** 
- *  Finds all import `<link>` elements in the input component files. 
+ *  Finds all import `<link rel="import">` elements in the input 
+ *  component files. 
  *
  *  @private {function} imports
  *
@@ -78,11 +81,11 @@ function imports(map, opts, cb) {
  *
  *  @private {function} read
  */
-function read(name, imports, out, cb) {
+function read(name, list, out, opts, cb) {
   out[name] = []; 
 
   function next() {
-    const file = imports.shift();
+    const file = list.shift();
     if(!file) {
       return cb(); 
     }
@@ -102,9 +105,33 @@ function read(name, imports, out, cb) {
         return cb(new Error(`empty component file ${file}`));
       }
 
-      out[name].push(map);
+      // prepend the loaded component information so that
+      // dependencies appear before the declaring component
+      out[name].unshift(map);
 
-      next();
+      const cheerio = require('cheerio')
+        , $ = cheerio.load(map.contents)
+        , dependencies = $(opts.selectors.import);
+
+      // component has dependencies we need to load
+      if(dependencies.length) {
+        // map of dependencies
+        let deps = {};
+        deps[file] = map.contents;
+
+        process(deps, out, opts, (err/*, contents*/) => {
+          if(err) {
+            return cb(err); 
+          } 
+
+          //out[file].unshift(map);
+
+          next();
+        })
+      // no dependencies move on to the next item in the list
+      }else{
+        next();
+      }
     })
   }
 
@@ -117,28 +144,50 @@ function read(name, imports, out, cb) {
  *  @private {function} includes
  *
  *  @param {Object} map object mapping filenames to component files.
+ *  @param {Object} out output result object.
+ *  @param {Object} opts processing options.
  *  @param {Function} cb callback function.
  */
-function includes(map, cb) {
+function includes(map, out, opts, cb) {
   const keys = Object.keys(map);
 
-  const out = {};
+  //const out = {};
 
   function next(err) {
     if(err) {
       return cb(err); 
     }
     const file = keys.shift();
-    const imports = map[file];
+    const list = map[file];
     if(!file) {
       return cb(null, out); 
     }
 
     out[file] = [];
-    read(file, imports, out, next);
+    read(file, list, out, opts, next);
   }
 
   next();
+}
+
+/**
+ *  @private
+ */
+function process(map, out, opts, cb) {
+  // process html imports
+  imports(map, opts, (err, files) => {
+    if(err) {
+      return cb(err); 
+    }
+
+    // load component include files
+    includes(files, out, opts, (err, contents) => {
+      if(err) {
+        return cb(err); 
+      }
+      cb(null, contents);
+    })
+  })
 }
 
 /**
@@ -151,26 +200,27 @@ function load(opts, cb) {
     return cb(new Error('no input files specified'));
   }
 
+  const out = {};
+
   // load source file contents
   sources(opts.files, (err, map) => {
     if(err) {
       return cb(err); 
     }
 
-    // process html imports
-    imports(map, opts, (err, files) => {
+    //console.dir(map);
+
+    process(map, out, opts, (err) => {
       if(err) {
         return cb(err); 
-      }
+      } 
 
-      // load component include files
-      includes(files, (err, contents) => {
-        if(err) {
-          return cb(err); 
-        }
-        cb(null, contents);
-      })
-    })
+      //console.dir('LOAD RESULT');
+      //console.dir(out);
+
+      cb(null, out);
+    });
+
   })
 }
 

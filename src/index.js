@@ -3,7 +3,6 @@ const merge = require('merge')
   , load = require('./load')
   , parse = require('./parse')
   , transform = require('./transform')
-  , compile = require('./compile')
   , generate = require('./generate')
   , write = require('./write');
 
@@ -127,7 +126,11 @@ trucks.parse = parse;
 trucks.transform = transform;
 
 // NOTE: this function is documented in src/compile.js
-trucks.compile = compile;
+trucks.compile = function(html, opts) {
+  // NOTE: lazy require for compiler code
+  const compiler = require('./compile');
+  return compiler(html, opts);
+}
 
 /**
  *  Concatenates the transformed result to stylesheet and javascript strings.

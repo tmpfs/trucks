@@ -20,13 +20,13 @@ function generate(transformed, opts, cb) {
   const templates = transformed.tpl.map((tpl) => {
     return tpl.contents;
   })
-  transformed.html = templates.join(opts.eol || EOL);
+  transformed.html = templates.join(eol);
 
   // concatenate all style contents
   const styles = transformed.css.map((style) => {
     return style.contents;
   })
-  transformed.stylesheet = styles.join(opts.eol || EOL);
+  transformed.stylesheet = styles.join(eol);
 
   // concatenate all javascript contents
   const js = transformed.js.map((script) => {

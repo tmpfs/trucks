@@ -1,4 +1,5 @@
 var expect = require('chai').expect
+  , fs = require('fs')
   , trucks = require('../../lib');
 
 describe('trucks:', function() {
@@ -33,6 +34,16 @@ describe('trucks:', function() {
           'skate.define(\'x-icon\', {});');
         expect(result.js[1].contents).to.eql(
           'skate.define(\'x-button\', {});');
+
+        expect(result.javascript)
+          .to.eql(
+            fs.readFileSync(
+              'test/expect/dependent-javascript.js').toString().trim());
+
+        expect(result.stylesheet)
+          .to.eql(
+            fs.readFileSync(
+              'test/expect/dependent-stylesheet.css').toString().trim());
 
         done();
       }

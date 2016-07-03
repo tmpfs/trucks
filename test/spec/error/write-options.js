@@ -6,7 +6,10 @@ describe('write:', function() {
   it('should error on write with no html', function(done) {
     trucks.write(
       {},
-      {html: 'target/error.html'},
+      {
+        extract: true,
+        html: 'target/error.html'
+      },
       (err) => {
         function fn() {
           throw err;

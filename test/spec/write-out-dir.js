@@ -13,6 +13,7 @@ describe('trucks:', function() {
     trucks(
       {
         files: [src],
+        extract: true,
         out: out
       },
       (err, result) => {

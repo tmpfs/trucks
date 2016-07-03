@@ -21,6 +21,7 @@ describe('trucks:', function() {
         css: css,
         js: js,
         html: html,
+        extract: true,
         force: true
       },
       (err, result) => {

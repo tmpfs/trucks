@@ -15,7 +15,8 @@ describe('trucks:', function() {
       {
         files: [src],
         out: out,
-        name: name
+        name: name,
+        extract: true
       },
       (err, result) => {
         expect(err).to.eql(null);
@@ -43,7 +44,8 @@ describe('trucks:', function() {
           files: [src],
           force: true,
           out: out,
-          name: null
+          name: null,
+          extract: true
         },
         (err, result) => {
           expect(err).to.eql(null);

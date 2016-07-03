@@ -65,7 +65,7 @@ function write(generated, opts, cb) {
     js = opts.js; 
   }
 
-  if(html && !generated.html) {
+  if(html && !generated.html && opts.extract) {
     return cb(new Error('no html data available to write')); 
   }else if(css && !generated.stylesheet) {
     return cb(new Error('no stylesheet data available to write')); 
@@ -76,7 +76,7 @@ function write(generated, opts, cb) {
 
   const writers = [];
 
-  if(html) {
+  if(html && opts.extract) {
     writers.push(writer(HTML, html, generated.html)); 
   }
 

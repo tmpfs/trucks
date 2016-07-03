@@ -9,7 +9,8 @@ describe('trucks:', function() {
     trucks(
       {
         files: [src],
-        html: html
+        html: html,
+        extract: true
       },
       (err, result) => {
         expect(err).to.eql(null);

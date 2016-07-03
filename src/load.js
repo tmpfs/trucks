@@ -4,7 +4,7 @@ const fs = require('fs')
 /** 
  *  Loads and parses the input source files.
  *
- *  @function sources
+ *  @private {function} sources
  *
  *  @param {Array} files list of input HTML files.
  *  @param {Function} cb callback function.
@@ -33,12 +33,15 @@ function sources(files, cb) {
 /** 
  *  Finds all import `<link>` elements in the input component files. 
  *
- *  @function imports
+ *  @private {function} imports
  *
  *  @param {Object} map object mapping filenames to component files.
+ *  @param {Object} opts processing options.
  *  @param {Function} cb callback function.
+ *
+ *  @throws Error if the component file does not declare any imports.
  */
-function imports(map, cb) {
+function imports(map, opts, cb) {
 
   const cheerio = require('cheerio');
 
@@ -71,7 +74,9 @@ function imports(map, cb) {
 }
 
 /**
- *  @private
+ *  Read file contents.
+ *
+ *  @private {function} read
  */
 function read(name, imports, out, cb) {
   out[name] = []; 
@@ -109,7 +114,7 @@ function read(name, imports, out, cb) {
 /** 
  *  Loads component include files.
  *
- *  @function includes
+ *  @private {function} includes
  *
  *  @param {Object} map object mapping filenames to component files.
  *  @param {Function} cb callback function.
@@ -146,14 +151,19 @@ function load(opts, cb) {
     return cb(new Error('no input files specified'));
   }
 
+  // load source file contents
   sources(opts.files, (err, map) => {
     if(err) {
       return cb(err); 
-    } 
-    imports(map, (err, files) => {
+    }
+
+    // process html imports
+    imports(map, opts, (err, files) => {
       if(err) {
         return cb(err); 
       }
+
+      // load component include files
       includes(files, (err, contents) => {
         if(err) {
           return cb(err); 

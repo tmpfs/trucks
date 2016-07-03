@@ -13,8 +13,8 @@ describe('compiler:', function() {
     expect(res.list).to.be.an('array').to.have.length(0);
 
     // empty map
-    const {code} = babel.transformFromAst(res.map);
-    expect(code).to.eql('const templates = {};');
+    const result = babel.transformFromAst(res.map);
+    expect(result.code).to.eql('const templates = {};');
 
     // main function will always be the same, no need to assert
 

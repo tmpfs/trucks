@@ -11,9 +11,11 @@ function generate(transformed, opts, cb) {
 
   opts = opts || {};
 
-  if(opts.eol !== undefined && typeof opts.eol !== 'string') {
+  if(opts.eol !== undefined && opts.eol !== String(opts.eol)) {
     return cb(new Error('eol option must be a string')); 
   }
+
+  const eol = opts.eol || (EOL + EOL);
 
   // concatenate all templates
   const templates = transformed.tpl.map((tpl) => {
@@ -38,7 +40,7 @@ function generate(transformed, opts, cb) {
     js.unshift(transformed.compiled.code.map);
   }
 
-  transformed.javascript = js.join(opts.eol || EOL);
+  transformed.javascript = js.join(eol);
 
   cb(null, transformed);
 }

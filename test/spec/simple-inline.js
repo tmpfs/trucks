@@ -9,7 +9,9 @@ describe('trucks:', function() {
       , file = 'test/fixtures/simple-inline/simple-component.html';
     trucks(
       {
-        files: [src]
+        files: [src],
+        out: 'target',
+        name: 'simple-inline'
       },
       (err, result) => {
         expect(err).to.eql(null);

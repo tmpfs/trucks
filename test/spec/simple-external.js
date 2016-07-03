@@ -4,11 +4,13 @@ var expect = require('chai').expect
 
 describe('trucks:', function() {
 
-  it('should compile simple inline component', function(done) {
+  it('should compile simple external component', function(done) {
     const src = 'test/fixtures/simple-external/components.html';
     trucks(
       {
-        files: [src]
+        files: [src],
+        out: 'target',
+        name: 'simple-external'
       },
       (err, result) => {
         expect(err).to.eql(null);

@@ -5,9 +5,11 @@ const templates = {
     });
   }
 };
+
 function template(elem) {
   return templates[elem.tagName](elem);
 }
+
 skate.define('simple-component', {
   render: template
 });

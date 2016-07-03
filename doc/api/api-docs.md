@@ -175,7 +175,7 @@ Returns an object representing the templates as AST programs.
 * `main` String=template name of the main function.
 * `normalize` Boolean=true normalize whitespace in templates.
 * `literals` Object|Boolean flags for template literal support.
-* `load` Object options to use when parsing the DOM.
+* `dom` Object options to use when parsing the DOM.
 
 #### Throws
 

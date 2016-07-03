@@ -75,7 +75,7 @@ function isEmpty(obj) {
  *  @option {String=template} [main] name of the main function.
  *  @option {Boolean=true} [normalize] normalize whitespace in templates.
  *  @option {Object|Boolean} [literals] flags for template literal support.
- *  @option {Object} [load] options to use when parsing the DOM.
+ *  @option {Object} [dom] options to use when parsing the DOM.
  *
  *  @throws Error if a template element does not define an identifier.
  *
@@ -91,7 +91,7 @@ function compile(html, opts) {
   const cheerio = require('cheerio');
   opts = opts || {};
 
-  opts.load = opts.load || {};
+  opts.dom = opts.dom || {};
 
   if(opts.normalize === undefined) {
     opts.normalize = true; 
@@ -100,7 +100,7 @@ function compile(html, opts) {
   }
 
   if(opts.normalize) {
-    opts.load.normalizeWhitespace = true; 
+    opts.dom.normalizeWhitespace = true; 
   }
 
   if(opts.literals === undefined) {
@@ -110,7 +110,7 @@ function compile(html, opts) {
     opts.literals = {text: true, attribute: true}; 
   }
 
-  opts.dom = cheerio.load(html, opts.load);
+  opts.$ = cheerio.load(html, opts.dom);
   opts.attr = opts.attr || ID;
 
   opts.skate = opts.skate || SKATE;
@@ -124,7 +124,7 @@ function compile(html, opts) {
   opts.main = opts.main || MAIN;
   opts.templates = opts.templates || TEMPLATES;
 
-  const templates = transform(opts.dom, opts);
+  const templates = transform(opts);
 
   return {
     list: templates,
@@ -289,7 +289,7 @@ function render(t, body, opts) {
  *  @returns {Object} function body AST.
  */
 function template(el, opts) {
-  const $ = opts.dom
+  const $ = opts.$
     , babel = require('babel-core')
     , t = babel.types
     , body = [];
@@ -399,14 +399,13 @@ function template(el, opts) {
  *  function bodies for each `<template>` element.
  *
  *  @private {function} transform
- *  @param {Object} dom the DOM object.
  *  @param {Object} opts processing options.
  *
  *  @returns {Array} of function bodies.
  */
-function transform(dom, opts) {
+function transform(opts) {
   const out = []
-    , $ = dom
+    , $ = opts.$
     , templates = $('template');
 
   templates.each((i, el) => {

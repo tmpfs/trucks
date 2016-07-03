@@ -95,7 +95,14 @@ The parse phase takes the output from the load phase and extracts the css, javas
       "inline": true
     }
   ],
-  "options": {}
+  "options": {
+    "selectors": {
+      "import": "link[rel=\"import\"][href]",
+      "styles": "style, link[rel=\"stylesheet\"][href]",
+      "scripts": "script",
+      "templates": "template, link[rel=\"template\"][href]"
+    }
+  }
 }
 ```
 
@@ -121,7 +128,14 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
       "code": "\n  skate.define('x-button', {});\n"
     }
   ],
-  "options": {}
+  "options": {
+    "selectors": {
+      "import": "link[rel=\"import\"][href]",
+      "styles": "style, link[rel=\"stylesheet\"][href]",
+      "scripts": "script",
+      "templates": "template, link[rel=\"template\"][href]"
+    }
+  }
 }
 ```
 

@@ -4,7 +4,7 @@ var expect = require('chai').expect
 describe('load:', function() {
 
   it('should error on load with non-existent import file', function(done) {
-    trucks.load(
+    trucks(
         {files: ['test/fixtures/error/import-enoent.html']},
       (err) => {
         function fn() {

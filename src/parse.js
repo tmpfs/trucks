@@ -191,7 +191,8 @@ function iterator(definition, result, elements, it, cb) {
  *  @private
  */
 function component(collection, list, result, cb) {
-  const cheerio = require('cheerio');
+  const cheerio = require('cheerio')
+    , opts = result.options;
 
   function next() {
     const definition = list.shift();
@@ -204,7 +205,7 @@ function component(collection, list, result, cb) {
     const $ = definition.dom = cheerio.load(definition.contents);
 
     // process styles first and maintain declaration order
-    let elements = $('style, link[rel="stylesheet"][href]').toArray();
+    let elements = $(opts.selectors.styles).toArray();
 
     iterator(definition, result, elements, styles, (err) => {
       if(err) {
@@ -212,14 +213,14 @@ function component(collection, list, result, cb) {
       }
 
       // process inline and external scripts
-      elements = $('script').toArray();
+      elements = $(opts.selectors.scripts).toArray();
       iterator(definition, result, elements, scripts, (err) => {
         if(err) {
           return cb(err); 
         }
 
         // process inline and external template elements
-        elements = $('template, link[rel="template"][href]').toArray();
+        elements = $(opts.selectors.templates).toArray();
 
         iterator(definition, result, elements, templates, (err) => {
           if(err) {

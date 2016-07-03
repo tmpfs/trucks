@@ -4,7 +4,7 @@ var expect = require('chai').expect
 describe('load:', function() {
 
   it('should error on empty component file', function(done) {
-    trucks.load(
+    trucks(
         {files: ['test/fixtures/error/empty-component/components.html']},
       (err) => {
         function fn() {

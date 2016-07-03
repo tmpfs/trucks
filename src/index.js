@@ -1,10 +1,10 @@
 const merge = require('merge')
-  , path = require('path')
-  , load = require('./load')
-  , parse = require('./parse')
-  , transform = require('./transform')
-  , generate = require('./generate')
-  , write = require('./write');
+    , path = require('path')
+    , load = require('./load')
+    , parse = require('./parse')
+    , transform = require('./transform')
+    , generate = require('./generate')
+    , write = require('./write');
 
 /**
  *  Compile component files to CSS, Javascript and HTML.

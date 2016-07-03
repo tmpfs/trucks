@@ -1,5 +1,3 @@
-const EOL = require('os').EOL;
-
 /**
  *  @private
  */
@@ -15,7 +13,8 @@ function generate(transformed, opts, cb) {
     return cb(new Error('eol option must be a string')); 
   }
 
-  const eol = opts.eol || (EOL + EOL);
+  const EOL = require('os').EOL
+      , eol = opts.eol || (EOL + EOL);
 
   // concatenate all templates
   const templates = transformed.tpl.map((tpl) => {

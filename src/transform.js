@@ -1,5 +1,5 @@
 const SKATE = 'skate'
-  , DEFINE = 'define';
+    , DEFINE = 'define';
 
 /**
  *  Iterate all javascript strings parsing to an AST and extracting 

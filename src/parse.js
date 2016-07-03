@@ -1,8 +1,7 @@
-const path = require('path');
-const fs = require('fs');
-
-const STYLE = 'style';
-const TEMPLATE = 'template';
+const path = require('path')
+    , fs = require('fs')
+    , STYLE = 'style'
+    , TEMPLATE = 'template';
 
 /**
  *  Utility to trim a result object contents removing leading and trailing 
@@ -40,10 +39,10 @@ function trim(item, options) {
  *  @private
  */
 function styles(definition, result, el, cb) {
-  const file = definition.file;
-  const base = path.dirname(file);
-  const $ = definition.dom;
-  const options = result.options;
+  const file = definition.file
+    , base = path.dirname(file)
+    , $ = definition.dom
+    , options = result.options;
 
   function done() {
     trim(result.css[result.css.length - 1], options.trim); 
@@ -248,8 +247,8 @@ function parse(loaded, opts, cb) {
 
   opts = opts || {};
 
-  const keys = Object.keys(loaded);
-  const result = {css: [], js: [], tpl: [], options: opts};
+  const keys = Object.keys(loaded)
+    , result = {css: [], js: [], tpl: [], options: opts};
 
   function next(err) {
     if(err) {

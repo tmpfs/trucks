@@ -1,9 +1,9 @@
 const fs = require('fs')
-  , path = require('path')
-  , NAME = 'components'
-  , HTML = 'html'
-  , CSS = 'css'
-  , JS = 'js';
+    , path = require('path')
+    , NAME = 'components'
+    , HTML = 'html'
+    , CSS = 'css'
+    , JS = 'js';
 
 /**
  *  @private

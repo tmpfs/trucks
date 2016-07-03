@@ -1,5 +1,5 @@
 const fs = require('fs')
-  , path = require('path');
+    , path = require('path');
 
 /** 
  *  Loads and parses the input source files.

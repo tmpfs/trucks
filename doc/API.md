@@ -143,8 +143,8 @@ const trucks = require('trucks')
   , {map, main, list} = trucks.compile(tpl);
 ```
 
-Compile an HTML string to a list of babel AST programs representing each
-`<template>` element in the input HTML.
+Compile an HTML string to babel AST programs representing each `<template>`
+element in the input HTML.
 
 The return object contains a `map` object which is an AST program
 representing a map of component identifiers (extracted from the template
@@ -157,8 +157,8 @@ const trucks = require('trucks')
   , babel = require('babel-core')
   , tpl = '<template id="x-component"></template>'
   , info = trucks.compile(tpl)
-  , result = babel.transformFromAst(info.map);
-console.log(result.code);
+  , {code} = babel.transformFromAst(info.map);
+console.log(code);
 ```
 
 The main function is exposed on the return object as a `main` property, it
@@ -169,6 +169,17 @@ compiled `<template>` element including the compiled function `body` and
 a `render` function as an AST program. Typically there is no need for
 consumers to use this property as the `map` and `main` fields are enough
 to generate the compiled code.
+
+Template literal support is not enabled by default. You can pass the
+`literals` option as `true` to enable template literals for attributes and
+text nodes or an object that configures the `text` and `attribute` flags.
+
+The following examples are equivalent:
+
+```javascript
+trucks.compile(tpl, {literals: true});
+trucks.compile(tpl, {literals: {text: true, attribute: true});
+```
 
 Returns an object representing the templates as AST programs.
 

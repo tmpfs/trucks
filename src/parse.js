@@ -190,7 +190,7 @@ function iterator(definition, result, elements, it, cb) {
  *
  *  @private
  */
-function component(collection, list, result, cb) {
+function component(list, result, cb) {
   const cheerio = require('cheerio')
     , opts = result.options;
 
@@ -200,7 +200,7 @@ function component(collection, list, result, cb) {
       return cb(null, result); 
     }
 
-    definition.parent = collection;
+    //definition.parent = collection;
 
     //console.log('definition: %s', definition.contents);
 
@@ -250,22 +250,24 @@ function parse(loaded, opts, cb) {
 
   opts = opts || {};
 
-  const keys = Object.keys(loaded)
-    , result = {css: [], js: [], tpl: [], options: opts};
+  //const keys = Object.keys(loaded)
+  const result = {css: [], js: [], tpl: [], options: opts};
 
-  function next(err) {
-    if(err) {
-      return cb(err); 
-    }
+  component(loaded, result, cb);
 
-    const collection = keys.shift();
-    if(!collection) {
-      return cb(null, result); 
-    }
-    component(collection, loaded[collection], result, next);
-  }
+  //function next(err) {
+    //if(err) {
+      //return cb(err); 
+    //}
 
-  next();
+    //const item = loaded.shift();
+    //if(!item) {
+      //return cb(null, result); 
+    //}
+    //component(item, result, next);
+  //}
+
+  //next();
 }
 
 module.exports = parse;

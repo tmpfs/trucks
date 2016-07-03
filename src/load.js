@@ -82,9 +82,13 @@ function imports(map, opts, cb) {
  *  @private {function} read
  */
 function read(name, list, out, opts, cb) {
-  out[name] = []; 
+  //out[name] = []; 
 
-  function next() {
+  function next(err) {
+    if(err) {
+      return cb(err); 
+    } 
+
     const file = list.shift();
     if(!file) {
       return cb(); 
@@ -92,22 +96,23 @@ function read(name, list, out, opts, cb) {
 
     fs.readFile(file, (err, contents) => {
       if(err) {
-        return cb(err); 
+        return next(err); 
       }
 
       const map = {
         file: file,
+        parent: name,
         contents: contents.toString()
       }
 
       // empty component file
       if(!map.contents) {
-        return cb(new Error(`empty component file ${file}`));
+        return next(new Error(`empty component file ${file}`));
       }
 
       // prepend the loaded component information so that
       // dependencies appear before the declaring component
-      out[name].unshift(map);
+      out.unshift(map);
 
       const cheerio = require('cheerio')
         , $ = cheerio.load(map.contents)
@@ -115,19 +120,12 @@ function read(name, list, out, opts, cb) {
 
       // component has dependencies we need to load
       if(dependencies.length) {
+
         // map of dependencies
         let deps = {};
         deps[file] = map.contents;
 
-        process(deps, out, opts, (err/*, contents*/) => {
-          if(err) {
-            return cb(err); 
-          } 
-
-          //out[file].unshift(map);
-
-          next();
-        })
+        process(deps, out, opts, next);
       // no dependencies move on to the next item in the list
       }else{
         next();
@@ -151,20 +149,17 @@ function read(name, list, out, opts, cb) {
 function includes(map, out, opts, cb) {
   const keys = Object.keys(map);
 
-  //const out = {};
-
   function next(err) {
     if(err) {
       return cb(err); 
     }
     const file = keys.shift();
-    const list = map[file];
     if(!file) {
       return cb(null, out); 
     }
 
-    out[file] = [];
-    read(file, list, out, opts, next);
+    //out[file] = [];
+    read(file, map[file], out, opts, next);
   }
 
   next();
@@ -200,7 +195,7 @@ function load(opts, cb) {
     return cb(new Error('no input files specified'));
   }
 
-  const out = {};
+  const out = [];
 
   // load source file contents
   sources(opts.files, (err, map) => {
@@ -208,15 +203,10 @@ function load(opts, cb) {
       return cb(err); 
     }
 
-    //console.dir(map);
-
     process(map, out, opts, (err) => {
       if(err) {
         return cb(err); 
       } 
-
-      //console.dir('LOAD RESULT');
-      //console.dir(out);
 
       cb(null, out);
     });

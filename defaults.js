@@ -16,7 +16,9 @@ const options = {
   // force overwrite files if they already exist
   force: false,
   // override the default operating system EOL for file concatenation
-  eol: undefined
+  eol: undefined,
+  // options to pass to the compiler
+  compiler: {}
 }
 
 module.exports = options;

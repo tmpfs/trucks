@@ -15,15 +15,16 @@ const merge = require('merge')
  *  @param {Function} cb callback function.
  *
  *  @option {Array} files list of HTML files to compile.
- *  @option {Array|String} conf configuration files to load as options.
- *  @option {Object} babel options to pass to babel transform.
- *  @option {String} out output directory for files.
- *  @option {String=components} name name of the output files.
- *  @option {String} html path to write the generated template markup.
- *  @option {String} css path to write the generated stylesheet.
- *  @option {String} js path to write the generated javascript.
- *  @option {Boolean} force overwrite files that already exist.
- *  @option {String} eol override the default EOL for concatenation.
+ *  @option {Array|String} [conf] configuration files to load as options.
+ *  @option {Object} [babel] options to pass to babel transform.
+ *  @option {Object} [compiler] options to pass to the compiler.
+ *  @option {String} [out] output directory for files.
+ *  @option {String=components} [name] name of the output files.
+ *  @option {String} [html] path to write the generated template markup.
+ *  @option {String} [css] path to write the generated stylesheet.
+ *  @option {String} [js] path to write the generated javascript.
+ *  @option {Boolean} [force] overwrite files that already exist.
+ *  @option {String} [eol] override the default EOL for concatenation.
  */
 function trucks(opts, cb) {
   let options = require('../defaults')

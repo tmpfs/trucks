@@ -27,7 +27,9 @@ const options = {
   // force overwrite files if they already exist
   force: false,
   // override the default operating system EOL for file concatenation
-  eol: undefined
+  eol: undefined,
+  // options to pass to the compiler
+  compiler: {}
 }
 
 module.exports = options;
@@ -35,5 +37,5 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 2, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 3, 2016
 

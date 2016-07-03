@@ -250,24 +250,8 @@ function parse(loaded, opts, cb) {
 
   opts = opts || {};
 
-  //const keys = Object.keys(loaded)
   const result = {css: [], js: [], tpl: [], options: opts};
-
   component(loaded, result, cb);
-
-  //function next(err) {
-    //if(err) {
-      //return cb(err); 
-    //}
-
-    //const item = loaded.shift();
-    //if(!item) {
-      //return cb(null, result); 
-    //}
-    //component(item, result, next);
-  //}
-
-  //next();
 }
 
 module.exports = parse;

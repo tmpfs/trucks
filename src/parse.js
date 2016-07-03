@@ -190,9 +190,8 @@ function iterator(definition, result, elements, it, cb) {
  *
  *  @private
  */
-function component(list, result, cb) {
-  const cheerio = require('cheerio')
-    , opts = result.options;
+function component(list, result, opts, cb) {
+  const cheerio = require('cheerio');
 
   function next() {
     const definition = list.shift();
@@ -200,15 +199,10 @@ function component(list, result, cb) {
       return cb(null, result); 
     }
 
-    //definition.parent = collection;
-
-    //console.log('definition: %s', definition.contents);
-
     const $ = definition.dom = cheerio.load(definition.contents);
 
     // process styles first and maintain declaration order
     let elements = $(opts.selectors.styles).toArray();
-
     iterator(definition, result, elements, styles, (err) => {
       if(err) {
         return cb(err); 
@@ -251,7 +245,7 @@ function parse(loaded, opts, cb) {
   opts = opts || {};
 
   const result = {css: [], js: [], tpl: [], options: opts};
-  component(loaded, result, cb);
+  component(loaded, result, opts, cb);
 }
 
 module.exports = parse;

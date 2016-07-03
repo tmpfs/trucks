@@ -17,6 +17,18 @@ const options = {
   force: false,
   // override the default operating system EOL for file concatenation
   eol: undefined,
+  // behaviour for trimming whitespace
+  trim: {
+    // only trim inline content
+    inline: true,
+    // trim leading and trailing newlines
+    newlines: true,
+    // pattern used to trim lines, default is two spaces or a tab
+    // at the beginning of each line
+    pattern: /^(  |\t){1,1}/,
+    // trim lines using pattern
+    lines: true
+  },
   // options to pass to the compiler
   compiler: {}
 }

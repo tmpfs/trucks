@@ -1,3 +1,5 @@
 node_modules
 coverage
 target
+test/fixtures
+test/expect

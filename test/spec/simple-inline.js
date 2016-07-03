@@ -1,4 +1,5 @@
 var expect = require('chai').expect
+  , fs = require('fs')
   , trucks = require('../../lib');
 
 describe('trucks:', function() {
@@ -46,6 +47,10 @@ describe('trucks:', function() {
         // generate phase data
         expect(result.stylesheet).to.be.a('string');
         expect(result.javascript).to.be.a('string');
+
+        const expected = fs.readFileSync('test/expect/simple-component.js')
+          .toString().trim();
+        expect(result.javascript).to.eql(expected);
 
         done();
       }

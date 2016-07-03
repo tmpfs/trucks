@@ -22,10 +22,11 @@ function extract(result, opts, cb) {
       return cb(null, result); 
     }
 
+    script.code = script.contents;
+
     // extracting HTML templates verbatim
     // bypass transform/compile phase
     if(opts.extract) {
-      script.code = script.contents;
       return next(); 
     }
 
@@ -91,7 +92,7 @@ function extract(result, opts, cb) {
 
     // FIXME: needs to point to the transformed javascript code
     // FIXME: using original source for now
-    script.code = res.code;
+    //script.code = res.code;
 
     next();
   }
@@ -111,7 +112,59 @@ function transform(parsed, opts, cb) {
   opts = opts || {};
   opts.babel = opts.babel || {};
 
-  extract(parsed, opts, cb);
+  //console.log(parsed);
+
+  extract(parsed, opts, function(err) {
+    if(err) {
+      return cb(err); 
+    } 
+
+    // only compile templates when not extracting
+    if(!opts.extract) {
+
+      // list of template elements encountered
+      const tpl = parsed.tpl
+        , compiler = require('./compile')
+        , babel = require('babel-core');
+
+      if(!tpl) {
+        return cb(null, parsed); 
+      }
+
+      // create HTML string of all templates
+      let html = ''
+        , compiled = null
+        , transformed = null
+        , map = ''
+        , main = '';
+
+      tpl.forEach((item) => {
+        html += item.contents; 
+      });
+
+      compiled = compiler(html, opts.compiler);
+
+      // get string code for the template map
+      transformed = babel.transformFromAst(compiled.map, opts.babel);
+      map = transformed.code;
+
+      // get string code for the template main function
+      transformed = babel.transformFromAst(compiled.main, opts.babel);
+      main = transformed.code;
+
+      // inject string code so that the generate phase 
+      // can prepend the compiled code
+      compiled.code = {
+        map: map,
+        main: main
+      }
+
+      // inject compiler result object
+      parsed.compiled = compiled;
+    }
+
+    cb(null, parsed);
+  });
 }
 
 module.exports = transform;

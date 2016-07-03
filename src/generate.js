@@ -31,6 +31,13 @@ function generate(transformed, opts, cb) {
   const js = transformed.js.map((script) => {
     return script.code;
   })
+
+  // got compiled code to prepend
+  if(transformed.compiled && transformed.compiled.code) {
+    js.unshift(transformed.compiled.code.main);
+    js.unshift(transformed.compiled.code.map);
+  }
+
   transformed.javascript = js.join(opts.eol || EOL);
 
   cb(null, transformed);

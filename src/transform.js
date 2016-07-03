@@ -1,5 +1,5 @@
-const SKATE = 'skate';
-const DEFINE = 'define';
+const SKATE = 'skate'
+  , DEFINE = 'define';
 
 /**
  *  Iterate all javascript strings parsing to an AST and extracting 
@@ -20,6 +20,13 @@ function extract(result, opts, cb) {
     const script = js.shift();
     if(!script) {
       return cb(null, result); 
+    }
+
+    // extracting HTML templates verbatim
+    // bypass transform/compile phase
+    if(opts.extract) {
+      script.code = script.contents;
+      return next(); 
     }
 
     const components = {};

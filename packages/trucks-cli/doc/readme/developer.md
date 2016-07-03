@@ -28,6 +28,8 @@ To run the test suite:
 npm test
 ```
 
+Tests are not included in the npm package you should clone the repository to run the test suite.
+
 ### Cover
 
 To generate code coverage run:

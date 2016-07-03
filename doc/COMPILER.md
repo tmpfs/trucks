@@ -147,7 +147,7 @@ After transformation the generate phase will concatenate all the css and transfo
 
 ```json
 {
-  "stylesheet": "\n  x-button {\n    /* component styles */\n  }\n\n\n  x-icon {\n    /* component styles */\n  }\n",
+  "stylesheet": "\n  x-button {\n    /* component styles */\n  }\n\n\n\n  x-icon {\n    /* component styles */\n  }\n",
   "javascript": "const templates = {\n  \"x-button\": function render(elem) {},\n  \"x-icon\": function render(elem) {}\n};\n\nfunction template(elem) {\n  return templates[elem.tagName](elem);\n}\n\n\n  skate.define('x-button', {});\n\n\n\n  skate.define('x-icon', {});\n"
 }
 ```

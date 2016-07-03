@@ -121,6 +121,8 @@ To run the test suite:
 npm test
 ```
 
+Tests are not included in the npm package you should clone the repository to run the test suite.
+
 ### Cover
 
 To generate code coverage run:
@@ -165,6 +167,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 3, 2016
 [react]: https://facebook.github.io/react/
 [react-webcomponents]: https://github.com/facebook/react/issues/5052
 [react-integration]: https://github.com/skatejs/react-integration
+[mozilla-webcomponents]: https://hacks.mozilla.org/2014/12/mozilla-and-web-components/
 [csp]: http://content-security-policy.com/
 [npm]: https://www.npmjs.com/
 [postcss]: https://github.com/postcss/postcss

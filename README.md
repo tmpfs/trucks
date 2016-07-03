@@ -47,6 +47,8 @@ The [react framework][react] is [not tracking the webcomponents standards][react
 
 The [trucks][] library aims to bring component encapsulation to [skatejs][] and allow [polymer][] component definitions to be compiled to bypass the [content security policy][csp] problem.
 
+Another benefit of this library is that it converts [HTML Imports][] to *compile time only* which is important as [mozilla will not ship HTML Imports][mozilla-webcomponents], one less polyfill!
+
 ---
 
 - [Install](#install)
@@ -279,6 +281,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 3, 2016
 [react]: https://facebook.github.io/react/
 [react-webcomponents]: https://github.com/facebook/react/issues/5052
 [react-integration]: https://github.com/skatejs/react-integration
+[mozilla-webcomponents]: https://hacks.mozilla.org/2014/12/mozilla-and-web-components/
 [csp]: http://content-security-policy.com/
 [npm]: https://www.npmjs.com/
 [postcss]: https://github.com/postcss/postcss

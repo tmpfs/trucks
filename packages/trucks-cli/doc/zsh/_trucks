@@ -5,12 +5,13 @@ _trucks(){
   local actions options commands;
 
   options=(
-    "(-o --out)"{-o=,--out=}"[Output directory.]:directory:_directories" 
-    "(-n --name)"{-n=,--name=}"[Name for output files.]" 
-    "*"{-c=,--conf=}"[Configuration files to require.]:file:_files" 
-    "(-m --html)"{-m=,--html=}"[Markup output file.]:file:_files" 
-    "(-s --css)"{-s=,--css=}"[Stylesheet output file.]:file:_files" 
-    "(-j --js)"{-j=,--js=}"[Javascript output file.]:file:_files" 
+    "(-o --out)"{-o=,--out=}"[Output directory]:directory:_directories" 
+    "(-n --name)"{-n=,--name=}"[Name for output files]" 
+    "(-m --html)"{-m=,--html=}"[Template output file (--extract only)]:file:_files" 
+    "(-s --css)"{-s=,--css=}"[Stylesheet output file]:file:_files" 
+    "(-j --js)"{-j=,--js=}"[Javascript output file]:file:_files" 
+    "*"{-c=,--conf=}"[Configuration files to require]:file:_files" 
+    "(-e --extract)"{-e,--extract}"[Extract templates]" 
     "(-h --help)"{-h,--help}"[Display help and exit]" 
     "--version[Print the version and exit]"
   )

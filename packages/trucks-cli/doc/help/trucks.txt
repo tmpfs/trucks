@@ -1,16 +1,18 @@
-Usage: trucks [-h] [--help] [--version] [--out <dir>] [--name <val>] [--conf
-              <file...>] [--html <file>] [--css <file>] [--js <file>] [files...]
+Usage: trucks [-eh] [--extract] [--help] [--version] [--out <dir>] [--name
+              <val>] [--html <file>] [--css <file>] [--js <file>] [--conf
+              <file...>] [files...]
 
   Compiles web components.
 
 Options
-  -o, --out=[dir]         Output directory.
-  -n, --name=[val]        Name for output files.
-  -c, --conf=[file...]    Configuration files to require.
-  -m, --html=[file]       Markup output file.
-  -s, --css=[file]        Stylesheet output file.
-  -j, --js=[file]         Javascript output file.
+  -o, --out=[dir]         Output directory (default: cwd)
+  -n, --name=[val]        Name for output files (default: components)
+  -m, --html=[file]       Template output file (--extract only)
+  -s, --css=[file]        Stylesheet output file
+  -j, --js=[file]         Javascript output file
+  -c, --conf=[file...]    Configuration files to require
+  -e, --extract           Extract templates
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks-cli@1.0.0
+trucks-cli@1.0.2

@@ -111,14 +111,14 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
       "file": "doc/compiler/x-icon.html",
       "contents": "\n  skate.define('x-icon', {});\n",
       "inline": true,
-      "code": "\nskate.define('x-icon', {});"
+      "code": "\n  skate.define('x-icon', {});\n"
     },
     {
       "parent": "doc/compiler/components.html",
       "file": "doc/compiler/x-button.html",
       "contents": "\n  skate.define('x-button', {});\n",
       "inline": true,
-      "code": "\nskate.define('x-button', {});"
+      "code": "\n  skate.define('x-button', {});\n"
     }
   ],
   "options": {}
@@ -134,7 +134,7 @@ After transformation the generate phase will concatenate all the css and transfo
 ```json
 {
   "stylesheet": "\n  x-icon {\n    /* component styles */\n  }\n\n\n  x-button {\n    /* component styles */\n  }\n",
-  "javascript": "\nskate.define('x-icon', {});\n\nskate.define('x-button', {});"
+  "javascript": "const templates = {\n  \"x-icon\": function render(elem) {},\n  \"x-button\": function render(elem) {}\n};\n\nfunction template(elem) {\n  return templates[elem.tagName](elem);\n}\n\n\n  skate.define('x-icon', {});\n\n\n\n  skate.define('x-button', {});\n"
 }
 ```
 

@@ -16,6 +16,7 @@ trucks.load({files: ['doc/compiler/components.html']}, (err, loaded) => {
       // remove irrelevant info for this example output
       delete transformed.css;
       delete transformed.tpl;
+      delete transformed.compiled;
 
       // clean circular references
       transformed.js.forEach((script) => {

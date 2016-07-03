@@ -29,4 +29,4 @@ The [react framework][react] is [not tracking the webcomponents standards][react
 
 The [trucks][] library aims to bring component encapsulation to [skatejs][] and allow [polymer][] component definitions to be compiled to bypass the [content security policy][csp] problem.
 
-Another benefit of this library is that it converts [HTML Imports][] to *compile time only* which is important as [mozilla will not ship HTML Imports][mozilla-webcomponents], one less polyfill!
+Another benefit of this library is that it converts [HTML Imports][] to *compile time only* which is important as [Mozilla will not ship HTML Imports][mozilla-webcomponents], one less polyfill!

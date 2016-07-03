@@ -1,0 +1,22 @@
+<template id="simple-component">
+  <p>Simple component.</p>
+</template>
+
+<style>
+  simple-component {
+    background: black;
+    color: white;
+  }
+</style>
+
+<script>
+  function foo() {}
+
+  // mock callee expression to trigger a code path
+  foo();
+
+  skate.define('simple-component', {
+    render: template
+  });
+</script>
+

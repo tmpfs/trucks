@@ -18,6 +18,7 @@ const merge = require('merge')
  *  @option {Array|String} [conf] configuration files to load as options.
  *  @option {Object} [babel] options to pass to babel transform.
  *  @option {Object} [compiler] options to pass to the compiler.
+ *  @option {Boolean=false} [extract] do not compile templates, write to file.
  *  @option {String} [out] output directory for files.
  *  @option {String=components} [name] name of the output files.
  *  @option {String} [html] path to write the generated template markup.

@@ -61,14 +61,6 @@ function trucks(opts, cb) {
   // finally merge in passed options
   options = merge(true, options, opts);
 
-  if(options.trim !== Object(options.trim)) {
-    options.trim = {};
-  }
-
-  if(options.trim.newlines === undefined) {
-    options.trim.newlines = true; 
-  }
-
   load(options, (err, loaded) => {
     if(err) {
       return cb(err); 

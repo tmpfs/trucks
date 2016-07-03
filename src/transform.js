@@ -90,10 +90,6 @@ function extract(result, opts, cb) {
     // inject list of components defined by each script
     script.components = components;
 
-    // FIXME: needs to point to the transformed javascript code
-    // FIXME: using original source for now
-    //script.code = res.code;
-
     next();
   }
 

@@ -14,7 +14,7 @@ const TEMPLATE = 'template';
  */
 function trim(item, options) {
   // only configured to trim inline content
-  if(options.inline && !item.inline) {
+  if(!options || (options.inline && !item.inline)) {
     return; 
   }
 
@@ -46,9 +46,7 @@ function styles(definition, result, el, cb) {
   const options = result.options;
 
   function done() {
-    if(options.trim) {
-      trim(result.css[result.css.length - 1], options.trim); 
-    }
+    trim(result.css[result.css.length - 1], options.trim); 
     cb();
   }
 
@@ -92,9 +90,7 @@ function scripts(definition, result, el, cb) {
   const options = result.options;
 
   function done() {
-    if(options.trim) {
-      trim(result.js[result.js.length - 1], options.trim); 
-    }
+    trim(result.js[result.js.length - 1], options.trim); 
     cb();
   }
 
@@ -137,9 +133,7 @@ function templates(definition, result, el, cb) {
   const options = result.options;
 
   function done() {
-    if(options.trim) {
-      trim(result.tpl[result.tpl.length - 1], options.trim); 
-    }
+    trim(result.tpl[result.tpl.length - 1], options.trim); 
     cb();
   }
 

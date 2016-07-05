@@ -1,6 +1,6 @@
 {
   "name": "trucks",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "Web component compiler and package manager",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

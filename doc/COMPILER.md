@@ -111,24 +111,79 @@ The parse phase takes the output from the load phase and extracts the css, javas
 The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
 
 ```json
+{ files: null,
+  babel: {},
+  out: undefined,
+  name: 'components',
+  html: undefined,
+  css: undefined,
+  js: undefined,
+  force: false,
+  eol: undefined,
+  trim: 
+   { inline: true,
+     newlines: true,
+     pattern: /^(  |\t){1,1}/,
+     lines: true },
+  compiler: { attr: 'id' },
+  selectors: 
+   { import: 'link[rel="import"][href]',
+     styles: 'style, link[rel="stylesheet"][href]',
+     scripts: 'script',
+     templates: 'template, link[rel="template"][href]' } }
 {
   "js": [
     {
       "parent": "doc/compiler/components.html",
       "file": "doc/compiler/x-button.html",
-      "contents": "\n  skate.define('x-button', {});\n",
+      "contents": "skate.define('x-button', {});",
       "inline": true,
-      "code": "\n  skate.define('x-button', {});\n"
+      "code": "skate.define('x-button', {});"
     },
     {
       "parent": "doc/compiler/components.html",
       "file": "doc/compiler/x-icon.html",
-      "contents": "\n  skate.define('x-icon', {});\n",
+      "contents": "skate.define('x-icon', {});",
       "inline": true,
-      "code": "\n  skate.define('x-icon', {});\n"
+      "code": "skate.define('x-icon', {});"
     }
   ],
   "options": {
+    "files": null,
+    "babel": {
+      "plugins": [
+        null,
+        null
+      ],
+      "filename": "doc/compiler/x-icon.html"
+    },
+    "name": "components",
+    "force": false,
+    "trim": {
+      "inline": true,
+      "newlines": true,
+      "pattern": {},
+      "lines": true
+    },
+    "compiler": {
+      "attr": "id",
+      "dom": {
+        "normalizeWhitespace": true,
+        "withDomLvl1": true,
+        "xmlMode": false,
+        "decodeEntities": true
+      },
+      "normalize": true,
+      "literals": {},
+      "skate": "skate",
+      "vdom": "vdom",
+      "element": "element",
+      "text": "text",
+      "name": "render",
+      "arg": "elem",
+      "main": "template",
+      "templates": "templates"
+    },
     "selectors": {
       "import": "link[rel=\"import\"][href]",
       "styles": "style, link[rel=\"stylesheet\"][href]",
@@ -147,8 +202,8 @@ After transformation the generate phase will concatenate all the css and transfo
 
 ```json
 {
-  "stylesheet": "\n  x-button {\n    /* component styles */\n  }\n\n\n\n  x-icon {\n    /* component styles */\n  }\n",
-  "javascript": "const templates = {\n  \"x-button\": function render(elem) {},\n  \"x-icon\": function render(elem) {}\n};\n\nfunction template(elem) {\n  return templates[elem.tagName](elem);\n}\n\n\n  skate.define('x-button', {});\n\n\n\n  skate.define('x-icon', {});\n"
+  "stylesheet": "x-button {\n  /* component styles */\n}\n\nx-icon {\n  /* component styles */\n}",
+  "javascript": "const templates = {\n  \"x-button\": function render(elem) {},\n  \"x-icon\": function render(elem) {}\n};\n\nfunction template(elem) {\n  return templates[elem.tagName](elem);\n}\n\nskate.define('x-button', {});\n\nskate.define('x-icon', {});"
 }
 ```
 
@@ -160,5 +215,5 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 3, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 5, 2016
 

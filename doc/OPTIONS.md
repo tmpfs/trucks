@@ -41,7 +41,10 @@ const options = {
     lines: true
   },
   // options to pass to the compiler
-  compiler: {},
+  compiler: {
+    // template element attribute used to extract the template id
+    attr: 'id'
+  },
 
   /**
    *  @private
@@ -68,5 +71,5 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 3, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 5, 2016
 

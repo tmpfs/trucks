@@ -2,6 +2,27 @@ const fs = require('fs')
     , path = require('path');
 
 /**
+ *  Encapsulates the load state information.
+ *
+ *  @private {constructor} State
+ *  @param {Array} out list for the output result objects.
+ *  @param {Object} opts processing options.
+ */
+function State(out, opts) {
+  this.out = out;
+  this.opts = opts;
+  // source input files passed to be loaded
+  this.files = opts.files;
+
+  // map of input files to file contents
+  // injected externally
+  //this.map = null;
+
+  // list of parent file hierarchies used to detect circular imports
+  this.hierarchy = [];
+}
+
+/**
  *  Helper to test for cyclic depenendeices.
  *
  *  @private {function} cyclic
@@ -76,9 +97,10 @@ function sources(files, cb) {
  *
  *  @throws Error if the component file does not declare any imports.
  */
-function imports(map, opts, cb) {
+function imports(map, state, cb) {
 
-  const cheerio = require('cheerio');
+  const opts = state.opts
+    , cheerio = require('cheerio');
 
   let k
     , base
@@ -113,7 +135,8 @@ function imports(map, opts, cb) {
  *
  *  @private {function} read
  */
-function read(name, list, hierarchy, out, opts, cb) {
+function read(name, list, state, cb) {
+  const opts = state.opts;
 
   function next(err) {
     if(err) {
@@ -141,7 +164,7 @@ function read(name, list, hierarchy, out, opts, cb) {
 
       // cyclic dependency
       try {
-        cyclic(file, hierarchy, name);
+        cyclic(file, state.hierarchy, name);
       }catch(e) {
         return next(e); 
       }
@@ -153,7 +176,7 @@ function read(name, list, hierarchy, out, opts, cb) {
 
       // prepend the loaded component information so that
       // dependencies appear before the declaring component
-      out.unshift(map);
+      state.out.unshift(map);
 
       const cheerio = require('cheerio')
         , $ = cheerio.load(map.contents)
@@ -166,7 +189,7 @@ function read(name, list, hierarchy, out, opts, cb) {
         let deps = {};
         deps[file] = map.contents;
 
-        run(deps, out, hierarchy, opts, next);
+        run(deps, state, next);
       // no dependencies move on to the next item in the list
       }else{
         next();
@@ -187,8 +210,10 @@ function read(name, list, hierarchy, out, opts, cb) {
  *  @param {Object} opts processing options.
  *  @param {Function} cb callback function.
  */
-function includes(map, out, hierarchy, opts, cb) {
-  const keys = Object.keys(map);
+function includes(map, state, cb) {
+  const keys = Object.keys(map)
+    , out = state.out
+    , hierarchy = state.hierarchy;
 
   function next(err) {
     if(err) {
@@ -199,10 +224,10 @@ function includes(map, out, hierarchy, opts, cb) {
       return cb(null, out); 
     }
 
-    hierarchy = hierarchy || [];
+    //hierarchy = hierarchy || [];
     hierarchy.push(file);
 
-    read(file, map[file], hierarchy, out, opts, next);
+    read(file, map[file], state, next);
   }
 
   next();
@@ -211,16 +236,16 @@ function includes(map, out, hierarchy, opts, cb) {
 /**
  *  @private
  */
-function run(map, out, hierarchy, opts, cb) {
+function run(map, state, cb) {
 
   // process html imports
-  imports(map, opts, (err, files) => {
+  imports(map, state, (err, files) => {
     if(err) {
       return cb(err); 
     }
 
     // load component include files
-    includes(files, out, hierarchy, opts, (err, contents) => {
+    includes(files, state, (err, contents) => {
       if(err) {
         return cb(err); 
       }
@@ -239,15 +264,19 @@ function load(opts, cb) {
     return cb(new Error('no input files specified'));
   }
 
-  const out = [];
+  const out = []
+    , state = new State(out, opts);
 
   // load source file contents
-  sources(opts.files, (err, map) => {
+  sources(state.files, (err, map) => {
     if(err) {
       return cb(err); 
     }
 
-    run(map, out, null, opts, (err) => {
+    // inject the map of source files
+    //state.map = map;
+
+    run(map, state, (err) => {
       if(err) {
         return cb(err); 
       } 

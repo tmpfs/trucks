@@ -11,32 +11,34 @@ trucks.load(
     }
     trucks.parse(
       loaded,
-      {
-        selectors: require('../../defaults').selectors
-      },
+      require('../../defaults'),
       (err, parsed) => {
         if(err) {
           throw err; 
         }
-        trucks.transform(parsed, (err, transformed) => {
-          if(err) {
-            throw err; 
-          }
-
-          trucks.generate(transformed, (err, generated) => {
+        trucks.transform(
+          parsed,
+          require('../../defaults'),
+            (err, transformed) => {
             if(err) {
               throw err; 
             }
 
-            // NOTE: extract only relevant data for example output
-            const result = {
-              stylesheet: generated.stylesheet,
-              javascript: generated.javascript
-            }
+            trucks.generate(transformed, (err, generated) => {
+              if(err) {
+                throw err; 
+              }
 
-            console.log(JSON.stringify(result, undefined, 2));
-          });
-        });
+              // NOTE: extract only relevant data for example output
+              const result = {
+                stylesheet: generated.stylesheet,
+                javascript: generated.javascript
+              }
+
+              console.log(JSON.stringify(result, undefined, 2));
+            });
+          }
+        );
       }
     )
   }

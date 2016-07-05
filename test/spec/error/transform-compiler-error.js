@@ -5,7 +5,15 @@ describe('transform:', function() {
 
   it('should error on invalid javascript (syntax error)', function(done) {
     trucks.transform(
-      {js: [{file: 'mock.js',contents: 'var foo ='}]},
+      {
+        js: [
+          {
+            file: 'mock.js',
+            contents: 'var foo ='
+          }
+        ],
+        tpl: []
+      },
       (err) => {
         function fn() {
           throw err;

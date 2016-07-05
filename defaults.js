@@ -30,7 +30,10 @@ const options = {
     lines: true
   },
   // options to pass to the compiler
-  compiler: {},
+  compiler: {
+    // template element attribute used to extract the template id
+    attr: 'id'
+  },
 
   /**
    *  @private

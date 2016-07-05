@@ -97,6 +97,48 @@ function extract(result, opts, cb) {
 }
 
 /**
+ *  Test for duplicate template identifiers.
+ *
+ *  @private {function} duplicates
+ *  @param {Array} templates list of loaded templates.
+ *  @param {Object} opts processing options.
+ *
+ *  @throws Error if a duplicate template identifier is found.
+ */
+function duplicates(templates, opts) {
+  // TODO: parsing of the template DOM could be done in 
+  // TODO: the parse phase and the compiler could be modified to
+  // TODO: to accept the existing DOM element which would optimize
+  // TODO: the number of calls to cheerio.load() for templates.
+  // TODO: it would remove this call to cheerio.load() and the call
+  // TODO: in the compiler
+
+  const cheerio = require('cheerio');
+  let i
+    , tpl
+    , $
+    , id
+    , elements
+    , identifiers = [];
+
+  function iterator() {
+    id = $(this).attr(opts.compiler.attr);
+    if(~identifiers.indexOf(id)) {
+      throw new Error(`duplicate template identifier: ${id} (${tpl.file})`); 
+    }
+    identifiers.push(id);
+  }
+
+  for(i = 0;i < templates.length;i++) {
+    tpl = templates[i];
+    $ = cheerio.load(tpl.contents); 
+    elements = $(opts.selectors.templates);
+    elements.each(iterator);
+  }
+
+}
+
+/**
  *  @private
  */
 function transform(parsed, opts, cb) {
@@ -108,7 +150,13 @@ function transform(parsed, opts, cb) {
   opts = opts || {};
   opts.babel = opts.babel || {};
 
-  //console.log(parsed);
+  parsed.tpl = parsed.tpl || [];
+
+  try {
+    duplicates(parsed.tpl, opts);
+  }catch(e) {
+    return cb(e); 
+  }
 
   extract(parsed, opts, function(err) {
     if(err) {
@@ -122,10 +170,6 @@ function transform(parsed, opts, cb) {
       const tpl = parsed.tpl
         , compiler = require('./compile')
         , babel = require('babel-core');
-
-      if(!tpl) {
-        return cb(null, parsed); 
-      }
 
       // create HTML string of all templates
       let html = ''

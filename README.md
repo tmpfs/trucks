@@ -61,6 +61,7 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
 - [Overview](#overview)
 - [Components](#components)
   - [Dependencies](#dependencies)
+  - [Private Dependencies](#private-dependencies)
   - [Notes](#notes)
 - [Roadmap](#roadmap)
   - [Packages](#packages)
@@ -231,6 +232,34 @@ And define the component dependency `x-icon.html`:
 
 ```html
 <!-- implement component markup, styles and script -->
+```
+
+### Private Dependencies
+
+A component file can declare multiple components in a single file which can be useful when a component's dependencies are not intended to be used independently. In this case they are referred to as *private dependencies*, for example:
+
+```html
+<template id="x-icon">
+  <!-- component markup -->
+</template>
+<template id="x-button">
+  <x-icon><x-icon>
+</template>
+
+<style>
+  x-icon {
+    /* styles for icon component */
+  }
+
+  x-button {
+    /* styles for button component */
+  }
+</style>
+
+<script>
+  skate.define('x-icon', {/* component implementation */});
+  skate.define('x-button', {/* component implementation */});
+</script>
 ```
 
 ### Notes

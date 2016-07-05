@@ -70,6 +70,34 @@ And define the component dependency `x-icon.html`:
 <!-- implement component markup, styles and script -->
 ```
 
+### Private Dependencies
+
+A component file can declare multiple components in a single file which can be useful when a component's dependencies are not intended to be used independently. In this case they are referred to as *private dependencies*, for example:
+
+```html
+<template id="x-icon">
+  <!-- component markup -->
+</template>
+<template id="x-button">
+  <x-icon><x-icon>
+</template>
+
+<style>
+  x-icon {
+    /* styles for icon component */
+  }
+
+  x-button {
+    /* styles for button component */
+  }
+</style>
+
+<script>
+  skate.define('x-icon', {/* component implementation */});
+  skate.define('x-button', {/* component implementation */});
+</script>
+```
+
 ### Notes
 
 Components defined for [skatejs][] can ignore the HTML file as the templates are compiled to javascript; the command line interface will not generate an HTML file as it compiles for [skatejs][] by default.

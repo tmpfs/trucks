@@ -7,10 +7,11 @@ const fs = require('fs')
  *  @private {function} cyclic
  *  @param {String} file path to the file to load.
  *  @param {Array} list of paths in the hierarchy.
+ *  @param {String} name the name of the declaring file.
  *
  *  @throws Error if a circular dependency is detected.
  */
-function cyclic(file, hierarchy) {
+function cyclic(file, hierarchy, name) {
 
   function abs(file) {
     if(!path.isAbsolute(file)) {
@@ -27,7 +28,7 @@ function cyclic(file, hierarchy) {
     dest = abs(hierarchy[i]);
     if(source === dest) {
       throw new Error(
-        `cyclic dependency detected ${source} <> ${dest}`);
+        `cyclic dependency detected in ${name} (${source} <> ${dest})`);
     }
   }
 }
@@ -112,7 +113,7 @@ function imports(map, opts, cb) {
  *
  *  @private {function} read
  */
-function read(name, list, out, opts, cb) {
+function read(name, list, hierarchy, out, opts, cb) {
 
   function next(err) {
     if(err) {
@@ -135,9 +136,12 @@ function read(name, list, out, opts, cb) {
         contents: contents.toString()
       }
 
-      // cyclic dependency on self
+      //console.dir(file);
+      //console.dir(hierarchy);
+
+      // cyclic dependency
       try {
-        cyclic(file, [name]);
+        cyclic(file, hierarchy, name);
       }catch(e) {
         return next(e); 
       }
@@ -162,7 +166,7 @@ function read(name, list, out, opts, cb) {
         let deps = {};
         deps[file] = map.contents;
 
-        run(deps, out, opts, next);
+        run(deps, out, hierarchy, opts, next);
       // no dependencies move on to the next item in the list
       }else{
         next();
@@ -179,11 +183,11 @@ function read(name, list, out, opts, cb) {
  *  @private {function} includes
  *
  *  @param {Object} map object mapping filenames to component files.
- *  @param {Object} out output result object.
+ *  @param {Array} out output result object.
  *  @param {Object} opts processing options.
  *  @param {Function} cb callback function.
  */
-function includes(map, out, opts, cb) {
+function includes(map, out, hierarchy, opts, cb) {
   const keys = Object.keys(map);
 
   function next(err) {
@@ -195,8 +199,10 @@ function includes(map, out, opts, cb) {
       return cb(null, out); 
     }
 
-    //out[file] = [];
-    read(file, map[file], out, opts, next);
+    hierarchy = hierarchy || [];
+    hierarchy.push(file);
+
+    read(file, map[file], hierarchy, out, opts, next);
   }
 
   next();
@@ -205,7 +211,7 @@ function includes(map, out, opts, cb) {
 /**
  *  @private
  */
-function run(map, out, opts, cb) {
+function run(map, out, hierarchy, opts, cb) {
 
   // process html imports
   imports(map, opts, (err, files) => {
@@ -214,7 +220,7 @@ function run(map, out, opts, cb) {
     }
 
     // load component include files
-    includes(files, out, opts, (err, contents) => {
+    includes(files, out, hierarchy, opts, (err, contents) => {
       if(err) {
         return cb(err); 
       }
@@ -241,7 +247,7 @@ function load(opts, cb) {
       return cb(err); 
     }
 
-    run(map, out, opts, (err) => {
+    run(map, out, null, opts, (err) => {
       if(err) {
         return cb(err); 
       } 

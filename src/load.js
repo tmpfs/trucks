@@ -1,6 +1,37 @@
 const fs = require('fs')
     , path = require('path');
 
+/**
+ *  Helper to test for cyclic depenendeices.
+ *
+ *  @private {function} cyclic
+ *  @param {String} file path to the file to load.
+ *  @param {Array} list of paths in the hierarchy.
+ *
+ *  @throws Error if a circular dependency is detected.
+ */
+function cyclic(file, hierarchy) {
+
+  function abs(file) {
+    if(!path.isAbsolute(file)) {
+      return path.normalize(path.join(process.cwd(), file)); 
+    }
+    return file;
+  }
+
+  let i
+    , source = abs(file)
+    , dest;
+
+  for(i = 0;i < hierarchy.length;i++) {
+    dest = abs(hierarchy[i]);
+    if(source === dest) {
+      throw new Error(
+        `cyclic dependency detected ${source} <> ${dest}`);
+    }
+  }
+}
+
 /** 
  *  Loads and parses the input source files.
  *
@@ -82,7 +113,6 @@ function imports(map, opts, cb) {
  *  @private {function} read
  */
 function read(name, list, out, opts, cb) {
-  //out[name] = []; 
 
   function next(err) {
     if(err) {
@@ -105,6 +135,13 @@ function read(name, list, out, opts, cb) {
         contents: contents.toString()
       }
 
+      // cyclic dependency on self
+      try {
+        cyclic(file, [name]);
+      }catch(e) {
+        return next(e); 
+      }
+
       // empty component file
       if(!map.contents) {
         return next(new Error(`empty component file ${file}`));
@@ -125,7 +162,7 @@ function read(name, list, out, opts, cb) {
         let deps = {};
         deps[file] = map.contents;
 
-        process(deps, out, opts, next);
+        run(deps, out, opts, next);
       // no dependencies move on to the next item in the list
       }else{
         next();
@@ -168,7 +205,8 @@ function includes(map, out, opts, cb) {
 /**
  *  @private
  */
-function process(map, out, opts, cb) {
+function run(map, out, opts, cb) {
+
   // process html imports
   imports(map, opts, (err, files) => {
     if(err) {
@@ -203,7 +241,7 @@ function load(opts, cb) {
       return cb(err); 
     }
 
-    process(map, out, opts, (err) => {
+    run(map, out, opts, (err) => {
       if(err) {
         return cb(err); 
       } 

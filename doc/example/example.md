@@ -19,12 +19,13 @@ Source component files:
 
 <? @exec mkdir -p doc/example/build && node doc/example/example.js ?>
 
-### Stylesheet
-
-<? @source {css} build/components.css ?>
-
 ### Javascript
 
 <? @source {javascript} build/components.js ?>
 
 <? @include ../readme/links.md ?>
+
+### Stylesheet
+
+<? @source {css} build/components.css ?>
+

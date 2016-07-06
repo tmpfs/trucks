@@ -7,8 +7,8 @@ This document demonstrates the compiler output.
 - [Example](#example)
   - [Source Files](#source-files)
   - [Compiler Options](#compiler-options)
-  - [Stylesheet](#stylesheet)
   - [Javascript](#javascript)
+  - [Stylesheet](#stylesheet)
 
 ---
 
@@ -32,25 +32,6 @@ module.exports = {
 }
 ```
 
-### Stylesheet
-
-```css
-/*
-  @deprected /deep/ selector
-  
-  There does not appear to be a consensus on external styles 
-  for the Shadow DOM.
-
-  @see https://github.com/w3c/webcomponents
-  @see https://github.com/w3c/webcomponents/issues/468
-  @see https://drafts.csswg.org/css-scoping/#shadow-dom
- */
-x-panel /deep/ p {
-  background: black;
-  color: white;
-}
-```
-
 ### Javascript
 
 ```javascript
@@ -67,6 +48,26 @@ function template(elem) {
 }
 
 skate.define('x-panel', {render: template});
+```
+
+### Stylesheet
+
+```css
+/*
+  @deprected /deep/ selector
+  
+  There does not appear to be a consensus on external styles 
+  for the Shadow DOM.
+
+  @see https://github.com/w3c/webcomponents
+  @see https://github.com/w3c/webcomponents/issues/468
+  @see https://drafts.csswg.org/css-scoping/#shadow-dom
+  @see https://www.chromestatus.com/features/6750456638341120
+ */
+x-panel /deep/ p {
+  background: black;
+  color: white;
+}
 ```
 
 ---

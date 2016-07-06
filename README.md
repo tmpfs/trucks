@@ -346,7 +346,7 @@ The generated markdown document would render the documentation comments followed
 
 ## Example
 
-An example for [skatejs][] is shown in [EXAMPLE][/doc/EXAMPLE.md], source files are in [doc/example](https://github.com/tmpfs/trucks/blob/master/doc/example).
+An example for [skatejs][] is shown in [EXAMPLE](https://github.com/tmpfs/trucks/blob/master/doc/EXAMPLE.md), source files are in [doc/example](https://github.com/tmpfs/trucks/blob/master/doc/example).
 
 ## Options
 

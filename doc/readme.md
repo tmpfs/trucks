@@ -22,7 +22,7 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
 
 ## Example
 
-An example for [skatejs][] is shown in [EXAMPLE][/doc/EXAMPLE.md], source files are in [doc/example](/doc/example).
+An example for [skatejs][] is shown in [EXAMPLE](/doc/EXAMPLE.md), source files are in [doc/example](/doc/example).
 
 ## Options
 

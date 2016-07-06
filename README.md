@@ -67,6 +67,7 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
 - [Roadmap](#roadmap)
   - [Packages](#packages)
   - [Styles](#styles)
+- [Example](#example)
 - [Options](#options)
 - [Compiler](#compiler)
 - [API](#api)
@@ -342,6 +343,10 @@ It would not be very difficult to allow a pre-compile phase that maps component 
 This would reduce the file size of component styles and prevent consumers from battling against CSS specificity issues when attempting to override the default component styles.
 
 The suggestion is that this would be implemented as [postcss plugins][postcss].
+
+## Example
+
+An example for [skatejs][] is shown in [EXAMPLE][/doc/EXAMPLE.md], source files are in [doc/example](https://github.com/tmpfs/trucks/blob/master/doc/example).
 
 ## Options
 

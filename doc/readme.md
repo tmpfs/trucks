@@ -20,6 +20,10 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
       components.md
       roadmap.md ?>
 
+## Example
+
+An example for [skatejs][] is shown in [EXAMPLE][/doc/EXAMPLE.md], source files are in [doc/example](/doc/example).
+
 ## Options
 
 An overview of the available options is in [OPTIONS](/doc/OPTIONS.md) see [API](/doc/API.md) for more detail.

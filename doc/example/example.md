@@ -21,11 +21,20 @@ Source component files:
 
 ### Javascript
 
-<? @source {javascript} build/components.js ?>
+Compiled javascript:
 
-<? @include ../readme/links.md ?>
+<? @source {javascript} build/components.js ?>
 
 ### Stylesheet
 
+Compiled stylesheet:
+
 <? @source {css} build/components.css ?>
+
+### Markup
+
+<? @source {html} index.html ?>
+
+<? @include ../readme/links.md ?>
+
 

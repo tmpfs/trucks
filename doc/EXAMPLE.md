@@ -9,6 +9,7 @@ This document demonstrates the compiler output.
   - [Compiler Options](#compiler-options)
   - [Javascript](#javascript)
   - [Stylesheet](#stylesheet)
+  - [Markup](#markup)
 
 ---
 
@@ -34,11 +35,16 @@ module.exports = {
 
 ### Javascript
 
+Compiled javascript:
+
 ```javascript
 const templates = {
   "x-panel": function render(elem) {
     skate.vdom.element("p", () => {
       skate.vdom.text(`${ elem.title }`);
+    });
+    skate.vdom.element("div", {
+      class: `content`
     });
   }
 };
@@ -52,7 +58,13 @@ skate.define('x-panel', {render: template});
 
 ### Stylesheet
 
+Compiled stylesheet:
+
 ```css
+:host(.panel) {
+  max-width: 10em; 
+}
+
 /*
   @deprected /deep/ selector
   
@@ -61,13 +73,38 @@ skate.define('x-panel', {render: template});
 
   @see https://github.com/w3c/webcomponents
   @see https://github.com/w3c/webcomponents/issues/468
+  @see https://drafts.csswg.org/css-scoping/#selectors
   @see https://drafts.csswg.org/css-scoping/#shadow-dom
   @see https://www.chromestatus.com/features/6750456638341120
  */
 x-panel /deep/ p {
+  margin: 0;
+  font-family: sans-serif;
+  padding: 1em;
   background: black;
   color: white;
 }
+
+x-panel /deep/ .content {
+  min-height: 10em;
+  background: gray;
+}
+```
+
+### Markup
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="build/components.css">
+    <script src="skate-1.0.0-beta.7.js"></script>
+    <script src="build/components.js"></script>
+  </head>
+  <body>
+    <x-panel class="panel" title="Panel Title"></x-panel>
+  </body>
+</html>
 ```
 
 ---

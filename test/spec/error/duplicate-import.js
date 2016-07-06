@@ -8,8 +8,8 @@ describe('trucks:', function() {
       trucks(
         {
           files: [
-            'test/fixtures/duplicate-source/components.html',
-            'test/fixtures/duplicate-source/components-alt.html'
+            'test/fixtures/duplicate-import/components.html',
+            'test/fixtures/duplicate-import/components-alt.html'
           ]
         },
         (err, result) => {

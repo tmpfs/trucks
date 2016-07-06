@@ -8,10 +8,13 @@ This document demonstrates the compiler output.
 
 ### Source Files
 
-Source component files:
+Source component collection [components.html](/doc/example/components.html):
 
-* [components.html](/doc/example/components.html)
-* [x-panel.html](/doc/example/x-panel.html)
+<? @source {html} components.html ?>
+
+Component definition file [x-panel.html](/doc/example/x-panel.html):
+
+<? @source {html} x-panel.html ?>
 
 ### Compiler Options
 

@@ -15,10 +15,52 @@ This document demonstrates the compiler output.
 
 ### Source Files
 
-Source component files:
+Source component collection [components.html](https://github.com/tmpfs/trucks/blob/master/doc/example/components.html):
 
-* [components.html](https://github.com/tmpfs/trucks/blob/master/doc/example/components.html)
-* [x-panel.html](https://github.com/tmpfs/trucks/blob/master/doc/example/x-panel.html)
+```html
+<link rel="import" href="x-panel.html">
+```
+
+Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/master/doc/example/x-panel.html):
+
+```html
+<template id="x-panel">
+  <p>${elem.title}</p>
+  <div class="content"></div>
+</template>
+
+<style>
+
+  /*
+    @deprecated /deep/ selector
+    
+    There does not appear to be a consensus on external styles 
+    for the Shadow DOM.
+  
+    @see https://github.com/w3c/webcomponents
+    @see https://github.com/w3c/webcomponents/issues/468
+    @see https://drafts.csswg.org/css-scoping/#selectors
+    @see https://drafts.csswg.org/css-scoping/#shadow-dom
+    @see https://www.chromestatus.com/features/6750456638341120
+   */
+  x-panel /deep/ p {
+    margin: 0;
+    font-family: sans-serif;
+    padding: 1em;
+    background: black;
+    color: white;
+  }
+
+  x-panel /deep/ .content {
+    min-height: 10em;
+    background: gray;
+  }
+</style>
+
+<script>
+  skate.define('x-panel', {render: template});
+</script>
+```
 
 ### Compiler Options
 

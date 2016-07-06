@@ -71,5 +71,5 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 5, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 6, 2016
 

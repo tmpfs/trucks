@@ -62,6 +62,7 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
 - [Components](#components)
   - [Dependencies](#dependencies)
   - [Private Dependencies](#private-dependencies)
+  - [Documentation](#documentation)
   - [Notes](#notes)
 - [Roadmap](#roadmap)
   - [Packages](#packages)
@@ -262,6 +263,42 @@ A component file can declare multiple components in a single file which can be u
 </script>
 ```
 
+### Documentation
+
+Component authors should have a consistent approach to writing documentation for the created components so that users can easily see the component attributes, events and other aspects of the component (dependencies etc).
+
+The suggestion is that in the future we could use the [mkapi][] and [mkparse][] libraries to generate markdown documentation for components, a draft idea of how this would look:
+
+```html
+<!--
+  Video player component.
+
+  @component x-video
+
+  @attr {Boolean} playing start or stop the video playback.
+
+  @event start emitted when the video starts playing.
+  @event stop emitted when the video stops playing.
+
+  @dependency x-play-button 
+  @dependency x-volume-button 
+  @dependency x-slider
+-->
+<x-video playing></x-video>
+
+<template id="x-video">
+  <!-- component markup -->
+</template>
+
+<style>
+  <!-- component styles -->
+</style>
+
+<script>
+  <!-- component implementation -->
+</script>
+```
+
 ### Notes
 
 Components defined for [skatejs][] can ignore the HTML file as the templates are compiled to javascript; the command line interface will not generate an HTML file as it compiles for [skatejs][] by default.
@@ -326,7 +363,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 5, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 6, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -345,6 +382,8 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 5, 2016
 [npm]: https://www.npmjs.com/
 [postcss]: https://github.com/postcss/postcss
 [mkdoc]: https://github.com/mkdoc/mkdoc
+[mkapi]: https://github.com/mkdoc/mkapi
+[mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
 

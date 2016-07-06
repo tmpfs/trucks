@@ -15,5 +15,7 @@
 [npm]: https://www.npmjs.com/
 [postcss]: https://github.com/postcss/postcss
 [mkdoc]: https://github.com/mkdoc/mkdoc
+[mkapi]: https://github.com/mkdoc/mkapi
+[mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info

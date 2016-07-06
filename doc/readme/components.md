@@ -134,6 +134,8 @@ The suggestion is that in the future we could use the [mkapi][] and [mkparse][] 
 </script>
 ```
 
+The generated markdown document would render the documentation comments followed by fenced code blocks showing the example usage(s) and the component implementation, these pages could then be converted to HTML (with source code higlighting) to be published online as static web pages.
+
 ### Notes
 
 Components defined for [skatejs][] can ignore the HTML file as the templates are compiled to javascript; the command line interface will not generate an HTML file as it compiles for [skatejs][] by default.

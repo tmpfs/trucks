@@ -1,10 +1,16 @@
+/coverage
+/target
 /packages
 /test
-/doc/readme.md
+/mkdoc.js
+/.nvmrc
+/.js*
+/.travis.yml
 /doc/api
 /doc/compiler
 /doc/developer
 /doc/example
 /doc/options
 /doc/readme
+/doc/readme.md
 /src

@@ -35,7 +35,13 @@ module.exports = {
 ### Stylesheet
 
 ```css
-x-panel {
+/*
+  @deprected /deep/ selector
+  
+  There does not appear to be a consensus on external styles 
+  for the Shadow DOM (see: https://github.com/w3c/webcomponents)
+ */
+x-panel /deep/ p {
   background: black;
   color: white;
 }
@@ -46,9 +52,7 @@ x-panel {
 ```javascript
 const templates = {
   "x-panel": function render(elem) {
-    skate.vdom.element("p", {
-      class: `title`
-    }, () => {
+    skate.vdom.element("p", () => {
       skate.vdom.text(`${ elem.title }`);
     });
   }

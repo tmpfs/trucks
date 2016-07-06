@@ -1,9 +1,15 @@
 <template id="x-panel">
-  <p class="title">${elem.title}</p>
+  <p>${elem.title}</p>
 </template>
 
 <style>
-  x-panel {
+  /*
+    @deprected /deep/ selector
+    
+    There does not appear to be a consensus on external styles 
+    for the Shadow DOM (see: https://github.com/w3c/webcomponents)
+   */
+  x-panel /deep/ p {
     background: black;
     color: white;
   }

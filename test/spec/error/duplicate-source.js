@@ -3,9 +3,10 @@ var expect = require('chai').expect
 
 describe('trucks:', function() {
 
-  it('should error on duplicate template identifier', function(done) {
+  it('should error on duplicate input source file', function(done) {
     trucks(
       {
+        // NOTE: trigger error by duplicating the input source file path
         files: [
           'test/fixtures/duplicate-source/components.html',
           'test/fixtures/duplicate-source/components.html'

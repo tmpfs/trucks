@@ -28,7 +28,10 @@ function State(out, opts) {
   // list of component files that have been processed used to prevent
   // duplication compilation when multiple components share the same
   // dependency
-  this.seen = [];
+  this.seen  = {
+    sources: [],
+    imports: []
+  }
 }
 
 /**
@@ -78,13 +81,13 @@ function sources(state, cb) {
 
     let pth = abs(file);
 
-    if(~state.seen.indexOf(pth)) {
+    if(~state.seen.sources.indexOf(pth)) {
       // this could just ignore and move on to the next
       // file to process but prefer to be strict and error
       return cb(new Error(`duplicate component source file ${file}`));
     }
 
-    state.seen.push(pth);
+    state.seen.sources.push(pth);
 
     fs.readFile(file, (err, contents) => {
       if(err) {
@@ -124,7 +127,9 @@ function imports(map, state, cb) {
   function it(index, elem) {
     const href = $(elem).attr('href');
     relative = path.normalize(path.join(base, href));
+
     out[k].push(relative);
+
   }
 
   for(k in map) {
@@ -161,6 +166,23 @@ function read(name, list, state, cb) {
       return cb(); 
     }
 
+    // cyclic dependency: must be tested before the logic to ignore 
+    // duplicate components as we want to notify users on circular dependency
+    try {
+      cyclic(file, state.hierarchy, name);
+    }catch(e) {
+      return next(e); 
+    }
+
+
+    // duplicate component: do no not re-read components that have already 
+    // been loaded
+    let pth = abs(file);
+    if(~state.seen.imports.indexOf(pth)) {
+      return next();
+    }
+    state.seen.imports.push(pth);
+
     fs.readFile(file, (err, contents) => {
       if(err) {
         return next(err); 
@@ -170,16 +192,6 @@ function read(name, list, state, cb) {
         file: file,
         parent: name,
         contents: contents.toString()
-      }
-
-      //console.dir(file);
-      //console.dir(hierarchy);
-
-      // cyclic dependency
-      try {
-        cyclic(file, state.hierarchy, name);
-      }catch(e) {
-        return next(e); 
       }
 
       // empty component file
@@ -214,7 +226,7 @@ function read(name, list, state, cb) {
 }
 
 /** 
- *  Loads component include files.
+ *  Loads component import file contents.
  *
  *  @private {function} includes
  *
@@ -237,7 +249,6 @@ function includes(map, state, cb) {
       return cb(null, out); 
     }
 
-    //hierarchy = hierarchy || [];
     hierarchy.push(file);
 
     read(file, map[file], state, next);
@@ -250,8 +261,6 @@ function includes(map, state, cb) {
  *  @private
  */
 function run(map, state, cb) {
-
-  //console.dir(map);
 
   // process html imports
   imports(map, state, (err, files) => {

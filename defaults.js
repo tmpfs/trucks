@@ -32,7 +32,23 @@ const options = {
   // options to pass to the compiler
   compiler: {
     // template element attribute used to extract the template id
-    attr: 'id'
+    attr: 'id',
+    // name of the skatejs variable
+    skate: 'skate',
+    // name of the vdom property
+    vdom: 'vdom',
+    // name of the element function
+    element: 'element',
+    // name of the templates map
+    templates: 'templates',
+    // name of the main function
+    main: 'template',
+    // normalize whitespace in templates
+    normalize: true,
+    // flags for template literal support
+    literals: undefined,
+    // options to use when parsing the DOM
+    dom: undefined
   },
 
   /**

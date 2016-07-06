@@ -147,22 +147,22 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
     },
     "compiler": {
       "attr": "id",
+      "skate": "skate",
+      "vdom": "vdom",
+      "element": "element",
+      "templates": "templates",
+      "main": "template",
+      "normalize": true,
+      "literals": {},
       "dom": {
         "normalizeWhitespace": true,
         "withDomLvl1": true,
         "xmlMode": false,
         "decodeEntities": true
       },
-      "normalize": true,
-      "literals": {},
-      "skate": "skate",
-      "vdom": "vdom",
-      "element": "element",
       "text": "text",
       "name": "render",
-      "arg": "elem",
-      "main": "template",
-      "templates": "templates"
+      "arg": "elem"
     },
     "selectors": {
       "import": "link[rel=\"import\"][href]",

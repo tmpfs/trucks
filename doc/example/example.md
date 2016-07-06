@@ -1,6 +1,6 @@
 ## Example
 
-This document demonstrates the compiler output.
+This document demonstrates the compiler output. Developers that have configured the project can run `mk example` and open [index.html](/doc/example/index.html) to see the rendered component.
 
 ***
 <!-- @toc -->

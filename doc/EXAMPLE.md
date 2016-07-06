@@ -1,6 +1,6 @@
 ## Example
 
-This document demonstrates the compiler output.
+This document demonstrates the compiler output. Developers that have configured the project can run `mk example` and open [index.html](https://github.com/tmpfs/trucks/blob/master/doc/example/index.html) to see the rendered component.
 
 ---
 
@@ -25,8 +25,10 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 
 ```html
 <template id="x-panel">
-  <p>${elem.title}</p>
-  <div class="content"></div>
+  <div class="container">
+    <p class="title">${elem.title}</p>
+    <div class="content"></div>
+  </div>
 </template>
 
 <style>
@@ -43,12 +45,13 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
     @see https://drafts.csswg.org/css-scoping/#shadow-dom
     @see https://www.chromestatus.com/features/6750456638341120
    */
-  x-panel /deep/ p {
+  x-panel /deep/ .title {
     margin: 0;
     font-family: sans-serif;
     padding: 1em;
     background: black;
     color: white;
+    cursor: pointer;
   }
 
   x-panel /deep/ .content {
@@ -58,7 +61,14 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 </style>
 
 <script>
-  skate.define('x-panel', {render: template});
+  skate.define('x-panel', {
+    events: {
+      'click .container > p.title' (elem, e) {
+        console.log('clicked: ' + elem.tagName.toLowerCase());
+      }
+    },
+    render: template
+  });
 </script>
 ```
 
@@ -82,11 +92,17 @@ Compiled javascript:
 ```javascript
 const templates = {
   "x-panel": function render(elem) {
-    skate.vdom.element("p", () => {
-      skate.vdom.text(`${ elem.title }`);
-    });
     skate.vdom.element("div", {
-      class: `content`
+      class: `container`
+    }, () => {
+      skate.vdom.element("p", {
+        class: `title`
+      }, () => {
+        skate.vdom.text(`${ elem.title }`);
+      });
+      skate.vdom.element("div", {
+        class: `content`
+      });
     });
   }
 };
@@ -95,7 +111,14 @@ function template(elem) {
   return templates[elem.tagName.toLowerCase()](elem);
 }
 
-skate.define('x-panel', {render: template});
+skate.define('x-panel', {
+  events: {
+    'click .container > p.title' (elem, e) {
+      console.log('clicked: ' + elem.tagName.toLowerCase());
+    }
+  },
+  render: template
+});
 ```
 
 ### Stylesheet
@@ -115,12 +138,13 @@ Compiled stylesheet:
   @see https://drafts.csswg.org/css-scoping/#shadow-dom
   @see https://www.chromestatus.com/features/6750456638341120
  */
-x-panel /deep/ p {
+x-panel /deep/ .title {
   margin: 0;
   font-family: sans-serif;
   padding: 1em;
   background: black;
   color: white;
+  cursor: pointer;
 }
 
 x-panel /deep/ .content {

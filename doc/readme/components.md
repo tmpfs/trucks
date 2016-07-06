@@ -126,11 +126,11 @@ The suggestion is that in the future we could use the [mkapi][] and [mkparse][] 
 </template>
 
 <style>
-  <!-- component styles -->
+  /* component styles */
 </style>
 
 <script>
-  <!-- component implementation -->
+  /* component implementation */
 </script>
 ```
 

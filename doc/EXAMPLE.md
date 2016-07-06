@@ -26,7 +26,9 @@ module.exports = {
   files: ['doc/example/components.html'],
   out: 'doc/example/build',
   force: true,
-  literals: true
+  compiler: {
+    literals: true
+  }
 }
 ```
 
@@ -44,7 +46,11 @@ x-panel {
 ```javascript
 const templates = {
   "x-panel": function render(elem) {
-    skate.vdom.element("div");
+    skate.vdom.element("p", {
+      class: `title`
+    }, () => {
+      skate.vdom.text(`${ elem.title }`);
+    });
   }
 };
 

@@ -57,44 +57,6 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
   </div>
 </template>
 
-<style>
-
-  /*
-    @deprecated /deep/ selector
-    
-    There does not appear to be a consensus on external styles 
-    for the Shadow DOM.
-  
-    @see https://github.com/w3c/webcomponents
-    @see https://github.com/w3c/webcomponents/issues/468
-    @see https://drafts.csswg.org/css-scoping/#selectors
-    @see https://drafts.csswg.org/css-scoping/#shadow-dom
-    @see https://www.chromestatus.com/features/6750456638341120
-   */
-
-  /*
-  * {
-    font-family: sans-serif;
-    color: white;
-  }
-
-  x-panel /deep/ p {
-    margin: 0; 
-    padding: 1em;
-  }
-
-  x-panel /deep/ .title {
-    background: black;
-    cursor: pointer;
-  }
-
-  x-panel /deep/ .content {
-    min-height: 10em;
-    background: gray;
-  }
-  */
-</style>
-
 <script>
   skate.define('x-panel', {
     events: {
@@ -188,42 +150,6 @@ Compiled stylesheet:
     background: gray;
   }
 
-
-
-/*
-  @deprecated /deep/ selector
-  
-  There does not appear to be a consensus on external styles 
-  for the Shadow DOM.
-
-  @see https://github.com/w3c/webcomponents
-  @see https://github.com/w3c/webcomponents/issues/468
-  @see https://drafts.csswg.org/css-scoping/#selectors
-  @see https://drafts.csswg.org/css-scoping/#shadow-dom
-  @see https://www.chromestatus.com/features/6750456638341120
- */
-
-/*
-* {
-  font-family: sans-serif;
-  color: white;
-}
-
-x-panel /deep/ p {
-  margin: 0; 
-  padding: 1em;
-}
-
-x-panel /deep/ .title {
-  background: black;
-  cursor: pointer;
-}
-
-x-panel /deep/ .content {
-  min-height: 10em;
-  background: gray;
-}
-*/
 ```
 
 ### Markup

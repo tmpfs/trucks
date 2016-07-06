@@ -27,7 +27,9 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 <template id="x-panel">
   <div class="container">
     <p class="title">${elem.title}</p>
-    <div class="content"></div>
+    <div class="content">
+      <slot name="content" />
+    </div>
   </div>
 </template>
 
@@ -45,12 +47,19 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
     @see https://drafts.csswg.org/css-scoping/#shadow-dom
     @see https://www.chromestatus.com/features/6750456638341120
    */
-  x-panel /deep/ .title {
-    margin: 0;
+
+  * {
     font-family: sans-serif;
-    padding: 1em;
-    background: black;
     color: white;
+  }
+
+  x-panel /deep/ p {
+    margin: 0; 
+    padding: 1em;
+  }
+
+  x-panel /deep/ .title {
+    background: black;
     cursor: pointer;
   }
 
@@ -58,6 +67,7 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
     min-height: 10em;
     background: gray;
   }
+
 </style>
 
 <script>
@@ -102,6 +112,10 @@ const templates = {
       });
       skate.vdom.element("div", {
         class: `content`
+      }, () => {
+        skate.vdom.element("slot", {
+          name: `content`
+        }, () => {});
       });
     });
   }
@@ -138,12 +152,19 @@ Compiled stylesheet:
   @see https://drafts.csswg.org/css-scoping/#shadow-dom
   @see https://www.chromestatus.com/features/6750456638341120
  */
-x-panel /deep/ .title {
-  margin: 0;
+
+* {
   font-family: sans-serif;
-  padding: 1em;
-  background: black;
   color: white;
+}
+
+x-panel /deep/ p {
+  margin: 0; 
+  padding: 1em;
+}
+
+x-panel /deep/ .title {
+  background: black;
   cursor: pointer;
 }
 
@@ -164,7 +185,9 @@ x-panel /deep/ .content {
     <script src="build/components.js"></script>
   </head>
   <body>
-    <x-panel class="panel" title="Panel Title"></x-panel>
+    <x-panel title="Panel Title">
+      <p slot="content">Lorem ipsum</p> 
+    </x-panel>
   </body>
 </html>
 ```

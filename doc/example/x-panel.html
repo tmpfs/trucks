@@ -1,9 +1,28 @@
 <template id="x-panel">
   <style>
-    .title {
-      color: red;
+
+    * {
+      font-family: sans-serif;
+      color: white;
     }
+
+    p {
+      margin: 0; 
+      padding: 1em;
+    }
+
+    .title {
+      background: black;
+      cursor: pointer;
+    }
+
+    .content {
+      min-height: 10em;
+      background: gray;
+    }
+
   </style>
+
   <div class="container">
     <p class="title">${elem.title}</p>
     <div class="content">
@@ -27,6 +46,7 @@
     @see https://www.chromestatus.com/features/6750456638341120
    */
 
+  /*
   * {
     font-family: sans-serif;
     color: white;
@@ -46,7 +66,7 @@
     min-height: 10em;
     background: gray;
   }
-
+  */
 </style>
 
 <script>

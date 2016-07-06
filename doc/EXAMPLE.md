@@ -26,10 +26,29 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 ```html
 <template id="x-panel">
   <style>
-    .title {
-      color: red;
+
+    * {
+      font-family: sans-serif;
+      color: white;
     }
+
+    p {
+      margin: 0; 
+      padding: 1em;
+    }
+
+    .title {
+      background: black;
+      cursor: pointer;
+    }
+
+    .content {
+      min-height: 10em;
+      background: gray;
+    }
+
   </style>
+
   <div class="container">
     <p class="title">${elem.title}</p>
     <div class="content">
@@ -53,6 +72,7 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
     @see https://www.chromestatus.com/features/6750456638341120
    */
 
+  /*
   * {
     font-family: sans-serif;
     color: white;
@@ -72,7 +92,7 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
     min-height: 10em;
     background: gray;
   }
-
+  */
 </style>
 
 <script>
@@ -107,7 +127,9 @@ Compiled javascript:
 ```javascript
 const templates = {
   "x-panel": function render(elem) {
-    skate.vdom.text(` .title { color: red; } `);
+    skate.vdom.element("style", () => {
+      skate.vdom.text(` * { font-family: sans-serif; color: white; } p { margin: 0; padding: 1em; } .title { background: black; cursor: pointer; } .content { min-height: 10em; background: gray; } `);
+    });
     skate.vdom.element("div", {
       class: `container`
     }, () => {
@@ -146,9 +168,26 @@ skate.define('x-panel', {
 Compiled stylesheet:
 
 ```css
-  .title {
-    color: red;
+  * {
+    font-family: sans-serif;
+    color: white;
   }
+
+  p {
+    margin: 0; 
+    padding: 1em;
+  }
+
+  .title {
+    background: black;
+    cursor: pointer;
+  }
+
+  .content {
+    min-height: 10em;
+    background: gray;
+  }
+
 
 
 /*
@@ -164,6 +203,7 @@ Compiled stylesheet:
   @see https://www.chromestatus.com/features/6750456638341120
  */
 
+/*
 * {
   font-family: sans-serif;
   color: white;
@@ -183,6 +223,7 @@ x-panel /deep/ .content {
   min-height: 10em;
   background: gray;
 }
+*/
 ```
 
 ### Markup

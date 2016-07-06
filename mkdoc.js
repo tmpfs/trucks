@@ -15,8 +15,6 @@ function api(cb) {
     .pipe(mk.abs())
     .pipe(mk.msg())
     .pipe(mk.toc({depth: 2}))
-    //.pipe(mk.ast.stringify())
-    //.pipe(process.stdout)
     .pipe(mk.out())
     .pipe(mk.dest('doc/API.md'))
     .on('finish', cb);
@@ -30,8 +28,6 @@ function options(cb) {
     .pipe(mk.abs())
     .pipe(mk.msg())
     .pipe(mk.toc({depth: 2, max: 3}))
-    //.pipe(mk.ast.stringify())
-    //.pipe(process.stdout)
     .pipe(mk.out())
     .pipe(mk.dest('doc/OPTIONS.md'))
     .on('finish', cb);
@@ -45,8 +41,6 @@ function developer(cb) {
     .pipe(mk.abs())
     .pipe(mk.msg())
     .pipe(mk.toc({depth: 2, max: 3}))
-    //.pipe(mk.ast.stringify())
-    //.pipe(process.stdout)
     .pipe(mk.out())
     .pipe(mk.dest('doc/DEVELOPER.md'))
     .on('finish', cb);
@@ -60,10 +54,21 @@ function compiler(cb) {
     .pipe(mk.abs())
     .pipe(mk.msg())
     .pipe(mk.toc({depth: 2, max: 3}))
-    //.pipe(mk.ast.stringify())
-    //.pipe(process.stdout)
     .pipe(mk.out())
     .pipe(mk.dest('doc/COMPILER.md'))
+    .on('finish', cb);
+}
+
+// @task exmaple build the example file
+function example(cb) {
+  mk.doc('doc/example/example.md')
+    .pipe(mk.pi())
+    .pipe(mk.ref())
+    .pipe(mk.abs())
+    .pipe(mk.msg())
+    .pipe(mk.toc({depth: 2, max: 3}))
+    .pipe(mk.out())
+    .pipe(mk.dest('doc/EXAMPLE.md'))
     .on('finish', cb);
 }
 
@@ -91,5 +96,6 @@ mk.task(api);
 mk.task(options);
 mk.task(developer);
 mk.task(compiler);
+mk.task(example);
 mk.task(readme);
-mk.task([api, options, developer, compiler, readme], docs)
+mk.task([api, options, developer, compiler, example, readme], docs)

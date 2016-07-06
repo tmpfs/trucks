@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/tmpfs/trucks"
   },
+  "engines": {
+    "node" : ">=4.0"
+  } ,
   "dependencies": {
     "babel-core": "~6.10.4",
     "cheerio": "~0.20.0",

@@ -149,7 +149,7 @@ And exposes a main function that performs a lookup in the template map by elemen
 
 ```javascript
 function template(elem) {
-  return templates[elem.tagName](elem);
+  return templates[elem.tagName.toLowerCase()](elem);
 }
 ```
 

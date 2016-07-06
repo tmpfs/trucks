@@ -8,7 +8,8 @@ const TAG = 'tag'
     , TEXT = 'text'
     , TEMPLATES = 'templates' 
     , MAIN = 'template'
-    , TAG_NAME = 'tagName';
+    , TAG_NAME = 'tagName'
+    , TO_LOWER_CASE = 'toLowerCase';
   
 /**
  *  Utility to determine if an object is empty.
@@ -155,9 +156,15 @@ function main(opts) {
             t.callExpression(
               t.memberExpression(
                 t.identifier(opts.templates),
-                t.memberExpression(
-                  t.identifier(ELEM),
-                  t.identifier(TAG_NAME)
+                t.callExpression(
+                  t.memberExpression(
+                    t.memberExpression(
+                      t.identifier(ELEM),
+                      t.identifier(TAG_NAME)
+                    ),
+                    t.identifier(TO_LOWER_CASE)
+                  ),
+                  []
                 ),
                 true
               ),

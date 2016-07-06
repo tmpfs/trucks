@@ -73,7 +73,7 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 <script>
   skate.define('x-panel', {
     events: {
-      'click .container > p.title' (elem, e) {
+      'click .container > .title' (elem, e) {
         console.log('clicked: ' + elem.tagName.toLowerCase());
       }
     },
@@ -127,7 +127,7 @@ function template(elem) {
 
 skate.define('x-panel', {
   events: {
-    'click .container > p.title' (elem, e) {
+    'click .container > .title' (elem, e) {
       console.log('clicked: ' + elem.tagName.toLowerCase());
     }
   },

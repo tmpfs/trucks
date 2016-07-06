@@ -33,3 +33,42 @@ It would not be very difficult to allow a pre-compile phase that maps component 
 This would reduce the file size of component styles and prevent consumers from battling against CSS specificity issues when attempting to override the default component styles.
 
 The suggestion is that this would be implemented as [postcss plugins][postcss].
+
+### Documentation
+
+Component authors should have a consistent approach to writing documentation for the created components so that users can easily see the component attributes, events and other aspects of the component (dependencies etc).
+
+The suggestion is that in the future we could use the [mkapi][] and [mkparse][] libraries to generate markdown documentation for components, a draft idea of how this would look:
+
+```html
+<!--
+  Video player component.
+
+  @component x-video
+
+  @attr {Boolean} playing start or stop the video playback.
+
+  @event start emitted when the video starts playing.
+  @event stop emitted when the video stops playing.
+
+  @dependency x-play-button 
+  @dependency x-volume-button 
+  @dependency x-slider
+-->
+<x-video playing></x-video>
+
+<template id="x-video">
+  <!-- component markup -->
+</template>
+
+<style>
+  /* component styles */
+</style>
+
+<script>
+  /* component implementation */
+</script>
+```
+
+The generated markdown document would render the documentation comments followed by fenced code blocks showing the example usage(s) and the component implementation, these pages could then be converted to HTML (with source code higlighting) to be published online as static web pages.
+

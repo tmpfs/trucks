@@ -36,7 +36,8 @@ module.exports = {
 x-panel {
   background: black;
   color: white;
-}```
+}
+```
 
 ### Javascript
 
@@ -51,7 +52,8 @@ function template(elem) {
   return templates[elem.tagName](elem);
 }
 
-skate.define('x-panel', {render: template});```
+skate.define('x-panel', {render: template});
+```
 
 ---
 

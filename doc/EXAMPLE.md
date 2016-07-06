@@ -25,6 +25,11 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 
 ```html
 <template id="x-panel">
+  <style>
+    .title {
+      color: red;
+    }
+  </style>
   <div class="container">
     <p class="title">${elem.title}</p>
     <div class="content">
@@ -102,6 +107,7 @@ Compiled javascript:
 ```javascript
 const templates = {
   "x-panel": function render(elem) {
+    skate.vdom.text(` .title { color: red; } `);
     skate.vdom.element("div", {
       class: `container`
     }, () => {
@@ -140,6 +146,11 @@ skate.define('x-panel', {
 Compiled stylesheet:
 
 ```css
+  .title {
+    color: red;
+  }
+
+
 /*
   @deprecated /deep/ selector
   

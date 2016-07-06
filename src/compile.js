@@ -1,4 +1,5 @@
 const TAG = 'tag'
+    , STYLE = 'style'
     , ID = 'id'
     , SKATE = 'skate'
     , VDOM = 'vdom'
@@ -321,7 +322,7 @@ function template(el, opts) {
       const el = $(child);
 
       // child tag node (element)
-      if(child.type === TAG) {
+      if(child.type === TAG || child.type === STYLE) {
         args = [t.stringLiteral(child.name)];
 
         // push attributes into function call when not empty

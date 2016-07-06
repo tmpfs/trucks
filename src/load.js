@@ -1,6 +1,14 @@
 const fs = require('fs')
     , path = require('path');
 
+function abs(file) {
+  if(!path.isAbsolute(file)) {
+    return path.normalize(path.join(process.cwd(), file)); 
+  }
+  return file;
+}
+
+
 /**
  *  Encapsulates the load state information.
  *
@@ -35,13 +43,6 @@ function State(out, opts) {
  */
 function cyclic(file, hierarchy, name) {
 
-  function abs(file) {
-    if(!path.isAbsolute(file)) {
-      return path.normalize(path.join(process.cwd(), file)); 
-    }
-    return file;
-  }
-
   let i
     , source = abs(file)
     , dest;
@@ -74,6 +75,16 @@ function sources(state, cb) {
     if(!file) {
       return cb(null, map); 
     }
+
+    let pth = abs(file);
+
+    if(~state.seen.indexOf(pth)) {
+      // this could just ignore and move on to the next
+      // file to process but prefer to be strict and error
+      return cb(new Error(`duplicate component source file ${file}`));
+    }
+
+    state.seen.push(pth);
 
     fs.readFile(file, (err, contents) => {
       if(err) {

@@ -61,12 +61,8 @@ skate.define('x-panel', {render: template});
 Compiled stylesheet:
 
 ```css
-:host(.panel) {
-  max-width: 10em; 
-}
-
 /*
-  @deprected /deep/ selector
+  @deprecated /deep/ selector
   
   There does not appear to be a consensus on external styles 
   for the Shadow DOM.

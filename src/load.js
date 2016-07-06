@@ -14,12 +14,13 @@ function State(out, opts) {
   // source input files passed to be loaded
   this.files = opts.files;
 
-  // map of input files to file contents
-  // injected externally
-  //this.map = null;
-
   // list of parent file hierarchies used to detect circular imports
   this.hierarchy = [];
+
+  // list of component files that have been processed used to prevent
+  // duplication compilation when multiple components share the same
+  // dependency
+  this.seen = [];
 }
 
 /**
@@ -61,10 +62,11 @@ function cyclic(file, hierarchy, name) {
  *
  *  @private {function} sources
  *
- *  @param {Array} files list of input HTML files.
+ *  @param {Object} state processing state.
  *  @param {Function} cb callback function.
  */
-function sources(files, cb) {
+function sources(state, cb) {
+  const files = state.files;
   let map = {}; 
 
   function next() {
@@ -238,6 +240,8 @@ function includes(map, state, cb) {
  */
 function run(map, state, cb) {
 
+  //console.dir(map);
+
   // process html imports
   imports(map, state, (err, files) => {
     if(err) {
@@ -268,14 +272,12 @@ function load(opts, cb) {
     , state = new State(out, opts);
 
   // load source file contents
-  sources(state.files, (err, map) => {
+  sources(state, (err, map) => {
     if(err) {
       return cb(err); 
     }
 
-    // inject the map of source files
-    //state.map = map;
-
+    // run processing for the input sources
     run(map, state, (err) => {
       if(err) {
         return cb(err); 

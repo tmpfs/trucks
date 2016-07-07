@@ -17,8 +17,8 @@ describe('trucks:', function() {
         expect(result).to.be.an('object');
 
         expect(result.tpl).to.be.an('array').to.have.length(2);
-        expect(result.css).to.be.an('array').to.have.length(1);
-        expect(result.js).to.be.an('array').to.have.length(1);
+        expect(result.css).to.be.an('array').to.have.length(2);
+        expect(result.js).to.be.an('array').to.have.length(2);
 
         // NOTE: assert that dependency is declared first
 
@@ -27,15 +27,14 @@ describe('trucks:', function() {
         expect(result.tpl[1].contents).to.eql(
           '<template id="x-button"></template>');
 
-        expect(result.css[0].contents).to.eql(
-          'x-icon {}\n'
-            + 'x-button {}'
-        );
+        expect(result.css[0].contents).to.eql('x-icon {}');
+        expect(result.css[1].contents).to.eql('x-button {}');
+
 
         expect(result.js[0].contents).to.eql(
-          'skate.define(\'x-icon\', {});\n'
-             + 'skate.define(\'x-button\', {});'
-        );
+          'skate.define(\'x-icon\', {});');
+        expect(result.js[1].contents).to.eql(
+          'skate.define(\'x-button\', {});');
 
         expect(result.javascript)
           .to.eql(

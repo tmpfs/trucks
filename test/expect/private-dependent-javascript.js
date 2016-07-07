@@ -8,4 +8,5 @@ function template(elem) {
 }
 
 skate.define('x-icon', {});
+
 skate.define('x-button', {});

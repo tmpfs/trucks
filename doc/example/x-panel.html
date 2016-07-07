@@ -1,45 +1,47 @@
-<template id="x-panel">
-  <style>
+<dom-module id="x-panel">
+  <template>
+    <style>
 
-    * {
-      font-family: sans-serif;
-      color: white;
-    }
-
-    p {
-      margin: 0; 
-      padding: 1em;
-    }
-
-    .title {
-      background: black;
-      cursor: pointer;
-    }
-
-    .content {
-      min-height: 10em;
-      background: gray;
-    }
-
-  </style>
-
-  <!--<script src="styles.js"></script>-->
-
-  <div class="container">
-    <p class="title">${elem.title}</p>
-    <div class="content">
-      <slot name="content" />
-    </div>
-  </div>
-</template>
-
-<script>
-  skate.define('x-panel', {
-    events: {
-      'click .container > .title' (elem, e) {
-        console.log('clicked: ' + elem.tagName.toLowerCase());
+      * {
+        font-family: sans-serif;
+        color: white;
       }
-    },
-    render: template
-  });
-</script>
+
+      p {
+        margin: 0; 
+        padding: 1em;
+      }
+
+      .title {
+        background: black;
+        cursor: pointer;
+      }
+
+      .content {
+        min-height: 10em;
+        background: gray;
+      }
+
+    </style>
+
+    <!--<script src="styles.js"></script>-->
+
+    <div class="container">
+      <p class="title">${elem.title}</p>
+      <div class="content">
+        <slot name="content" />
+      </div>
+    </div>
+  </template>
+
+  <script>
+    skate.define('x-panel', {
+      events: {
+        'click .container > .title' (elem/*, e*/) {
+          console.log('clicked: ' + elem.tagName.toLowerCase());
+        }
+      },
+      render: template
+    });
+  </script>
+</dom-module>

@@ -3,3 +3,4 @@ coverage
 target
 test/fixtures
 test/expect
+doc/example/skate-*

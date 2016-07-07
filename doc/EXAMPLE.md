@@ -72,7 +72,6 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
     }
   </style>
 
-
   <script>
     skate.define('{{id}}', {
       events: {

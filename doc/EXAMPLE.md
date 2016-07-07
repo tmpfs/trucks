@@ -26,8 +26,11 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 ```html
 <dom-module id="x-panel">
   <template>
-    <style>
 
+    <style>
+      /*
+        Inline styles for the shadow DOM.
+      */
       * {
         font-family: sans-serif;
         color: white;
@@ -50,8 +53,6 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 
     </style>
 
-    <!--<script src="styles.js"></script>-->
-
     <div class="container">
       <p class="title">${elem.title}</p>
       <div class="content">
@@ -59,6 +60,18 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
       </div>
     </div>
   </template>
+
+  <style>
+    /*
+       External style required as the slot paragraph does not exist
+       within the shadow DOM.
+    */
+    p[slot] {
+      margin: 0; 
+      padding: 1em;
+    }
+  </style>
+
 
   <script>
     skate.define('{{id}}', {
@@ -94,7 +107,7 @@ Compiled javascript:
 const templates = {
   "x-panel": function render(elem) {
     skate.vdom.element("style", () => {
-      skate.vdom.text(` * { font-family: sans-serif; color: white; } p { margin: 0; padding: 1em; } .title { background: black; cursor: pointer; } .content { min-height: 10em; background: gray; } `);
+      skate.vdom.text(` /* Inline styles for the shadow DOM. */ * { font-family: sans-serif; color: white; } p { margin: 0; padding: 1em; } .title { background: black; cursor: pointer; } .content { min-height: 10em; background: gray; } `);
     });
     skate.vdom.element("div", {
       class: `container`
@@ -134,7 +147,14 @@ skate.define('x-panel', {
 Compiled stylesheet:
 
 ```css
-
+/*
+   External style required as the slot paragraph does not exist
+   within the shadow DOM.
+*/
+p[slot] {
+  margin: 0; 
+  padding: 1em;
+}
 ```
 
 ### Markup

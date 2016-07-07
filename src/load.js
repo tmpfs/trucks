@@ -136,7 +136,7 @@ function imports(map, state, cb) {
     out[k] = [];
     base = path.dirname(k);
     $ = cheerio.load(map[k]);
-    const elements = $(opts.selectors.import);
+    const elements = $(opts.selectors.imports);
 
     if(!elements.length) {
       return cb(new Error(`component file ${k} does not import components`)); 
@@ -205,7 +205,7 @@ function read(name, list, state, cb) {
 
       const cheerio = require('cheerio')
         , $ = cheerio.load(map.contents)
-        , dependencies = $(opts.selectors.import);
+        , dependencies = $(opts.selectors.imports);
 
       // component has dependencies we need to load
       if(dependencies.length) {

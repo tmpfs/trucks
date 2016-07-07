@@ -1,22 +1,23 @@
-<template id="simple-component">
-  <p>Simple component.</p>
-</template>
+<dom-module id="simple-component">
+  <template id="simple-component">
+    <p>Simple component.</p>
+  </template>
 
-<style>
-  simple-component {
-    background: black;
-    color: white;
-  }
-</style>
+  <style>
+    simple-component {
+      background: black;
+      color: white;
+    }
+  </style>
 
-<script>
-  function foo() {}
+  <script>
+    function foo() {}
 
-  // mock callee expression to trigger a code path
-  foo();
+    // mock callee expression to trigger a code path
+    foo();
 
-  skate.define('simple-component', {
-    render: template
-  });
-</script>
-
+    skate.define('simple-component', {
+      render: template
+    });
+  </script>
+</dom-module>

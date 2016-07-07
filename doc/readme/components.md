@@ -42,8 +42,17 @@ You can then include the resulting component files in your HTML page(s):
 Complex components can reference external styles and scripts if you prefer:
 
 ```html
-<link rel="stylesheet" href="x-icon.css">
-<script src="x-icon.js"></script>
+<dom-module id="x-icon">
+  <template>
+    <styles>
+      /* inline component styles */
+    </styles>
+    <!-- template markup -->
+  </template>
+
+  <link rel="stylesheet" href="x-icon.css">
+  <script src="x-icon.js"></script>
+</dom-module>
 ```
 
 ### Dependencies

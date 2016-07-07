@@ -49,6 +49,8 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 
   </style>
 
+  <!--<script src="styles.js"></script>-->
+
   <div class="container">
     <p class="title">${elem.title}</p>
     <div class="content">
@@ -172,7 +174,7 @@ Compiled stylesheet:
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 6, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 7, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

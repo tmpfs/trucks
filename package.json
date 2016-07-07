@@ -10,8 +10,8 @@
     "url": "https://github.com/tmpfs/trucks"
   },
   "engines": {
-    "node" : ">=4.0"
-  } ,
+    "node": ">=4.0"
+  },
   "dependencies": {
     "babel-core": "~6.10.4",
     "cheerio": "~0.20.0",
@@ -22,6 +22,7 @@
     "babel-preset-es2015": "~6.9.0",
     "chai": "~3.5.0",
     "coveralls": "~2.11.9",
+    "express": "~4.14.0",
     "istanbul": "~0.4.4",
     "mocha": "~2.5.3",
     "skatejs": "~1.0.0-beta.7"

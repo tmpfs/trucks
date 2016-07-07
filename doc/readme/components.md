@@ -12,17 +12,22 @@ These are the files you pass to the library when compiling components.
 Components follow the [polymer][] style definition to encourage encapsulating all the aspects of a component into a single file:
 
 ```html
-<template id="x-icon">
-  <!-- template markup -->
-</template>
+<dom-module id="x-icon">
+  <template>
+    <styles>
+      /* inline component styles */
+    </styles>
+    <!-- template markup -->
+  </template>
 
-<style>
-  /* template styles */
-</style>
+  <style>
+    /* global component styles */
+  </style>
 
-<script>
-  /* component definition and logic */
-</script>
+  <script>
+    /* component definition and logic */
+  </script>
+</dom-module>
 ```
 
 During compilation all `<template>` elements are concatenated to an HTML file, styles are concatenated into a stylesheet and scripts are concatenated into a javascript file.
@@ -34,15 +39,12 @@ You can then include the resulting component files in your HTML page(s):
 <script src="components.js"></script>
 ```
 
-Complex components can reference external files if you prefer:
+Complex components can reference external styles and scripts if you prefer:
 
 ```html
-<link rel="template" href="x-icon-template.html">
 <link rel="stylesheet" href="x-icon.css">
 <script src="x-icon.js"></script>
 ```
-
-Note that the `rel` attribute is set to `template` rather than `import` when referencing external `<template>` elements from component files so that recursive component imports can be supported.
 
 ### Dependencies
 
@@ -57,17 +59,21 @@ Then define the button component and import the icon component dependency `x-but
 ```html
 <import rel="import" href="x-icon.html">
 
-<template id="x-button">
-  <x-icon><x-icon>
-</template>
+<dom-module id="x-button">
+  <template>
+    <x-icon><x-icon>
+  </template>
 
-<!-- implement component styles and script -->
+  <!-- implement component styles and script -->
+</dom-module>
 ```
 
 And define the component dependency `x-icon.html`:
 
 ```html
-<!-- implement component markup, styles and script -->
+<dom-module id="x-icon">
+  <!-- implement component markup, styles and script -->
+</dom-module>
 ```
 
 ### Private Dependencies
@@ -75,27 +81,37 @@ And define the component dependency `x-icon.html`:
 A component file can declare multiple components in a single file which can be useful when a component's dependencies are not intended to be used independently. In this case they are referred to as *private dependencies*, for example:
 
 ```html
-<template id="x-icon">
-  <!-- component markup -->
-</template>
-<template id="x-button">
-  <x-icon><x-icon>
-</template>
+<dom-module id="x-icon">
+  <template>
+    <!-- component markup -->
+  </template>
 
-<style>
-  x-icon {
-    /* styles for icon component */
-  }
+  <style>
+    x-icon {
+      /* styles for icon component */
+    }
+  </style>
 
-  x-button {
-    /* styles for button component */
-  }
-</style>
+  <script>
+    skate.define('x-icon', {/* component implementation */});
+  </script>
+</dom-module>
 
-<script>
-  skate.define('x-icon', {/* component implementation */});
-  skate.define('x-button', {/* component implementation */});
-</script>
+<dom-module id="x-button">
+  <template>
+    <x-icon><x-icon>
+  </template>
+
+  <style>
+    x-button {
+      /* styles for button component */
+    }
+  </style>
+
+  <script>
+    skate.define('x-button', {/* component implementation */});
+  </script>
+</dom-module>
 ```
 
 ### Notes

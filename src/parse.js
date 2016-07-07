@@ -2,6 +2,7 @@ const path = require('path')
     , fs = require('fs')
     , STYLE = 'style'
     , TEMPLATE = 'template'
+    , ID = 'id'
     , RESERVED = [
         'annotation-xml',
         'color-profile',
@@ -160,6 +161,7 @@ function scripts(definition, result, el, cb) {
       if(err) {
         return cb(err); 
       } 
+
       result.js.push({
         parent: definition.parent,
         file: href,
@@ -202,6 +204,24 @@ function templates(definition, result, el, cb) {
       if(err) {
         return cb(err); 
       } 
+
+      contents = contents.toString();
+
+      // inject module id when using external template files
+      const cheerio = require('cheerio')
+        , $ = cheerio.load(contents)
+        , templates = $(TEMPLATE);
+
+      // only single template element allowed 
+      if(templates.length > 1) {
+        return cb(
+          new Error(
+            `only a single template element is allowed per dom-module`)); 
+      }
+
+      templates.attr(ID, definition.id);
+      contents = $.html(templates);
+
       result.tpl.push({
         parent: definition.parent,
         file: href,
@@ -267,7 +287,7 @@ function component(mod, result, opts, cb) {
       }
 
       // proxy the dom-module id to the template
-      $(elements[0]).attr('id', mod.id);
+      $(elements[0]).attr(ID, mod.id);
 
       iterator(mod, result, elements, templates, (err) => {
         if(err) {
@@ -313,7 +333,7 @@ function modules(list, result, opts, cb) {
         return next(); 
       }
 
-      const id = $(context).attr('id');
+      const id = $(context).attr(ID);
 
       if(!id) {
         return next(

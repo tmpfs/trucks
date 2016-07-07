@@ -66,8 +66,8 @@ const options = {
   selectors: {
     modules: 'dom-module',
     import: 'link[rel="import"][href]',
-    styles: 'style, link[rel="stylesheet"][href]',
-    scripts: 'script',
+    styles: '> style, link[rel="stylesheet"][href]',
+    scripts: '> script',
     templates: 'template, link[rel="template"][href]'
   }
 }

@@ -35,8 +35,8 @@ const options = {
     // trim leading and trailing newlines
     newlines: true,
     // pattern used to trim lines, default is two spaces or a tab
-    // at the beginning of each line
-    pattern: /^(  |\t){1,1}/,
+    // repeated twice at the beginning of each line
+    pattern: /^(  |\t){2,2}/,
     // trim lines using pattern
     lines: true
   },
@@ -75,9 +75,10 @@ const options = {
    *  intended to be modified.
    */
   selectors: {
+    modules: 'dom-module',
     import: 'link[rel="import"][href]',
-    styles: 'style, link[rel="stylesheet"][href]',
-    scripts: 'script',
+    styles: '> style, link[rel="stylesheet"][href]',
+    scripts: '> script',
     templates: 'template, link[rel="template"][href]'
   }
 }
@@ -87,5 +88,5 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 6, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 7, 2016
 

@@ -268,7 +268,7 @@ A component file can declare multiple components in a single file which can be u
   </style>
 
   <script>
-    skate.define('x-icon', {/* component implementation */});
+    skate.define('{{id}}', {/* component implementation */});
   </script>
 </dom-module>
 

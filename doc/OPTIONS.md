@@ -61,6 +61,13 @@ const options = {
     // options to use when parsing the DOM
     dom: undefined
   },
+  // configuration for id attribute replacement
+  // which enables {{id}} to be replaced with the
+  // <dom-module> element id
+  id: {
+    replace: true,
+    pattern: /\{\{id\}\}/gm
+  },
 
   /**
    *  @private

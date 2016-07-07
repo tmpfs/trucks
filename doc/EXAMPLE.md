@@ -61,7 +61,7 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
   </template>
 
   <script>
-    skate.define('x-panel', {
+    skate.define('{{id}}', {
       events: {
         'click .container > .title' (elem/*, e*/) {
           console.log('clicked: ' + elem.tagName.toLowerCase());

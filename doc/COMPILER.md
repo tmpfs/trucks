@@ -35,12 +35,12 @@ The load phase will build the result object:
   {
     "file": "doc/compiler/x-button.html",
     "parent": "doc/compiler/components.html",
-    "contents": "<dom-module id=\"x-button\">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define('x-button', {});\n  </script>\n</dom-module>\n"
+    "contents": "<dom-module id=\"x-button\">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define('{{id}}', {});\n  </script>\n</dom-module>\n"
   },
   {
     "file": "doc/compiler/x-icon.html",
     "parent": "doc/compiler/components.html",
-    "contents": "<dom-module id=\"x-icon\">\n  <template>\n  </template>\n\n  <style>\n    x-icon {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define('x-icon', {});\n  </script>\n</dom-module>\n"
+    "contents": "<dom-module id=\"x-icon\">\n  <template>\n  </template>\n\n  <style>\n    x-icon {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define('{{id}}', {});\n  </script>\n</dom-module>\n"
   }
 ]
 ```
@@ -71,13 +71,13 @@ The parse phase takes the output from the load phase and extracts the css, javas
     {
       "parent": "doc/compiler/components.html",
       "file": "doc/compiler/x-button.html",
-      "contents": "\n    skate.define('x-button', {});\n  ",
+      "contents": "\n    skate.define('{{id}}', {});\n  ",
       "inline": true
     },
     {
       "parent": "doc/compiler/components.html",
       "file": "doc/compiler/x-icon.html",
-      "contents": "\n    skate.define('x-icon', {});\n  ",
+      "contents": "\n    skate.define('{{id}}', {});\n  ",
       "inline": true
     }
   ],
@@ -164,6 +164,10 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
       "text": "text",
       "name": "render",
       "arg": "elem"
+    },
+    "id": {
+      "replace": true,
+      "pattern": {}
     },
     "selectors": {
       "modules": "dom-module",

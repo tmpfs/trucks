@@ -94,22 +94,24 @@ function styles(definition, result, el, cb) {
     , $ = definition.dom
     , options = result.options;
 
-  function done() {
-    trim(result.css[result.css.length - 1], options.trim); 
-    cb();
+  let item;
+
+  function done(item) {
+    result.css.push(item);
+    trim(item, options.trim); 
+    cb(null, item);
   }
 
   // inline style element
   if(el.name === STYLE) {
-    result.css.push(
-      {
-        parent: definition.parent,
-        file: file,
-        contents: $(el).text(),
-        inline: true
-      });
-    done();
+    item = {
+      parent: definition.parent,
+      file: file,
+      contents: $(el).text(),
+      inline: true
+    }
 
+    done(item);
   // external stylesheet reference
   }else{
     const href = path.normalize(path.join(base, $(el).attr('href')));
@@ -117,11 +119,11 @@ function styles(definition, result, el, cb) {
       if(err) {
         return cb(err); 
       } 
-      result.css.push({
+      item = {
         parent: definition.parent,
         file: href,
-        contents: contents.toString()});
-      done();
+        contents: contents.toString()}
+      done(item);
     })
   }
 }
@@ -138,21 +140,23 @@ function scripts(definition, result, el, cb) {
       , src = $(el).attr('src')
       , options = result.options;
 
+  let item;
+
   function done() {
-    trim(result.js[result.js.length - 1], options.trim); 
-    cb();
+    result.js.push(item);
+    trim(item, options.trim); 
+    cb(null, item);
   }
 
   // inline script element
   if(!src) {
-    result.js.push(
-      {
-        parent: definition.parent,
-        file: file,
-        contents: $(el).text(),
-        inline: true
-      });
-    return done();
+    item = {
+      parent: definition.parent,
+      file: file,
+      contents: $(el).text(),
+      inline: true
+    };
+    return done(item);
 
   // external script reference
   }else{
@@ -161,12 +165,12 @@ function scripts(definition, result, el, cb) {
       if(err) {
         return cb(err); 
       } 
-
-      result.js.push({
+      item = {
         parent: definition.parent,
         file: href,
-        contents: contents.toString()});
-      done();
+        contents: contents.toString()
+      };
+      done(item);
     })
   }
 }
@@ -182,21 +186,23 @@ function templates(definition, result, el, cb) {
       , $ = definition.dom
       , options = result.options;
 
-  function done() {
-    trim(result.tpl[result.tpl.length - 1], options.trim); 
-    cb();
+  let item;
+
+  function done(item) {
+    result.tpl.push(item);
+    trim(item, options.trim); 
+    cb(null, item);
   }
 
   // inline template element
   if(el.name === TEMPLATE) {
-    result.tpl.push(
-      {
-        parent: definition.parent,
-        file: file,
-        contents: $.html(el),
-        inline: true
-      });
-    done();
+    item = {
+      parent: definition.parent,
+      file: file,
+      contents: $.html(el),
+      inline: true
+    }
+    done(item);
   // external template reference
   }else{
     const href = path.normalize(path.join(base, $(el).attr('href')));
@@ -222,11 +228,12 @@ function templates(definition, result, el, cb) {
       templates.attr(ID, definition.id);
       contents = $.html(templates);
 
-      result.tpl.push({
+      item = {
         parent: definition.parent,
         file: href,
-        contents: contents.toString()});
-      done();
+        contents: contents.toString()
+      }
+      done(item);
     })
   }
 }
@@ -237,10 +244,21 @@ function templates(definition, result, el, cb) {
  *  @private
  */
 function iterator(definition, result, elements, it, cb) {
+  const options = result.options;
 
-  function next(err) {
+  function next(err, item) {
     if(err) {
       return cb(err); 
+    }
+
+    if(item
+      && item.contents === String(item.contents)
+      && options.id
+      && options.id.replace
+      && (options.id.pattern instanceof RegExp)) {
+
+      item.contents = item.contents.replace(
+        options.id.pattern, definition.id); 
     }
 
     const el = elements.shift();

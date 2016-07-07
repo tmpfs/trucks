@@ -1,3 +1,3 @@
-skate.define('simple-component', {
+skate.define('{{id}}', {
   render: template
 });

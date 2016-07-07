@@ -280,7 +280,6 @@ function parse(list, opts, cb) {
   opts = opts || {};
 
   const result = {css: [], js: [], tpl: [], options: opts};
-  //component(loaded, result, opts, cb);
   modules(list, result, opts, cb);
 }
 

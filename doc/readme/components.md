@@ -39,7 +39,7 @@ You can then include the resulting component files in your HTML page(s):
 <script src="components.js"></script>
 ```
 
-Complex components can reference external files if you prefer:
+Complex components can reference external files if you prefer which is particularly useful for editors that automatically lint javascript and stylesheets:
 
 ```html
 <dom-module id="x-icon">

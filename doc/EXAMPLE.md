@@ -158,7 +158,7 @@ Compiled stylesheet:
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="build/components.css">
+    <link rel="stylesheet" href="build/components.css"></link>
     <script src="skate-1.0.0-beta.7.js"></script>
     <script src="build/components.js"></script>
   </head>

@@ -209,21 +209,17 @@ You can then include the resulting component files in your HTML page(s):
 <script src="components.js"></script>
 ```
 
-Complex components can reference external styles and scripts if you prefer:
+Complex components can reference external files if you prefer:
 
 ```html
 <dom-module id="x-icon">
-  <template>
-    <style>
-      /* inline component styles */
-    </style>
-    <!-- template markup -->
-  </template>
-
+  <link rel="template" href="x-icon-template.html">
   <link rel="stylesheet" href="x-icon.css">
   <script src="x-icon.js"></script>
 </dom-module>
 ```
+
+Note the use of the `rel="template"` attribute if you want to use an external HTML file for the component template.
 
 ### Dependencies
 

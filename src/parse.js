@@ -255,6 +255,14 @@ function modules(list, result, opts, cb) {
         return next(); 
       }
 
+      const id = $(context).attr(opts.compiler.attr);
+
+      if(!id) {
+        return next(
+          new Error(
+            `identifier missing for component module in ${mod.file}`)); 
+      }
+
       mod.context = context;
       component(mod, result, opts, it);
     }

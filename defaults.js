@@ -25,7 +25,7 @@ const options = {
     newlines: true,
     // pattern used to trim lines, default is two spaces or a tab
     // at the beginning of each line
-    pattern: /^(  |\t){1,1}/,
+    pattern: /^(  |\t){2,2}/,
     // trim lines using pattern
     lines: true
   },

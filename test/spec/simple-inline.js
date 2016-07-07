@@ -52,6 +52,7 @@ describe('trucks:', function() {
 
         const expected = fs.readFileSync('test/expect/simple-component.js')
           .toString().trim();
+
         expect(result.javascript).to.eql(expected);
 
         done();

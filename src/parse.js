@@ -20,7 +20,7 @@ function trim(item, options) {
   // trim leading and trailing newlines
   if(options.newlines) {
     item.contents = item.contents.replace(/^\n+/, '');
-    item.contents = item.contents.replace(/\n+$/, '');
+    item.contents = item.contents.replace(/[\n ]+$/, '');
   }
 
   // trim every line
@@ -186,46 +186,80 @@ function iterator(definition, result, elements, it, cb) {
 }
 
 /**
- *  Iterate the components for a collection of components.
+ *  Iterate the templates, scripts and styles in a component module.
  *
  *  @private
  */
-function component(list, result, opts, cb) {
-  const cheerio = require('cheerio');
+function component(mod, result, opts, cb) {
+  const $ = mod.dom
+    , context = mod.context;
 
-  function next() {
-    const definition = list.shift();
-    if(!definition) {
-      return cb(null, result); 
+  // process styles first and maintain declaration order
+  let elements = $(opts.selectors.styles, context).toArray();
+  iterator(mod, result, elements, styles, (err) => {
+    if(err) {
+      return cb(err); 
     }
 
-    const $ = definition.dom = cheerio.load(definition.contents);
-
-    // process styles first and maintain declaration order
-    let elements = $(opts.selectors.styles).toArray();
-    iterator(definition, result, elements, styles, (err) => {
+    // process inline and external scripts
+    elements = $(opts.selectors.scripts, context).toArray();
+    iterator(mod, result, elements, scripts, (err) => {
       if(err) {
         return cb(err); 
       }
 
-      // process inline and external scripts
-      elements = $(opts.selectors.scripts).toArray();
-      iterator(definition, result, elements, scripts, (err) => {
+      // process inline and external template elements
+      elements = $(opts.selectors.templates, context).toArray();
+
+      iterator(mod, result, elements, templates, (err) => {
         if(err) {
           return cb(err); 
         }
-
-        // process inline and external template elements
-        elements = $(opts.selectors.templates).toArray();
-
-        iterator(definition, result, elements, templates, (err) => {
-          if(err) {
-            return cb(err); 
-          }
-          next();
-        });
+        cb();
       });
-    })
+    });
+  })
+}
+
+/**
+ *  Iterate `<dom-module>` elements.
+ *
+ *  @private {function} modules
+ */
+function modules(list, result, opts, cb) {
+  const cheerio = require('cheerio');
+ 
+  function next(err) {
+    if(err) {
+      return cb(err); 
+    }
+    const mod = list.shift(); 
+    if(!mod) {
+      return cb(null, result);
+    }
+
+    // parse all the <dom-module> elements
+    const $ = mod.dom = cheerio.load(mod.contents)
+      , elements = $(opts.selectors.modules).toArray();
+
+    if(!elements.length) {
+      return next(new Error(`no component modules in ${mod.file}`)); 
+    }
+
+    function it(err) {
+      if(err) {
+        return next(err); 
+      }
+      const context = elements.shift(); 
+      if(!context) {
+        return next(); 
+      }
+
+      mod.context = context;
+      component(mod, result, opts, it);
+    }
+
+    it();
   }
 
   next();
@@ -234,7 +268,8 @@ function component(list, result, opts, cb) {
 /**
  *  @private
  */
-function parse(loaded, opts, cb) {
+function parse(list, opts, cb) {
+
   // NOTE: not currently any options for the parse
   // NOTE: phase but use consistent function signature
   if(typeof opts === 'function') {
@@ -245,7 +280,8 @@ function parse(loaded, opts, cb) {
   opts = opts || {};
 
   const result = {css: [], js: [], tpl: [], options: opts};
-  component(loaded, result, opts, cb);
+  //component(loaded, result, opts, cb);
+  modules(list, result, opts, cb);
 }
 
 module.exports = parse;

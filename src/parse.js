@@ -131,11 +131,11 @@ function styles(definition, result, el, cb) {
  *  @private
  */
 function scripts(definition, result, el, cb) {
-  const file = definition.file;
-  const base = path.dirname(file);
-  const $ = definition.dom;
-  const src = $(el).attr('src');
-  const options = result.options;
+  const file = definition.file
+      , base = path.dirname(file)
+      , $ = definition.dom
+      , src = $(el).attr('src')
+      , options = result.options;
 
   function done() {
     trim(result.js[result.js.length - 1], options.trim); 
@@ -175,10 +175,10 @@ function scripts(definition, result, el, cb) {
  *  @private
  */
 function templates(definition, result, el, cb) {
-  const file = definition.file;
-  const base = path.dirname(file);
-  const $ = definition.dom;
-  const options = result.options;
+  const file = definition.file
+      , base = path.dirname(file)
+      , $ = definition.dom
+      , options = result.options;
 
   function done() {
     trim(result.tpl[result.tpl.length - 1], options.trim); 

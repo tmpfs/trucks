@@ -184,9 +184,9 @@ Components follow the [polymer][] style definition to encourage encapsulating al
 ```html
 <dom-module id="x-icon">
   <template>
-    <styles>
+    <style>
       /* inline component styles */
-    </styles>
+    </style>
     <!-- template markup -->
   </template>
 
@@ -214,9 +214,9 @@ Complex components can reference external styles and scripts if you prefer:
 ```html
 <dom-module id="x-icon">
   <template>
-    <styles>
+    <style>
       /* inline component styles */
-    </styles>
+    </style>
     <!-- template markup -->
   </template>
 

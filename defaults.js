@@ -32,6 +32,7 @@ const options = {
   // options to pass to the compiler
   compiler: {
     // template element attribute used to extract the template id
+    // changing this will have bad consequences
     attr: 'id',
     // name of the skatejs variable
     skate: 'skate',

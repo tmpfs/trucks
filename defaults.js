@@ -64,6 +64,7 @@ const options = {
    *  intended to be modified.
    */
   selectors: {
+    modules: 'dom-module',
     import: 'link[rel="import"][href]',
     styles: 'style, link[rel="stylesheet"][href]',
     scripts: 'script',

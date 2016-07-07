@@ -18,7 +18,8 @@ const path = require('path')
  *
  *  @private {function} validate
  *
- *  @see https://w3c.github.io/webcomponents/spec/custom/#custom-elements-core-concepts
+ *  @see https://w3c.github.io/webcomponents/spec/custom/ \ 
+ *    #custom-elements-core-concepts
  */
 function validate(id) {
   if(~RESERVED.indexOf(id)) {

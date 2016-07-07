@@ -39,12 +39,14 @@ describe('trucks:', function() {
         expect(result.javascript)
           .to.eql(
             fs.readFileSync(
-              'test/expect/private-dependent-javascript.js').toString().trim());
+              'test/expect/private-dependent-javascript.js')
+                .toString().trim());
 
         expect(result.stylesheet)
           .to.eql(
             fs.readFileSync(
-              'test/expect/private-dependent-stylesheet.css').toString().trim());
+              'test/expect/private-dependent-stylesheet.css')
+                .toString().trim());
 
         done();
       }

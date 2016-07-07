@@ -1,17 +1,19 @@
-<template id="simple-component">
-  <p>Simple component.</p>
-</template>
+<dom-module id="simple-component">
 
-<style>
-  simple-component {
-    background: black;
-    color: white;
-  }
-</style>
+  <template id="simple-component">
+    <p>Simple component.</p>
+  </template>
 
-<script>
-  skate.define('simple-component', {
-    render: template
-  });
-</script>
+  <style>
+    simple-component {
+      background: black;
+      color: white;
+    }
+  </style>
 
+  <script>
+    skate.define('simple-component', {
+      render: template
+    });
+  </script>
+</dom-module>

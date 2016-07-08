@@ -37,7 +37,7 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
         color: white;
       }
 
-      p {
+      p, ::content p {
         margin: 0; 
         padding: 1em;
       }
@@ -62,17 +62,6 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
       </div>
     </div>
   </template>
-
-  <style>
-    /*
-       External style required as the slot paragraph does not exist
-       within the shadow DOM.
-    */
-    p[slot] {
-      margin: 0; 
-      padding: 1em;
-    }
-  </style>
 
   <script>
     skate.define('{{id}}', {
@@ -110,7 +99,7 @@ const templates = {
     skate.vdom.element("style", {
       "nonce": `Nc3n83cnSAd3wc3Sasdfn939hc3`
     }, () => {
-      skate.vdom.text(` /* Inline styles for the shadow DOM. */ * { font-family: sans-serif; color: white; } p { margin: 0; padding: 1em; } .title { background: black; cursor: pointer; } .content { min-height: 10em; background: gray; } `);
+      skate.vdom.text(` /* Inline styles for the shadow DOM. */ * { font-family: sans-serif; color: white; } p, ::content p { margin: 0; padding: 1em; } .title { background: black; cursor: pointer; } .content { min-height: 10em; background: gray; } `);
     });
     skate.vdom.element("div", {
       "class": `container`
@@ -150,14 +139,7 @@ skate.define('x-panel', {
 Compiled stylesheet:
 
 ```css
-/*
-   External style required as the slot paragraph does not exist
-   within the shadow DOM.
-*/
-p[slot] {
-  margin: 0; 
-  padding: 1em;
-}
+
 ```
 
 ### Markup
@@ -166,9 +148,8 @@ p[slot] {
 <!doctype html>
 <html>
   <head>
-    <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3'">
+    <!--<meta http-equiv="Content-Security-Policy" content="style-src 'self' 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3';">-->
 
-    <link rel="stylesheet" href="build/components.css"></link>
     <script src="skate-1.0.0-beta.7.js"></script>
     <script src="build/components.js"></script>
   </head>

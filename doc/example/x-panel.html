@@ -11,7 +11,7 @@
         color: white;
       }
 
-      p {
+      p, ::content p {
         margin: 0; 
         padding: 1em;
       }
@@ -36,17 +36,6 @@
       </div>
     </div>
   </template>
-
-  <style>
-    /*
-       External style required as the slot paragraph does not exist
-       within the shadow DOM.
-    */
-    p[slot] {
-      margin: 0; 
-      padding: 1em;
-    }
-  </style>
 
   <script>
     skate.define('{{id}}', {

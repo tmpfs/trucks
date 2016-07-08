@@ -233,7 +233,7 @@ function getObjectExpression(t, map, it) {
   const out = [];
   for(let k in map) {
     out.push(
-      t.objectProperty(t.identifier(k), it(map[k]))
+      t.objectProperty(t.stringLiteral(k), it(map[k]))
     );
   }
   return t.objectExpression(out);

@@ -23,7 +23,7 @@ describe('compiler:', function() {
     expect(result.code).to.eql(
       'function render(elem) {\n'
         + '  skate.vdom.element("span", {\n'
-        + '    name: `${ elem.tagName }`\n'
+        + '    "name": `${ elem.tagName }`\n'
         + '  }, () => {\n'
         + '    skate.vdom.text(`${ elem.title }`);\n'
         + '  });\n'

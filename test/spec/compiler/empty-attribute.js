@@ -20,7 +20,7 @@ describe('compiler:', function() {
 
     const result = babel.transformFromAst(res.list[0].body);
     expect(result.code).to.eql('skate.vdom.element("span", {\n'
-      + '  icon: ""\n'
+      + '  "icon": ""\n'
       + '});');
 
     done();

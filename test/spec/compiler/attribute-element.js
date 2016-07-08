@@ -20,8 +20,8 @@ describe('compiler:', function() {
 
     const result = babel.transformFromAst(res.list[0].body);
     expect(result.code).to.eql('skate.vdom.element("span", {\n'
-      + '  id: "myid",\n'
-      + '  class: "inline"\n'
+      + '  "id": "myid",\n'
+      + '  "class": "inline"\n'
       + '});');
 
     done();

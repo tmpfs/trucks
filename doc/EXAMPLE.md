@@ -25,9 +25,10 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 
 ```html
 <dom-module id="x-panel">
+
   <template>
 
-    <style>
+    <style nonce="Nc3n83cnSAd3wc3Sasdfn939hc3">
       /*
         Inline styles for the shadow DOM.
       */
@@ -52,6 +53,7 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
       }
 
     </style>
+
 
     <div class="container">
       <p class="title">${elem.title}</p>
@@ -105,22 +107,24 @@ Compiled javascript:
 ```javascript
 const templates = {
   "x-panel": function render(elem) {
-    skate.vdom.element("style", () => {
+    skate.vdom.element("style", {
+      "nonce": `Nc3n83cnSAd3wc3Sasdfn939hc3`
+    }, () => {
       skate.vdom.text(` /* Inline styles for the shadow DOM. */ * { font-family: sans-serif; color: white; } p { margin: 0; padding: 1em; } .title { background: black; cursor: pointer; } .content { min-height: 10em; background: gray; } `);
     });
     skate.vdom.element("div", {
-      class: `container`
+      "class": `container`
     }, () => {
       skate.vdom.element("p", {
-        class: `title`
+        "class": `title`
       }, () => {
         skate.vdom.text(`${ elem.title }`);
       });
       skate.vdom.element("div", {
-        class: `content`
+        "class": `content`
       }, () => {
         skate.vdom.element("slot", {
-          name: `content`
+          "name": `content`
         }, () => {});
       });
     });
@@ -162,6 +166,8 @@ p[slot] {
 <!doctype html>
 <html>
   <head>
+    <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3'">
+
     <link rel="stylesheet" href="build/components.css"></link>
     <script src="skate-1.0.0-beta.7.js"></script>
     <script src="build/components.js"></script>
@@ -176,7 +182,7 @@ p[slot] {
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 7, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 8, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

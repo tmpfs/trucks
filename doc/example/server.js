@@ -3,6 +3,7 @@ const express = require('express')
 
 app.get('*', (req, res, next) => {
   const policy = "default-src 'self'; style-src 'self' 'unsafe-inline'";
+  //const policy = "default-src 'self'";
   res.set('Content-Security-Policy', policy);
   next();
 });

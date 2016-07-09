@@ -13,7 +13,7 @@ describe('compiler:', function() {
     const result = babel.transformFromAst(res.main);
     expect(result.code).to.eql(
       'function template(elem) {\n'
-        + '  return templates[elem.tagName.toLowerCase()](elem);\n'
+        + '  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n'
         + '}'
     );
 

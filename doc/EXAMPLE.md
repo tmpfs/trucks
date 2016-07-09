@@ -56,7 +56,7 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 
 
     <div class="container">
-      <p class="title">${elem.title}</p>
+      <p class="title">${this.title}</p>
       <div class="content">
         <slot name="content" />
       </div>
@@ -105,7 +105,7 @@ const templates = {
       skate.vdom.element("p", {
         "class": `title`
       }, () => {
-        skate.vdom.text(`${ elem.title }`);
+        skate.vdom.text(`${ this.title }`);
       });
       skate.vdom.element("div", {
         "class": `content`
@@ -161,7 +161,7 @@ Compiled stylesheet:
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 8, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 9, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

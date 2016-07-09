@@ -63,6 +63,10 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
     </div>
   </template>
 
+
+  <!--<template id="content">-->
+  <!--</template>-->
+
   <script>
     skate.define('{{id}}', {
       events: {

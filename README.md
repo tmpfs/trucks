@@ -106,7 +106,7 @@ An HTML template such as:
 ```html
 <template id="x-blog-post">
   <div class="post">
-    <h3>${elem.title}</h3>
+    <h3>${this.title}</h3>
     <p>Article content</p>
   </div>
 </template>
@@ -120,7 +120,7 @@ function render(elem) {
     "class": "post"
   }, () => {
     skate.vdom.element("h3", () => {
-      skate.vdom.text(`${ elem.title }`);
+      skate.vdom.text(`${ this.title }`);
     });
     skate.vdom.element("p", () => {
       skate.vdom.text(`Article content`);
@@ -140,7 +140,7 @@ const templates = {
       "class": "post"
     }, () => {
       skate.vdom.element("h3", () => {
-        skate.vdom.text(`${ elem.title }`);
+        skate.vdom.text(`${ this.title }`);
       });
       skate.vdom.element("p", () => {
         skate.vdom.text(`Article content`);

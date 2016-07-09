@@ -43,6 +43,7 @@ const options = {
   // options to pass to the compiler
   compiler: {
     // template element attribute used to extract the template id
+    // changing this will have bad consequences
     attr: 'id',
     // name of the skatejs variable
     skate: 'skate',
@@ -83,7 +84,7 @@ const options = {
    */
   selectors: {
     modules: 'dom-module',
-    import: 'link[rel="import"][href]',
+    imports: 'link[rel="import"][href]',
     styles: '> style, link[rel="stylesheet"][href]',
     scripts: '> script',
     templates: 'template, link[rel="template"][href]'
@@ -95,5 +96,5 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 7, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 9, 2016
 

@@ -117,7 +117,7 @@ Will result in the compiled function:
 ```javascript
 function render(elem) {
   skate.vdom.element("div", {
-    class: "post"
+    "class": "post"
   }, () => {
     skate.vdom.element("h3", () => {
       skate.vdom.text(`${ elem.title }`);
@@ -137,7 +137,7 @@ The compiler then creates a map of component identifiers to template render func
 const templates = {
   "x-blog-post": function render(elem) {
     skate.vdom.element("div", {
-      class: "post"
+      "class": "post"
     }, () => {
       skate.vdom.element("h3", () => {
         skate.vdom.text(`${ elem.title }`);
@@ -154,7 +154,7 @@ And exposes a main function that performs a lookup in the template map by elemen
 
 ```javascript
 function template(elem) {
-  return templates[elem.tagName.toLowerCase()](elem);
+  return templates[elem.tagName.toLowerCase()].call(elem, elem);
 }
 ```
 
@@ -395,7 +395,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 7, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 9, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

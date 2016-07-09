@@ -98,7 +98,7 @@ The parse phase takes the output from the load phase and extracts the css, javas
   "options": {
     "selectors": {
       "modules": "dom-module",
-      "import": "link[rel=\"import\"][href]",
+      "imports": "link[rel=\"import\"][href]",
       "styles": "> style, link[rel=\"stylesheet\"][href]",
       "scripts": "> script",
       "templates": "template, link[rel=\"template\"][href]"
@@ -171,7 +171,7 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
     },
     "selectors": {
       "modules": "dom-module",
-      "import": "link[rel=\"import\"][href]",
+      "imports": "link[rel=\"import\"][href]",
       "styles": "> style, link[rel=\"stylesheet\"][href]",
       "scripts": "> script",
       "templates": "template, link[rel=\"template\"][href]"
@@ -189,7 +189,7 @@ After transformation the generate phase will concatenate all the css and transfo
 ```json
 {
   "stylesheet": "x-button {\n  /* component styles */\n}\n\nx-icon {\n  /* component styles */\n}",
-  "javascript": "const templates = {\n  \"x-button\": function render(elem) {},\n  \"x-icon\": function render(elem) {}\n};\n\nfunction template(elem) {\n  return templates[elem.tagName.toLowerCase()](elem);\n}\n\nskate.define('x-button', {});\n\nskate.define('x-icon', {});"
+  "javascript": "const templates = {\n  \"x-button\": function render(elem) {},\n  \"x-icon\": function render(elem) {}\n};\n\nfunction template(elem) {\n  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n}\n\nskate.define('x-button', {});\n\nskate.define('x-icon', {});"
 }
 ```
 
@@ -201,5 +201,5 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 7, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 9, 2016
 

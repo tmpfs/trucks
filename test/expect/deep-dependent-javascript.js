@@ -5,7 +5,7 @@ const templates = {
 };
 
 function template(elem) {
-  return templates[elem.tagName.toLowerCase()](elem);
+  return templates[elem.tagName.toLowerCase()].call(elem, elem);
 }
 
 skate.define('x-icon', {});

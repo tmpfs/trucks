@@ -156,20 +156,23 @@ function main(opts) {
           t.returnStatement(
             t.callExpression(
               t.memberExpression(
-                t.identifier(opts.templates),
-                t.callExpression(
-                  t.memberExpression(
+                t.memberExpression(
+                  t.identifier(opts.templates),
+                  t.callExpression(
                     t.memberExpression(
-                      t.identifier(ELEM),
-                      t.identifier(TAG_NAME)
+                      t.memberExpression(
+                        t.identifier(ELEM),
+                        t.identifier(TAG_NAME)
+                      ),
+                      t.identifier(TO_LOWER_CASE)
                     ),
-                    t.identifier(TO_LOWER_CASE)
+                    []
                   ),
-                  []
+                  true
                 ),
-                true
+                t.identifier('call')
               ),
-              [t.identifier(ELEM)]
+              [t.identifier(ELEM), t.identifier(ELEM)]
             )  
           )
         ] 

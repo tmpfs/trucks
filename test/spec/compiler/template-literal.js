@@ -6,7 +6,7 @@ describe('compiler:', function() {
 
   it('should generate AST for template literal (all)', function(done) {
     const tpl = '<template id="x-foo">'
-      + '<span name="${elem.tagName}">${elem.title}</span></template>';
+      + '<span name="${this.tagName}">${this.title}</span></template>';
 
     const res = trucks.compile(tpl, {literals: true});
 
@@ -23,9 +23,9 @@ describe('compiler:', function() {
     expect(result.code).to.eql(
       'function render(elem) {\n'
         + '  skate.vdom.element("span", {\n'
-        + '    "name": `${ elem.tagName }`\n'
+        + '    "name": `${ this.tagName }`\n'
         + '  }, () => {\n'
-        + '    skate.vdom.text(`${ elem.title }`);\n'
+        + '    skate.vdom.text(`${ this.title }`);\n'
         + '  });\n'
         + '}'
       );

@@ -13,10 +13,13 @@ describe('trucks:', function() {
         out: 'target',
         name: 'simple-inline'
       },
-      (err, result) => {
+      (err, state) => {
         expect(err).to.eql(null);
-        expect(result).to.be.an('object');
-        expect(result.options).to.be.an('object');
+        expect(state).to.be.an('object');
+        expect(state.options).to.be.an('object');
+
+        const result = state.result.transform
+          , generated = state.result.generate;
 
         // parse phase data
         expect(result.css).to.be.an('array').to.have.length(1);
@@ -47,13 +50,13 @@ describe('trucks:', function() {
           .to.be.an('object');
 
         // generate phase data
-        expect(result.stylesheet).to.be.a('string');
-        expect(result.javascript).to.be.a('string');
+        expect(generated.stylesheet).to.be.a('string');
+        expect(generated.javascript).to.be.a('string');
 
         const expected = fs.readFileSync('test/expect/simple-component.js')
           .toString().trim();
 
-        expect(result.javascript).to.eql(expected);
+        expect(generated.javascript).to.eql(expected);
 
         done();
       }

@@ -6,11 +6,15 @@ describe('transform:', function() {
   it('should handle no options', function(done) {
     trucks.transform(
       {
-        js: []
+        result: {
+          parse: {
+            js: []
+          }
+        }
       },
-      (err, result) => {
+      (err, state) => {
         expect(err).to.eql(null);
-        expect(result).to.be.an('object');
+        expect(state).to.be.an('object');
         done();
       }
     );
@@ -19,12 +23,16 @@ describe('transform:', function() {
   it('should transform with plugins option', function(done) {
     trucks.transform(
       {
-        js: [{contents: 'skate.define("x-foo", {});var foo = bar();'}]
+        options: {babel: {plugins: []}, extract: true},
+        result: {
+          parse: {
+            js: [{contents: 'skate.define("x-foo", {});var foo = bar();'}]
+          }
+        }
       },
-      {babel: {plugins: []}, extract: true},
-      (err, result) => {
+      (err, state) => {
         expect(err).to.eql(null);
-        expect(result).to.be.an('object');
+        expect(state).to.be.an('object');
         done();
       }
     );

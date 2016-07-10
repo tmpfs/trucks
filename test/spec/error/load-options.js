@@ -4,7 +4,7 @@ var expect = require('chai').expect
 describe('load:', function() {
 
   it('should error on load with no options', function(done) {
-    trucks.load(
+    trucks(
       null,
       (err) => {
         function fn() {
@@ -17,7 +17,7 @@ describe('load:', function() {
   });
 
   it('should error on load with non-existent file', function(done) {
-    trucks.load(
+    trucks(
         {files: ['non-existent/components.html']},
       (err) => {
         function fn() {

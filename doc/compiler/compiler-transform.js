@@ -1,44 +1,29 @@
 var trucks = require('../../lib/index');
 
-trucks.load(
+trucks(
   {
     files: ['doc/compiler/components.html'],
-    selectors: require('../../defaults').selectors
+    selectors: require('../../defaults').selectors,
+    phases: [trucks.phases.LOAD, trucks.phases.PARSE, trucks.phases.TRANSFORM]
   },
-  (err, loaded) => {
+  (err, state) => {
     if(err) {
       throw err; 
     }
-    trucks.parse(
-      loaded, 
-      require('../../defaults'),
-      (err, parsed) => {
-        if(err) {
-          throw err; 
-        }
-        trucks.transform(
-          parsed,
-          require('../../defaults'),
-          (err, transformed) => {
-            if(err) {
-              throw err; 
-            }
+    const transformed = state.result.transform;
 
-            // remove irrelevant info for this example output
-            delete transformed.css;
-            delete transformed.tpl;
-            delete transformed.compiled;
+    // remove irrelevant info for this example output
+    delete transformed.css;
+    delete transformed.tpl;
+    delete transformed.compiled;
 
-            // clean circular references
-            transformed.js.forEach((script) => {
-              delete script.result;
-              delete script.components;
-            })
+    // clean circular references
+    transformed.js.forEach((script) => {
+      delete script.result;
+      delete script.components;
+    })
 
-            console.log(JSON.stringify(transformed, undefined, 2));
-          }
-        );
-      }
-    )
+    console.log(JSON.stringify(transformed, undefined, 2));
+
   }
 );

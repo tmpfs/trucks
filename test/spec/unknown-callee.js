@@ -12,9 +12,11 @@ describe('trucks:', function() {
         name: 'unknown-callee',
         babel: {plugins: []}
       },
-      (err, result) => {
+      (err, state) => {
         expect(err).to.eql(null);
-        expect(result).to.be.an('object');
+        expect(state).to.be.an('object');
+
+        const result = state.result.generate;
 
         // NOTE: not too much to assert here, this spec
         // NOTE: triggers some code paths

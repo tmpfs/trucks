@@ -8,11 +8,14 @@ const fs = require('fs')
 /**
  *  @private
  */
-function write(generated, opts, cb) {
+function write(input, cb) {
+  const opts = input.options
+    , generated = input.result.generate
+    , written = input.result.write || {};
 
   // track files that were written consumers (such as a cli)
   // might want to stat afterwards for bytes written
-  generated.files = {};
+  written.files = {};
 
   function writer(key, path, contents) {
     return function write(cb) {
@@ -27,7 +30,7 @@ function write(generated, opts, cb) {
             return cb(err); 
           } 
 
-          generated.files[key] = {
+          written.files[key] = {
             file: path,
             contents: contents
           }
@@ -86,7 +89,7 @@ function write(generated, opts, cb) {
 
     const fn = writers.shift();
     if(!fn) {
-      return cb(null, generated); 
+      return cb(null, input); 
     }
 
     fn(next);

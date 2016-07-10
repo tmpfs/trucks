@@ -7,8 +7,10 @@ const SKATE = 'skate'
  *
  *  @private
  */
-function extract(result, opts, cb) {
-  const babel = require('babel-core');
+function extract(input, output, cb) {
+  const babel = require('babel-core')
+    , opts = input.options || {}
+    , result = input.result.parse;
 
   result.js = result.js;
 
@@ -62,7 +64,7 @@ function extract(result, opts, cb) {
       }
     }
 
-    const options = opts.babel;
+    const options = opts.babel || {};
 
     options.plugins = Array.isArray(options.plugins) ? options.plugins : [];
 
@@ -141,16 +143,17 @@ function duplicates(templates, opts) {
 /**
  *  @private
  */
-function transform(parsed, opts, cb) {
-  if(typeof opts === 'function') {
-    cb = opts;
-    opts = null;
-  }
+function transform(input, cb) {
+  const opts = input.options || {}
+    , parsed = input.result.parse
+    , result = input.result.transform || {};
 
-  opts = opts || {};
   opts.babel = opts.babel || {};
-
   parsed.tpl = parsed.tpl || [];
+
+  for(let k in parsed) {
+    result[k] = parsed[k];
+  }
 
   try {
     duplicates(parsed.tpl, opts);
@@ -158,7 +161,7 @@ function transform(parsed, opts, cb) {
     return cb(e); 
   }
 
-  extract(parsed, opts, function(err) {
+  extract(input, result, function(err) {
     if(err) {
       return cb(err); 
     } 
@@ -200,10 +203,10 @@ function transform(parsed, opts, cb) {
       }
 
       // inject compiler result object
-      parsed.compiled = compiled;
+      result.compiled = compiled;
     }
 
-    cb(null, parsed);
+    cb(null, input);
   });
 }
 

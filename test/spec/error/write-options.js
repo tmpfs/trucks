@@ -5,8 +5,16 @@ describe('write:', function() {
 
   it('should error on write with non-existent path', function(done) {
     trucks.write(
-      {stylesheet: 'x-component{}'},
-      {css: 'non-existent/error.css'},
+      {
+        options: {
+          css: 'non-existent/error.css'
+        },
+        result: {
+          generate: {
+            stylesheet: 'x-component{}'  
+          }
+        }
+      },
       (err) => {
         function fn() {
           throw err;

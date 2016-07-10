@@ -3,10 +3,10 @@ var expect = require('chai').expect
   , path = require('path')
   , trucks = require('../../lib');
 
-function assert(result) {
-  expect(result).to.be.an('object');
+function assert(state) {
+  expect(state).to.be.an('object');
 
-  expect(result.options.name).to.eql('mock-config');
+  expect(state.options.name).to.eql('mock-config');
 
   var stat = fs.statSync('target/mock-config.html');
   expect(stat).to.be.an('object');
@@ -23,7 +23,7 @@ function assert(result) {
   expect(stat.isFile()).to.eql(true);
   expect(stat.size).to.be.gt(0);
 
-  expect(result.files).to.be.an('object');
+  expect(state.result.write.files).to.be.an('object');
 }
 
 describe('trucks:', function() {
@@ -38,9 +38,9 @@ describe('trucks:', function() {
         extract: true,
         conf: ['test/fixtures/mock-config.js']
       },
-      (err, result) => {
+      (err, state) => {
         expect(err).to.eql(null);
-        assert(result);
+        assert(state);
         done();
       }
     );
@@ -57,9 +57,9 @@ describe('trucks:', function() {
         extract: true,
         conf: path.join(process.cwd(), 'test/fixtures/mock-config.js')
       },
-      (err, result) => {
+      (err, state) => {
         expect(err).to.eql(null);
-        assert(result);
+        assert(state);
         done();
       }
     );

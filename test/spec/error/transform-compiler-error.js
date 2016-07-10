@@ -6,13 +6,17 @@ describe('transform:', function() {
   it('should error on invalid javascript (syntax error)', function(done) {
     trucks.transform(
       {
-        js: [
-          {
-            file: 'mock.js',
-            contents: 'var foo ='
+        result: {
+          parse: {
+            js: [
+              {
+                file: 'mock.js',
+                contents: 'var foo ='
+              }
+            ],
+            tpl: []
           }
-        ],
-        tpl: []
+        }
       },
       (err) => {
         function fn() {

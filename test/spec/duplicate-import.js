@@ -12,8 +12,10 @@ describe('trucks:', function() {
             'test/fixtures/duplicate-import/components-alt.html'
           ]
         },
-        (err, result) => {
+        (err, state) => {
           expect(err).to.eql(null);
+
+          const result = state.result.transform;
 
           expect(result.tpl).to.be.an('array').to.have.length(1);
           expect(result.css).to.be.an('array').to.have.length(1);

@@ -406,7 +406,7 @@ function template(el, opts) {
           // TODO: parse AST for calls to html()
           // TODO: wrap in self-executing function
 
-          console.log(res.code);
+          //console.log(res.code);
         }catch(e) {
           throw e; 
         }

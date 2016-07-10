@@ -1,14 +1,15 @@
-var trucks = require('../../lib/index');
+var trucks = require('../../src/index');
 
-trucks.load(
+trucks(
   {
     files: ['doc/compiler/components.html'],
-    selectors: require('../../defaults').selectors
+    selectors: require('../../defaults').selectors,
+    phases: [trucks.phases.LOAD]
   },
-  (err, loaded) => {
+  (err, state) => {
     if(err) {
       throw err; 
     }
-    console.log(JSON.stringify(loaded, undefined, 2));
+    console.log(JSON.stringify(state.result.load, undefined, 2));
   }
 );

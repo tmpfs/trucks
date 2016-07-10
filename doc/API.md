@@ -208,5 +208,5 @@ Returns an object representing the templates as AST programs.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 9, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 10, 2016
 

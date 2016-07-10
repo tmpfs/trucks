@@ -88,11 +88,10 @@ function trim(item, options) {
  *
  *  @private
  */
-function styles(definition, result, el, cb) {
+function styles(definition, result, el, options, cb) {
   const file = definition.file
     , base = path.dirname(file)
-    , $ = definition.dom
-    , options = result.options;
+    , $ = definition.dom;
 
   let item;
 
@@ -133,12 +132,11 @@ function styles(definition, result, el, cb) {
  *
  *  @private
  */
-function scripts(definition, result, el, cb) {
+function scripts(definition, result, el, options, cb) {
   const file = definition.file
       , base = path.dirname(file)
       , $ = definition.dom
-      , src = $(el).attr('src')
-      , options = result.options;
+      , src = $(el).attr('src');
 
   let item;
 
@@ -180,11 +178,10 @@ function scripts(definition, result, el, cb) {
  *
  *  @private
  */
-function templates(definition, result, el, cb) {
+function templates(definition, result, el, options, cb) {
   const file = definition.file
       , base = path.dirname(file)
-      , $ = definition.dom
-      , options = result.options;
+      , $ = definition.dom;
 
   let item;
 
@@ -238,8 +235,7 @@ function templates(definition, result, el, cb) {
  *
  *  @private
  */
-function iterator(definition, result, elements, it, cb) {
-  const options = result.options;
+function iterator(definition, result, elements, it, options, cb) {
 
   function next(err, item) {
     if(err) {
@@ -261,7 +257,7 @@ function iterator(definition, result, elements, it, cb) {
       return cb(); 
     }
 
-    it(definition, result, el, next);
+    it(definition, result, el, options, next);
   }
 
   next();
@@ -278,14 +274,14 @@ function component(mod, result, opts, cb) {
 
   // process styles first and maintain declaration order
   let elements = $(opts.selectors.styles, context).toArray();
-  iterator(mod, result, elements, styles, (err) => {
+  iterator(mod, result, elements, styles, opts, (err) => {
     if(err) {
       return cb(err); 
     }
 
     // process inline and external scripts
     elements = $(opts.selectors.scripts, context).toArray();
-    iterator(mod, result, elements, scripts, (err) => {
+    iterator(mod, result, elements, scripts, opts, (err) => {
       if(err) {
         return cb(err); 
       }
@@ -300,7 +296,7 @@ function component(mod, result, opts, cb) {
             `only a single template element is allowed per dom-module`)); 
       }
 
-      iterator(mod, result, elements, templates, (err) => {
+      iterator(mod, result, elements, templates, opts, (err) => {
         if(err) {
           return cb(err); 
         }
@@ -374,19 +370,13 @@ function modules(list, result, opts, cb) {
 /**
  *  @private
  */
-function parse(list, opts, cb) {
-
-  // NOTE: not currently any options for the parse
-  // NOTE: phase but use consistent function signature
-  if(typeof opts === 'function') {
-    cb = opts;
-    opts = null;
-  }
-
-  opts = opts || {};
-
-  const result = {css: [], js: [], tpl: [], options: opts};
-  modules(list, result, opts, cb);
+function parse(input, cb) {
+  modules(
+    input.result.load.files,
+    input.result.parse || {},
+    input.options || {},
+    cb
+  );
 }
 
 module.exports = parse;

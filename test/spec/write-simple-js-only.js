@@ -11,10 +11,11 @@ describe('trucks:', function() {
         files: [src],
         js: js
       },
-      (err, result) => {
+      (err, state) => {
         expect(err).to.eql(null);
+        expect(state).to.be.an('object');
 
-        expect(result).to.be.an('object');
+        const result = state.result.write;
         expect(result.files).to.be.an('object');
         expect(result.files.js.file).to.eql(js);
         done();

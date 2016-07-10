@@ -1,10 +1,6 @@
 const merge = require('merge')
     , path = require('path')
-    , load = require('./load')
-    , parse = require('./parse')
-    , transform = require('./transform')
-    , generate = require('./generate')
-    , write = require('./write');
+    , plugins = require('./plugins');
 
 /**
  *  Compile component files to CSS, Javascript and HTML.
@@ -61,33 +57,7 @@ function trucks(opts, cb) {
   // finally merge in passed options
   options = merge(true, options, opts);
 
-  load(options, (err, loaded) => {
-    if(err) {
-      return cb(err); 
-    } 
-
-    parse(loaded, options, (err, parsed) => {
-      if(err) {
-        return cb(err); 
-      }
-      transform(parsed, options, (err, transformed) => {
-        if(err) {
-          return cb(err); 
-        }
-        generate(transformed, options, (err, generated) => {
-          if(err) {
-            return cb(err); 
-          }
-          write(generated, options, (err, written) => {
-            if(err) {
-              return cb(err); 
-            }
-            cb(null, written);
-          });
-        });
-      });
-    });
-  })
+  plugins(options, cb);
 
   return options;
 }
@@ -101,7 +71,9 @@ function trucks(opts, cb) {
  *
  *  @option {Array} files list of HTML files to compile.
  */
-trucks.load = load;
+trucks.load = function() {
+  return require('./load').apply(this, arguments);
+}
 
 /**
  *  Parses the loaded file data to stylesheet and javascript strings.
@@ -111,7 +83,9 @@ trucks.load = load;
  *  @param {Object} [opts] processing options.
  *  @param {Function} cb callback function.
  */
-trucks.parse = parse;
+trucks.parse = function() {
+  return require('./parse').apply(this, arguments);
+}
 
 /**
  *  Transforms the parsed result compiling the html `<template>` element 
@@ -124,7 +98,9 @@ trucks.parse = parse;
  *
  *  @option {Object} babel options to pass to babel transform.
  */
-trucks.transform = transform;
+trucks.transform = function() {
+  return require('./transform').apply(this, arguments);
+}
 
 // NOTE: this function is documented in src/compile.js
 trucks.compile = function(html, opts) {
@@ -143,7 +119,9 @@ trucks.compile = function(html, opts) {
  *
  *  @option {String} eol override the default EOL for concatenation.
  */
-trucks.generate = generate;
+trucks.generate = function() {
+  return require('./generate').apply(this, arguments);
+}
 
 /**
  *  Writes the generated result to stylesheet and javascript files.
@@ -166,6 +144,10 @@ trucks.generate = generate;
  *  @option {String} js path to write the generated javascript.
  *  @option {Boolean} force overwrite files that already exist.
  */
-trucks.write = write;
+trucks.write = function() {
+  return require('./write').apply(this, arguments);
+}
+
+trucks.phases = plugins.phases;
 
 module.exports = trucks;

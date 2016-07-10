@@ -1,13 +1,10 @@
 /**
  *  @private
  */
-function generate(transformed, opts, cb) {
-  if(typeof opts === 'function') {
-    cb = opts;
-    opts = null;
-  }
-
-  opts = opts || {};
+function generate(input, cb) {
+  const opts = input.options || {}
+    , transformed = input.result.transform
+    , generated = input.result.generate || {};
 
   if(opts.eol !== undefined && opts.eol !== String(opts.eol)) {
     return cb(new Error('eol option must be a string')); 
@@ -20,13 +17,13 @@ function generate(transformed, opts, cb) {
   const templates = transformed.tpl.map((tpl) => {
     return tpl.contents;
   })
-  transformed.html = templates.join(eol);
+  generated.html = templates.join(eol);
 
   // concatenate all style contents
   const styles = transformed.css.map((style) => {
     return style.contents;
   })
-  transformed.stylesheet = styles.join(eol);
+  generated.stylesheet = styles.join(eol);
 
   // concatenate all javascript contents
   const js = transformed.js.map((script) => {
@@ -39,9 +36,9 @@ function generate(transformed, opts, cb) {
     js.unshift(transformed.compiled.code.map);
   }
 
-  transformed.javascript = js.join(eol);
+  generated.javascript = js.join(eol);
 
-  cb(null, transformed);
+  cb(null, input);
 }
 
 module.exports = generate;

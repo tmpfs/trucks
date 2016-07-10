@@ -31,18 +31,20 @@ Given a components file [components.html](https://github.com/tmpfs/trucks/blob/m
 The load phase will build the result object:
 
 ```json
-[
-  {
-    "file": "doc/compiler/x-button.html",
-    "parent": "doc/compiler/components.html",
-    "contents": "<dom-module id=\"x-button\">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define('{{id}}', {});\n  </script>\n</dom-module>\n"
-  },
-  {
-    "file": "doc/compiler/x-icon.html",
-    "parent": "doc/compiler/components.html",
-    "contents": "<dom-module id=\"x-icon\">\n  <template>\n  </template>\n\n  <style>\n    x-icon {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define('{{id}}', {});\n  </script>\n</dom-module>\n"
-  }
-]
+{
+  "files": [
+    {
+      "file": "doc/compiler/x-button.html",
+      "parent": "doc/compiler/components.html",
+      "contents": "<dom-module id=\"x-button\">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define('{{id}}', {});\n  </script>\n</dom-module>\n"
+    },
+    {
+      "file": "doc/compiler/x-icon.html",
+      "parent": "doc/compiler/components.html",
+      "contents": "<dom-module id=\"x-icon\">\n  <template>\n  </template>\n\n  <style>\n    x-icon {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define('{{id}}', {});\n  </script>\n</dom-module>\n"
+    }
+  ]
+}
 ```
 
 Imported component file paths are resolved relative to the declaring file.
@@ -57,13 +59,13 @@ The parse phase takes the output from the load phase and extracts the css, javas
     {
       "parent": "doc/compiler/components.html",
       "file": "doc/compiler/x-button.html",
-      "contents": "\n    x-button {\n      /* component styles */\n    }\n  ",
+      "contents": "x-button {\n  /* component styles */\n}",
       "inline": true
     },
     {
       "parent": "doc/compiler/components.html",
       "file": "doc/compiler/x-icon.html",
-      "contents": "\n    x-icon {\n      /* component styles */\n    }\n  ",
+      "contents": "x-icon {\n  /* component styles */\n}",
       "inline": true
     }
   ],
@@ -71,13 +73,13 @@ The parse phase takes the output from the load phase and extracts the css, javas
     {
       "parent": "doc/compiler/components.html",
       "file": "doc/compiler/x-button.html",
-      "contents": "\n    skate.define('{{id}}', {});\n  ",
+      "contents": "skate.define('x-button', {});",
       "inline": true
     },
     {
       "parent": "doc/compiler/components.html",
       "file": "doc/compiler/x-icon.html",
-      "contents": "\n    skate.define('{{id}}', {});\n  ",
+      "contents": "skate.define('x-icon', {});",
       "inline": true
     }
   ],
@@ -94,16 +96,7 @@ The parse phase takes the output from the load phase and extracts the css, javas
       "contents": "<template id=\"x-icon\">\n  </template>",
       "inline": true
     }
-  ],
-  "options": {
-    "selectors": {
-      "modules": "dom-module",
-      "imports": "link[rel=\"import\"][href]",
-      "styles": "> style, link[rel=\"stylesheet\"][href]",
-      "scripts": "> script",
-      "templates": "template, link[rel=\"template\"][href]"
-    }
-  }
+  ]
 }
 ```
 
@@ -128,55 +121,7 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
       "inline": true,
       "code": "skate.define('x-icon', {});"
     }
-  ],
-  "options": {
-    "files": null,
-    "babel": {
-      "plugins": [
-        null,
-        null
-      ],
-      "filename": "doc/compiler/x-icon.html"
-    },
-    "name": "components",
-    "force": false,
-    "trim": {
-      "inline": true,
-      "newlines": true,
-      "pattern": {},
-      "lines": true
-    },
-    "compiler": {
-      "attr": "id",
-      "skate": "skate",
-      "vdom": "vdom",
-      "element": "element",
-      "templates": "templates",
-      "main": "template",
-      "normalize": true,
-      "literals": {},
-      "dom": {
-        "normalizeWhitespace": true,
-        "withDomLvl1": true,
-        "xmlMode": false,
-        "decodeEntities": true
-      },
-      "text": "text",
-      "name": "render",
-      "arg": "elem"
-    },
-    "id": {
-      "replace": true,
-      "pattern": {}
-    },
-    "selectors": {
-      "modules": "dom-module",
-      "imports": "link[rel=\"import\"][href]",
-      "styles": "> style, link[rel=\"stylesheet\"][href]",
-      "scripts": "> script",
-      "templates": "template, link[rel=\"template\"][href]"
-    }
-  }
+  ]
 }
 ```
 
@@ -201,5 +146,5 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 9, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 10, 2016
 

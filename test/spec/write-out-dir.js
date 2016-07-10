@@ -16,10 +16,11 @@ describe('trucks:', function() {
         extract: true,
         out: out
       },
-      (err, result) => {
+      (err, state) => {
         expect(err).to.eql(null);
-        expect(result).to.be.an('object');
+        expect(state).to.be.an('object');
 
+        const result = state.result.write;
         expect(result.files).to.be.an('object');
         expect(result.files.html.file).to.eql(html);
         expect(result.files.css.file).to.eql(css);

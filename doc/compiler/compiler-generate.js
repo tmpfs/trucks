@@ -4,7 +4,7 @@ trucks(
   {
     files: ['doc/compiler/components.html'],
     selectors: require('../../defaults').selectors,
-    phases: [
+    plugins: [
       trucks.LOAD,
       trucks.PARSE,
       trucks.TRANSFORM,

@@ -57,8 +57,8 @@ function run(opts, cb) {
   let i
     , phase
     , list = []
-    , phases = Array.isArray(state.options.phases)
-        ? state.options.phases : PHASES;
+    , phases = Array.isArray(state.options.plugins)
+        ? state.options.plugins : PHASES;
 
   for(i = 0;i < phases.length;i++) {
     phase = phases[i];

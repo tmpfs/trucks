@@ -1,10 +1,10 @@
-var trucks = require('../../lib/index');
+var trucks = require('../../src/index');
 
 trucks(
   {
     files: ['doc/compiler/components.html'],
     selectors: require('../../defaults').selectors,
-    phases: [trucks.phases.LOAD, trucks.phases.PARSE, trucks.phases.TRANSFORM]
+    phases: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM]
   },
   (err, state) => {
     if(err) {

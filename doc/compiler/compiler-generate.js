@@ -1,14 +1,14 @@
-var trucks = require('../../lib/index');
+var trucks = require('../../src/index');
 
 trucks(
   {
     files: ['doc/compiler/components.html'],
     selectors: require('../../defaults').selectors,
     phases: [
-      trucks.phases.LOAD,
-      trucks.phases.PARSE,
-      trucks.phases.TRANSFORM,
-      trucks.phases.GENERATE
+      trucks.LOAD,
+      trucks.PARSE,
+      trucks.TRANSFORM,
+      trucks.GENERATE
     ]
   }, 
   (err, state) => {

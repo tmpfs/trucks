@@ -148,6 +148,8 @@ trucks.write = function() {
   return require('./write').apply(this, arguments);
 }
 
-trucks.phases = plugins.phases;
+plugins.phases.forEach((phase) => {
+  trucks[phase.toUpperCase()] = phase;
+})
 
 module.exports = trucks;

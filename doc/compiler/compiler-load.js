@@ -4,7 +4,7 @@ trucks(
   {
     files: ['doc/compiler/components.html'],
     selectors: require('../../defaults').selectors,
-    phases: [trucks.phases.LOAD]
+    phases: [trucks.LOAD]
   },
   (err, state) => {
     if(err) {

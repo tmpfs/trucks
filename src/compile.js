@@ -11,7 +11,8 @@ const TAG = 'tag'
     , MAIN = 'template'
     , TAG_NAME = 'tagName'
     , TO_LOWER_CASE = 'toLowerCase'
-    , DATA_KEY = 'data-key';
+    , DATA_KEY = 'data-key'
+    , DATA_SKIP = 'data-skip';
   
 /**
  *  Utility to determine if an object is empty.
@@ -275,12 +276,25 @@ function getCallExpression(t, method, args) {
 }
 
 /**
+ *  Inject a `skip` idom property from a `data-skip` attribute. 
+ *
+ *  @private {function} skip
+ */
+function skip(prop, value, attrs) {
+  if(prop === DATA_SKIP) {
+    attrs.skip = true;
+    delete attrs[DATA_SKIP]
+  }
+  return attrs;
+}
+
+/**
  *  Inject a `key` idom property from a `data-key` attribute. 
  *
  *  @private {function} key
  */
 function key(prop, value, attrs) {
-  if(prop === DATA_KEY) {
+  if(prop === DATA_KEY && value === String(value)) {
     attrs.key = value;
     delete attrs[DATA_KEY]
   }
@@ -298,6 +312,7 @@ function key(prop, value, attrs) {
 function attributes(attrs) {
   for(let k in attrs) {
     key(k, attrs[k], attrs); 
+    skip(k, attrs[k], attrs); 
   }
   return attrs;
 }
@@ -336,6 +351,9 @@ function template(el, opts) {
 
 
   function propertyString(val) {
+    if(val === true || val === false) {
+      return t.booleanLiteral(val);
+    }
     return t.stringLiteral(val);
   }
 

@@ -36,9 +36,6 @@ function CompilerState(options) {
   // list of input files
   this.files = options.files || [];
 
-  // array of loaded objects
-  //this.fileMap = {};
-
   this.result = {
     load: {
       files: [] 
@@ -85,13 +82,5 @@ function run(opts, cb) {
 }
 
 run.phases = PHASES;
-
-//run.phases = {
-  //LOAD: LOAD,
-  //PARSE: PARSE,
-  //TRANSFORM: TRANSFORM,
-  //GENERATE: GENERATE,
-  //WRITE: WRITE
-//}
 
 module.exports = run;

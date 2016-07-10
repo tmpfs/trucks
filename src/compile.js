@@ -1,5 +1,6 @@
 const TAG = 'tag'
     , STYLE = 'style'
+    , SCRIPT = 'script'
     , ID = 'id'
     , SKATE = 'skate'
     , VDOM = 'vdom'
@@ -390,9 +391,30 @@ function template(el, opts) {
     for(i = 0;i < childNodes.length;i++) {
       const child = childNodes[i];
       const el = $(child);
+      let script;
 
+      //console.log(child.type);
+      //console.log(el.attr('data-compile'));
+
+      // inline scripts to compile
+      if(child.type === SCRIPT && el.attr('data-compile') !== undefined) {
+        script = el.text();
+        let res; 
+        
+        try {
+          res = babel.transform(script, opts.babel);
+          // TODO: parse AST for calls to html()
+          // TODO: wrap in self-executing function
+
+          console.log(res.code);
+        }catch(e) {
+          throw e; 
+        }
       // child tag node (element)
-      if(child.type === TAG || child.type === STYLE) {
+      }else if(child.type === TAG
+        || child.type === STYLE
+        // run time script
+        || child.type === SCRIPT) {
         args = [t.stringLiteral(child.name)];
 
         // push attributes into function call when not empty
@@ -440,7 +462,7 @@ function template(el, opts) {
         // draft support for template literals in text nodes
         if(opts.literals.text) {
           arg = babel.transform(
-            '`' + text + '`').ast.program.body[0].expression;
+            '`' + text + '`', opts.babel).ast.program.body[0].expression;
         }else{
           arg = t.stringLiteral(text);
         }

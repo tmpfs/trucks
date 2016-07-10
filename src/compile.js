@@ -10,7 +10,8 @@ const TAG = 'tag'
     , TEMPLATES = 'templates' 
     , MAIN = 'template'
     , TAG_NAME = 'tagName'
-    , TO_LOWER_CASE = 'toLowerCase';
+    , TO_LOWER_CASE = 'toLowerCase'
+    , DATA_KEY = 'data-key';
   
 /**
  *  Utility to determine if an object is empty.
@@ -274,6 +275,34 @@ function getCallExpression(t, method, args) {
 }
 
 /**
+ *  Inject a `key` idom property from a `data-key` attribute. 
+ *
+ *  @private {function} key
+ */
+function key(prop, value, attrs) {
+  if(prop === DATA_KEY) {
+    attrs.key = value;
+    delete attrs[DATA_KEY]
+  }
+  return attrs;
+}
+
+/**
+ *  Helper function to transform the input attributes map.
+ *
+ *  @private {function} attrs
+ *  @param {Object} attrs the DOM attributes map.
+ *
+ *  @return mutated attributes object.
+ */
+function attributes(attrs) {
+  for(let k in attrs) {
+    key(k, attrs[k], attrs); 
+  }
+  return attrs;
+}
+
+/**
  *  Wraps the function body in a function declaration with as single `elem` 
  *  arguments.
  *
@@ -329,7 +358,7 @@ function template(el, opts) {
         args = [t.stringLiteral(child.name)];
 
         // push attributes into function call when not empty
-        const attrs = el.attr();
+        let attrs = el.attr();
         if(!isEmpty(attrs)) {
           let it = propertyString;
 
@@ -337,6 +366,8 @@ function template(el, opts) {
           if(opts.literals.attribute) {
             it = propertyTemplate;
           }
+
+          attrs = attributes(attrs);
 
           args.push(getObjectExpression(t, attrs, it));
         }

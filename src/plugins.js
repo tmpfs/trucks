@@ -31,10 +31,19 @@ const handlers = {
 }
 
 function CompilerState(options) {
+  // private list of middleware to execute
+  this.middleware = [];
+
   // input options
   this.options = options || {};
   // list of input files
   this.files = options.files || [];
+
+  const cheerio = require('cheerio');
+  this.parser = {
+    module: cheerio,
+    parse: cheerio.load
+  }
 
   this.result = {
     load: {
@@ -53,27 +62,39 @@ function run(opts, cb) {
 
   let i
     , phase
-    , list = []
     , phases = Array.isArray(state.options.plugins)
-        ? state.options.plugins : PHASES;
+        ? state.options.plugins : PHASES
+    , middleware = state.middleware
+    , closure;
 
   for(i = 0;i < phases.length;i++) {
     phase = phases[i];
-    if(handlers[phase]) {
-      // initialize result phases
-      state.result[phase] = state.result[phase] || {};
-      try {
 
-        // call the handler function which can return
-        // a module function or closure function
-        list.push(handlers[phase]());
-      }catch(e) {
-        return cb(e); 
+    try {
+      // assume plugin is middleware
+      if(phase instanceof Function) {
+        closure = phase(state);
+      }else if(phase === String(phase)) {
+        // see if the phase is a known built in plugin
+        if(handlers[phase]) {
+          // initialize result phases
+          state.result[phase] = state.result[phase] || {};
+          closure = handlers[phase](state);
+        // treat as plugin module 
+        }else{
+          closure = require(phase)(state);
+        }
       }
+    }catch(e) {
+      return cb(e); 
+    }
+  
+    if(closure) {
+      middleware.push(closure);
     }
   }
  
-  each(list, (err) => {
+  each(middleware, (err) => {
     if(err) {
       return cb(err); 
     } 

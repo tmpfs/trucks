@@ -312,7 +312,7 @@ function component(mod, result, opts, cb) {
  *
  *  @private {function} modules
  */
-function modules(list, result, opts, cb) {
+function modules(input, list, result, opts, cb) {
   const cheerio = require('cheerio');
  
   function next(err) {
@@ -321,7 +321,7 @@ function modules(list, result, opts, cb) {
     }
     const mod = list.shift(); 
     if(!mod) {
-      return cb(null, result);
+      return cb(null, input);
     }
 
     // parse all the <dom-module> elements
@@ -372,6 +372,7 @@ function modules(list, result, opts, cb) {
  */
 function parse(input, cb) {
   modules(
+    input,
     input.result.load.files,
     input.result.parse || {},
     input.options || {},

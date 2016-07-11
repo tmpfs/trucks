@@ -1,5 +1,6 @@
 const fs = require('fs')
-    , path = require('path');
+    , path = require('path')
+    , File = require('./component').File;
 
 function abs(file) {
   if(!path.isAbsolute(file)) {
@@ -12,13 +13,14 @@ function abs(file) {
 /**
  *  Encapsulates the load state information.
  *
- *  @private {constructor} State
+ *  @private {constructor} LoadState
  *  @param {Object} input compiler state input object.
  *  @param {Array} output list for the output result objects.
  *  @param {Object} opts processing options.
  */
 function LoadState(input, output) {
   this.out = output;
+  this.parser = input.parser;
   this.opts = input.options;
   // source input files passed to be loaded
   this.files = input.files;
@@ -115,9 +117,7 @@ function sources(state, cb) {
  *  @throws Error if the component file does not declare any imports.
  */
 function imports(map, state, cb) {
-
-  const opts = state.opts
-    , cheerio = require('cheerio');
+  const opts = state.opts;
 
   let k
     , base
@@ -128,15 +128,13 @@ function imports(map, state, cb) {
   function it(index, elem) {
     const href = $(elem).attr('href');
     relative = path.normalize(path.join(base, href));
-
     out[k].push(relative);
-
   }
 
   for(k in map) {
     out[k] = [];
     base = path.dirname(k);
-    $ = cheerio.load(map[k]);
+    $ = state.parser.parse(map[k]);
     const elements = $(opts.selectors.imports);
 
     if(!elements.length) {
@@ -189,23 +187,18 @@ function read(name, list, state, cb) {
         return next(err); 
       }
 
-      const map = {
-        file: file,
-        parent: name,
-        contents: contents.toString()
-      }
+      const component = new File(file, contents.toString(), name);
 
       // empty component file
-      if(!map.contents) {
+      if(!component.contents) {
         return next(new Error(`empty component file ${file}`));
       }
 
       // prepend the loaded component information so that
       // dependencies appear before the declaring component
-      state.out.unshift(map);
+      state.out.unshift(component);
 
-      const cheerio = require('cheerio')
-        , $ = cheerio.load(map.contents)
+      const $ = state.parser.parse(component.contents)
         , dependencies = $(opts.selectors.imports);
 
       // component has dependencies we need to load
@@ -213,7 +206,7 @@ function read(name, list, state, cb) {
 
         // map of dependencies
         let deps = {};
-        deps[file] = map.contents;
+        deps[file] = component.contents;
 
         run(deps, state, next);
       // no dependencies move on to the next item in the list
@@ -262,7 +255,6 @@ function includes(map, state, cb) {
  *  @private
  */
 function run(map, state, cb) {
-
   // process html imports
   imports(map, state, (err, files) => {
     if(err) {
@@ -290,7 +282,7 @@ function load(input, cb) {
   }
 
   const output = input.result.load.files
-    , state = new LoadState(input, output);
+      , state = new LoadState(input, output);
 
   // load source file contents
   sources(state, (err, map) => {
@@ -303,11 +295,6 @@ function load(input, cb) {
       if(err) {
         return cb(err); 
       } 
-
-      //console.log('LOADED');
-
-      //input.result.load.files = output;
-
       cb(null, input);
     });
 

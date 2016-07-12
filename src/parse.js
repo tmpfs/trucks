@@ -61,36 +61,6 @@ function validate(id) {
 }
 
 /**
- *  Utility to trim a result object contents removing leading and trailing 
- *  newlines.
- *
- *  @private {fuction} trim
- *  @param {Object} item the parsed item.
- *  @param {Object} options the trim options.
- */
-function trim(item, options) {
-  // only configured to trim inline content
-  if(!options || (options.inline && !item.inline)) {
-    return; 
-  }
-
-  // trim leading and trailing newlines
-  if(options.newlines) {
-    item.contents = item.contents.replace(/^\n+/, '');
-    item.contents = item.contents.replace(/[\n ]+$/, '');
-  }
-
-  // trim every line
-  if(options.lines && (options.pattern instanceof RegExp)) {
-    let lines = item.contents.split('\n');
-    lines = lines.map((line) => {
-      return line.replace(options.pattern, ''); 
-    })
-    item.contents = lines.join('\n');
-  }
-}
-
-/**
  *  Compile all inline `<template>` elements an array of HTML strings.
  *
  *  @private
@@ -140,7 +110,8 @@ function templates(mod, state, el, cb) {
     item.contents = $.html(templates);
     item.querySelectorAll = state.parser.parse(item.contents);
 
-    trim(item, state.options.trim); 
+    item.trim(state.options.trim); 
+
     mod.templates.push(item);
     state.result.templates.push(item);
     cb(null, item);
@@ -179,7 +150,9 @@ function styles(mod, state, el, cb) {
 
   function done(item) {
     item.querySelectorAll = state.parser.parse(item.contents);
-    trim(item, state.options.trim); 
+
+    item.trim(state.options.trim); 
+
     mod.styles.push(item);
     state.result.styles.push(item);
     cb(null, item);
@@ -221,7 +194,9 @@ function scripts(mod, state, el, cb) {
 
   function done(item) {
     item.querySelectorAll = state.parser.parse(item.contents);
-    trim(item, state.options.trim); 
+
+    item.trim(state.options.trim); 
+
     mod.scripts.push(item);
     state.result.scripts.push(item);
     cb(null, item);

@@ -1,6 +1,6 @@
 var expect = require('chai').expect
   , fs = require('fs')
-  , trucks = require('../../lib');
+  , trucks = require('../../src');
 
 describe('trucks:', function() {
 
@@ -24,9 +24,9 @@ describe('trucks:', function() {
         expect(result.js).to.be.an('array').to.have.length(1);
         expect(result.tpl).to.be.an('array').to.have.length(1);
 
-        //console.dir(result);
+        console.dir(result.tpl[0]);
 
-        expect(result.tpl[0].parent.href).to.eql(src);
+        expect(result.tpl[0].parent).to.eql(src);
         expect(result.tpl[0].file).to.eql(
           'test/fixtures/simple-external/simple-template.html');
         expect(result.tpl[0].inline).to.eql(undefined);

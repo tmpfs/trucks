@@ -1,5 +1,6 @@
 const path = require('path')
     , fs = require('fs')
+    , Module = require('./component').Module
     , STYLE = 'style'
     , TEMPLATE = 'template'
     , ID = 'id'
@@ -88,15 +89,15 @@ function trim(item, options) {
  *
  *  @private
  */
-function styles(definition, result, el, options, cb) {
-  const file = definition.file
+function styles(definition, el, options, cb) {
+  const file = definition.parent.file
     , base = path.dirname(file)
     , $ = definition.querySelectorAll;
 
   let item;
 
   function done(item) {
-    result.css.push(item);
+    definition.css.push(item);
     trim(item, options.trim); 
     cb(null, item);
   }
@@ -132,8 +133,8 @@ function styles(definition, result, el, options, cb) {
  *
  *  @private
  */
-function scripts(definition, result, el, options, cb) {
-  const file = definition.file
+function scripts(definition, el, options, cb) {
+  const file = definition.parent.file
       , base = path.dirname(file)
       , $ = definition.querySelectorAll
       , src = $(el).attr('src');
@@ -141,7 +142,7 @@ function scripts(definition, result, el, options, cb) {
   let item;
 
   function done() {
-    result.js.push(item);
+    definition.js.push(item);
     trim(item, options.trim); 
     cb(null, item);
   }
@@ -178,8 +179,8 @@ function scripts(definition, result, el, options, cb) {
  *
  *  @private
  */
-function templates(definition, result, el, options, cb) {
-  const file = definition.file
+function templates(definition, el, options, cb) {
+  const file = definition.parent.file
       , base = path.dirname(file)
       , $ = definition.querySelectorAll;
 
@@ -195,7 +196,7 @@ function templates(definition, result, el, options, cb) {
     templates.attr(ID, definition.id);
     item.contents = $.html(templates);
 
-    result.tpl.push(item);
+    definition.tpl.push(item);
     trim(item, options.trim); 
 
     cb(null, item);
@@ -235,7 +236,7 @@ function templates(definition, result, el, options, cb) {
  *
  *  @private
  */
-function iterator(definition, result, elements, it, options, cb) {
+function iterator(definition, elements, it, options, cb) {
 
   function next(err, item) {
     if(err) {
@@ -257,7 +258,7 @@ function iterator(definition, result, elements, it, options, cb) {
       return cb(); 
     }
 
-    it(definition, result, el, options, next);
+    it(definition, el, options, next);
   }
 
   next();
@@ -268,20 +269,20 @@ function iterator(definition, result, elements, it, options, cb) {
  *
  *  @private
  */
-function component(mod, result, opts, cb) {
+function component(mod, opts, cb) {
   const $ = mod.querySelectorAll
     , context = mod.context;
 
   // process styles first and maintain declaration order
   let elements = $(opts.selectors.styles, context).toArray();
-  iterator(mod, result, elements, styles, opts, (err) => {
+  iterator(mod, elements, styles, opts, (err) => {
     if(err) {
       return cb(err); 
     }
 
     // process inline and external scripts
     elements = $(opts.selectors.scripts, context).toArray();
-    iterator(mod, result, elements, scripts, opts, (err) => {
+    iterator(mod, elements, scripts, opts, (err) => {
       if(err) {
         return cb(err); 
       }
@@ -296,7 +297,7 @@ function component(mod, result, opts, cb) {
             `only a single template element is allowed per dom-module`)); 
       }
 
-      iterator(mod, result, elements, templates, opts, (err) => {
+      iterator(mod, elements, templates, opts, (err) => {
         if(err) {
           return cb(err); 
         }
@@ -312,19 +313,19 @@ function component(mod, result, opts, cb) {
  *
  *  @private {function} modules
  */
-function modules(input, list, result, opts, cb) {
+function modules(input, list, opts, cb) {
 
   function next(err) {
     if(err) {
       return cb(err); 
     }
-    const mod = list.shift(); 
-    if(!mod) {
+    const group = list.shift(); 
+    if(!group) {
       return cb(null, input);
     }
 
-    // parse all the <dom-module> elements
-    const $ = mod.querySelectorAll
+    // parse all the <dom-groupule> elements
+    const $ = group.querySelectorAll
       , elements = $(opts.selectors.modules).toArray();
 
     // import-only component
@@ -350,7 +351,7 @@ function modules(input, list, result, opts, cb) {
       if(!id) {
         return next(
           new Error(
-            `identifier missing for component module in ${mod.file}`)); 
+            `identifier missing for component module in ${group.file}`)); 
       }
 
       // validate custom element name as per the spec
@@ -360,9 +361,15 @@ function modules(input, list, result, opts, cb) {
         return next(e); 
       }
 
-      mod.id = id;
+      const mod = new Module(id, group);
       mod.context = context;
-      component(mod, result, opts, it);
+
+      // proxy document query function
+      mod.querySelectorAll = $;
+
+      group.modules.push(mod);
+
+      component(mod, opts, it);
     }
 
     it();
@@ -378,7 +385,6 @@ function parse(input, cb) {
   modules(
     input,
     input.result.load.files,
-    input.result.parse || {},
     input.options || {},
     cb
   );

@@ -35,9 +35,21 @@ class ComponentFile {
 }
 
 class ComponentModule {
-  constructor(parent) {
+  constructor(id, parent) {
+
+    this.id = id;
+
     // the owner component file
     this.parent = parent; 
+
+    // list of parsed templates
+    this.tpl = [];
+
+    // list of parsed styles
+    this.css = [];
+
+    // list of parsed javascript
+    this.js = [];
   }
 }
 

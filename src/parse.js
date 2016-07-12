@@ -303,14 +303,6 @@ function component(mod, state, cb) {
 
       // process inline and external template elements
       elements = $(selectors.templates, context).toArray();
-
-      // only single template element allowed 
-      if(elements.length > 1) {
-        return cb(
-          new Error(
-            `only a single template element is allowed per dom-module`)); 
-      }
-
       iterator(mod, state, elements, templates, (err) => {
         cb(err);
       });

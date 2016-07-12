@@ -59,6 +59,10 @@ class ComponentModule {
     // list of parsed javascript
     this.scripts = [];
   }
+
+  get file() {
+    return this.parent.file;
+  }
 }
 
 class ComponentTrait {
@@ -125,14 +129,18 @@ class Component {
     // will exist within the shadow DOM
     this.styles = [];
   }  
+
+  get id() {
+    return this.parent.id;
+  }
 }
 
 module.exports = {
   Tree: ComponentTree,
   File: ComponentFile,
   Module: ComponentModule,
+  Component: Component,
   Template: ComponentTemplate,
   Style: ComponentStyle,
-  Script: ComponentScript,
-  Component: Component
+  Script: ComponentScript
 }

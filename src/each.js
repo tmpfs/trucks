@@ -3,23 +3,20 @@
  *
  *  Simple async series iterator.
  */
-function each(list, cb, args, scope) {
+function each(list, it, cb) {
 
   function next(err) {
     if(err) {
       return cb(err); 
     } 
 
-    const fn = list.shift();
+    const item = list.shift();
 
-    if(!fn) {
+    if(!item) {
       return cb(null); 
     }
 
-    args = args || [];
-    args.push(next);
-
-    fn.apply(scope, args);
+    it(item, next);
   }
 
   next();

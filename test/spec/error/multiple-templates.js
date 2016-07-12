@@ -14,7 +14,7 @@ describe('trucks:', function() {
         function fn() {
           throw err;
         }
-        expect(fn).throws(/only a single template element/);
+        expect(fn).throws(/duplicate main template/);
         done();
       }
     );

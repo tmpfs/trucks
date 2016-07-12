@@ -111,12 +111,18 @@ function run(opts, cb) {
     }
   }
  
-  each(middleware, (err) => {
-    if(err) {
-      return cb(err); 
-    } 
-    cb(null, state);
-  }, [state]);
+  each(
+    middleware,
+    (fn, next) => {
+      fn(state, next);
+    },
+    (err) => {
+      if(err) {
+        return cb(err); 
+      } 
+      cb(null, state);
+    }
+  );
 }
 
 run.phases = PHASES;

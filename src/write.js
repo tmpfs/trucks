@@ -1,5 +1,6 @@
 const fs = require('fs')
     , path = require('path')
+    , each = require('./each')
     , NAME = 'components'
     , HTML = 'html'
     , CSS = 'css'
@@ -82,20 +83,11 @@ function write(input, cb) {
     writers.push(writer(JS, js, generated.javascript)); 
   }
 
-  function next(err) {
-    if(err) {
-      return cb(err); 
-    } 
-
-    const fn = writers.shift();
-    if(!fn) {
-      return cb(null, input); 
-    }
-
-    fn(next);
-  }
-
-  next();
+  each(
+    writers,
+    (fn, next) => {
+      fn(next); 
+    }, cb);
 }
 
 module.exports = write;

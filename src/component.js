@@ -1,9 +1,18 @@
 const MIME = {
-  template: 'text/html',
-  style: 'text/css',
-  script: 'text/javascript'
-}
-
+      template: 'text/html',
+      style: 'text/css',
+      script: 'text/javascript'
+    }
+    , RESERVED = [
+        'annotation-xml',
+        'color-profile',
+        'font-face',
+        'font-face-src',
+        'font-face-uri',
+        'font-face-format',
+        'font-face-name',
+        'missing-glyph'
+      ];
 /**
  *  Represents the root of a component hierarchy. 
  *
@@ -62,6 +71,45 @@ class ComponentModule {
 
   get file() {
     return this.parent.file;
+  }
+
+  /**
+   *  Utility to validate a custom element name.
+   *
+   *  @private {function} validate
+   *
+   *  @see https://w3c.github.io/webcomponents/spec/custom/ \ 
+   *    #custom-elements-core-concepts
+   */
+  validate(id) {
+    if(~RESERVED.indexOf(id)) {
+      throw new Error(`${id} is a reserved custom element name`); 
+    }
+
+    const re = new RegExp('(-|\\.|[0-9]|_|[a-z]|\\uB7'
+        + '|[\\uC0-\\uD6]'
+        + '|[\\uD8-\\uF6]'
+        + '|[\\uF8-\\u37D]'
+        + '|[\\u37F-\\u1FFF]'
+        + '|[\\u200C-\\u200D]'
+        + '|[\\u203F-\\u2040]'
+        + '|[\\u2070-\\u218F]'
+        + '|[\\u2C00-\\u2FEF]'
+        + '|[\\u3001-\\uD7FF]'
+        + '|[\\uF900-\\uFDCF]'
+        + '|[\\uFDF0-\\uFFFFD]'
+        + '|[\\u10000-\\uEFFFF]'
+        + ')*')
+      , ptn = new RegExp(
+        '^[a-z]'
+        + re.source
+        + '-'
+        + re.source
+      );
+
+    if(!ptn.test(id)) {
+      throw new Error(`invalid custom element name ${id}`); 
+    }
   }
 }
 

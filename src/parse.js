@@ -9,56 +9,7 @@ const path = require('path')
     , Component = require('./component').Component
     , STYLE = 'style'
     , TEMPLATE = 'template'
-    , ID = 'id'
-    , RESERVED = [
-        'annotation-xml',
-        'color-profile',
-        'font-face',
-        'font-face-src',
-        'font-face-uri',
-        'font-face-format',
-        'font-face-name',
-        'missing-glyph'
-      ];
-
-/**
- *  Utility to validate a custom element name.
- *
- *  @private {function} validate
- *
- *  @see https://w3c.github.io/webcomponents/spec/custom/ \ 
- *    #custom-elements-core-concepts
- */
-function validate(id) {
-  if(~RESERVED.indexOf(id)) {
-    throw new Error(`${id} is a reserved custom element name`); 
-  }
-
-  const re = new RegExp('(-|\\.|[0-9]|_|[a-z]|\\uB7'
-      + '|[\\uC0-\\uD6]'
-      + '|[\\uD8-\\uF6]'
-      + '|[\\uF8-\\u37D]'
-      + '|[\\u37F-\\u1FFF]'
-      + '|[\\u200C-\\u200D]'
-      + '|[\\u203F-\\u2040]'
-      + '|[\\u2070-\\u218F]'
-      + '|[\\u2C00-\\u2FEF]'
-      + '|[\\u3001-\\uD7FF]'
-      + '|[\\uF900-\\uFDCF]'
-      + '|[\\uFDF0-\\uFFFFD]'
-      + '|[\\u10000-\\uEFFFF]'
-      + ')*')
-    , ptn = new RegExp(
-      '^[a-z]'
-      + re.source
-      + '-'
-      + re.source
-    );
-
-  if(!ptn.test(id)) {
-    throw new Error(`invalid custom element name ${id}`); 
-  }
-}
+    , ID = 'id';
 
 /**
  *  Compile all inline `<template>` elements an array of HTML strings.
@@ -295,23 +246,23 @@ function modules(state, cb) {
 
       each(
         elements,
-        (context, it) => {
+        (context, next) => {
           const id = $(context).attr(ID);
 
           if(!id) {
-            return it(
+            return next(
               new Error(
                 `identifier missing for component module in ${group.file}`)); 
           }
 
+          const mod = new Module(id, group);
+
           // validate custom element name as per the spec
           try {
-            validate(id);
+            mod.validate(id);
           }catch(e) {
             return next(e); 
           }
-
-          const mod = new Module(id, group);
 
           mod.context = context;
 
@@ -323,7 +274,7 @@ function modules(state, cb) {
           // add to global list of all modules
           state.result.modules.push(mod);
 
-          component(mod, state, it);
+          component(mod, state, next);
         }, next)
     },
     (err) => {

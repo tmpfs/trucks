@@ -1,6 +1,10 @@
 const path = require('path')
     , fs = require('fs')
+    , selectors = require('./selectors')
     , Module = require('./component').Module
+    , Template = require('./component').Template
+    , Style = require('./component').Style
+    , Script = require('./component').Script
     , STYLE = 'style'
     , TEMPLATE = 'template'
     , ID = 'id'
@@ -85,137 +89,53 @@ function trim(item, options) {
 }
 
 /**
- *  Compile all inline and external stylesheets to an array of CSS strings.
- *
- *  @private
- */
-function styles(definition, el, options, cb) {
-  const file = definition.parent.file
-    , base = path.dirname(file)
-    , $ = definition.querySelectorAll;
-
-  let item;
-
-  function done(item) {
-    definition.css.push(item);
-    trim(item, options.trim); 
-    cb(null, item);
-  }
-
-  // inline style element
-  if(el.name === STYLE) {
-    item = {
-      parent: definition.parent,
-      file: file,
-      contents: $(el).text(),
-      inline: true
-    }
-
-    done(item);
-  // external stylesheet reference
-  }else{
-    const href = $(el).attr('href')
-      , pth = path.normalize(path.join(base, href));
-
-    fs.readFile(pth, (err, contents) => {
-      if(err) {
-        return cb(err); 
-      } 
-      item = {
-        parent: definition.parent,
-        file: pth,
-        href: href,
-        contents: contents.toString()}
-      done(item);
-    })
-  }
-}
-
-/**
- *  Compile all inline and external scripts to an array of Javascript strings.
- *
- *  @private
- */
-function scripts(definition, el, options, cb) {
-  const file = definition.parent.file
-      , base = path.dirname(file)
-      , $ = definition.querySelectorAll
-      , src = $(el).attr('src');
-
-  let item;
-
-  function done() {
-    definition.js.push(item);
-    trim(item, options.trim); 
-    cb(null, item);
-  }
-
-  // inline script element
-  if(!src) {
-    item = {
-      parent: definition.parent,
-      file: file,
-      contents: $(el).text(),
-      inline: true
-    };
-    return done(item);
-
-  // external script reference
-  }else{
-    const href = $(el).attr('src')
-      , pth = path.normalize(path.join(base, href));
-    fs.readFile(pth, (err, contents) => {
-      if(err) {
-        return cb(err); 
-      } 
-      item = {
-        parent: definition.parent,
-        file: pth,
-        href: href,
-        contents: contents.toString()
-      };
-      done(item);
-    })
-  }
-}
-
-/**
  *  Compile all inline `<template>` elements an array of HTML strings.
  *
  *  @private
  */
-function templates(definition, el, options, cb) {
-  const file = definition.parent.file
+function templates(mod, state, el, cb) {
+  const file = mod.parent.file
       , base = path.dirname(file)
-      , $ = definition.querySelectorAll;
+      , $ = mod.querySelectorAll;
 
-  let item;
+  let trait;
 
   function done(item) {
 
-    // inject module id when using external template files
-    const cheerio = require('cheerio')
-      , $ = cheerio.load(item.contents)
-      , templates = $(TEMPLATE);
+    item.querySelectorAll = state.parser.parse(item.contents);
 
-    templates.attr(ID, definition.id);
+    const templates = item.querySelectorAll(TEMPLATE)
+      , prefix = /-$/.test(mod.id) ? mod.id : mod.id + '-';
+
+    templates.each((index, elem) => {
+      const el = $(elem)
+        , id = el.attr(ID);
+
+      // inherit template from module
+      if(!id) {
+        el.attr(ID, mod.id);
+      // prefix module id to template with existing
+      // identifier and treat as a partial template
+      }else{
+        el.attr(ID, `${prefix + id}`); 
+      }
+    })
+
+    // update trait contents and query
+    // as we have written the dom with id attributes
     item.contents = $.html(templates);
+    item.querySelectorAll = state.parser.parse(item.contents);
 
-    definition.tpl.push(item);
-    trim(item, options.trim); 
-
+    trim(item, state.options.trim); 
+    mod.templates.push(item);
+    state.result.templates.push(item);
     cb(null, item);
   }
 
   // inline template element
   if(el.name === TEMPLATE) {
-    item = {
-      parent: definition.parent,
-      file: file,
-      contents: $.html(el),
-      inline: true
-    }
-    done(item);
+    trait = new Template(el, $.html(el), mod);
+    done(trait);
   // external template reference
   }else{
     const href = $(el).attr('href')
@@ -225,13 +145,89 @@ function templates(definition, el, options, cb) {
         return cb(err); 
       } 
 
-      item = {
-        parent: definition.parent,
-        file: pth,
-        href: href,
-        contents: contents.toString()
-      }
-      done(item);
+      trait = new Template(el, contents.toString(), mod, href, file);
+      done(trait);
+    })
+  }
+}
+
+/**
+ *  Compile all inline and external stylesheets to an array of CSS strings.
+ *
+ *  @private
+ */
+function styles(mod, state, el, cb) {
+  const file = mod.parent.file
+    , base = path.dirname(file)
+    , $ = mod.querySelectorAll;
+
+  let trait;
+
+  function done(item) {
+    item.querySelectorAll = state.parser.parse(item.contents);
+    trim(item, state.options.trim); 
+    mod.styles.push(item);
+    state.result.styles.push(item);
+    cb(null, item);
+  }
+
+  // inline style element
+  if(el.name === STYLE) {
+    trait = new Style(el, $(el).text(), mod);
+    done(trait);
+  // external stylesheet reference
+  }else{
+    const href = $(el).attr('href')
+      , pth = path.normalize(path.join(base, href));
+
+    fs.readFile(pth, (err, contents) => {
+      if(err) {
+        return cb(err); 
+      } 
+
+      trait = new Style(
+        el, contents.toString(), mod, href, file);
+      done(trait);
+    })
+  }
+}
+
+/**
+ *  Compile all inline and external scripts to an array of Javascript strings.
+ *
+ *  @private
+ */
+function scripts(mod, state, el, cb) {
+  const file = mod.parent.file
+      , base = path.dirname(file)
+      , $ = mod.querySelectorAll
+      , src = $(el).attr('src');
+
+  let trait;
+
+  function done(item) {
+    item.querySelectorAll = state.parser.parse(item.contents);
+    trim(item, state.options.trim); 
+    mod.scripts.push(item);
+    state.result.scripts.push(item);
+    cb(null, item);
+  }
+
+  // inline script element
+  if(!src) {
+    trait = new Script(el, $(el).text(), mod);
+    done(trait);
+  // external script reference
+  }else{
+    const href = $(el).attr('src')
+      , pth = path.normalize(path.join(base, href));
+    fs.readFile(pth, (err, contents) => {
+      if(err) {
+        return cb(err); 
+      } 
+      trait = new Script(
+        el, contents.toString(), mod, href, file);
+      done(trait);
     })
   }
 }
@@ -241,7 +237,8 @@ function templates(definition, el, options, cb) {
  *
  *  @private
  */
-function iterator(definition, elements, it, options, cb) {
+function iterator(mod, state, elements, it, cb) {
+  const options = state.options;
 
   function next(err, item) {
     if(err) {
@@ -255,7 +252,7 @@ function iterator(definition, elements, it, options, cb) {
       && (options.id.pattern instanceof RegExp)) {
 
       item.contents = item.contents.replace(
-        options.id.pattern, definition.id); 
+        options.id.pattern, mod.id); 
     }
 
     const el = elements.shift();
@@ -263,7 +260,7 @@ function iterator(definition, elements, it, options, cb) {
       return cb(); 
     }
 
-    it(definition, el, options, next);
+    it(mod, state, el, next);
   }
   next();
 }
@@ -273,26 +270,26 @@ function iterator(definition, elements, it, options, cb) {
  *
  *  @private
  */
-function component(mod, opts, cb) {
+function component(mod, state, cb) {
   const $ = mod.querySelectorAll
     , context = mod.context;
 
   // process styles first and maintain declaration order
-  let elements = $(opts.selectors.styles, context).toArray();
-  iterator(mod, elements, styles, opts, (err) => {
+  let elements = $(selectors.styles, context).toArray();
+  iterator(mod, state, elements, styles, (err) => {
     if(err) {
       return cb(err); 
     }
 
     // process inline and external scripts
-    elements = $(opts.selectors.scripts, context).toArray();
-    iterator(mod, elements, scripts, opts, (err) => {
+    elements = $(selectors.scripts, context).toArray();
+    iterator(mod, state, elements, scripts, (err) => {
       if(err) {
         return cb(err); 
       }
 
       // process inline and external template elements
-      elements = $(opts.selectors.templates, context).toArray();
+      elements = $(selectors.templates, context).toArray();
 
       // only single template element allowed 
       if(elements.length > 1) {
@@ -301,12 +298,8 @@ function component(mod, opts, cb) {
             `only a single template element is allowed per dom-module`)); 
       }
 
-      iterator(mod, elements, templates, opts, (err) => {
-        if(err) {
-          return cb(err); 
-        }
-
-        cb();
+      iterator(mod, state, elements, templates, (err) => {
+        cb(err);
       });
     });
   })
@@ -317,7 +310,7 @@ function component(mod, opts, cb) {
  *
  *  @private {function} modules
  */
-function modules(input, list, opts, cb) {
+function modules(state, list, opts, cb) {
 
   function next(err) {
     if(err) {
@@ -325,12 +318,12 @@ function modules(input, list, opts, cb) {
     }
     const group = list.shift(); 
     if(!group) {
-      return cb(null, input);
+      return cb(null, state);
     }
 
     // parse all the <dom-groupule> elements
     const $ = group.querySelectorAll
-      , elements = $(opts.selectors.modules).toArray();
+      , elements = $(selectors.modules).toArray();
 
     // import-only component
     //if(mod.imports.length && !elements.length) {
@@ -366,6 +359,7 @@ function modules(input, list, opts, cb) {
       }
 
       const mod = new Module(id, group);
+
       mod.context = context;
 
       // proxy document query function
@@ -373,7 +367,10 @@ function modules(input, list, opts, cb) {
 
       group.modules.push(mod);
 
-      component(mod, opts, it);
+      // add to global list of all modules
+      state.result.modules.push(mod);
+
+      component(mod, state, it);
     }
 
     it();
@@ -385,13 +382,8 @@ function modules(input, list, opts, cb) {
 /**
  *  @private
  */
-function parse(input, cb) {
-  modules(
-    input,
-    input.result.load.files,
-    input.options || {},
-    cb
-  );
+function parse(state, cb) {
+  modules(state, state.result.files, state.options || {}, cb);
 }
 
 module.exports = parse;

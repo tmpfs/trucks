@@ -43,19 +43,57 @@ class ComponentModule {
     this.parent = parent; 
 
     // list of parsed templates
-    this.tpl = [];
+    this.templates = [];
 
     // list of parsed styles
-    this.css = [];
+    this.styles = [];
 
     // list of parsed javascript
-    this.js = [];
+    this.scripts = [];
+  }
+}
+
+class ComponentTrait {
+  constructor(element, contents, parent, href, file) {
+    this.element = element;
+    this.contents = contents; 
+    this.parent = parent;
+    this.href = href;
+    this.file = file;
+  }
+
+  get inline() {
+    return this.href === undefined;
+  }
+
+  get id() {
+    return this.parent.id;
+  }
+}
+
+class ComponentTemplate extends ComponentTrait {
+  constructor() {
+    super(...arguments);
+  }
+}
+
+class ComponentStyle extends ComponentTrait {
+  constructor() {
+    super(...arguments);
+  }
+}
+
+class ComponentScript extends ComponentTrait {
+  constructor() {
+    super(...arguments);
   }
 }
 
 module.exports = {
   Tree: ComponentTree,
   File: ComponentFile,
-  Module: ComponentModule
+  Module: ComponentModule,
+  Template: ComponentTemplate,
+  Style: ComponentStyle,
+  Script: ComponentScript
 }
-

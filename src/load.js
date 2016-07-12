@@ -1,5 +1,6 @@
 const fs = require('fs')
     , path = require('path')
+    , selectors = require('./selectors')
     , File = require('./component').File;
 
 function abs(file, base) {
@@ -76,7 +77,6 @@ function cyclic(file, hierarchy, name) {
  *  @private {function} read
  */
 function read(group, parent, state, cb) {
-  const opts = state.opts;
   const file = group.file;
 
   // cyclic dependency: must be tested before the logic to ignore 
@@ -120,7 +120,7 @@ function read(group, parent, state, cb) {
     group.querySelectorAll = state.parser.parse(group.contents);
 
     const $ = group.querySelectorAll
-      , dependencies = $(opts.selectors.imports);
+      , dependencies = $(selectors.imports);
 
     // component has dependencies we need to load
     if(dependencies.length) {
@@ -189,8 +189,6 @@ function sources(files, input, output, state, parent, cb) {
 
     pth = abs(file, base);
 
-    console.log('load source: %s', pth);
-
     if(!parent && ~state.seen.sources.indexOf(pth)) {
       //// this could just ignore and move on to the next
       //// file to process but prefer to be strict and error
@@ -219,22 +217,18 @@ function sources(files, input, output, state, parent, cb) {
 /**
  *  @private
  */
-function load(input, cb) {
-  if(!input.files || !input.files.length) {
+function load(state, cb) {
+  if(!state.files || !state.files.length) {
     return cb(new Error('no input files specified'));
   }
 
-  // array list of components
-  const output = input.result.load.files;
-
-  // run processing for the input sources
-  sources(input.files, input, output, null, (err) => {
-    console.dir(input.tree);
+  // run processing for the state sources
+  sources(state.files, state, state.result.files, null, (err) => {
     if(err) {
       return cb(err); 
     } 
 
-    cb(null, input);
+    cb(null, state);
   });
 }
 

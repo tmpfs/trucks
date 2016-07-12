@@ -15,11 +15,9 @@ describe('trucks:', function() {
         (err, state) => {
           expect(err).to.eql(null);
 
-          const result = state.result.transform;
-
-          expect(result.tpl).to.be.an('array').to.have.length(1);
-          expect(result.css).to.be.an('array').to.have.length(1);
-          expect(result.js).to.be.an('array').to.have.length(1);
+          expect(state.result.templates).to.be.an('array').to.have.length(1);
+          expect(state.result.styles).to.be.an('array').to.have.length(1);
+          expect(state.result.scripts).to.be.an('array').to.have.length(1);
 
           done();
         }

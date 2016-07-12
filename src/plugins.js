@@ -49,6 +49,8 @@ function CompilerState(options) {
   // the component tree stucture
   this.tree = new Tree();
 
+  this.list = [];
+
   // keep track of processed files during load phase
   this.seen  = {
     imports: [],
@@ -56,14 +58,19 @@ function CompilerState(options) {
   }
 
   this.result = {
-    load: {
-      files: [] 
-    },
-    parse: {
-      css: [],
-      js: [],
-      tpl: []
-    }
+    // list of all component files
+    files: [] ,
+    // lists of component modules
+    modules: [],
+    // javascript list of all templates
+    templates: [],
+    // javascript list of all styles
+    styles: [],
+    // javascript list of all scripts
+    scripts: [],
+
+    // compiler output AST structures
+    compiler: {}
   };
 }
 

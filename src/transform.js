@@ -7,21 +7,19 @@ const SKATE = 'skate'
  *
  *  @private
  */
-function extract(input, output, cb) {
+function extract(state, output, cb) {
   const babel = require('babel-core')
-    , opts = input.options || {}
-    , result = input.result.parse;
-
-  result.js = result.js;
+    , opts = state.options || {};
 
   // do not modify result object
-  const js = result.js.slice();
+  const list = state.result.scripts
+      , js = list.slice();
 
   function next() {
 
     const script = js.shift();
     if(!script) {
-      return cb(null, result); 
+      return cb(null, list); 
     }
 
     script.code = script.contents;
@@ -103,65 +101,42 @@ function extract(input, output, cb) {
  *
  *  @private {function} duplicates
  *  @param {Array} templates list of loaded templates.
- *  @param {Object} opts processing options.
  *
  *  @throws Error if a duplicate template identifier is found.
  */
-function duplicates(templates, opts) {
-  // TODO: parsing of the template DOM could be done in 
-  // TODO: the parse phase and the compiler could be modified to
-  // TODO: to accept the existing DOM element which would optimize
-  // TODO: the number of calls to cheerio.load() for templates.
-  // TODO: it would remove this call to cheerio.load() and the call
-  // TODO: in the compiler
-
-  const cheerio = require('cheerio');
+function duplicates(templates) {
   let i
     , tpl
-    , $
     , id
-    , elements
     , identifiers = [];
-
-  function iterator() {
-    id = $(this).attr(opts.compiler.attr);
-    if(~identifiers.indexOf(id)) {
-      throw new Error(`duplicate template identifier: ${id} (${tpl.file})`); 
-    }
-    identifiers.push(id);
-  }
 
   for(i = 0;i < templates.length;i++) {
     tpl = templates[i];
-    $ = cheerio.load(tpl.contents); 
-    elements = $(opts.selectors.templates);
-    elements.each(iterator);
+    id = tpl.id;
+    if(~identifiers.indexOf(id)) {
+      throw new Error(
+        `duplicate template identifier ${id} in ${tpl.parent.file}`); 
+    }
+    identifiers.push(id);
   }
-
 }
 
 /**
  *  @private
  */
-function transform(input, cb) {
-  const opts = input.options || {}
-    , parsed = input.result.parse
-    , result = input.result.transform || {};
+function transform(state, cb) {
+  const opts = state.options || {}
+    , result = state.result.compiler || {};
 
   opts.babel = opts.babel || {};
-  parsed.tpl = parsed.tpl || [];
-
-  for(let k in parsed) {
-    result[k] = parsed[k];
-  }
 
   try {
-    duplicates(parsed.tpl, opts);
+    duplicates(state.result.templates);
   }catch(e) {
     return cb(e); 
   }
 
-  extract(input, result, function(err) {
+  extract(state, result, function(err) {
     if(err) {
       return cb(err); 
     } 
@@ -170,7 +145,7 @@ function transform(input, cb) {
     if(!opts.extract) {
 
       // list of template elements encountered
-      const tpl = parsed.tpl
+      const tpl = state.result.templates
         , compiler = require('./compile')
         , babel = require('babel-core');
 
@@ -206,7 +181,7 @@ function transform(input, cb) {
       result.compiled = compiled;
     }
 
-    cb(null, input);
+    cb(null, state);
   });
 }
 

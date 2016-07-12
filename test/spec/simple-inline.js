@@ -18,35 +18,28 @@ describe('trucks:', function() {
         expect(state).to.be.an('object');
         expect(state.options).to.be.an('object');
 
-        const result = state.result.transform
-          , generated = state.result.generate;
+        const generated = state.result.generate;
 
         // parse phase data
-        expect(result.css).to.be.an('array').to.have.length(1);
-        expect(result.js).to.be.an('array').to.have.length(1);
-        expect(result.tpl).to.be.an('array').to.have.length(1);
+        expect(state.result.styles).to.be.an('array').to.have.length(1);
+        expect(state.result.scripts).to.be.an('array').to.have.length(1);
+        expect(state.result.templates).to.be.an('array').to.have.length(1);
 
-        expect(result.tpl[0].parent).to.eql(src);
-        expect(result.tpl[0].file).to.eql(file);
-        expect(result.tpl[0].inline).to.eql(true);
-        expect(result.tpl[0].contents).to.be.a('string');
+        expect(state.result.templates[0].inline).to.eql(true);
+        expect(state.result.templates[0].contents).to.be.a('string');
 
-        expect(result.css[0].parent).to.eql(src);
-        expect(result.css[0].file).to.eql(file);
-        expect(result.css[0].inline).to.eql(true);
-        expect(result.css[0].contents).to.be.a('string');
+        expect(state.result.styles[0].inline).to.eql(true);
+        expect(state.result.styles[0].contents).to.be.a('string');
 
-        expect(result.js[0].parent).to.eql(src);
-        expect(result.js[0].file).to.eql(file);
-        expect(result.js[0].inline).to.eql(true);
-        expect(result.js[0].contents).to.be.a('string');
+        expect(state.result.scripts[0].inline).to.eql(true);
+        expect(state.result.scripts[0].contents).to.be.a('string');
 
-        // babel ast result
-        expect(result.js[0].result).to.be.an('object');
+        // babel ast state.result
+        expect(state.result.scripts[0].result).to.be.an('object');
         // list of ast nodes for component definitions
-        expect(result.js[0].components).to.be.an('object');
+        expect(state.result.scripts[0].components).to.be.an('object');
 
-        expect(result.js[0].components['simple-component'])
+        expect(state.result.scripts[0].components['simple-component'])
           .to.be.an('object');
 
         // generate phase data

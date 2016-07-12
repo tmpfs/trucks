@@ -393,10 +393,7 @@ function template(el, opts) {
       const el = $(child);
       let script;
 
-      //console.log(child.type);
-      //console.log(el.attr('data-compile'));
-
-      // inline scripts to compile
+      // TODO: implement the logic to parse template scripts
       if(child.type === SCRIPT && el.attr('data-compile') !== undefined) {
         script = el.text();
         let res; 

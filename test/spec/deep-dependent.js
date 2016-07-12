@@ -16,31 +16,30 @@ describe('trucks:', function() {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 
-        const result = state.result.transform
-          , generated = state.result.generate;
+        const generated = state.result.generate;
 
-        expect(result.tpl).to.be.an('array').to.have.length(3);
-        expect(result.css).to.be.an('array').to.have.length(3);
-        expect(result.js).to.be.an('array').to.have.length(3);
+        expect(state.result.templates).to.be.an('array').to.have.length(3);
+        expect(state.result.styles).to.be.an('array').to.have.length(3);
+        expect(state.result.scripts).to.be.an('array').to.have.length(3);
 
         // NOTE: assert that dependency is declared first
 
-        expect(result.tpl[0].contents).to.eql(
+        expect(state.result.templates[0].contents).to.eql(
           '<template id="x-icon"></template>');
-        expect(result.tpl[1].contents).to.eql(
+        expect(state.result.templates[1].contents).to.eql(
           '<template id="x-button"></template>');
-        expect(result.tpl[2].contents).to.eql(
+        expect(state.result.templates[2].contents).to.eql(
           '<template id="x-widget"></template>');
 
-        expect(result.css[0].contents).to.eql('x-icon {}');
-        expect(result.css[1].contents).to.eql('x-button {}');
-        expect(result.css[2].contents).to.eql('x-widget {}');
+        expect(state.result.styles[0].contents).to.eql('x-icon {}');
+        expect(state.result.styles[1].contents).to.eql('x-button {}');
+        expect(state.result.styles[2].contents).to.eql('x-widget {}');
 
-        expect(result.js[0].contents).to.eql(
+        expect(state.result.scripts[0].contents).to.eql(
           'skate.define(\'x-icon\', {});');
-        expect(result.js[1].contents).to.eql(
+        expect(state.result.scripts[1].contents).to.eql(
           'skate.define(\'x-button\', {});');
-        expect(result.js[2].contents).to.eql(
+        expect(state.result.scripts[2].contents).to.eql(
           'skate.define(\'x-widget\', {});');
 
         expect(generated.javascript)

@@ -7,9 +7,7 @@ describe('parse:', function() {
     trucks.parse(
       {
         result: {
-          load: {
-            files: []
-          }
+          files: []
         }
       },
       (err, result) => {

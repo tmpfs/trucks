@@ -7,11 +7,9 @@ describe('generate:', function() {
     trucks.generate(
       {
         result: {
-          transform: {
-            css: [],
-            js: [],
-            tpl: []
-          }
+          styles: [],
+          scripts: [],
+          templates: []
         }
       }, (err, result) => {
         expect(err).to.eql(null);

@@ -7,9 +7,8 @@ describe('transform:', function() {
     trucks.transform(
       {
         result: {
-          parse: {
-            js: []
-          }
+          templates: [],
+          scripts: []
         }
       },
       (err, state) => {
@@ -25,9 +24,8 @@ describe('transform:', function() {
       {
         options: {babel: {plugins: []}, extract: true},
         result: {
-          parse: {
-            js: [{contents: 'skate.define("x-foo", {});var foo = bar();'}]
-          }
+          templates: [],
+          scripts: [{contents: 'skate.define("x-foo", {});var foo = bar();'}]
         }
       },
       (err, state) => {

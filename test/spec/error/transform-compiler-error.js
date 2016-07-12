@@ -7,15 +7,13 @@ describe('transform:', function() {
     trucks.transform(
       {
         result: {
-          parse: {
-            js: [
-              {
-                file: 'mock.js',
-                contents: 'var foo ='
-              }
-            ],
-            tpl: []
-          }
+          scripts: [
+            {
+              file: 'mock.js',
+              contents: 'var foo ='
+            }
+          ],
+          templates: []
         }
       },
       (err) => {

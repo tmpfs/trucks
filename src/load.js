@@ -1,5 +1,6 @@
 const fs = require('fs')
     , path = require('path')
+    , each = require('./each')
     , selectors = require('./selectors')
     , File = require('./component').File;
 
@@ -163,60 +164,53 @@ function sources(files, input, output, state, parent, cb) {
     parent = null;
   }
 
-  let out = [];
-
-  function next(err) {
-    if(err) {
-      return cb(err); 
-    }
-    const file = files.shift();
-    if(!file) {
-      return cb(null, out); 
-    }
-
-    if(!parent) {
-      // create a state per file so that the hierarchy
-      // is correct, note the load state proxies some fields
-      // from the global compiler state for ease of use
-      state = new LoadState(input, output);     
-    }
-
-    let base
-      , pth;
-
-    if(parent && parent.file) {
-      base = path.dirname(parent.file); 
-    }
-
-    pth = abs(file, base);
-
-    if(!parent && ~state.seen.sources.indexOf(pth)) {
-      // this could just ignore and move on to the next
-      // file to process but prefer to be strict and error
-      return cb(
-        new Error(`duplicate component source file ${file}`));
-    }
-
-    state.seen.sources.push(pth);
-
-    const group = new File(pth);
-    group.href = file;
-
-    read(group, parent, state, (err) => {
-      if(err) {
-        return next(err); 
-      } 
-
-      // add to root of tree hierarchy
+  each(
+    files,
+    (file, next) => {
+    
       if(!parent) {
-        state.tree.imports.push(group);
+        // create a state per file so that the hierarchy
+        // is correct, note the load state proxies some fields
+        // from the global compiler state for ease of use
+        state = new LoadState(input, output);     
       }
 
-      next();
-    });
-  }
+      let base
+        , pth;
 
-  next();
+      if(parent && parent.file) {
+        base = path.dirname(parent.file); 
+      }
+
+      pth = abs(file, base);
+
+      if(!parent && ~state.seen.sources.indexOf(pth)) {
+        // this could just ignore and move on to the next
+        // file to process but prefer to be strict and error
+        return cb(
+          new Error(`duplicate component source file ${file}`));
+      }
+
+      state.seen.sources.push(pth);
+
+      const group = new File(pth);
+      group.href = file;
+
+      read(group, parent, state, (err) => {
+        if(err) {
+          return next(err); 
+        } 
+
+        // add to root of tree hierarchy
+        if(!parent) {
+          state.tree.imports.push(group);
+        }
+
+        next();
+      });
+    },
+    cb
+  );
 }
 
 /**

@@ -2,13 +2,13 @@ const fs = require('fs')
     , path = require('path')
     , File = require('./component').File;
 
-function abs(file) {
+function abs(file, base) {
   if(!path.isAbsolute(file)) {
-    return path.normalize(path.join(process.cwd(), file)); 
+    base = base || process.cwd();
+    return path.normalize(path.join(base, file)); 
   }
   return file;
 }
-
 
 /**
  *  Encapsulates the load state information.
@@ -19,7 +19,13 @@ function abs(file) {
  *  @param {Object} opts processing options.
  */
 function LoadState(input, output) {
+  
+  this.input = input;
+  this.output = output;
+
+  // TODO: prefer `output` property
   this.out = output;
+
   this.parser = input.parser;
   this.opts = input.options;
   // source input files passed to be loaded
@@ -62,6 +68,80 @@ function cyclic(file, hierarchy, name) {
   }
 }
 
+/**
+ *  Read file contents.
+ *
+ *  @private {function} read
+ */
+function read(group, parent, state, cb) {
+  const opts = state.opts;
+
+  const file = group.file;
+
+  // cyclic dependency: must be tested before the logic to ignore 
+  // duplicate components as we want to notify users on circular dependency
+  try {
+    cyclic(file, state.hierarchy, parent ? parent.file : null);
+  }catch(e) {
+    return cb(e); 
+  }
+
+  // duplicate component: do no not re-read components that have already 
+  // been loaded
+  let pth = abs(file);
+  if(~state.seen.imports.indexOf(pth)) {
+    return cb();
+  }
+  state.seen.imports.push(pth);
+
+  fs.readFile(pth, (err, contents) => {
+    if(err) {
+      return cb(err); 
+    }
+
+    group.parent = parent;
+    group.contents = contents.toString();
+
+    // empty component file
+    if(!group.contents) {
+      return cb(new Error(`empty group file ${file}`));
+    }
+
+    // prepend the loaded group information so that
+    // dependencies appear before the declaring group
+    state.out.unshift(group);
+
+    if(parent) {
+      parent.imports.unshift(group); 
+    }
+
+    const $ = state.parser.parse(group.contents)
+      , dependencies = $(opts.selectors.imports);
+
+    // component has dependencies we need to load
+    if(dependencies.length) {
+
+      // track hierarchy
+      state.hierarchy.push(group.file);
+
+      // map of dependencies
+      let deps = [];
+
+      dependencies.each((index, elem) => {
+        const href = $(elem).attr('href'); 
+        deps.push(href);
+      })
+
+      // resolve relative to the parent file: `group`
+      sources(deps, state.input, state.output, state, group, cb);
+
+    // no dependencies move on to the next item in the list
+    }else{
+      cb();
+    }
+  })
+}
+
 /** 
  *  Loads and parses the input source files.
  *
@@ -72,17 +152,37 @@ function cyclic(file, hierarchy, name) {
  *  @param {Object} state processing state.
  *  @param {Function} cb callback function.
  */
-function sources(state, cb) {
-  const files = state.files;
-  let map = {}; 
+function sources(files, input, output, state, parent, cb) {
+  if(parent instanceof Function) {
+    cb = parent;
+    parent = null;
+  }
 
-  function next() {
+  let out = [];
+
+  function next(err) {
+    if(err) {
+      return cb(err); 
+    }
     const file = files.shift();
     if(!file) {
-      return cb(null, map); 
+      return cb(null, out); 
     }
 
-    let pth = abs(file);
+    if(!parent) {
+      state = new LoadState(input, output);     
+      // pass reference to component tree into load state
+      state.tree = input.tree;
+    }
+
+    let base
+      , pth;
+
+    if(parent && parent.file) {
+      base = path.dirname(parent.file); 
+    }
+
+    pth = abs(file, base);
 
     if(~state.seen.sources.indexOf(pth)) {
       // this could just ignore and move on to the next
@@ -92,213 +192,36 @@ function sources(state, cb) {
 
     state.seen.sources.push(pth);
 
-    fs.readFile(file, (err, contents) => {
-      if(err) {
-        return cb(err); 
-      }
-      map[file] = contents.toString();
-      next();
-    })
+    const group = new File(pth);
+    group.href = file;
+    if(!parent) {
+      state.tree.imports.push(group);
+    }
+
+    read(group, parent, state, next);
   }
 
   next();
-}
-
-/** 
- *  Finds all import `<link rel="import">` elements in the input 
- *  component files. 
- *
- *  @private {function} imports
- *
- *  @param {Object} map object mapping filenames to component files.
- *  @param {Object} opts processing options.
- *  @param {Function} cb callback function.
- *
- *  @throws Error if the component file does not declare any imports.
- */
-function imports(map, state, cb) {
-  const opts = state.opts;
-
-  let k
-    , base
-    , relative
-    , $
-    , out = {};
-
-  function it(index, elem) {
-    const href = $(elem).attr('href');
-    relative = path.normalize(path.join(base, href));
-    out[k].push(relative);
-  }
-
-  for(k in map) {
-    out[k] = [];
-    base = path.dirname(k);
-    $ = state.parser.parse(map[k]);
-    const elements = $(opts.selectors.imports);
-
-    if(!elements.length) {
-      return cb(new Error(`component file ${k} does not import components`)); 
-    }
-      
-    elements.each(it);
-  }
-
-  cb(null, out);
-}
-
-/**
- *  Read file contents.
- *
- *  @private {function} read
- */
-function read(name, list, state, cb) {
-  const opts = state.opts;
-
-  function next(err) {
-    if(err) {
-      return cb(err); 
-    } 
-
-    const file = list.shift();
-    if(!file) {
-      return cb(); 
-    }
-
-    // cyclic dependency: must be tested before the logic to ignore 
-    // duplicate components as we want to notify users on circular dependency
-    try {
-      cyclic(file, state.hierarchy, name);
-    }catch(e) {
-      return next(e); 
-    }
-
-
-    // duplicate component: do no not re-read components that have already 
-    // been loaded
-    let pth = abs(file);
-    if(~state.seen.imports.indexOf(pth)) {
-      return next();
-    }
-    state.seen.imports.push(pth);
-
-    fs.readFile(file, (err, contents) => {
-      if(err) {
-        return next(err); 
-      }
-
-      const component = new File(file, contents.toString(), name);
-
-      // empty component file
-      if(!component.contents) {
-        return next(new Error(`empty component file ${file}`));
-      }
-
-      // prepend the loaded component information so that
-      // dependencies appear before the declaring component
-      state.out.unshift(component);
-
-      const $ = state.parser.parse(component.contents)
-        , dependencies = $(opts.selectors.imports);
-
-      // component has dependencies we need to load
-      if(dependencies.length) {
-
-        // map of dependencies
-        let deps = {};
-        deps[file] = component.contents;
-
-        run(deps, state, next);
-      // no dependencies move on to the next item in the list
-      }else{
-        next();
-      }
-    })
-  }
-
-  next();
-}
-
-/** 
- *  Loads component import file contents.
- *
- *  @private {function} includes
- *
- *  @param {Object} map object mapping filenames to component files.
- *  @param {Array} out output result object.
- *  @param {Object} opts processing options.
- *  @param {Function} cb callback function.
- */
-function includes(map, state, cb) {
-  const keys = Object.keys(map)
-    , out = state.out
-    , hierarchy = state.hierarchy;
-
-  function next(err) {
-    if(err) {
-      return cb(err); 
-    }
-    const file = keys.shift();
-    if(!file) {
-      return cb(null, out); 
-    }
-
-    hierarchy.push(file);
-
-    read(file, map[file], state, next);
-  }
-
-  next();
-}
-
-/**
- *  @private
- */
-function run(map, state, cb) {
-  // process html imports
-  imports(map, state, (err, files) => {
-    if(err) {
-      return cb(err); 
-    }
-
-    // load component include files
-    includes(files, state, (err, contents) => {
-      if(err) {
-        return cb(err); 
-      }
-      cb(null, contents);
-    })
-  })
 }
 
 /**
  *  @private
  */
 function load(input, cb) {
-  //const opts = input.options;
-
   if(!input.files || !input.files.length) {
     return cb(new Error('no input files specified'));
   }
 
-  const output = input.result.load.files
-      , state = new LoadState(input, output);
+  // array list of components
+  const output = input.result.load.files;
 
-  // load source file contents
-  sources(state, (err, map) => {
+  // run processing for the input sources
+  sources(input.files, input, output, null, (err) => {
     if(err) {
       return cb(err); 
-    }
-
-    // run processing for the input sources
-    run(map, state, (err) => {
-      if(err) {
-        return cb(err); 
-      } 
-      cb(null, input);
-    });
-
-  })
+    } 
+    cb(null, input);
+  });
 }
 
 module.exports = load;

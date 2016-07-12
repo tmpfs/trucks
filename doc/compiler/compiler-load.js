@@ -10,6 +10,6 @@ trucks(
     if(err) {
       throw err; 
     }
-    console.log(JSON.stringify(state.result.load, undefined, 2));
+    console.dir(state.result.load);
   }
 );

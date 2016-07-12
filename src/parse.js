@@ -324,9 +324,16 @@ function modules(input, list, result, opts, cb) {
       return cb(null, input);
     }
 
+    //console.dir(mod);
+
     // parse all the <dom-module> elements
     const $ = mod.dom = cheerio.load(mod.contents)
       , elements = $(opts.selectors.modules).toArray();
+
+    // import-only component
+    if(mod.imports.length && !elements.length) {
+      return next();  
+    }
 
     if(!elements.length) {
       return next(new Error(`no component modules in ${mod.file}`)); 

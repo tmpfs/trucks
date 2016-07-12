@@ -1,4 +1,5 @@
 const each = require('./each')
+    , Tree = require('./component').Tree
     , LOAD = 'load'
     , PARSE = 'parse'
     , TRANSFORM = 'transform'
@@ -10,7 +11,7 @@ const each = require('./each')
         TRANSFORM,
         GENERATE,
         WRITE
-      ]
+      ];
 
 const handlers = {
   load: function() {
@@ -44,6 +45,9 @@ function CompilerState(options) {
     module: cheerio,
     parse: cheerio.load
   }
+
+  // the component tree stucture
+  this.tree = new Tree();
 
   this.result = {
     load: {

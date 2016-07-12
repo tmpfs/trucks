@@ -1,7 +1,21 @@
-class ComponentFile extends Object {
-  constructor(file, contents, parent) {
-    super();
+/**
+ *  Represents the root of a component hierarchy. 
+ *
+ *  @public {class} ComponentTree
+ */
+class ComponentTree {
+  constructor() {
+    this.imports = [];
+  }
+}
 
+/**
+ *  Represents a component file in the component tree. 
+ *
+ *  @public {class} ComponentFile
+ */
+class ComponentFile {
+  constructor(file, contents, parent) {
     this.file = file;
     this.contents = contents;
     this.parent = parent;
@@ -17,6 +31,7 @@ class ComponentFile extends Object {
 }
 
 module.exports = {
+  Tree: ComponentTree,
   File: ComponentFile
 }
 

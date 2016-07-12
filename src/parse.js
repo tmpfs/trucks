@@ -91,7 +91,7 @@ function trim(item, options) {
 function styles(definition, result, el, options, cb) {
   const file = definition.file
     , base = path.dirname(file)
-    , $ = definition.dom;
+    , $ = definition.querySelectorAll;
 
   let item;
 
@@ -135,7 +135,7 @@ function styles(definition, result, el, options, cb) {
 function scripts(definition, result, el, options, cb) {
   const file = definition.file
       , base = path.dirname(file)
-      , $ = definition.dom
+      , $ = definition.querySelectorAll
       , src = $(el).attr('src');
 
   let item;
@@ -181,7 +181,7 @@ function scripts(definition, result, el, options, cb) {
 function templates(definition, result, el, options, cb) {
   const file = definition.file
       , base = path.dirname(file)
-      , $ = definition.dom;
+      , $ = definition.querySelectorAll;
 
   let item;
 
@@ -269,7 +269,7 @@ function iterator(definition, result, elements, it, options, cb) {
  *  @private
  */
 function component(mod, result, opts, cb) {
-  const $ = mod.dom
+  const $ = mod.querySelectorAll
     , context = mod.context;
 
   // process styles first and maintain declaration order
@@ -313,8 +313,7 @@ function component(mod, result, opts, cb) {
  *  @private {function} modules
  */
 function modules(input, list, result, opts, cb) {
-  const cheerio = require('cheerio');
- 
+
   function next(err) {
     if(err) {
       return cb(err); 
@@ -324,10 +323,8 @@ function modules(input, list, result, opts, cb) {
       return cb(null, input);
     }
 
-    //console.dir(mod);
-
     // parse all the <dom-module> elements
-    const $ = mod.dom = cheerio.load(mod.contents)
+    const $ = mod.querySelectorAll
       , elements = $(opts.selectors.modules).toArray();
 
     // import-only component

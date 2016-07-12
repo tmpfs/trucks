@@ -27,11 +27,23 @@ class ComponentFile {
     // list of component modules defined with `<dom-module>`
     // propagated during the parse compiler phase
     this.modules = [];
+
+    // query for the DOM of this document
+    // injected during the load phase
+    this.querySelectorAll = null;
+  }
+}
+
+class ComponentModule {
+  constructor(parent) {
+    // the owner component file
+    this.parent = parent; 
   }
 }
 
 module.exports = {
   Tree: ComponentTree,
-  File: ComponentFile
+  File: ComponentFile,
+  Module: ComponentModule
 }
 

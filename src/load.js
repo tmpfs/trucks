@@ -117,7 +117,9 @@ function read(group, parent, state, cb) {
       parent.imports.unshift(group); 
     }
 
-    const $ = state.parser.parse(group.contents)
+    group.querySelectorAll = state.parser.parse(group.contents);
+
+    const $ = group.querySelectorAll
       , dependencies = $(opts.selectors.imports);
 
     // component has dependencies we need to load

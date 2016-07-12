@@ -75,7 +75,6 @@ function cyclic(file, hierarchy, name) {
  */
 function read(group, parent, state, cb) {
   const opts = state.opts;
-
   const file = group.file;
 
   // cyclic dependency: must be tested before the logic to ignore 

@@ -1,19 +1,35 @@
 const each = require('./each')
     , Tree = require('./component').Tree
+    , SOURCES = 'sources'
     , LOAD = 'load'
     , PARSE = 'parse'
     , TRANSFORM = 'transform'
     , GENERATE = 'generate'
     , WRITE = 'write'
+    // names for exposed constants
     , PHASES = [
+        SOURCES,
         LOAD,
         PARSE,
+        TRANSFORM,
+        GENERATE,
+        WRITE
+      ]
+    // default phases to use
+    , DEFAULTS = [
+        SOURCES,
         TRANSFORM,
         GENERATE,
         WRITE
       ];
 
 const handlers = {
+  sources: function() {
+    return [
+      require('./load'),
+      require('./parse')
+    ]; 
+  },
   load: function() {
     return require('./load'); 
   },
@@ -80,13 +96,12 @@ function run(opts, cb) {
   let i
     , phase
     , phases = Array.isArray(state.options.plugins)
-        ? state.options.plugins : PHASES
+        ? state.options.plugins : DEFAULTS
     , middleware = state.middleware
     , closure;
 
   for(i = 0;i < phases.length;i++) {
     phase = phases[i];
-
     try {
       // assume plugin is middleware
       if(phase instanceof Function) {
@@ -106,8 +121,10 @@ function run(opts, cb) {
       return cb(e); 
     }
   
-    if(closure) {
+    if(closure instanceof Function) {
       middleware.push(closure);
+    }else if(Array.isArray(closure)) {
+      middleware.push(...closure); 
     }
   }
  

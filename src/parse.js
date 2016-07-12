@@ -177,7 +177,7 @@ function scripts(mod, state, el, cb) {
  *
  *  @private
  */
-function component(mod, state, cb) {
+function component(mod, state, context, cb) {
   const options = state.options;
 
   function iterator(elements, it, cb) {
@@ -208,7 +208,6 @@ function component(mod, state, cb) {
   }
 
   const $ = mod.querySelectorAll
-    , context = mod.context
     , groups = [
         {
           handler: styles,
@@ -228,6 +227,8 @@ function component(mod, state, cb) {
     groups,
     (group, next) => {
       iterator(group.elements, group.handler, next); 
+
+    // TODO: parse component partials and styles
     }, cb);
 }
 
@@ -243,7 +244,6 @@ function modules(state, cb) {
       // parse all the <dom-module> elements
       const $ = group.querySelectorAll
         , elements = $(selectors.modules).toArray();
-
       each(
         elements,
         (context, next) => {
@@ -264,17 +264,16 @@ function modules(state, cb) {
             return next(e); 
           }
 
-          mod.context = context;
-
           // proxy document query function
           mod.querySelectorAll = $;
 
+          // add to local list of modules
           group.modules.push(mod);
 
           // add to global list of all modules
           state.result.modules.push(mod);
 
-          component(mod, state, next);
+          component(mod, state, context, next);
         }, next)
     },
     (err) => {

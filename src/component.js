@@ -67,6 +67,9 @@ class ComponentModule {
 
     // list of parsed javascript
     this.scripts = [];
+
+    // injected during the parse phase
+    this.querySelectorAll = null;
   }
 
   get file() {

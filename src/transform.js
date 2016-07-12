@@ -105,10 +105,10 @@ function extract(state, output, cb) {
  *  @throws Error if a duplicate template identifier is found.
  */
 function duplicates(templates) {
+  const identifiers = [];
   let i
     , tpl
-    , id
-    , identifiers = [];
+    , id;
 
   for(i = 0;i < templates.length;i++) {
     tpl = templates[i];
@@ -156,6 +156,8 @@ function transform(state, cb) {
         , map = ''
         , main = '';
 
+      // TODO: do not concatenate for compilation
+      // TODO: pass a preparsed DOM of each template
       tpl.forEach((item) => {
         html += item.contents; 
       });

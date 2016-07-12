@@ -331,13 +331,13 @@ function modules(input, list, result, opts, cb) {
       , elements = $(opts.selectors.modules).toArray();
 
     // import-only component
-    if(mod.imports.length && !elements.length) {
-      return next();  
-    }
+    //if(mod.imports.length && !elements.length) {
+      //return next();  
+    //}
 
-    if(!elements.length) {
-      return next(new Error(`no component modules in ${mod.file}`)); 
-    }
+    //if(!elements.length) {
+      //return next(new Error(`no component modules in ${mod.file}`)); 
+    //}
 
     function it(err) {
       if(err) {

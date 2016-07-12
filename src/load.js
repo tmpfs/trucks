@@ -34,13 +34,15 @@ function LoadState(input, output) {
   // list of parent file hierarchies used to detect circular imports
   this.hierarchy = [];
 
+
+  // pass reference to component tree into load state
+  this.tree = input.tree;
+
   // list of component files that have been processed used to prevent
   // duplication compilation when multiple components share the same
-  // dependency
-  this.seen  = {
-    sources: [],
-    imports: []
-  }
+  // dependency, proxied from the compiler state so it applies to all
+  // source files
+  this.seen = input.seen;
 }
 
 /**
@@ -104,7 +106,7 @@ function read(group, parent, state, cb) {
 
     // empty component file
     if(!group.contents) {
-      return cb(new Error(`empty group file ${file}`));
+      return cb(new Error(`empty component file ${file}`));
     }
 
     // prepend the loaded group information so that
@@ -170,9 +172,10 @@ function sources(files, input, output, state, parent, cb) {
     }
 
     if(!parent) {
+      // create a state per file so that the hierarchy
+      // is correct, note the load state proxies some fields
+      // from the global compiler state for ease of use
       state = new LoadState(input, output);     
-      // pass reference to component tree into load state
-      state.tree = input.tree;
     }
 
     let base
@@ -186,13 +189,13 @@ function sources(files, input, output, state, parent, cb) {
 
     console.log('load source: %s', pth);
 
-    //if(~state.seen.sources.indexOf(pth)) {
+    if(!parent && ~state.seen.sources.indexOf(pth)) {
       //// this could just ignore and move on to the next
       //// file to process but prefer to be strict and error
-      //return cb(new Error(`duplicate component source file ${file}`));
-    //}
+      return cb(new Error(`duplicate component source file ${file}`));
+    }
 
-    //state.seen.sources.push(pth);
+    state.seen.sources.push(pth);
 
     const group = new File(pth);
     group.href = file;

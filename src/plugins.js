@@ -49,6 +49,12 @@ function CompilerState(options) {
   // the component tree stucture
   this.tree = new Tree();
 
+  // keep track of processed files during load phase
+  this.seen  = {
+    imports: [],
+    sources: []
+  }
+
   this.result = {
     load: {
       files: [] 

@@ -1,5 +1,6 @@
 const path = require('path')
     , fs = require('fs')
+    , each = require('./each')
     , selectors = require('./selectors')
     , Module = require('./component').Module
     , Template = require('./component').Template
@@ -246,68 +247,62 @@ function scripts(mod, state, el, cb) {
 }
 
 /**
- *  Iterate the elements returned by a DOM query.
- *
- *  @private
- */
-function iterator(mod, state, elements, it, cb) {
-  const options = state.options;
-
-  function next(err, item) {
-    if(err) {
-      return cb(err); 
-    }
-
-    if(item
-      && item.contents === String(item.contents)
-      && options.id
-      && options.id.replace
-      && (options.id.pattern instanceof RegExp)) {
-
-      item.contents = item.contents.replace(
-        options.id.pattern, mod.id); 
-    }
-
-    const el = elements.shift();
-    if(!el) {
-      return cb(); 
-    }
-
-    it(mod, state, el, next);
-  }
-  next();
-}
-
-/**
  *  Iterate the templates, scripts and styles in a component module.
  *
  *  @private
  */
 function component(mod, state, cb) {
+  const options = state.options;
+
+  function iterator(elements, it, cb) {
+    each(
+      elements,
+      (el, next) => {
+        it(mod, state, el, (err, item) => {
+          if(err) {
+            return next(err); 
+          }
+       
+          // perform {{id}} replacement
+          if(item
+            && item.contents === String(item.contents)
+            && options.id
+            && options.id.replace
+            && (options.id.pattern instanceof RegExp)) {
+
+            item.contents = item.contents.replace(
+              options.id.pattern, mod.id); 
+          }
+
+          next();
+        });
+      },
+      cb
+    )
+  }
+
   const $ = mod.querySelectorAll
-    , context = mod.context;
+    , context = mod.context
+    , groups = [
+        {
+          handler: styles,
+          elements: $(selectors.styles, context).toArray()
+        },
+        {
+          handler: scripts,
+          elements: $(selectors.scripts, context).toArray()
+        },
+        {
+          handler: templates,
+          elements: $(selectors.templates, context).toArray()
+        }
+      ];
 
-  // process styles first and maintain declaration order
-  let elements = $(selectors.styles, context).toArray();
-  iterator(mod, state, elements, styles, (err) => {
-    if(err) {
-      return cb(err); 
-    }
-
-    // process inline and external scripts
-    elements = $(selectors.scripts, context).toArray();
-    iterator(mod, state, elements, scripts, (err) => {
-      if(err) {
-        return cb(err); 
-      }
-
-      // process inline and external template elements
-      elements = $(selectors.templates, context).toArray();
-      iterator(mod, state, elements, templates, (err) => {
-        cb(err);
-      });
-    });
-  })
+  each(
+    groups,
+    (group, next) => {
+      iterator(group.elements, group.handler, next); 
+    }, cb);
 }
 
 /**

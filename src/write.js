@@ -94,6 +94,7 @@ function write(input, cb) {
 
     fn(next);
   }
+
   next();
 }
 

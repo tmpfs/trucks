@@ -1,3 +1,9 @@
+const MIME = {
+  template: 'text/html',
+  style: 'text/css',
+  script: 'text/javascript'
+}
+
 /**
  *  Represents the root of a component hierarchy. 
  *
@@ -36,11 +42,13 @@ class ComponentFile {
 
 class ComponentModule {
   constructor(id, parent) {
-
     this.id = id;
 
     // the owner component file
     this.parent = parent; 
+
+    // main template
+    this.template = null;
 
     // list of parsed templates
     this.templates = [];
@@ -75,17 +83,29 @@ class ComponentTemplate extends ComponentTrait {
   constructor() {
     super(...arguments);
   }
+
+  get type() {
+    return this.type || MIME.template;
+  }
 }
 
 class ComponentStyle extends ComponentTrait {
   constructor() {
     super(...arguments);
   }
+
+  get type() {
+    return this.type || MIME.style;
+  }
 }
 
 class ComponentScript extends ComponentTrait {
   constructor() {
     super(...arguments);
+  }
+
+  get type() {
+    return this.type || MIME.script;
   }
 }
 

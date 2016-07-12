@@ -112,11 +112,13 @@ function templates(mod, state, el, cb) {
         , id = el.attr(ID);
 
       // inherit template from module
-      if(!id) {
+      if(!id || id === mod.id) {
         el.attr(ID, mod.id);
+        // assign as primary template
+        mod.template = item;
       // prefix module id to template with existing
       // identifier and treat as a partial template
-      }else{
+      }else if(id && id !== mod.id) {
         el.attr(ID, `${prefix + id}`); 
       }
     })

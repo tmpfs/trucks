@@ -310,80 +310,51 @@ function component(mod, state, cb) {
  *
  *  @private {function} modules
  */
-function modules(state, list, opts, cb) {
+function modules(state, cb) {
+  each(
+    state.result.files,
+    (group, next) => {
+      // parse all the <dom-module> elements
+      const $ = group.querySelectorAll
+        , elements = $(selectors.modules).toArray();
 
-  function next(err) {
-    if(err) {
-      return cb(err); 
+      each(
+        elements,
+        (context, it) => {
+          const id = $(context).attr(ID);
+
+          if(!id) {
+            return it(
+              new Error(
+                `identifier missing for component module in ${group.file}`)); 
+          }
+
+          // validate custom element name as per the spec
+          try {
+            validate(id);
+          }catch(e) {
+            return next(e); 
+          }
+
+          const mod = new Module(id, group);
+
+          mod.context = context;
+
+          // proxy document query function
+          mod.querySelectorAll = $;
+
+          group.modules.push(mod);
+
+          // add to global list of all modules
+          state.result.modules.push(mod);
+
+          component(mod, state, it);
+        }, next)
+    },
+    (err) => {
+      cb(err, state); 
     }
-    const group = list.shift(); 
-    if(!group) {
-      return cb(null, state);
-    }
-
-    // parse all the <dom-groupule> elements
-    const $ = group.querySelectorAll
-      , elements = $(selectors.modules).toArray();
-
-    // import-only component
-    //if(mod.imports.length && !elements.length) {
-      //return next();  
-    //}
-
-    //if(!elements.length) {
-      //return next(new Error(`no component modules in ${mod.file}`)); 
-    //}
-
-    function it(err) {
-      if(err) {
-        return next(err); 
-      }
-      const context = elements.shift(); 
-      if(!context) {
-        return next(); 
-      }
-
-      const id = $(context).attr(ID);
-
-      if(!id) {
-        return next(
-          new Error(
-            `identifier missing for component module in ${group.file}`)); 
-      }
-
-      // validate custom element name as per the spec
-      try {
-        validate(id);
-      }catch(e) {
-        return next(e); 
-      }
-
-      const mod = new Module(id, group);
-
-      mod.context = context;
-
-      // proxy document query function
-      mod.querySelectorAll = $;
-
-      group.modules.push(mod);
-
-      // add to global list of all modules
-      state.result.modules.push(mod);
-
-      component(mod, state, it);
-    }
-
-    it();
-  }
-
-  next();
+  );
 }
 
-/**
- *  @private
- */
-function parse(state, cb) {
-  modules(state, state.result.files, state.options || {}, cb);
-}
-
-module.exports = parse;
+module.exports = modules;

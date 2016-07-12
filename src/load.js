@@ -88,6 +88,7 @@ function read(group, parent, state, cb) {
   // duplicate component: do no not re-read components that have already 
   // been loaded
   let pth = abs(file);
+
   if(~state.seen.imports.indexOf(pth)) {
     return cb();
   }
@@ -183,13 +184,15 @@ function sources(files, input, output, state, parent, cb) {
 
     pth = abs(file, base);
 
-    if(~state.seen.sources.indexOf(pth)) {
-      // this could just ignore and move on to the next
-      // file to process but prefer to be strict and error
-      return cb(new Error(`duplicate component source file ${file}`));
-    }
+    console.log('load source: %s', pth);
 
-    state.seen.sources.push(pth);
+    //if(~state.seen.sources.indexOf(pth)) {
+      //// this could just ignore and move on to the next
+      //// file to process but prefer to be strict and error
+      //return cb(new Error(`duplicate component source file ${file}`));
+    //}
+
+    //state.seen.sources.push(pth);
 
     const group = new File(pth);
     group.href = file;
@@ -197,7 +200,12 @@ function sources(files, input, output, state, parent, cb) {
       state.tree.imports.push(group);
     }
 
-    read(group, parent, state, next);
+    read(group, parent, state, (err) => {
+      if(err) {
+        return next(err); 
+      } 
+      next();
+    });
   }
 
   next();
@@ -216,9 +224,11 @@ function load(input, cb) {
 
   // run processing for the input sources
   sources(input.files, input, output, null, (err) => {
+    console.dir(input.tree);
     if(err) {
       return cb(err); 
     } 
+
     cb(null, input);
   });
 }

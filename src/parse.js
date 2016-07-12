@@ -114,14 +114,17 @@ function styles(definition, el, options, cb) {
     done(item);
   // external stylesheet reference
   }else{
-    const href = path.normalize(path.join(base, $(el).attr('href')));
-    fs.readFile(href, (err, contents) => {
+    const href = $(el).attr('href')
+      , pth = path.normalize(path.join(base, href));
+
+    fs.readFile(pth, (err, contents) => {
       if(err) {
         return cb(err); 
       } 
       item = {
         parent: definition.parent,
-        file: href,
+        file: pth,
+        href: href,
         contents: contents.toString()}
       done(item);
     })
@@ -159,14 +162,16 @@ function scripts(definition, el, options, cb) {
 
   // external script reference
   }else{
-    const href = path.normalize(path.join(base, $(el).attr('src')));
-    fs.readFile(href, (err, contents) => {
+    const href = $(el).attr('src')
+      , pth = path.normalize(path.join(base, href));
+    fs.readFile(pth, (err, contents) => {
       if(err) {
         return cb(err); 
       } 
       item = {
         parent: definition.parent,
-        file: href,
+        file: pth,
+        href: href,
         contents: contents.toString()
       };
       done(item);
@@ -213,17 +218,17 @@ function templates(definition, el, options, cb) {
     done(item);
   // external template reference
   }else{
-    const href = path.normalize(path.join(base, $(el).attr('href')));
-    fs.readFile(href, (err, contents) => {
+    const href = $(el).attr('href')
+      , pth = path.normalize(path.join(base, href));
+    fs.readFile(pth, (err, contents) => {
       if(err) {
         return cb(err); 
       } 
 
-      contents = contents.toString();
-
       item = {
         parent: definition.parent,
-        file: href,
+        file: pth,
+        href: href,
         contents: contents.toString()
       }
       done(item);
@@ -260,7 +265,6 @@ function iterator(definition, elements, it, options, cb) {
 
     it(definition, el, options, next);
   }
-
   next();
 }
 

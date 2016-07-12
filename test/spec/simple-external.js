@@ -16,7 +16,10 @@ describe('trucks:', function() {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 
-        const result = state.result.transform
+        //const result = state.result.transform
+        const file = state.tree.imports[0]
+          , component = file.imports[0]
+          , result = component.modules[0]
           , generated = state.result.generate;
 
         // parse phase data
@@ -24,23 +27,20 @@ describe('trucks:', function() {
         expect(result.js).to.be.an('array').to.have.length(1);
         expect(result.tpl).to.be.an('array').to.have.length(1);
 
-        console.dir(result.tpl[0]);
+        console.dir(result.tpl[0].href);
+        console.dir(result.tpl[0].file);
 
-        expect(result.tpl[0].parent).to.eql(src);
-        expect(result.tpl[0].file).to.eql(
-          'test/fixtures/simple-external/simple-template.html');
+        expect(file.href).to.eql(src);
+
+        expect(result.tpl[0].href).to.eql('simple-template.html');
         expect(result.tpl[0].inline).to.eql(undefined);
         expect(result.tpl[0].contents).to.be.a('string');
 
-        expect(result.css[0].parent.href).to.eql(src);
-        expect(result.css[0].href).to.eql(
-          'test/fixtures/simple-external/simple-component.css');
+        expect(result.css[0].href).to.eql('simple-component.css');
         expect(result.css[0].inline).to.eql(undefined);
         expect(result.css[0].contents).to.be.a('string');
 
-        expect(result.js[0].parent.href).to.eql(src);
-        expect(result.js[0].href).to.eql(
-          'test/fixtures/simple-external/simple-component.js');
+        expect(result.js[0].href).to.eql('simple-component.js');
         expect(result.js[0].inline).to.eql(undefined);
         expect(result.js[0].contents).to.be.a('string');
 

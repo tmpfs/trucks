@@ -5,6 +5,7 @@ const path = require('path')
     , Template = require('./component').Template
     , Style = require('./component').Style
     , Script = require('./component').Script
+    , Component = require('./component').Component
     , STYLE = 'style'
     , TEMPLATE = 'template'
     , ID = 'id'
@@ -113,9 +114,19 @@ function templates(mod, state, el, cb) {
 
       // inherit template from module
       if(!id || id === mod.id) {
+
+        if(mod.component) {
+          return cb(new Error(
+            `duplicate main template for ${mod.id} in ${mod.file}`)); 
+        }
+
+        // set id attribute in case it were undefined
+        // thereby inherit from the module id
         el.attr(ID, mod.id);
-        // assign as primary template
-        mod.template = item;
+
+        // assign as primary component template
+        mod.component = new Component(item, mod);
+
       // prefix module id to template with existing
       // identifier and treat as a partial template
       }else if(id && id !== mod.id) {

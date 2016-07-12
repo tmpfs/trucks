@@ -47,8 +47,8 @@ class ComponentModule {
     // the owner component file
     this.parent = parent; 
 
-    // main template
-    this.template = null;
+    // main component
+    this.component = null;
 
     // list of parsed templates
     this.templates = [];
@@ -109,11 +109,30 @@ class ComponentScript extends ComponentTrait {
   }
 }
 
+class Component {
+  constructor(template, parent) {
+    // primary template for this component
+    this.template = template; 
+
+    // parent component module
+    this.parent = parent;
+
+    // list of other templates to be treated as partials
+    // injected during the parse phase
+    this.partials = [];
+
+    // list of component local styles that
+    // will exist within the shadow DOM
+    this.styles = [];
+  }  
+}
+
 module.exports = {
   Tree: ComponentTree,
   File: ComponentFile,
   Module: ComponentModule,
   Template: ComponentTemplate,
   Style: ComponentStyle,
-  Script: ComponentScript
+  Script: ComponentScript,
+  Component: Component
 }

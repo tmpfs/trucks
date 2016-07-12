@@ -43,6 +43,10 @@ class ComponentFile {
     // propagated during the parse compiler phase
     this.modules = [];
 
+    // list of duplicate import paths processed earlier
+    // by another component definition
+    this.duplicates = [];
+
     // query for the DOM of this document
     // injected during the load phase
     this.querySelectorAll = null;

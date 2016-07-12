@@ -244,6 +244,15 @@ function modules(state, cb) {
       // parse all the <dom-module> elements
       const $ = group.querySelectorAll
         , elements = $(selectors.modules).toArray();
+
+      // no component imports and no modules declared
+      //if(!elements.length
+        //&& !group.imports.length
+        //&& !group.duplicates.length) {
+        //return cb(new Error(
+          //`no imports or component modules in ${group.file}`)); 
+      //}
+
       each(
         elements,
         (context, next) => {

@@ -92,6 +92,7 @@ function read(group, parent, state, cb) {
   let pth = abs(file);
 
   if(~state.seen.imports.indexOf(pth)) {
+    group.duplicates.push(pth);
     return cb();
   }
   state.seen.imports.push(pth);
@@ -190,23 +191,27 @@ function sources(files, input, output, state, parent, cb) {
     pth = abs(file, base);
 
     if(!parent && ~state.seen.sources.indexOf(pth)) {
-      //// this could just ignore and move on to the next
-      //// file to process but prefer to be strict and error
-      return cb(new Error(`duplicate component source file ${file}`));
+      // this could just ignore and move on to the next
+      // file to process but prefer to be strict and error
+      return cb(
+        new Error(`duplicate component source file ${file}`));
     }
 
     state.seen.sources.push(pth);
 
     const group = new File(pth);
     group.href = file;
-    if(!parent) {
-      state.tree.imports.push(group);
-    }
 
     read(group, parent, state, (err) => {
       if(err) {
         return next(err); 
       } 
+
+      // add to root of tree hierarchy
+      if(!parent) {
+        state.tree.imports.push(group);
+      }
+
       next();
     });
   }

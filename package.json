@@ -33,7 +33,7 @@
     "prepublish": "npm run build",
     "lint": "jshint src test doc && jscs src test/spec",
     "target": "rm -rf target && mkdir target",
-    "pretest": "npm run target && npm run build",
+    "pretest": "npm run target",
     "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",
     "precover": "npm run pretest",
     "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}",

@@ -1,0 +1,184 @@
+const fs = require('fs')
+    , path = require('path')
+    , selectors = require('./selectors')
+    , Template = require('./component').Template
+    , Style = require('./component').Style
+    , Script = require('./component').Script
+    , Component = require('./component').Component
+    , TEMPLATE = 'template'
+    , ID = 'id'
+    , HREF = 'href'
+    , SRC = 'src';
+
+class TraitReader {
+  constructor(module) {
+    this.parent = module; 
+
+    // type of trait to instantiate
+    this.Type = null;
+
+    // selector for the component module
+    this.selector = null;
+
+    this.querySelectorAll = module.querySelectorAll;
+  }
+
+  getTrait(el) {
+    return new this.Type(el, null, this.parent);
+  }
+
+  getInlineContents(el, $) {
+    return $(el).text();
+  }
+
+  isInline(el, $) {
+    return $(el).attr(HREF) === undefined && $(el).attr(SRC) === undefined;
+  }
+
+  getExternalHref(el, $) {
+    return $(el).attr(HREF) 
+  }
+
+  getElements($, context, selector) {
+    return $(selector || this.selector, context).toArray()
+  }
+
+  readContents(trait, href, cb) {
+    const file = trait.parent.parent.file
+        , base = path.dirname(file)
+        , pth = path.normalize(path.join(base, href));
+
+    fs.readFile(pth, (err, contents) => {
+      if(err) {
+        return cb(err); 
+      } 
+      cb(null,
+        contents.toString(),
+        {file: file, base: base, path: pth, href: href});
+    })
+  }
+
+  getContents(trait, el, $, cb) {
+    if(this.isInline(el, $)) {
+      return cb(null, this.getInlineContents(el, $)); 
+    }else{
+      this.readContents(
+        trait,
+        this.getExternalHref(el, $),
+        (err, contents, result) => {
+          if(err) {
+            return cb(err); 
+          }
+
+          trait.href = result.href;
+          trait.file = result.path;
+          cb(null, contents, result);
+        }
+      );
+    }
+  }
+}
+
+class TemplateReader extends TraitReader {
+  constructor() {
+    super(...arguments);
+    this.Type = Template;
+    this.selector = selectors.templates;
+  }
+
+  getInlineContents(el, $) {
+    return $.html(el);
+  }
+
+  onTrait(state, trait, cb) {
+    trait.querySelectorAll = state.parser.parse(trait.contents);
+    const elements = trait.querySelectorAll(TEMPLATE)
+      , mod = trait.parent
+      , $ = this.querySelectorAll;
+
+    elements.each((index, elem) => {
+      const el = $(elem); 
+
+      const prefix = /-$/.test(mod.id) ? mod.id : mod.id + '-'
+        , id = el.attr(ID);
+
+      // inherit template from module
+      if(!id || id === mod.id) {
+
+        if(mod.component) {
+          return cb(new Error(
+            `duplicate main template for ${mod.id} in ${mod.file}`)); 
+        }
+
+        // set id attribute in case it were undefined
+        // thereby inherit from the module id
+        el.attr(ID, mod.id);
+
+        // assign as primary component template
+        mod.component = new Component(trait, mod);
+
+      // prefix module id to template with existing
+      // identifier and treat as a partial template
+      }else if(id && id !== mod.id) {
+        el.attr(ID, prefix + id); 
+      }
+
+      // assign id to trait
+      trait.id = el.attr(ID);
+    })
+
+    // update trait contents and query
+    // as we have written the dom with id attributes
+    trait.contents = $.html(elements);
+    trait.querySelectorAll = state.parser.parse(trait.contents);
+
+    trait.trim(state.options.trim); 
+
+    trait.parent.templates.push(trait);
+    state.result.templates.push(trait);
+    cb(null, trait);
+  }
+}
+
+class StyleReader extends TraitReader {
+  constructor() {
+    super(...arguments);
+    this.Type = Style;
+    this.selector = selectors.styles;
+  }
+
+  onTrait(state, trait, cb) {
+    trait.querySelectorAll = state.parser.parse(trait.contents);
+    trait.trim(state.options.trim); 
+    trait.parent.styles.push(trait);
+    state.result.styles.push(trait);
+    cb(null, this);
+  }
+
+}
+
+class ScriptReader extends TraitReader {
+  constructor() {
+    super(...arguments);
+    this.Type = Script;
+    this.selector = selectors.scripts;
+  }
+
+  getExternalHref(el, $) {
+    return $(el).attr(SRC);
+  }
+
+  onTrait(state, trait, cb) {
+    trait.querySelectorAll = state.parser.parse(trait.contents);
+    trait.trim(state.options.trim); 
+    trait.parent.scripts.push(trait);
+    state.result.scripts.push(trait);
+    cb(null, trait);
+  }
+}
+
+module.exports = {
+  Template: TemplateReader,
+  Style: StyleReader,
+  Script: ScriptReader
+}

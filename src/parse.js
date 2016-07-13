@@ -1,30 +1,7 @@
-const path = require('path')
-    , fs = require('fs')
-    , each = require('./each')
+const each = require('./each')
     , selectors = require('./selectors')
     , Module = require('./component').Module
-    , Template = require('./component').Template
-    , Style = require('./component').Style
-    , Script = require('./component').Script
-    , Component = require('./component').Component
-    , STYLE = 'style'
-    , TEMPLATE = 'template'
     , ID = 'id';
-
-function readContents(trait, href, cb) {
-  const file = trait.parent.parent.file
-      , base = path.dirname(file)
-      , pth = path.normalize(path.join(base, href));
-
-  fs.readFile(pth, (err, contents) => {
-    if(err) {
-      return cb(err); 
-    } 
-    cb(null,
-      contents.toString(),
-      {file: file, base: base, path: pth, href: href});
-  })
-}
 
 /**
  *  Iterate the templates, scripts and styles in a component module.
@@ -35,153 +12,30 @@ function component(mod, state, context, cb) {
   const options = state.options;
 
   const $ = mod.querySelectorAll
-    , types = [
-        {
-          elements: $(selectors.templates, context).toArray(),
-          getTrait: (el, mod) => {
-            return new Template(el, null, mod);
-          },
-          isInline: (el) => {
-            return el.name === TEMPLATE     
-          },
-          getInlineContents: (el, $) => {
-            return $.html(el);
-          },
-          getExternalHref: (el, $) => {
-            return $(el).attr('href') 
-          },
-          onTrait: (item, cb) => {
-            item.querySelectorAll = state.parser.parse(item.contents);
-            const elements = item.querySelectorAll(TEMPLATE);
+      , readers = require('./reader')
+      , types = [
+          new readers.Template(mod), 
+          new readers.Style(mod), 
+          new readers.Script(mod)
+        ];
 
-            elements.each((index, elem) => {
-              const el = $(elem); 
-
-              const prefix = /-$/.test(mod.id) ? mod.id : mod.id + '-'
-                , id = el.attr(ID);
-
-              // inherit template from module
-              if(!id || id === mod.id) {
-
-                if(mod.component) {
-                  return cb(new Error(
-                    `duplicate main template for ${mod.id} in ${mod.file}`)); 
-                }
-
-                // set id attribute in case it were undefined
-                // thereby inherit from the module id
-                el.attr(ID, mod.id);
-
-                // assign as primary component template
-                mod.component = new Component(item, mod);
-
-              // prefix module id to template with existing
-              // identifier and treat as a partial template
-              }else if(id && id !== mod.id) {
-                el.attr(ID, prefix + id); 
-              }
-
-              // assign id to trait
-              item.id = el.attr(ID);
-            })
-
-            // update trait contents and query
-            // as we have written the dom with id attributes
-            item.contents = $.html(elements);
-            item.querySelectorAll = state.parser.parse(item.contents);
-
-            item.trim(state.options.trim); 
-
-            mod.templates.push(item);
-            state.result.templates.push(item);
-            cb(null, item);
-          }
-        },
-        {
-          elements: $(selectors.styles, context).toArray(),
-          getTrait: (el, mod) => {
-            return new Style(el, null, mod);
-          },
-          isInline: (el) => {
-            return el.name === STYLE
-          },
-          getInlineContents: (el, $) => {
-            return $(el).text();
-          },
-          getExternalHref: (el, $) => {
-            return $(el).attr('href') 
-          },
-          onTrait: (item, cb) => {
-            item.querySelectorAll = state.parser.parse(item.contents);
-            item.trim(state.options.trim); 
-            mod.styles.push(item);
-            state.result.styles.push(item);
-            cb(null, item);
-          }
-        },
-        {
-          elements: $(selectors.scripts, context).toArray(),
-          getTrait: (el, mod) => {
-            return new Script(el, null, mod);
-          },
-          isInline: (el, $) => {
-            const src = $(el).attr('src');
-            return src === undefined;
-          },
-          getInlineContents: (el, $) => {
-            return $(el).text();
-          },
-          getExternalHref: (el, $) => {
-            return $(el).attr('src') 
-          },
-          onTrait: (item, cb) => {
-            item.querySelectorAll = state.parser.parse(item.contents);
-            item.trim(state.options.trim); 
-            mod.scripts.push(item);
-            state.result.scripts.push(item);
-            cb(null, item);
-          }
-        }
-      ];
-
-  function iterator(type, cb) {
-    const elements = type.elements
-        , $ = mod.querySelectorAll;
+  function iterator(reader, cb) {
+    const elements = reader.getElements($, context);
 
     each(
       elements,
       (el, next) => {
 
-        function getContents(trait, cb) {
-          if(type.isInline(el, $)) {
-            return cb(null, type.getInlineContents(el, $)); 
-          }else{
-            readContents(
-              trait,
-              type.getExternalHref(el, $),
-              (err, contents, result) => {
-                if(err) {
-                  return cb(err); 
-                }
+        const trait = reader.getTrait(el);
 
-                trait.href = result.href;
-                trait.file = result.path;
-                cb(null, contents, result);
-              }
-            );
-          }
-        }
-
-        const trait = type.getTrait(el, mod);
-
-        getContents(trait, (err, contents) => {
+        reader.getContents(trait, el, $, (err, contents) => {
           if(err) {
             return next(err); 
           }
 
           trait.contents = contents;
 
-          type.onTrait(trait, (err) => {
+          reader.onTrait(state, trait, (err) => {
             if(err) {
               return next(err); 
             }
@@ -222,7 +76,7 @@ function component(mod, state, context, cb) {
               mod.component.partials.push(mod.templates[i]); 
             } 
           }
-          //console.log('got module with partials...'); 
+          console.log('got module with partials...'); 
         }
       }
 

@@ -15,8 +15,6 @@ function extract(state, output, cb) {
   const list = state.result.scripts
       , js = list.slice();
 
-  console.log('scripts length %s', list.length);
-
   function next() {
 
     const script = js.shift();
@@ -115,7 +113,6 @@ function duplicates(templates) {
   for(i = 0;i < templates.length;i++) {
     tpl = templates[i];
     id = tpl.id;
-    console.log('tpl id %s', tpl.id);
     if(~identifiers.indexOf(id)) {
       throw new Error(
         `duplicate template identifier ${id} in ${tpl.parent.file}`); 
@@ -152,8 +149,6 @@ function transform(state, cb) {
         , compiler = require('./compile')
         , babel = require('babel-core');
 
-      console.log('templates length %s', tpl.length);
-
       // create HTML string of all templates
       let html = ''
         , compiled = null
@@ -164,7 +159,6 @@ function transform(state, cb) {
       // TODO: do not concatenate for compilation
       // TODO: pass a preparsed DOM of each template
       tpl.forEach((item) => {
-        //console.log(item.contents);
         html += item.contents; 
       });
 

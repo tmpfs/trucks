@@ -43,9 +43,6 @@ describe('trucks:', function() {
         // list of ast nodes for component definitions
         expect(state.result.scripts[0].components).to.be.an('object');
 
-        console.log('scripts');
-        console.log(state.result.scripts[0]);
-
         expect(state.result.scripts[0].components['simple-component'])
           .to.be.an('object');
 

@@ -1,0 +1,17 @@
+<dom-module id="external-partial">
+
+  <link rel="template" href="external-partial-template.html">
+
+  <style>
+    template-partial {
+      background: black;
+      color: white;
+    }
+  </style>
+
+  <script>
+    skate.define('{{id}}', {
+      render: template
+    });
+  </script>
+</dom-module>

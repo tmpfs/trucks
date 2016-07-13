@@ -10,20 +10,6 @@ trucks(
     if(err) {
       throw err; 
     }
-    const transformed = state.result.transform;
-
-    // remove irrelevant info for this example output
-    delete transformed.css;
-    delete transformed.tpl;
-    delete transformed.compiled;
-
-    // clean circular references
-    transformed.js.forEach((script) => {
-      delete script.result;
-      delete script.components;
-    })
-
-    console.log(JSON.stringify(transformed, undefined, 2));
-
+    console.dir(state.tree);
   }
 );

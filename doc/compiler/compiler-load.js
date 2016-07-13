@@ -10,6 +10,6 @@ trucks(
     if(err) {
       throw err; 
     }
-    console.dir(state.result.load);
+    console.dir(state.tree);
   }
 );

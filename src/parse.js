@@ -85,6 +85,9 @@ function component(mod, state, context, cb) {
         }
       }
 
+      // TODO: parse inline styles as StyleTrait and add to the 
+      // TODO: component list of styles
+
       cb();
     }
   );

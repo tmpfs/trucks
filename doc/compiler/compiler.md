@@ -20,7 +20,7 @@ Given a components file [components.html](/doc/compiler/components.html) such as
 
 The load phase will build the result object:
 
-<? @exec {json} node doc/compiler/compiler-load.js ?>
+<? @exec {javascript} node doc/compiler/compiler-load.js ?>
 
 Imported component file paths are resolved relative to the declaring file.
 
@@ -28,13 +28,13 @@ Imported component file paths are resolved relative to the declaring file.
 
 The parse phase takes the output from the load phase and extracts the css, javascript and template elements:
 
-<? @exec {json} node doc/compiler/compiler-parse.js ?>
+<? @exec {javascript} node doc/compiler/compiler-parse.js ?>
 
 ### Transform
 
 The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
 
-<? @exec {json} node doc/compiler/compiler-transform.js ?>
+<? @exec {javascript} node doc/compiler/compiler-transform.js ?>
 
 Note that some data has been omitted from the example output for brevity.
 
@@ -42,7 +42,7 @@ Note that some data has been omitted from the example output for brevity.
 
 After transformation the generate phase will concatenate all the css and transformed javascript code.
 
-<? @exec {json} node doc/compiler/compiler-generate.js ?>
+<? @exec {javascript} node doc/compiler/compiler-generate.js ?>
 
 Note that some data has been omitted from the example output for brevity.
 

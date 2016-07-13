@@ -10,6 +10,7 @@ trucks(
     if(err) {
       throw err; 
     }
-    console.log(JSON.stringify(state.result.parse, undefined, 2));
+
+    console.dir(state.tree);
   }
 );

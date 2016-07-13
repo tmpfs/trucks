@@ -1,7 +1,7 @@
 var expect = require('chai').expect
   , fs = require('fs')
   , path = require('path')
-  , trucks = require('../../src');
+  , trucks = require('../../lib');
 
 function assert(state) {
   expect(state).to.be.an('object');

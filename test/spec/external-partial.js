@@ -3,14 +3,14 @@ var expect = require('chai').expect
 
 describe('trucks:', function() {
 
-  it('should parse inline partial', function(done) {
-    const src = 'test/fixtures/inline-partial/components.html';
+  it('should parse external partial', function(done) {
+    const src = 'test/fixtures/external-partial/components.html';
 
     trucks(
       {
         files: [src],
         out: 'target',
-        name: 'inline-partial'
+        name: 'external-partial'
       },
       (err, state) => {
         expect(err).to.eql(null);

@@ -62,9 +62,15 @@ class TraitReader {
     })
   }
 
-  getContents(trait, el, cb) {
+  getContents(state, trait, el, cb) {
+
+    function done(contents, result) {
+      trait.contents = contents;
+      cb(null, [trait], contents, result);
+    }
+
     if(this.isInline(el)) {
-      return cb(null, this.getInlineContents(el)); 
+      return done(this.getInlineContents(el)); 
     }else{
       this.readContents(
         trait,
@@ -76,7 +82,7 @@ class TraitReader {
 
           trait.href = result.href;
           trait.file = result.path;
-          cb(null, contents, result);
+          done(contents, result);
         }
       );
     }
@@ -97,51 +103,68 @@ class TemplateReader extends TraitReader {
 
   onTrait(state, trait, cb) {
     trait.querySelectorAll = state.parser.parse(trait.contents);
-    const elements = trait.querySelectorAll(TEMPLATE)
-      , mod = trait.parent
-      , $ = this.querySelectorAll;
-
-    elements.each((index, elem) => {
-      const el = $(elem); 
-
-      const prefix = /-$/.test(mod.id) ? mod.id : mod.id + '-'
-        , id = el.attr(ID);
-
-      // inherit template from module
-      if(!id || id === mod.id) {
-
-        if(mod.component) {
-          return cb(new Error(
-            `duplicate main template for ${mod.id} in ${mod.file}`)); 
-        }
-
-        // set id attribute in case it were undefined
-        // thereby inherit from the module id
-        el.attr(ID, mod.id);
-
-        // assign as primary component template
-        mod.component = new Component(trait, mod);
-
-      // prefix module id to template with existing
-      // identifier and treat as a partial template
-      }else if(id && id !== mod.id) {
-        el.attr(ID, prefix + id); 
-      }
-
-      // assign id to trait
-      trait.id = el.attr(ID);
-    })
-
-    // update trait contents and query
-    // as we have written the dom with id attributes
-    trait.contents = $.html(elements);
-    trait.querySelectorAll = state.parser.parse(trait.contents);
-
     trait.trim(state.options.trim); 
-
     trait.parent.templates.push(trait);
     state.result.templates.push(trait);
     cb(null, trait);
+  }
+
+  getContents(state, trait, el, cb) {
+    super.getContents(state, trait, el, (err, traits, contents, result) => {
+      if(err) {
+        return cb(err); 
+      } 
+
+      // separate all template elements into individual template traits
+      let templates = [];
+
+      trait.querySelectorAll = state.parser.parse(trait.contents);
+
+      const elements = trait.querySelectorAll(TEMPLATE)
+        , mod = trait.parent
+        , $ = this.querySelectorAll;
+
+      elements.each((index, elem) => {
+        let tpl = this.getTrait(elem);
+        tpl.href = trait.href;
+        tpl.file = trait.file;
+
+        const el = $(elem); 
+        const prefix = /-$/.test(mod.id) ? mod.id : mod.id + '-'
+          , id = el.attr(ID);
+
+        // inherit template from module
+        if(!id || id === mod.id) {
+
+          if(mod.component) {
+            return cb(new Error(
+              `duplicate main template for ${mod.id} in ${mod.file}`)); 
+          }
+
+          // set id attribute in case it were undefined
+          // thereby inherit from the module id
+          el.attr(ID, mod.id);
+
+          // assign as primary component template
+          mod.component = new Component(tpl, mod);
+        // prefix module id to template with existing
+        // identifier and treat as a partial template
+        }else if(id && id !== mod.id) {
+          el.attr(ID, prefix + id); 
+        }
+
+        // assign id to trait
+        tpl.id = el.attr(ID);
+
+        // update trait contents and query
+        // as we have written the dom with id attributes
+        tpl.contents = $.html(elem);
+
+        templates.push(tpl);
+      })
+
+      cb(null, templates, contents, result);
+    })
   }
 }
 

@@ -28,31 +28,36 @@ function component(mod, state, context, cb) {
 
         const trait = reader.getTrait(el);
 
-        reader.getContents(trait, el, (err, contents) => {
+        reader.getContents(state, trait, el, (err, traits) => {
           if(err) {
             return next(err); 
           }
 
-          trait.contents = contents;
+          each(
+            traits,
+            (trait, next) => {
+              reader.onTrait(state, trait, (err) => {
+                if(err) {
+                  return next(err); 
+                }
+              
+                // perform {{id}} replacement
+                if(trait
+                  && trait.contents === String(trait.contents)
+                  && options.id
+                  && options.id.replace
+                  && (options.id.pattern instanceof RegExp)) {
 
-          reader.onTrait(state, trait, (err) => {
-            if(err) {
-              return next(err); 
-            }
-          
-            // perform {{id}} replacement
-            if(trait
-              && trait.contents === String(trait.contents)
-              && options.id
-              && options.id.replace
-              && (options.id.pattern instanceof RegExp)) {
+                  trait.contents = trait.contents.replace(
+                    options.id.pattern, mod.id); 
+                }
 
-              trait.contents = trait.contents.replace(
-                options.id.pattern, mod.id); 
-            }
+                next(null, trait);
+              });
+            },
+            next
+          );
 
-            next(null, trait);
-          });
         })
       },
       cb
@@ -76,7 +81,7 @@ function component(mod, state, context, cb) {
               mod.component.partials.push(mod.templates[i]); 
             } 
           }
-          console.log('got module with partials...'); 
+          //console.log('got module with partials...'); 
         }
       }
 

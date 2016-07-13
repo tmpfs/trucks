@@ -21,6 +21,11 @@ describe('trucks:', function() {
             , component = mod.component;
 
         expect(component).to.be.an('object');
+
+        // primary template trait
+        expect(component.template).to.be.an('object');
+
+        // list of template partials
         expect(component.partials).to.be.an('array')
           .to.have.length(1);
 

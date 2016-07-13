@@ -1,0 +1,24 @@
+<dom-module id="template-partial">
+
+  <template>
+    <p>Simple component.</p>
+  </template>
+
+  <!-- mock partial element, complete id: template-partial-mock -->
+  <template id="mock">
+    <em></em>
+  </template>
+
+  <style>
+    template-partial {
+      background: black;
+      color: white;
+    }
+  </style>
+
+  <script>
+    skate.define('{{id}}', {
+      render: template
+    });
+  </script>
+</dom-module>

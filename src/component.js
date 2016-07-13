@@ -133,10 +133,6 @@ class ComponentTrait {
     return this.href === undefined;
   }
 
-  get id() {
-    return this.parent.id;
-  }
-
   /**
    *  Utility to trim a result object contents removing leading and trailing 
    *  newlines.

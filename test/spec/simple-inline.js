@@ -1,12 +1,12 @@
 var expect = require('chai').expect
   , fs = require('fs')
-  , trucks = require('../../lib');
+  , trucks = require('../../src');
 
 describe('trucks:', function() {
 
   it('should compile simple inline component', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html'
-      , file = 'test/fixtures/simple-inline/simple-component.html';
+    const src = 'test/fixtures/simple-inline/components.html';
+
     trucks(
       {
         files: [src],

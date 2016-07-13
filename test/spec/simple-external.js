@@ -1,6 +1,6 @@
 var expect = require('chai').expect
   , fs = require('fs')
-  , trucks = require('../../lib');
+  , trucks = require('../../src');
 
 describe('trucks:', function() {
 
@@ -42,6 +42,9 @@ describe('trucks:', function() {
         expect(state.result.scripts[0].result).to.be.an('object');
         // list of ast nodes for component definitions
         expect(state.result.scripts[0].components).to.be.an('object');
+
+        console.log('scripts');
+        console.log(state.result.scripts[0]);
 
         expect(state.result.scripts[0].components['simple-component'])
           .to.be.an('object');

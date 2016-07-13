@@ -28,18 +28,22 @@ class TraitReader {
   }
 
   getInlineContents(el, $) {
+    $ = $ || this.querySelectorAll;
     return $(el).text();
   }
 
   isInline(el, $) {
+    $ = $ || this.querySelectorAll;
     return $(el).attr(HREF) === undefined && $(el).attr(SRC) === undefined;
   }
 
   getExternalHref(el, $) {
+    $ = $ || this.querySelectorAll;
     return $(el).attr(HREF) 
   }
 
-  getElements($, context, selector) {
+  getElements(context, selector, $) {
+    $ = $ || this.querySelectorAll;
     return $(selector || this.selector, context).toArray()
   }
 
@@ -58,13 +62,13 @@ class TraitReader {
     })
   }
 
-  getContents(trait, el, $, cb) {
-    if(this.isInline(el, $)) {
-      return cb(null, this.getInlineContents(el, $)); 
+  getContents(trait, el, cb) {
+    if(this.isInline(el)) {
+      return cb(null, this.getInlineContents(el)); 
     }else{
       this.readContents(
         trait,
-        this.getExternalHref(el, $),
+        this.getExternalHref(el),
         (err, contents, result) => {
           if(err) {
             return cb(err); 
@@ -87,6 +91,7 @@ class TemplateReader extends TraitReader {
   }
 
   getInlineContents(el, $) {
+    $ = $ || this.querySelectorAll;
     return $.html(el);
   }
 
@@ -165,6 +170,7 @@ class ScriptReader extends TraitReader {
   }
 
   getExternalHref(el, $) {
+    $ = $ || this.querySelectorAll;
     return $(el).attr(SRC);
   }
 

@@ -11,8 +11,8 @@ const each = require('./each')
 function component(mod, state, context, cb) {
   const options = state.options;
 
-  const $ = mod.querySelectorAll
-      , readers = require('./reader')
+  //const $ = mod.querySelectorAll
+  const readers = require('./reader')
       , types = [
           new readers.Template(mod), 
           new readers.Style(mod), 
@@ -20,7 +20,7 @@ function component(mod, state, context, cb) {
         ];
 
   function iterator(reader, cb) {
-    const elements = reader.getElements($, context);
+    const elements = reader.getElements(context);
 
     each(
       elements,
@@ -28,7 +28,7 @@ function component(mod, state, context, cb) {
 
         const trait = reader.getTrait(el);
 
-        reader.getContents(trait, el, $, (err, contents) => {
+        reader.getContents(trait, el, (err, contents) => {
           if(err) {
             return next(err); 
           }

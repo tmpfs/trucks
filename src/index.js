@@ -1,6 +1,4 @@
-const merge = require('merge')
-    , path = require('path')
-    , plugins = require('./plugins');
+const plugins = require('./plugins');
 
 /**
  *  Compile component files to CSS, Javascript and HTML.
@@ -24,42 +22,14 @@ const merge = require('merge')
  *  @option {String} [eol] override the default EOL for concatenation.
  */
 function trucks(opts, cb) {
-  let options = require('../defaults')
-    , conf
-    , config;
-
-  opts = opts || {};
-
-  if(opts.conf === String(opts.conf)) {
-    opts.conf = [opts.conf];
-  }
-
-  // list of configuration files to require and merge
-  if(Array.isArray(opts.conf)) {
-    conf = opts.conf;
-    delete opts.conf;
-
-    let i, file;
-    for(i = 0;i < conf.length;i++) {
-      file = conf[i];
-      if(!path.isAbsolute(file)) {
-        file = path.join(process.cwd(), file);
-      }
-      try {
-        config = require(file);
-        options = merge(true, options, config);
-      }catch(e) {
-        return cb(e); 
-      }
+  // configure options against defaults
+  plugins.options(opts, (err, options) => {
+    if(err) {
+      return cb(err); 
     }
-  }
-
-  // finally merge in passed options
-  options = merge(true, options, opts);
-
-  plugins(options, cb);
-
-  return options;
+    // run the plugins
+    return plugins.run(options, cb);
+  });
 }
 
 /**

@@ -1,46 +1,80 @@
-function CompilerState(options) {
-  // private list of middleware to execute
-  this.middleware = [];
+const abs = require('./absolute');
 
-  // input options
-  this.options = options || {};
-  // list of input files
-  this.files = options.files || [];
+class OutputFile {
+  constructor(file, name, base) {
+    // absolute file path
+    this.file = file;
+    // relative path and file name
+    this.name = name;
+    // base path for relative path
+    this.base = base;
+  }
+}
 
-  const cheerio = require('cheerio')
-      , Tree = require('./component').Tree;
+class CompilerState {
+  constructor(options) {
 
-  this.parser = {
-    module: cheerio,
-    parse: cheerio.load
+    // private list of middleware to execute
+    this.middleware = [];
+
+    // map of output files for write phase
+    this._output = {};
+
+    // input options
+    this.options = options || {};
+    // list of input files
+    this.files = options.files || [];
+
+    const cheerio = require('cheerio')
+        , Tree = require('./component').Tree;
+
+    this.parser = {
+      module: cheerio,
+      parse: cheerio.load
+    }
+
+    // the component tree stucture
+    this.tree = new Tree();
+
+    this.list = [];
+
+    // keep track of processed files during load phase
+    this.seen  = {
+      imports: [],
+      sources: []
+    }
+
+    this.result = {
+      // list of all component files
+      files: [] ,
+      // lists of component modules
+      modules: [],
+      // javascript list of all templates
+      templates: [],
+      // javascript list of all styles
+      styles: [],
+      // javascript list of all scripts
+      scripts: [],
+      // compiler output AST structures
+      compiler: {}
+    };
   }
 
-  // the component tree stucture
-  this.tree = new Tree();
-
-  this.list = [];
-
-  // keep track of processed files during load phase
-  this.seen  = {
-    imports: [],
-    sources: []
+  get output() {
+    return this._output;
   }
 
-  this.result = {
-    // list of all component files
-    files: [] ,
-    // lists of component modules
-    modules: [],
-    // javascript list of all templates
-    templates: [],
-    // javascript list of all styles
-    styles: [],
-    // javascript list of all scripts
-    scripts: [],
+  getFile(name, base) {
+    const pth = abs(name, base);
 
-    // compiler output AST structures
-    compiler: {}
-  };
+    // lazy instantiation to return cached version of the file
+    // for modification if it already exists
+    if(!this._output[pth]) {
+      this._output[pth] = new OutputFile(pth, name, base);
+    }
+
+    return this._output[pth]
+  }
 }
 
 module.exports = CompilerState;

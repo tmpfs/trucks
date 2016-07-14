@@ -1,4 +1,5 @@
 const each = require('./each')
+    , abs = require('./absolute')
     , State = require('./state')
     , SOURCES = 'sources'
     , LOAD = 'load'
@@ -97,8 +98,51 @@ function run(opts, cb) {
       cb(null, state);
     }
   );
+
+  return state;
 }
 
-run.phases = PHASES;
+function options(opts, cb) {
+  const merge = require('merge')
+  let options = require('../defaults')
+    , conf
+    , config;
 
-module.exports = run;
+  opts = opts || {};
+
+  if(opts.conf === String(opts.conf)) {
+    opts.conf = [opts.conf];
+  }
+
+  // list of configuration files to require and merge
+  if(Array.isArray(opts.conf)) {
+    conf = opts.conf;
+    delete opts.conf;
+
+    let i, file;
+    for(i = 0;i < conf.length;i++) {
+      file = conf[i];
+      file = abs(file);
+      //if(!path.isAbsolute(file)) {
+        //file = path.join(process.cwd(), file);
+      //}
+      try {
+        config = require(file);
+        options = merge(true, options, config);
+      }catch(e) {
+        return cb(e); 
+      }
+    }
+  }
+
+  // finally merge in passed options
+  options = merge(true, options, opts);
+
+  cb(null, options);
+}
+
+module.exports = {
+  phases: PHASES,
+  options: options,
+  run: run
+}

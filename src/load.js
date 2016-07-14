@@ -2,15 +2,8 @@ const fs = require('fs')
     , path = require('path')
     , each = require('./each')
     , selectors = require('./selectors')
+    , abs = require('./absolute')
     , File = require('./component').File;
-
-function abs(file, base) {
-  if(!path.isAbsolute(file)) {
-    base = base || process.cwd();
-    return path.normalize(path.join(base, file)); 
-  }
-  return file;
-}
 
 /**
  *  Encapsulates the load state information.

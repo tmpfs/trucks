@@ -4,22 +4,38 @@ const each = require('./each')
     , ID = 'id';
 
 /**
- *  Iterate the templates, scripts and styles in a component module.
+ *  Test for duplicate template identifiers.
  *
- *  @private
+ *  @private {function} duplicates
+ *  @param {Array} templates list of loaded templates.
+ *
+ *  @throws Error if a duplicate template identifier is found.
  */
-function component(mod, state, context, cb) {
+function duplicates(templates) {
+  const identifiers = [];
+  let i
+    , tpl
+    , id;
+
+  for(i = 0;i < templates.length;i++) {
+    tpl = templates[i];
+    id = tpl.id;
+    if(~identifiers.indexOf(id)) {
+      throw new Error(
+        `duplicate template identifier ${id} in ${tpl.parent.file}`); 
+    }
+    identifiers.push(id);
+  }
+}
+
+function getIterator(state, mod, context) {
   const options = state.options;
 
-  //const $ = mod.querySelectorAll
-  const readers = require('./reader')
-      , types = [
-          new readers.Template(mod), 
-          new readers.Style(mod), 
-          new readers.Script(mod)
-        ];
-
-  function iterator(reader, cb) {
+  return function iterator(reader, it, cb) {
+    if(!cb) {
+      cb = it; 
+      it = null;
+    }
     const elements = reader.getElements(context);
 
     each(
@@ -31,6 +47,10 @@ function component(mod, state, context, cb) {
         reader.getContents(state, trait, el, (err, traits) => {
           if(err) {
             return next(err); 
+          }
+
+          if(it) {
+            return it(traits, next); 
           }
 
           each(
@@ -63,6 +83,21 @@ function component(mod, state, context, cb) {
       cb
     )
   }
+}
+
+/**
+ *  Iterate the templates, scripts and styles in a component module.
+ *
+ *  @private
+ */
+function component(state, mod, context, cb) {
+    const readers = require('./reader')
+      , types = [
+          new readers.Template(mod), 
+          new readers.Style(mod), 
+          new readers.Script(mod)
+        ]
+      , iterator = getIterator(state, mod, context);
 
   each(
     types,
@@ -71,24 +106,44 @@ function component(mod, state, context, cb) {
       if(err) {
         return cb(err);
       } 
+
       // found primary component template
       if(mod.component) {
 
-        // got some partials to assign
-        if(mod.templates.length > 1) {
-          for(let i = 0;i < mod.templates.length;i++) {
-            if(mod.component.template !== mod.templates[i]) {
-              mod.component.partials.push(mod.templates[i]); 
+        each(
+          mod.templates,
+          (template, next) => {
+
+            // got some partials to assign
+            if(mod.component.template !== template) {
+              mod.component.partials.push(template);
             } 
-          }
-          //console.log('got module with partials...'); 
-        }
+
+            // read in style traits defined in the <template> context
+            // these are component styles that should be applied to the 
+            // shadow DOM
+            const reader = new readers.Style(mod)
+              , iterator = getIterator(state, mod, template.element)
+              //, types = [ reader ];
+            //each(types,, next);
+            //
+            iterator(
+              reader,
+              (traits, next) => {
+                traits.forEach((trait) => {
+                  trait.querySelectorAll = state.parser.parse(trait.contents);
+                  trait.trim(state.options.trim); 
+                  mod.component.styles.push(trait);
+                  trait.parent.stylesheets.push(trait);
+                  state.result.styles.push(trait);
+                })
+                next();
+              }, next)
+          }, cb);
+
+      }else{
+        cb();
       }
-
-      // TODO: parse inline styles as StyleTrait and add to the 
-      // TODO: component list of styles
-
-      cb();
     }
   );
 }
@@ -143,10 +198,18 @@ function modules(state, cb) {
           // add to global list of all modules
           state.result.modules.push(mod);
 
-          component(mod, state, context, next);
+          component(state, mod, context, next);
         }, next)
     },
     (err) => {
+
+      // test for duplicate id across all templates
+      try {
+        duplicates(state.result.templates);
+      }catch(e) {
+        return cb(e); 
+      }
+
       cb(err, state); 
     }
   );

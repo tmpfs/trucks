@@ -20,6 +20,18 @@ describe('trucks:', function() {
             , mod = file.imports[0].modules[0]
             , component = mod.component;
 
+        // styles for all components
+        expect(state.result.styles.length).to.eql(3);
+
+        // all styles for the module
+        expect(mod.stylesheets.length).to.eql(3);
+
+        // global scope module styles
+        expect(mod.styles.length).to.eql(1);
+
+        // local component scope styles
+        expect(component.styles.length).to.eql(2);
+
         // list of all templates on the module
         expect(mod.templates).to.be.an('array')
           .to.have.length(2);

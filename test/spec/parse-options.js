@@ -7,7 +7,8 @@ describe('parse:', function() {
     trucks.parse(
       {
         result: {
-          files: []
+          files: [],
+          templates: []
         }
       },
       (err, result) => {

@@ -130,11 +130,11 @@ function transform(state, cb) {
 
   opts.babel = opts.babel || {};
 
-  try {
-    duplicates(state.result.templates);
-  }catch(e) {
-    return cb(e); 
-  }
+  //try {
+    //duplicates(state.result.templates);
+  //}catch(e) {
+    //return cb(e); 
+  //}
 
   extract(state, result, function(err) {
     if(err) {

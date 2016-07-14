@@ -178,7 +178,14 @@ class StyleReader extends TraitReader {
   onTrait(state, trait, cb) {
     trait.querySelectorAll = state.parser.parse(trait.contents);
     trait.trim(state.options.trim); 
+
+    // global scope styles
     trait.parent.styles.push(trait);
+
+    // all styles
+    trait.parent.stylesheets.push(trait);
+
+    // flat collection of all styles
     state.result.styles.push(trait);
     cb(null, this);
   }

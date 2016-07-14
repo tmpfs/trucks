@@ -5,6 +5,8 @@
  */
 function each(list, it, cb) {
 
+  list = list.slice();
+
   function next(err) {
     if(err) {
       return cb(err); 

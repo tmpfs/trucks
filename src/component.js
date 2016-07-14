@@ -60,13 +60,21 @@ class ComponentModule {
     // the owner component file
     this.parent = parent; 
 
-    // main component
+    // main component storing
+    // the primary template, any partials
+    // and component local styles
     this.component = null;
 
     // list of parsed templates
     this.templates = [];
 
-    // list of parsed styles
+    // list of all styles parsed
+    // includes those within dom-module (global) 
+    // and those within template elements (component local)
+    this.stylesheets = [];
+
+    // list of global styles parsed
+    // as dom-module > style
     this.styles = [];
 
     // list of parsed javascript

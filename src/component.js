@@ -13,14 +13,36 @@ const MIME = {
         'font-face-name',
         'missing-glyph'
       ];
+
+/**
+ *  Represents an item with imports. 
+ *
+ *  @public {class} ComponentImport
+ */
+class ComponentImport {
+  constructor() {
+
+    // dependencies referenced with `<link rel="import">`
+    // propagated during the load compiler phase
+    this.imports = [];
+  }
+
+  iterator(it) {
+    this.imports.forEach((item) => {
+      it(item);
+      item.iterator(it);
+    })
+  }
+}
+
 /**
  *  Represents the root of a component hierarchy. 
  *
  *  @public {class} ComponentTree
  */
-class ComponentTree {
+class ComponentTree extends ComponentImport {
   constructor() {
-    this.imports = [];
+    super();
   }
 }
 
@@ -29,15 +51,15 @@ class ComponentTree {
  *
  *  @public {class} ComponentFile
  */
-class ComponentFile {
+class ComponentFile extends ComponentImport {
   constructor(file, contents, parent) {
+    super();
+
     this.file = file;
     this.contents = contents;
     this.parent = parent;
 
-    // dependencies referenced with `<link rel="import">`
-    // propagated during the load compiler phase
-    this.imports = [];
+    //this.imports = [];
 
     // list of component modules defined with `<dom-module>`
     // propagated during the parse compiler phase
@@ -50,6 +72,21 @@ class ComponentFile {
     // query for the DOM of this document
     // injected during the load phase
     this.querySelectorAll = null;
+  }
+
+  iterator(it) {
+    // iterate our imports
+    super.iterator(it); 
+
+    // iterate modules
+    this.modules.forEach((mod) => {
+
+      // call iterator with module
+      it(mod);
+
+      // iterate module items
+      mod.iterator(it); 
+    })
   }
 }
 
@@ -82,6 +119,18 @@ class ComponentModule {
 
     // injected during the parse phase
     this.querySelectorAll = null;
+  }
+
+  iterator(it) {
+    this.templates.forEach((item) => {
+      it(item); 
+    })
+    this.stylesheets.forEach((item) => {
+      it(item); 
+    })
+    this.scripts.forEach((item) => {
+      it(item); 
+    })
   }
 
   get file() {

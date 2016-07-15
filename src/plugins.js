@@ -110,7 +110,7 @@ function getHandlers() {
     },
     load: require('./plugins/load'),
     parse: require('./plugins/parse'),
-    transform: require('./transform'),
+    transform: require('./plugins/transform'),
     generate: require('./plugins/generate'),
     write: require('./plugins/write')
   }

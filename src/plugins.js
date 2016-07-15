@@ -94,6 +94,17 @@ function options(state, cb) {
   // plugin configuration objects
   options.configuration = options.configuration || {};
 
+  // respect `transforms` shortcut option
+  if(Array.isArray(options.transforms)) {
+    options.configuration.transform = options.configuration.transform || {};
+    options.configuration.transform.visitors = 
+      options.configuration.transform.visitors  || [];
+
+    options.transforms.forEach((transform) => {
+      options.configuration.transform.visitors.push(transform); 
+    })
+  }
+
   // re-assign modified options
   state.options = options;
 

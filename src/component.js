@@ -272,6 +272,10 @@ class Component {
     this.styles = [];
   }  
 
+  get scripts() {
+    return this.parent.scripts;
+  }
+
   get id() {
     return this.parent.id;
   }

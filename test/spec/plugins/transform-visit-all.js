@@ -18,13 +18,16 @@ describe('transform:', function() {
         plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
         configuration: {
           transform: {
-            visitors: [{
-              '*': function(node, cb) {
-                expect(node).to.be.an('object');
-                nodes.push(node);
-                visited = true;
-                count++;
-                cb(null, node);
+            visitors: [
+              function visit() {
+                return {
+                  '*': function(node, cb) {
+                    expect(node).to.be.an('object');
+                    nodes.push(node);
+                    visited = true;
+                    count++;
+                    cb(null, node);
+                  }
               }
             }]
           }

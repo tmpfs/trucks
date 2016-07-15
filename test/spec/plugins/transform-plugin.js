@@ -14,7 +14,9 @@ describe('trucks:', function() {
         plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
         configuration: {
           transform: {
-            visitors: []
+            visitors: [
+            
+            ]
           }
         }
       },

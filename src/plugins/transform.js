@@ -1,8 +1,8 @@
 function visit(state, visitors, node, cb) {
-
   const components = state.components
       , File = components.File
       , Module = components.Module
+      , Component = components.Component
       , Template = components.Template
       , Style = components.Style
       , Script = components.Script;
@@ -20,6 +20,9 @@ function visit(state, visitors, node, cb) {
       case 'Module':
         valid = (node instanceof Module);
         break;
+      case 'Component':
+        valid = (node instanceof Component);
+        break;
       case 'Template':
         valid = (node instanceof Template);
         break;
@@ -30,8 +33,6 @@ function visit(state, visitors, node, cb) {
         valid = (node instanceof Script);
         break;
     }
-
-    //console.log('valid %s', valid);
 
     return valid;
   }
@@ -55,8 +56,11 @@ function visit(state, visitors, node, cb) {
 }
 
 
-function plugin(conf/*, state*/) {
-  const visitors = conf.visitors || [];
+function plugin(conf, state) {
+  const visitors = conf.visitors || []
+    , list = visitors.map((visitor) => {
+        return visitor(state); 
+      })
   return function transform(state, cb) {
 
     if(!Array.isArray(visitors)) {
@@ -73,7 +77,7 @@ function plugin(conf/*, state*/) {
     state.each(
       items,
       (item, next) => {
-        visit(state, visitors, item, next);
+        visit(state, list, item, next);
       }, cb)
   }
 }

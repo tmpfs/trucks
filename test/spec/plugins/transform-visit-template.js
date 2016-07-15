@@ -17,12 +17,15 @@ describe('transform:', function() {
         plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
         configuration: {
           transform: {
-            visitors: [{
-              'Template': function(node, cb) {
-                expect(node).to.be.an('object');
-                visited = true;
-                count++;
-                cb(null, node);
+            visitors: [
+              function visit() {
+                return {
+                  'Template': function(node, cb) {
+                    expect(node).to.be.an('object');
+                    visited = true;
+                    count++;
+                    cb(null, node);
+                  }
               }
             }]
           }

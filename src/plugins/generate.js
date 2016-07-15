@@ -35,12 +35,12 @@ function plugin(/*conf, state*/) {
       // TODO: move this logic to compiler plugin
 
       // got compiled code to prepend
-      if(state.result.compiler
-        && state.result.compiler.compiled
-        && state.result.compiler.compiled.code) {
-        file.prepend(state.result.compiler.compiled.code.main);
-        file.prepend(state.result.compiler.compiled.code.map);
-      }
+      //if(state.result.compiler
+        //&& state.result.compiler.compiled
+        //&& state.result.compiler.compiled.code) {
+        //file.prepend(state.result.compiler.compiled.code.main);
+        //file.prepend(state.result.compiler.compiled.code.map);
+      //}
     }
 
     cb(null, state);

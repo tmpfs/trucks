@@ -87,9 +87,7 @@ class CompilerState {
       // javascript list of all styles
       styles: [],
       // javascript list of all scripts
-      scripts: [],
-      // compiler output AST structures
-      compiler: {}
+      scripts: []
     };
   }
 

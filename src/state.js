@@ -43,7 +43,8 @@ class CompilerState {
     this._output = {};
 
     // input options
-    this.options = options || {};
+    options = options || {};
+
     // list of input files
     this.files = options.files || [];
 
@@ -54,6 +55,8 @@ class CompilerState {
       module: cheerio,
       parse: cheerio.load
     }
+
+    this.options = options;
 
     // the component tree stucture
     this.tree = new Tree();

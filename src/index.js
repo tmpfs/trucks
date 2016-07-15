@@ -22,14 +22,9 @@ const plugins = require('./plugins');
  *  @option {String} [eol] override the default EOL for concatenation.
  */
 function trucks(opts, cb) {
-  // configure options against defaults
-  plugins.options(opts, (err, options) => {
-    if(err) {
-      return cb(err); 
-    }
-    // run the plugins
-    return plugins.run(options, cb);
-  });
+  // run the plugins using the supplied options
+  // which will be converted to a compiler state
+  return plugins(opts, cb);
 }
 
 /**

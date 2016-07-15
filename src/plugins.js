@@ -92,7 +92,7 @@ function options(state, cb) {
   }
 
   // plugin configuration objects
-  options.conf = options.conf || {};
+  options.configuration = options.configuration || {};
 
   // re-assign modified options
   state.options = options;
@@ -135,7 +135,7 @@ function run(opts, cb) {
 
     for(i = 0;i < phases.length;i++) {
       phase = phases[i];
-      conf = state.options.conf[phase] || {};
+      conf = state.options.configuration[phase] || {};
 
       try {
         // assume plugin is middleware
@@ -159,7 +159,7 @@ function run(opts, cb) {
       }else if(Array.isArray(closure)) {
         for(let j = 0;j < closure.length;j++) {
           phase = closure[j].name;
-          conf = state.options.conf[phase] || {};
+          conf = state.options.configuration[phase] || {};
           middleware.push(closure[j](conf, state)); 
         }
       }

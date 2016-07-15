@@ -56,7 +56,7 @@ function visit(state, visitors, node, cb) {
 
 
 function plugin(conf/*, state*/) {
-  const visitors = conf.visitors;
+  const visitors = conf.visitors || [];
   return function transform(state, cb) {
 
     if(!Array.isArray(visitors)) {

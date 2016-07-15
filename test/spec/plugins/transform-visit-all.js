@@ -16,7 +16,7 @@ describe('transform:', function() {
         out: 'target',
         name: 'transform-plugin',
         plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
-        conf: {
+        configuration: {
           transform: {
             visitors: [{
               '*': function(node, cb) {

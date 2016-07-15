@@ -1,13 +1,14 @@
 var expect = require('chai').expect
   , babel = require('babel-core')
-  , trucks = require('../../../src');
+  , compiler = require('../../../src/compiler');
 
 describe('compiler:', function() {
 
   it('should generate AST for element w/ deep children', function(done) {
     const tpl = 
       '<template id="x-foo"><div><p><em>Foo</em></p></div></template>';
-    const res = trucks.compile(tpl);
+
+    const res = compiler.html(tpl);
 
     expect(res.list).to.be.an('array').to.have.length(1);
 

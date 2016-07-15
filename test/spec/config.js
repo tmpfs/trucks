@@ -37,7 +37,7 @@ describe('trucks:', function() {
         out: out,
         extract: true,
         conf: ['test/fixtures/mock-config.js'],
-        transforms: [require('../../src/transforms/skate-compiler')]
+        transforms: ['skate']
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -57,7 +57,7 @@ describe('trucks:', function() {
         force: true,
         extract: true,
         conf: path.join(process.cwd(), 'test/fixtures/mock-config.js'),
-        transforms: [require('../../src/transforms/skate-compiler')]
+        transforms: ['skate']
       },
       (err, state) => {
         expect(err).to.eql(null);

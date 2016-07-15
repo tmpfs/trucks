@@ -11,7 +11,7 @@ describe('trucks:', function() {
         files: [src],
         out: 'target',
         name: 'deep-dependent',
-        transforms: [require('../../src/transforms/skate-compiler')]
+        transforms: ['skate']
       },
       (err, state) => {
         expect(err).to.eql(null);

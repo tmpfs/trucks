@@ -1,6 +1,6 @@
 var expect = require('chai').expect
   , babel = require('babel-core')
-  , trucks = require('../../../src');
+  , compiler = require('../../../src/compiler');
 
 describe('compiler:', function() {
 
@@ -8,7 +8,8 @@ describe('compiler:', function() {
     const tpl = '<template id="x-foo"><span></span></template>'
       + '<template id="x-bar"><span></span></template>';
 
-    const res = trucks.compile(tpl);
+    const res = compiler.html(tpl);
+
     const result = babel.transformFromAst(res.map);
     expect(result.code).to.eql(
       'const templates = {\n'

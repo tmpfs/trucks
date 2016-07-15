@@ -1,12 +1,12 @@
 var expect = require('chai').expect
-  , trucks = require('../../../src');
+  , compiler = require('../../../src/compiler');
 
 describe('compiler:', function() {
 
   it('should error without component identifier', function(done) {
     const tpl = '<template></template>';
     function fn() {
-      trucks.compile(tpl);
+      compiler.html(tpl);
     }
 
     expect(fn).throws(/template declared with no identifier/);

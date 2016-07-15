@@ -1,13 +1,13 @@
 var expect = require('chai').expect
   , babel = require('babel-core')
-  , trucks = require('../../../src');
+  , compiler = require('../../../src/compiler');
 
 describe('compiler:', function() {
 
   it('should generate AST without template elements', function(done) {
 
     const tpl = '<span></span>';
-    const res = trucks.compile(tpl);
+    const res = compiler.html(tpl);
 
     // no render functions
     expect(res.list).to.be.an('array').to.have.length(0);

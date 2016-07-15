@@ -1,7 +1,7 @@
 {
-  "name": "trucks",
-  "version": "0.2.16",
-  "description": "Web component compiler and package manager",
+  "name": "trucks-plugin-skate",
+  "version": "0.2.0",
+  "description": "Compiler for skatejs components",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -14,8 +14,7 @@
   },
   "dependencies": {
     "babel-core": "~6.10.4",
-    "cheerio": "~0.20.0",
-    "merge": "~1.2.0"
+    "cheerio": "~0.20.0"
   },
   "devDependencies": {
     "babel-cli": "~6.10.1",
@@ -25,8 +24,7 @@
     "express": "~4.14.0",
     "istanbul": "~0.4.4",
     "mocha": "~2.5.3",
-    "skatejs": "~1.0.0-beta.7",
-    "trucks-plugin-skate": "*"
+    "skatejs": "~1.0.0-beta.7"
   },
   "scripts": {
     "clean": "rm -rf coverage target",

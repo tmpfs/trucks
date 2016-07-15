@@ -59,6 +59,9 @@ function visit(state, visitors, node, cb) {
 function plugin(conf, state) {
   const visitors = conf.visitors || []
     , list = visitors.map((visitor) => {
+        if(visitor === String(visitor)) {
+          visitor = require('trucks-plugin-' + visitor); 
+        }
         return visitor(state); 
       })
   return function transform(state, cb) {

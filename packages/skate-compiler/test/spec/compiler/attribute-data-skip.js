@@ -1,6 +1,6 @@
 var expect = require('chai').expect
   , babel = require('babel-core')
-  , trucks = require('../../../src');
+  , compiler = require('../../../src/compiler');
 
 describe('compiler:', function() {
 
@@ -9,7 +9,7 @@ describe('compiler:', function() {
       const tpl = '<template id="x-foo">'
         + '<span data-skip></span></template>';
 
-      const res = trucks.compile(tpl);
+      const res = compiler.html(tpl);
 
       expect(res.list).to.be.an('array').to.have.length(1);
 
@@ -33,7 +33,7 @@ describe('compiler:', function() {
       const tpl = '<template id="x-foo">'
         + '<span data-skip="skip"></span></template>';
 
-      const res = trucks.compile(tpl);
+      const res = compiler.html(tpl);
 
       expect(res.list).to.be.an('array').to.have.length(1);
 

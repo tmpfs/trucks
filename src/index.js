@@ -27,13 +27,6 @@ function trucks(opts, cb) {
   return plugins(opts, cb);
 }
 
-// NOTE: this function is documented in src/compile.js
-trucks.compile = function(html, opts) {
-  // NOTE: lazy require for compiler code
-  const compiler = require('./compile');
-  return compiler(html, opts);
-}
-
 plugins.phases.forEach((phase) => {
   trucks[phase.toUpperCase()] = phase;
 })

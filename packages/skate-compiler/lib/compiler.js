@@ -1,29 +1,31 @@
-const TAG = 'tag'
-    , STYLE = 'style'
-    , SCRIPT = 'script'
-    , ID = 'id'
-    , SKATE = 'skate'
-    , VDOM = 'vdom'
-    , RENDER = 'render'
-    , ELEM = 'elem'
-    , ELEMENT = 'element'
-    , TEXT = 'text'
-    , TEMPLATES = 'templates' 
-    , MAIN = 'template'
-    , TAG_NAME = 'tagName'
-    , TO_LOWER_CASE = 'toLowerCase'
-    , DATA_KEY = 'data-key'
-    , DATA_SKIP = 'data-skip'
-    , DATA_STATIC = /^data-static-(.+)/;
-  
+'use strict';
+
+var TAG = 'tag',
+    STYLE = 'style',
+    SCRIPT = 'script',
+    ID = 'id',
+    SKATE = 'skate',
+    VDOM = 'vdom',
+    RENDER = 'render',
+    ELEM = 'elem',
+    ELEMENT = 'element',
+    TEXT = 'text',
+    TEMPLATES = 'templates',
+    MAIN = 'template',
+    TAG_NAME = 'tagName',
+    TO_LOWER_CASE = 'toLowerCase',
+    DATA_KEY = 'data-key',
+    DATA_SKIP = 'data-skip',
+    DATA_STATIC = /^data-static-(.+)/;
+
 /**
  *  Utility to determine if an object is empty.
  *
  *  @private
  */
 function isEmpty(obj) {
-  let key;
-  for(key in obj) {
+  var key = void 0;
+  for (key in obj) {
     return false;
   }
   return true;
@@ -94,26 +96,26 @@ function isEmpty(obj) {
  *    , {map, main, list} = trucks.compile(tpl);
  */
 function compile(html, opts) {
-  const cheerio = require('cheerio');
+  var cheerio = require('cheerio');
   opts = opts || {};
 
   opts.dom = opts.dom || {};
 
-  if(opts.normalize === undefined) {
-    opts.normalize = true; 
-  }else{
+  if (opts.normalize === undefined) {
+    opts.normalize = true;
+  } else {
     opts.normalize = Boolean(opts.normalize);
   }
 
-  if(opts.normalize) {
-    opts.dom.normalizeWhitespace = true; 
+  if (opts.normalize) {
+    opts.dom.normalizeWhitespace = true;
   }
 
-  if(opts.literals === undefined) {
-    opts.literals = {}; 
-  // truthy enable all template literals
-  }else if(opts.literals && opts.literals !== Object(opts.literals)) {
-    opts.literals = {text: true, attribute: true}; 
+  if (opts.literals === undefined) {
+    opts.literals = {};
+    // truthy enable all template literals
+  } else if (opts.literals && opts.literals !== Object(opts.literals)) {
+    opts.literals = { text: true, attribute: true };
   }
 
   opts.$ = cheerio.load(html, opts.dom);
@@ -130,7 +132,7 @@ function compile(html, opts) {
   opts.main = opts.main || MAIN;
   opts.templates = opts.templates || TEMPLATES;
 
-  const templates = transform(opts);
+  var templates = transform(opts);
 
   return {
     list: templates,
@@ -149,39 +151,10 @@ function compile(html, opts) {
  *  @returns program representing the main function.
  */
 function main(opts) {
-  const t = require('babel-core').types;
+  var t = require('babel-core').types;
 
   // main function declaration
-  let expr = t.functionDeclaration(
-      t.identifier(opts.main),
-      [t.identifier(ELEM)],
-      t.blockStatement(
-        [
-          t.returnStatement(
-            t.callExpression(
-              t.memberExpression(
-                t.memberExpression(
-                  t.identifier(opts.templates),
-                  t.callExpression(
-                    t.memberExpression(
-                      t.memberExpression(
-                        t.identifier(ELEM),
-                        t.identifier(TAG_NAME)
-                      ),
-                      t.identifier(TO_LOWER_CASE)
-                    ),
-                    []
-                  ),
-                  true
-                ),
-                t.identifier('call')
-              ),
-              [t.identifier(ELEM), t.identifier(ELEM)]
-            )  
-          )
-        ] 
-      )
-    );
+  var expr = t.functionDeclaration(t.identifier(opts.main), [t.identifier(ELEM)], t.blockStatement([t.returnStatement(t.callExpression(t.memberExpression(t.memberExpression(t.identifier(opts.templates), t.callExpression(t.memberExpression(t.memberExpression(t.identifier(ELEM), t.identifier(TAG_NAME)), t.identifier(TO_LOWER_CASE)), []), true), t.identifier('call')), [t.identifier(ELEM), t.identifier(ELEM)]))]));
 
   return t.program([expr]);
 }
@@ -197,31 +170,19 @@ function main(opts) {
  *  @returns {Object} AST program mapping components to render functions.
  */
 function map(templates, opts) {
-  let out = [];
+  var out = [];
 
-  const t = require('babel-core').types;
+  var t = require('babel-core').types;
 
-  templates.forEach((tpl) => {
-    let expr = t.functionExpression(
-      t.identifier(opts.name),
-      [t.identifier(opts.arg)], t.blockStatement(tpl.body.body));
+  templates.forEach(function (tpl) {
+    var expr = t.functionExpression(t.identifier(opts.name), [t.identifier(opts.arg)], t.blockStatement(tpl.body.body));
 
     // NOTE: must use stringLiteral() rather than identifier() to quote
     // NOTE: the object property which must contain a hyphen for component
     // NOTE: tag names
-    out.push(
-      t.objectProperty(t.stringLiteral(tpl.id), expr)
-    );
-  })
-  const program = t.variableDeclaration(
-    'const', 
-    [
-      t.variableDeclarator(
-        t.identifier(opts.templates),
-        t.objectExpression(out)
-      )
-    ]
-  )
+    out.push(t.objectProperty(t.stringLiteral(tpl.id), expr));
+  });
+  var program = t.variableDeclaration('const', [t.variableDeclarator(t.identifier(opts.templates), t.objectExpression(out))]);
   return t.program([program]);
 }
 
@@ -237,11 +198,9 @@ function map(templates, opts) {
  *  @param {Function} it iterator function to transform property values.
  */
 function getObjectExpression(t, map, it) {
-  const out = [];
-  for(let k in map) {
-    out.push(
-      t.objectProperty(t.stringLiteral(k), it(map[k]))
-    );
+  var out = [];
+  for (var k in map) {
+    out.push(t.objectProperty(t.stringLiteral(k), it(map[k])));
   }
   return t.objectExpression(out);
 }
@@ -257,23 +216,19 @@ function getObjectExpression(t, map, it) {
  *  @param {Array} args the argument list for the function call.
  */
 function getCallExpression(t, method, args) {
-  const expr =
-    t.callExpression(
-      // callee
-      t.memberExpression(
-        // object
-        t.memberExpression(
-          // object
-          t.identifier(SKATE),
-          // property
-          t.identifier(VDOM)
-        ),
-        // property
-        t.identifier(method)
-      ),
-      // arguments
-      args
-    );
+  var expr = t.callExpression(
+  // callee
+  t.memberExpression(
+  // object
+  t.memberExpression(
+  // object
+  t.identifier(SKATE),
+  // property
+  t.identifier(VDOM)),
+  // property
+  t.identifier(method)),
+  // arguments
+  args);
   return expr;
 }
 
@@ -283,7 +238,7 @@ function getCallExpression(t, method, args) {
  *  @private {function} key
  */
 function key(prop, value, attrs) {
-  if(prop === DATA_KEY && value === String(value)) {
+  if (prop === DATA_KEY && value === String(value)) {
     attrs.key = value;
     delete attrs[prop];
   }
@@ -296,7 +251,7 @@ function key(prop, value, attrs) {
  *  @private {function} skip
  */
 function skip(prop, value, attrs) {
-  if(prop === DATA_SKIP) {
+  if (prop === DATA_SKIP) {
     attrs.skip = true;
     delete attrs[prop];
   }
@@ -309,8 +264,8 @@ function skip(prop, value, attrs) {
  *  @private {function} statics
  */
 function statics(prop, value, attrs) {
-  let key;
-  if(DATA_STATIC.test(prop)) {
+  var key = void 0;
+  if (DATA_STATIC.test(prop)) {
     key = prop.replace(DATA_STATIC, '$1');
     attrs.statics = attrs.statics || {};
     attrs.statics[key] = value;
@@ -328,10 +283,10 @@ function statics(prop, value, attrs) {
  *  @return mutated attributes object.
  */
 function attributes(attrs) {
-  for(let k in attrs) {
-    key(k, attrs[k], attrs); 
-    skip(k, attrs[k], attrs); 
-    statics(k, attrs[k], attrs); 
+  for (var k in attrs) {
+    key(k, attrs[k], attrs);
+    skip(k, attrs[k], attrs);
+    statics(k, attrs[k], attrs);
   }
   return attrs;
 }
@@ -349,8 +304,7 @@ function attributes(attrs) {
  *  @returns a function declaration.
  */
 function render(t, body, opts) {
-  return t.functionDeclaration(
-    t.identifier(opts.name), [t.identifier(opts.arg)], t.blockStatement(body));
+  return t.functionDeclaration(t.identifier(opts.name), [t.identifier(opts.arg)], t.blockStatement(body));
 }
 
 /**
@@ -363,64 +317,61 @@ function render(t, body, opts) {
  *  @returns {Object} function body AST.
  */
 function template(el, opts) {
-  const $ = opts.$
-    , babel = require('babel-core')
-    , t = babel.types
-    , body = [];
-
+  var $ = opts.$,
+      babel = require('babel-core'),
+      t = babel.types,
+      body = [];
 
   function propertyString(val) {
-    if(val === true || val === false) {
+    if (val === true || val === false) {
       return t.booleanLiteral(val);
-    }else if(val && val === Object(val)) {
-      return getObjectExpression(t, val, propertyString); 
+    } else if (val && val === Object(val)) {
+      return getObjectExpression(t, val, propertyString);
     }
     return t.stringLiteral(val);
   }
 
   function propertyTemplate(val) {
-    return babel.transform(
-      '`' + val  + '`').ast.program.body[0].expression;
+    return babel.transform('`' + val + '`').ast.program.body[0].expression;
   }
 
   function convert(childNodes, body) {
-    let i
-      , args = []
-      , expr;
+    var i = void 0,
+        args = [],
+        expr = void 0;
 
-    for(i = 0;i < childNodes.length;i++) {
-      const child = childNodes[i];
-      const el = $(child);
-      let script;
+    for (i = 0; i < childNodes.length; i++) {
+      var child = childNodes[i];
+      var _el = $(child);
+      var script = void 0;
 
       // TODO: implement the logic to parse template scripts
-      if(child.type === SCRIPT && el.attr('data-compile') !== undefined) {
-        script = el.text();
-        let res; 
-        
+      if (child.type === SCRIPT && _el.attr('data-compile') !== undefined) {
+        script = _el.text();
+        var res = void 0;
+
         try {
           res = babel.transform(script, opts.babel);
           // TODO: parse AST for calls to html()
           // TODO: wrap in self-executing function
 
           //console.log(res.code);
-        }catch(e) {
-          throw e; 
+        } catch (e) {
+          throw e;
         }
-      // child tag node (element)
-      }else if(child.type === TAG
-        || child.type === STYLE
-        // run time script
-        || child.type === SCRIPT) {
+        // child tag node (element)
+      } else if (child.type === TAG || child.type === STYLE
+      // run time script
+      || child.type === SCRIPT) {
         args = [t.stringLiteral(child.name)];
 
         // push attributes into function call when not empty
-        let attrs = el.attr();
-        if(!isEmpty(attrs)) {
-          let it = propertyString;
+        var attrs = _el.attr();
+        if (!isEmpty(attrs)) {
+          var it = propertyString;
 
           // parse attribute value as template literal
-          if(opts.literals.attribute) {
+          if (opts.literals.attribute) {
             it = propertyTemplate;
           }
 
@@ -430,43 +381,38 @@ function template(el, opts) {
         }
 
         // got some child nodes to process
-        if(child.childNodes && child.childNodes.length) {
-       
+        if (child.childNodes && child.childNodes.length) {
+
           // get function expression
-          const block = [];
+          var block = [];
 
           convert(child.childNodes, block);
 
           // NOTE: no function arguments
-          args.push(
-            t.arrowFunctionExpression([], t.blockStatement(block))
-          );
+          args.push(t.arrowFunctionExpression([], t.blockStatement(block)));
         }
 
         // call skate.vdom.element();
-        expr = t.expressionStatement(
-          getCallExpression(t, ELEMENT, args));
-      // child text node
-      }else{
-        const text = el.text();
-        let arg;
+        expr = t.expressionStatement(getCallExpression(t, ELEMENT, args));
+        // child text node
+      } else {
+        var text = _el.text();
+        var arg = void 0;
 
         // skip text nodes that are just whitespace
-        if(opts.normalize && /^\s*$/.test(text)) {
-          continue; 
+        if (opts.normalize && /^\s*$/.test(text)) {
+          continue;
         }
 
         // draft support for template literals in text nodes
-        if(opts.literals.text) {
-          arg = babel.transform(
-            '`' + text + '`', opts.babel).ast.program.body[0].expression;
-        }else{
+        if (opts.literals.text) {
+          arg = babel.transform('`' + text + '`', opts.babel).ast.program.body[0].expression;
+        } else {
           arg = t.stringLiteral(text);
         }
         // call skate.vdom.text();
         args = [arg];
-        expr = t.expressionStatement(
-          getCallExpression(t, TEXT, args));
+        expr = t.expressionStatement(getCallExpression(t, TEXT, args));
       }
 
       body.push(expr);
@@ -475,12 +421,11 @@ function template(el, opts) {
 
   convert(el.childNodes, body);
 
-  const tpl = $(el)
-    , id = tpl.attr(opts.attr);
+  var tpl = $(el),
+      id = tpl.attr(opts.attr);
 
-  if(!id) {
-    throw new Error(
-      `template declared with no identifier (${opts.attr} attribute)`);
+  if (!id) {
+    throw new Error('template declared with no identifier (' + opts.attr + ' attribute)');
   }
 
   return {
@@ -490,7 +435,7 @@ function template(el, opts) {
     name: tpl.get(0).tagName,
     body: t.program(body),
     render: t.program([render(t, body, opts)])
-  }
+  };
 }
 
 /**
@@ -503,17 +448,18 @@ function template(el, opts) {
  *  @returns {Array} of function bodies.
  */
 function transform(opts) {
-  const out = []
-    , $ = opts.$
-    , templates = $('template');
+  var out = [],
+      $ = opts.$,
+      templates = $('template');
 
-  templates.each((i, el) => {
+  templates.each(function (i, el) {
     out.push(template(el, opts));
-  })
+  });
 
   return out;
 }
 
-compile.map = map;
-
-module.exports = compile;
+module.exports = {
+  html: compile,
+  map: map
+};

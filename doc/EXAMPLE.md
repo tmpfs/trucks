@@ -141,7 +141,28 @@ skate.define('x-panel', {
 Compiled stylesheet:
 
 ```css
+  /*
+    Inline styles for the shadow DOM.
+  */
+  * {
+    font-family: sans-serif;
+    color: white;
+  }
 
+  p, ::content p {
+    margin: 0; 
+    padding: 1em;
+  }
+
+  .title {
+    background: black;
+    cursor: pointer;
+  }
+
+  .content {
+    min-height: 10em;
+    background: gray;
+  }
 ```
 
 ### Markup
@@ -165,7 +186,7 @@ Compiled stylesheet:
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 10, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 15, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

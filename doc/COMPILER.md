@@ -88,10 +88,7 @@ Note that some data has been omitted from the example output for brevity.
 After transformation the generate phase will concatenate all the css and transformed javascript code.
 
 ```javascript
-{
-  "stylesheet": "x-icon {\n  /* component styles */\n}\n\nx-button {\n  /* component styles */\n}",
-  "javascript": "const templates = {\n  \"x-icon\": function render(elem) {},\n  \"x-button\": function render(elem) {}\n};\n\nfunction template(elem) {\n  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n}\n\nskate.define('x-icon', {});\n\nskate.define('x-button', {});"
-}
+{}
 ```
 
 Note that some data has been omitted from the example output for brevity.
@@ -102,5 +99,5 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 13, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 15, 2016
 

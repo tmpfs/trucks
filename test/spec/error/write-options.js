@@ -9,10 +9,9 @@ describe('write:', function() {
         options: {
           css: 'non-existent/error.css'
         },
-        result: {
-          generate: {
-            stylesheet: 'x-component{}'  
-          }
+        result: {},
+        output: {
+          'non-existent/errors.css': 'x-component{}'
         }
       },
       (err) => {

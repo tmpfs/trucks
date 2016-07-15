@@ -1,4 +1,5 @@
 var expect = require('chai').expect
+  , path = require('path')
   , trucks = require('../../src');
 
 describe('trucks:', function() {
@@ -22,11 +23,19 @@ describe('trucks:', function() {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 
-        const result = state.result.write;
-        expect(result.files).to.be.an('object');
-        expect(result.files.html.file).to.eql(html);
-        expect(result.files.css.file).to.eql(css);
-        expect(result.files.js.file).to.eql(js);
+        expect(state.output).to.be.an('object');
+
+        const htmlFile = path.join(process.cwd(), html)
+            , cssFile = path.join(process.cwd(), css)
+            , jsFile = path.join(process.cwd(), js);
+
+        expect(state.output[htmlFile].name).to.eql(html);
+        expect(state.output[htmlFile].result.file).to.be.a('string');
+        expect(state.output[cssFile].name).to.eql(css);
+        expect(state.output[cssFile].result.file).to.be.a('string');
+        expect(state.output[jsFile].name).to.eql(js);
+        expect(state.output[jsFile].result.file).to.be.a('string');
+
         done();
       }
     );
@@ -52,11 +61,18 @@ describe('trucks:', function() {
           expect(err).to.eql(null);
           expect(state).to.be.an('object');
 
-        const result = state.result.write;
-          expect(result.files).to.be.an('object');
-          expect(result.files.html.file).to.eql(html);
-          expect(result.files.css.file).to.eql(css);
-          expect(result.files.js.file).to.eql(js);
+          expect(state.output).to.be.an('object');
+
+          const htmlFile = path.join(process.cwd(), html)
+              , cssFile = path.join(process.cwd(), css)
+              , jsFile = path.join(process.cwd(), js);
+
+          expect(state.output[htmlFile].name).to.eql(html);
+          expect(state.output[htmlFile].result.file).to.be.a('string');
+          expect(state.output[cssFile].name).to.eql(css);
+          expect(state.output[cssFile].result.file).to.be.a('string');
+          expect(state.output[jsFile].name).to.eql(js);
+          expect(state.output[jsFile].result.file).to.be.a('string');
           done();
         }
       );

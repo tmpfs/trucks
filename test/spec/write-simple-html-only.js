@@ -1,4 +1,5 @@
 var expect = require('chai').expect
+  , path = require('path')
   , trucks = require('../../src');
 
 describe('trucks:', function() {
@@ -16,9 +17,12 @@ describe('trucks:', function() {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 
-        const result = state.result.write;
-        expect(result.files).to.be.an('object');
-        expect(result.files.html.file).to.eql(html);
+        expect(state.output).to.be.an('object');
+
+        const htmlFile = path.join(process.cwd(), html);
+        expect(state.output[htmlFile].name).to.eql(html);
+        expect(state.output[htmlFile].result.file).to.be.a('string');
+
         done();
       }
     );

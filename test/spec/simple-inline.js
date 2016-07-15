@@ -18,7 +18,8 @@ describe('trucks:', function() {
         expect(state).to.be.an('object');
         expect(state.options).to.be.an('object');
 
-        const generated = state.result.generate;
+        const file = state.tree.imports[0];
+        expect(file.href).to.eql(src);
 
         // parse phase data
         expect(state.result.styles).to.be.an('array').to.have.length(1);
@@ -42,14 +43,11 @@ describe('trucks:', function() {
         expect(state.result.scripts[0].components['simple-component'])
           .to.be.an('object');
 
-        // generate phase data
-        expect(generated.stylesheet).to.be.a('string');
-        expect(generated.javascript).to.be.a('string');
-
         const expected = fs.readFileSync('test/expect/simple-component.js')
           .toString().trim();
-
-        expect(generated.javascript).to.eql(expected);
+        const js = 'target/simple-inline.js';
+        expect(fs.readFileSync(js).toString().trim())
+          .to.eql(expected);
 
         done();
       }

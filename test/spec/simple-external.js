@@ -15,10 +15,9 @@ describe('trucks:', function() {
       (err, state) => {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
+        expect(state.options).to.be.an('object');
 
-        const file = state.tree.imports[0]
-            , generated = state.result.generate;
-
+        const file = state.tree.imports[0];
         expect(file.href).to.eql(src);
 
         // parse phase data
@@ -46,13 +45,11 @@ describe('trucks:', function() {
         expect(state.result.scripts[0].components['simple-component'])
           .to.be.an('object');
 
-        // generate phase data
-        expect(generated.stylesheet).to.be.a('string');
-        expect(generated.javascript).to.be.a('string');
-
         const expected = fs.readFileSync('test/expect/simple-component.js')
           .toString().trim();
-        expect(generated.javascript.trim()).to.eql(expected);
+        const js = 'target/simple-external.js';
+        expect(fs.readFileSync(js).toString().trim())
+          .to.eql(expected);
 
         done();
       }

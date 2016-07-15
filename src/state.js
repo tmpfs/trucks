@@ -97,6 +97,11 @@ class CompilerState {
     return this._output;
   }
 
+  hasFile(name, base) {
+    const pth = abs(name, base);
+    return this._output[pth] !== undefined;
+  }
+
   getFile(name, base) {
     const pth = abs(name, base);
 

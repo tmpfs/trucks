@@ -16,8 +16,6 @@ describe('trucks:', function() {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 
-        const generated = state.result.generate;
-
         expect(state.result.templates).to.be.an('array').to.have.length(3);
         expect(state.result.styles).to.be.an('array').to.have.length(3);
         expect(state.result.scripts).to.be.an('array').to.have.length(3);
@@ -42,12 +40,15 @@ describe('trucks:', function() {
         expect(state.result.scripts[2].contents).to.eql(
           'skate.define(\'x-widget\', {});');
 
-        expect(generated.javascript)
+        const js = 'target/deep-dependent.js'
+            , css = 'target/deep-dependent.css';
+
+        expect(fs.readFileSync(js).toString())
           .to.eql(
             fs.readFileSync(
               'test/expect/deep-dependent-javascript.js').toString().trim());
 
-        expect(generated.stylesheet)
+        expect(fs.readFileSync(css).toString())
           .to.eql(
             fs.readFileSync(
               'test/expect/deep-dependent-stylesheet.css').toString().trim());

@@ -16,8 +16,6 @@ describe('trucks:', function() {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 
-        const generated = state.result.generate;
-
         expect(state.result.templates).to.be.an('array').to.have.length(2);
         expect(state.result.styles).to.be.an('array').to.have.length(2);
         expect(state.result.scripts).to.be.an('array').to.have.length(2);
@@ -37,17 +35,18 @@ describe('trucks:', function() {
         expect(state.result.scripts[1].contents).to.eql(
           'skate.define(\'x-button\', {});');
 
-        expect(generated.javascript)
-          .to.eql(
-            fs.readFileSync(
-              'test/expect/private-dependent-javascript.js')
-                .toString().trim());
+        const js = 'target/private-dependent.js'
+            , css = 'target/private-dependent.css';
 
-        expect(generated.stylesheet)
+        expect(fs.readFileSync(js).toString())
           .to.eql(
             fs.readFileSync(
-              'test/expect/private-dependent-stylesheet.css')
-                .toString().trim());
+              'test/expect/private-dependent-javascript.js').toString().trim());
+
+        expect(fs.readFileSync(css).toString())
+          .to.eql(
+            fs.readFileSync(
+              'test/expect/private-dependent-stylesheet.css').toString().trim());
 
         done();
       }

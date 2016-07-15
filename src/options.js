@@ -14,6 +14,10 @@ function options(state, cb) {
 
   opts = opts || {};
 
+  if(opts.eol !== undefined && opts.eol !== String(opts.eol)) {
+    return cb(new Error('eol option must be a string')); 
+  }
+
   if(opts.conf === String(opts.conf)) {
     opts.conf = [opts.conf];
   }
@@ -36,14 +40,14 @@ function options(state, cb) {
     }
   }
 
-  // finally merge in passed options
+  // merge in passed options after loading config files
   options = merge(true, options, opts);
 
   let html
     , css
     , js;
 
-  // output directory and file name
+  // set up output directory and file names
   if(options.out === String(options.out)) {
     options.name = options.name || NAME;
 
@@ -63,8 +67,6 @@ function options(state, cb) {
   if(js && !options.js) {
     options.js = js;
   }
-
-  console.log('merge options with %s', options.name);
 
   // re-assign modified options
   state.options = options;

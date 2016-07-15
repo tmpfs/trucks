@@ -1,22 +1,14 @@
 const fs = require('fs')
-    , each = require('./each')
-    , HTML = 'html'
-    , CSS = 'css'
-    , JS = 'js';
+    , each = require('./each');
 
 /**
  *  @private
  */
-function write(input, cb) {
-  const opts = input.options
-    , generated = input.result.generate
-    , written = input.result.write || {};
+function write(state, cb) {
+  const opts = state.options
+    , output = state.output;
 
-  // track files that were written consumers (such as a cli)
-  // might want to stat afterwards for bytes written
-  written.files = {};
-
-  function writer(key, path, contents) {
+  function writer(path, contents) {
     return function write(cb) {
       fs.stat(path, (err, stat) => {
         // NOTE: if path is a directory we'll let if fall through to 
@@ -29,7 +21,7 @@ function write(input, cb) {
             return cb(err); 
           } 
 
-          written.files[key] = {
+          output[path].result = {
             file: path,
             contents: contents
           }
@@ -40,19 +32,13 @@ function write(input, cb) {
     } 
   }
 
-  const writers = [];
+  const files = Object.keys(state.output)
+      , writers = [];
 
-  if(opts.html && opts.extract) {
-    writers.push(writer(HTML, opts.html, generated.html)); 
-  }
-
-  if(opts.css) {
-    writers.push(writer(CSS, opts.css, generated.stylesheet)); 
-  }
-  
-  if(opts.js) {
-    writers.push(writer(JS, opts.js, generated.javascript)); 
-  }
+  // map output files to writer functions
+  files.forEach((file) => {
+    writers.push(writer(file, state.output[file].contents)); 
+  })
 
   each(
     writers,

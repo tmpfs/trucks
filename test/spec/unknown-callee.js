@@ -1,4 +1,5 @@
 var expect = require('chai').expect
+  , fs = require('fs')
   , trucks = require('../../src');
 
 describe('trucks:', function() {
@@ -16,13 +17,14 @@ describe('trucks:', function() {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 
-        const result = state.result.generate;
+        const js = 'target/unknown-callee.js'
+            , javascript = fs.readFileSync(js).toString().trim();
 
         // NOTE: not too much to assert here, this spec
         // NOTE: triggers some code paths
         // NOTE: but check that the unknown callee expression (function call)
         // NOTE: is preserved in the result javascript
-        expect(/foo\(\);/m.test(result.javascript)).to.eql(true);
+        expect(/foo\(\);/m.test(javascript)).to.eql(true);
 
         done();
       }

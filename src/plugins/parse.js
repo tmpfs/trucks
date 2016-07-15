@@ -1,4 +1,3 @@
-//const Module = require('../component').Module
 const ID = 'id';
 
 /**

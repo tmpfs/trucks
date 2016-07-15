@@ -1,6 +1,5 @@
 const fs = require('fs')
-    , path = require('path')
-    , File = require('../component').File;
+    , path = require('path');
 
 /**
  *  Encapsulates the load state information.
@@ -183,7 +182,7 @@ function sources(files, input, output, state, parent, cb) {
 
       state.seen.sources.push(pth);
 
-      const group = new File(pth);
+      const group = new state.input.components.File(pth);
       group.href = file;
 
       read(group, parent, state, (err) => {

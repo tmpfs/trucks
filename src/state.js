@@ -137,7 +137,6 @@ class CompilerState {
     }
     return file;
   }
-
 }
 
 module.exports = CompilerState;

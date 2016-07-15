@@ -122,6 +122,11 @@ class ComponentModule {
   }
 
   iterator(it) {
+
+    if(this.component) {
+      it(this.component);
+    }
+
     this.templates.forEach((item) => {
       it(item); 
     })

@@ -35,11 +35,12 @@ describe('transform:', function() {
         expect(state).to.be.an('object');
 
         expect(visited).to.eql(true);
-        expect(count).to.eql(6);
+        expect(count).to.eql(7);
 
         const components = state.components
             , File = components.File
             , Module = components.Module
+            , Component = components.Component
             , Template = components.Template
             , Style = components.Style
             , Script = components.Script;
@@ -47,9 +48,10 @@ describe('transform:', function() {
         expect(nodes[0]).to.be.instanceof(File);
         expect(nodes[1]).to.be.instanceof(File);
         expect(nodes[2]).to.be.instanceof(Module);
-        expect(nodes[3]).to.be.instanceof(Template);
-        expect(nodes[4]).to.be.instanceof(Style);
-        expect(nodes[5]).to.be.instanceof(Script);
+        expect(nodes[3]).to.be.instanceof(Component);
+        expect(nodes[4]).to.be.instanceof(Template);
+        expect(nodes[5]).to.be.instanceof(Style);
+        expect(nodes[6]).to.be.instanceof(Script);
 
         expect(state.options).to.be.an('object');
         expect(state.tree).to.be.an('object');

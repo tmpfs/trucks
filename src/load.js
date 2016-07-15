@@ -2,7 +2,6 @@ const fs = require('fs')
     , path = require('path')
     , each = require('./each')
     , selectors = require('./selectors')
-    , abs = require('./absolute')
     , File = require('./component').File;
 
 /**
@@ -50,14 +49,14 @@ function LoadState(input, output) {
  *
  *  @throws Error if a circular dependency is detected.
  */
-function cyclic(file, hierarchy, name) {
+function cyclic(state, file, hierarchy, name) {
 
   let i
-    , source = abs(file)
+    , source = state.input.absolute(file)
     , dest;
 
   for(i = 0;i < hierarchy.length;i++) {
-    dest = abs(hierarchy[i]);
+    dest = state.input.absolute(hierarchy[i]);
     if(source === dest) {
       throw new Error(
         `cyclic dependency detected in ${name} (${source} <> ${dest})`);
@@ -76,14 +75,14 @@ function read(group, parent, state, cb) {
   // cyclic dependency: must be tested before the logic to ignore 
   // duplicate components as we want to notify users on circular dependency
   try {
-    cyclic(file, state.hierarchy, parent ? parent.file : null);
+    cyclic(state, file, state.hierarchy, parent ? parent.file : null);
   }catch(e) {
     return cb(e); 
   }
 
   // duplicate component: do no not re-read components that have already 
   // been loaded
-  let pth = abs(file);
+  let pth = state.input.absolute(file);
 
   if(~state.seen.imports.indexOf(pth)) {
     group.duplicates.push(pth);
@@ -175,7 +174,7 @@ function sources(files, input, output, state, parent, cb) {
         base = path.dirname(parent.file); 
       }
 
-      pth = abs(file, base);
+      pth = state.input.absolute(file, base);
 
       if(!parent && ~state.seen.sources.indexOf(pth)) {
         // this could just ignore and move on to the next

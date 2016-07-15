@@ -4,7 +4,7 @@ const NAME = 'components'
     , JS = 'js';
 
 function options(state, cb) {
-  const abs = require('./absolute')
+  const abs = state.absolute
       , merge = require('merge')
   
   let opts = state.options

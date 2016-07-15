@@ -1,4 +1,4 @@
-const abs = require('./absolute');
+const path = require('path')
 
 class OutputFile {
   constructor(file, name, base, options) {
@@ -98,12 +98,12 @@ class CompilerState {
   }
 
   hasFile(name, base) {
-    const pth = abs(name, base);
+    const pth = this.absolute(name, base);
     return this._output[pth] !== undefined;
   }
 
   getFile(name, base) {
-    const pth = abs(name, base);
+    const pth = this.absolute(name, base);
 
     // lazy instantiation to return cached version of the file
     // for modification if it already exists
@@ -113,6 +113,15 @@ class CompilerState {
 
     return this._output[pth]
   }
+
+  absolute(file, base) {
+    if(!path.isAbsolute(file)) {
+      base = base || process.cwd();
+      return path.normalize(path.join(base, file)); 
+    }
+    return file;
+  }
+
 }
 
 module.exports = CompilerState;

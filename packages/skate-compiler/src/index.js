@@ -7,6 +7,14 @@
 module.exports = function transform(state) {
   const opts = state.options;
 
+
+  // configuration for id attribute replacement
+  // which enables {{id}} to be replaced with the
+  // <dom-module> element id
+  const id = {
+    pattern: /\{\{id\}\}/gm
+  }
+
   // setup the output file
   let file;
   if(opts.js && !state.hasFile(opts.js)) {
@@ -61,13 +69,9 @@ module.exports = function transform(state) {
 
       // perform {{id}} replacement
       if(node
-        && node.contents === String(node.contents)
-        && opts.id
-        && opts.id.replace
-        && (opts.id.pattern instanceof RegExp)) {
-
+        && node.contents === String(node.contents)) {
         node.contents = node.contents.replace(
-          opts.id.pattern, mod.id); 
+          id.pattern, mod.id); 
       }
 
       file.append(node.contents);

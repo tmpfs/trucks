@@ -28,19 +28,6 @@ function trucks(opts, cb) {
 }
 
 /**
- *  Read the component definition file contents.
- *
- *  @function trucks.load
- *  @param {Object} opts processing options.
- *  @param {Function} cb callback function.
- *
- *  @option {Array} files list of HTML files to compile.
- */
-trucks.load = function() {
-  return require('./load').apply(this, arguments);
-}
-
-/**
  *  Parses the loaded file data to stylesheet and javascript strings.
  *
  *  @function trucks.parse

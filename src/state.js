@@ -1,13 +1,35 @@
 const abs = require('./absolute');
 
 class OutputFile {
-  constructor(file, name, base) {
+  constructor(file, name, base, options) {
+    options = options || {};
+
+    const EOL = require('os').EOL;
+    this.eol = options.eol || (EOL + EOL);
+
     // absolute file path
     this.file = file;
+
     // relative path and file name
     this.name = name;
+
     // base path for relative path
     this.base = base;
+
+    // list of string contents
+    this._contents = [];
+  }
+
+  prepend(buf) {
+    this._contents.unshift(buf); 
+  }
+
+  append(buf) {
+    this._contents.push(buf); 
+  }
+
+  get contents() {
+    return this._contents.join(this.eol);
   }
 }
 
@@ -70,7 +92,7 @@ class CompilerState {
     // lazy instantiation to return cached version of the file
     // for modification if it already exists
     if(!this._output[pth]) {
-      this._output[pth] = new OutputFile(pth, name, base);
+      this._output[pth] = new OutputFile(pth, name, base, this.options);
     }
 
     return this._output[pth]

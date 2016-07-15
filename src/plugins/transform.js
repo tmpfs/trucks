@@ -1,4 +1,4 @@
-function visit(state, visitors, item) {
+function visit(state, visitors, node, cb) {
 
   const components = state.components
       , File = components.File
@@ -15,19 +15,19 @@ function visit(state, visitors, item) {
         valid = true;
         break;
       case 'File':
-        valid = (item instanceof File);
+        valid = (node instanceof File);
         break;
       case 'Module':
-        valid = (item instanceof Module);
+        valid = (node instanceof Module);
         break;
       case 'Template':
-        valid = (item instanceof Template);
+        valid = (node instanceof Template);
         break;
       case 'Style':
-        valid = (item instanceof Style);
+        valid = (node instanceof Style);
         break;
       case 'Script':
-        valid = (item instanceof Script);
+        valid = (node instanceof Script);
         break;
     }
 
@@ -36,16 +36,22 @@ function visit(state, visitors, item) {
     return valid;
   }
 
-  visitors.forEach((visitor) => {
-    let key;
-    for(key in visitor) {
-      if(canVisit(key)) {
-        // try to call the visitor function with the item
-        visitor[key](item); 
-      }  
-    }
-  })
-
+  state.each(
+    visitors,
+    // iterate list of visitors (transformations)
+    (visitor, next) => {
+      let keys = Object.keys(visitor);
+      state.each(
+        keys, 
+        (key, next) => {
+          if(canVisit(key)) {
+            // try to call the visitor function with the item
+            return visitor[key](node, next); 
+          }
+          // not visiting this node
+          next();
+        }, next);
+    }, cb);
 }
 
 
@@ -57,18 +63,18 @@ function plugin(conf/*, state*/) {
       return cb(new Error(`transform visitors array expected`)); 
     }
 
-    const tree = state.tree;
-    tree.iterator(
-      (item) => {
-        try {
-          visit(state, visitors, item);
-        }catch(e) {
-          return cb(e); 
-        }
-      }
-    )
+    const tree = state.tree
+      , items = [];
 
-    cb();
+    // collect items to iterate
+    // so we can do it async
+    tree.iterator((item) => { items.push(item); });
+
+    state.each(
+      items,
+      (item, next) => {
+        visit(state, visitors, item, next);
+      }, cb)
   }
 }
 

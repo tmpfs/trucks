@@ -18,10 +18,11 @@ describe('transform:', function() {
         conf: {
           transform: {
             visitors: [{
-              'Template': function(node) {
+              'Template': function(node, cb) {
                 expect(node).to.be.an('object');
                 visited = true;
                 count++;
+                cb(null, node);
               }
             }]
           }

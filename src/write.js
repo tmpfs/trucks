@@ -1,7 +1,5 @@
 const fs = require('fs')
-    , path = require('path')
     , each = require('./each')
-    , NAME = 'components'
     , HTML = 'html'
     , CSS = 'css'
     , JS = 'js';
@@ -42,45 +40,18 @@ function write(input, cb) {
     } 
   }
 
-  let html
-    , css
-    , js;
-
-  // output directory and file name
-  if(opts.out === String(opts.out)) {
-    opts.name = opts.name || NAME;
-
-    // build output paths using `out` directory and `name` options
-    html = path.join(opts.out, `${opts.name}.${HTML}`);
-    css = path.join(opts.out, `${opts.name}.${CSS}`);
-    js = path.join(opts.out, `${opts.name}.${JS}`);
-  }
-
-  // specific overrides for each output type
-  if(opts.html === String(opts.html)) {
-    html = opts.html; 
-  }
-
-  if(opts.css === String(opts.css)) {
-    css = opts.css; 
-  }
-
-  if(opts.js === String(opts.js)) {
-    js = opts.js; 
-  }
-
   const writers = [];
 
-  if(html && opts.extract) {
-    writers.push(writer(HTML, html, generated.html)); 
+  if(opts.html && opts.extract) {
+    writers.push(writer(HTML, opts.html, generated.html)); 
   }
 
-  if(css) {
-    writers.push(writer(CSS, css, generated.stylesheet)); 
+  if(opts.css) {
+    writers.push(writer(CSS, opts.css, generated.stylesheet)); 
   }
   
-  if(js) {
-    writers.push(writer(JS, js, generated.javascript)); 
+  if(opts.js) {
+    writers.push(writer(JS, opts.js, generated.javascript)); 
   }
 
   each(

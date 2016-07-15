@@ -28,6 +28,14 @@ class OutputFile {
     this._contents.push(buf); 
   }
 
+  set contents(list) {
+    // wrap string values
+    if(list === String(list)) {
+      list = [list]; 
+    }
+    this._contents = list; 
+  }
+
   get contents() {
     return this._contents.join(this.eol);
   }

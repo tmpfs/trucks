@@ -1,5 +1,4 @@
-const each = require('./each')
-    , State = require('./state')
+const State = require('./state')
     , SOURCES = 'sources'
     , LOAD = 'load'
     , PARSE = 'parse'
@@ -166,7 +165,7 @@ function run(opts, cb) {
       }
     }
    
-    each(
+    state.each(
       middleware,
       (fn, next) => {
         fn(state, next);

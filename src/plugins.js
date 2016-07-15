@@ -101,22 +101,25 @@ function options(state, cb) {
   cb(null, state);
 }
 
-const handlers = {
-  sources: function sources() {
-    return [
-      require('./load'),
-      require('./parse')
-    ]; 
-  },
-  load: require('./load'),
-  parse: require('./parse'),
-  transform: require('./transform'),
-  generate: require('./generate'),
-  write: require('./write')
+function getHandlers() {
+  return {
+    sources: function sources() {
+      return [
+        require('./plugins/load'),
+        require('./plugins/parse')
+      ]; 
+    },
+    load: require('./plugins/load'),
+    parse: require('./plugins/parse'),
+    transform: require('./transform'),
+    generate: require('./plugins/generate'),
+    write: require('./plugins/write')
+  }
 }
 
 function run(opts, cb) {
-  const state = new State(opts);
+  const state = new State(opts)
+    , handlers = getHandlers();
 
   options(state, (err) => {
     if(err) {
@@ -134,8 +137,6 @@ function run(opts, cb) {
     for(i = 0;i < phases.length;i++) {
       phase = phases[i];
       conf = state.options.conf[phase] || {};
-
-      //console.dir(phase);
 
       try {
         // assume plugin is middleware

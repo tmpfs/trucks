@@ -1,5 +1,4 @@
 const fs = require('fs')
-    , each = require('./each');
 
 function plugin(/*conf, state*/) {
 
@@ -39,7 +38,7 @@ function plugin(/*conf, state*/) {
       writers.push(writer(file, state.output[file].contents)); 
     })
 
-    each(
+    state.each(
       writers,
       (fn, next) => {
         fn(next); 

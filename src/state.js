@@ -114,6 +114,22 @@ class CompilerState {
     return this._output[pth]
   }
 
+  get selectors() {
+    return require('./selectors');
+  }
+
+  get each() {
+    return require('./each');
+  }
+
+  get components() {
+    return require('./component');
+  }
+
+  get readers() {
+    return require('./reader');
+  }
+
   absolute(file, base) {
     if(!path.isAbsolute(file)) {
       base = base || process.cwd();

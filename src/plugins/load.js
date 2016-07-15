@@ -1,8 +1,6 @@
 const fs = require('fs')
     , path = require('path')
-    , each = require('./each')
-    , selectors = require('./selectors')
-    , File = require('./component').File;
+    , File = require('../component').File;
 
 /**
  *  Encapsulates the load state information.
@@ -114,7 +112,7 @@ function read(group, parent, state, cb) {
     group.querySelectorAll = state.parser.parse(group.contents);
 
     const $ = group.querySelectorAll
-      , dependencies = $(selectors.imports);
+      , dependencies = $(state.input.selectors.imports);
 
     // component has dependencies we need to load
     if(dependencies.length) {
@@ -156,7 +154,7 @@ function sources(files, input, output, state, parent, cb) {
     parent = null;
   }
 
-  each(
+  input.each(
     files,
     (file, next) => {
     

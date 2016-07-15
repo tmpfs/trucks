@@ -1,7 +1,5 @@
-const each = require('./each')
-    , selectors = require('./selectors')
-    , Module = require('./component').Module
-    , ID = 'id';
+//const Module = require('../component').Module
+const ID = 'id';
 
 /**
  *  Test for duplicate template identifiers.
@@ -38,7 +36,7 @@ function getIterator(state, mod, context) {
     }
     const elements = reader.getElements(context);
 
-    each(
+    state.each(
       elements,
       (el, next) => {
 
@@ -53,7 +51,7 @@ function getIterator(state, mod, context) {
             return it(traits, next); 
           }
 
-          each(
+          state.each(
             traits,
             (trait, next) => {
               reader.onTrait(state, trait, (err) => {
@@ -91,7 +89,7 @@ function getIterator(state, mod, context) {
  *  @private
  */
 function component(state, mod, context, cb) {
-    const readers = require('./reader')
+    const readers = state.readers
       , types = [
           new readers.Template(mod), 
           new readers.Style(mod), 
@@ -99,7 +97,7 @@ function component(state, mod, context, cb) {
         ]
       , iterator = getIterator(state, mod, context);
 
-  each(
+  state.each(
     types,
     iterator,
     (err) => {
@@ -110,7 +108,7 @@ function component(state, mod, context, cb) {
       // found primary component template
       if(mod.component) {
 
-        each(
+        state.each(
           mod.templates,
           (template, next) => {
 
@@ -151,12 +149,14 @@ function component(state, mod, context, cb) {
 function plugin(/*conf, state*/) {
 
   return function parse(state, cb) {
-    each(
+    const Module = state.components.Module;
+
+    state.each(
       state.result.files,
       (group, next) => {
         // parse all the <dom-module> elements
         const $ = group.querySelectorAll
-          , elements = $(selectors.modules).toArray();
+          , elements = $(state.selectors.modules).toArray();
 
         // no component imports and no modules declared
         //if(!elements.length
@@ -166,7 +166,7 @@ function plugin(/*conf, state*/) {
             //`no imports or component modules in ${group.file}`)); 
         //}
 
-        each(
+        state.each(
           elements,
           (context, next) => {
             const id = $(context).attr(ID);

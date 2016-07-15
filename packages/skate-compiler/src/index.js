@@ -37,9 +37,8 @@ module.exports = function transform(state) {
 
           let html = ''
             , compiled = null
-            , transformed = null
-            , map = ''
-            , main = '';
+            , map
+            , main;
 
           // TODO: do not concatenate for compilation
           // TODO: pass a preparsed DOM of each template
@@ -50,15 +49,15 @@ module.exports = function transform(state) {
           compiled = compiler.html(html, opts.compiler);
 
           // get string code for the template map
-          transformed = babel.transformFromAst(compiled.map, opts.babel);
-          map = transformed.code;
+          map = babel.transformFromAst(
+            compiled.map, opts.babel);
 
           // get string code for the template main function
-          transformed = babel.transformFromAst(compiled.main, opts.babel);
-          main = transformed.code;
+          main = babel.transformFromAst(
+            compiler.main(opts.compiler), opts.babel);
 
-          file.prepend(main);
-          file.prepend(map);
+          file.prepend(main.code);
+          file.prepend(map.code);
 
           // compile next component
           next();

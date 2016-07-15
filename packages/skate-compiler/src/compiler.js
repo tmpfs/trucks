@@ -127,15 +127,13 @@ function compile(html, opts) {
   opts.name = opts.name || RENDER;
   opts.arg = opts.arg || ELEM;
 
-  opts.main = opts.main || MAIN;
   opts.templates = opts.templates || TEMPLATES;
 
   const templates = transform(opts);
 
   return {
     list: templates,
-    map: map(templates, opts),
-    main: main(opts)
+    map: map(templates, opts)
   };
 }
 
@@ -150,6 +148,11 @@ function compile(html, opts) {
  */
 function main(opts) {
   const t = require('babel-core').types;
+
+  opts = opts || {};
+  opts.main = opts.main || MAIN;
+  opts.templates = opts.templates || TEMPLATES;
+
 
   // main function declaration
   let expr = t.functionDeclaration(
@@ -516,5 +519,6 @@ function transform(opts) {
 
 module.exports = {
   html: compile,
-  map: map
+  map: map,
+  main: main
 }

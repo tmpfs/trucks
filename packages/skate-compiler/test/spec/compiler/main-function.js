@@ -7,11 +7,11 @@ describe('compiler:', function() {
   it('should generate AST for main template function', function(done) {
     const tpl = '<template id="x-foo"><span></span></template>';
 
-    const res = compiler.html(tpl);
+    const main = compiler.main();
 
-    expect(res.main).to.be.an('object');
+    expect(main).to.be.an('object');
 
-    const result = babel.transformFromAst(res.main);
+    const result = babel.transformFromAst(main);
     expect(result.code).to.eql(
       'function template(elem) {\n'
         + '  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n'

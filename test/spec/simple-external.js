@@ -10,7 +10,8 @@ describe('trucks:', function() {
       {
         files: [src],
         out: 'target',
-        name: 'simple-external'
+        name: 'simple-external',
+        transforms: ['skate/src']
       },
       (err, state) => {
         expect(err).to.eql(null);

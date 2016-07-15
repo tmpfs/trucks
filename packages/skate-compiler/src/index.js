@@ -57,6 +57,19 @@ module.exports = function transform(state) {
         }, cb);
     },
     'Script': function(node, cb) {
+      const mod = node.parent;
+
+      // perform {{id}} replacement
+      if(node
+        && node.contents === String(node.contents)
+        && opts.id
+        && opts.id.replace
+        && (opts.id.pattern instanceof RegExp)) {
+
+        node.contents = node.contents.replace(
+          opts.id.pattern, mod.id); 
+      }
+
       file.append(node.contents);
       cb();
     },

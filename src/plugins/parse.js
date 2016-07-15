@@ -26,8 +26,6 @@ function duplicates(templates) {
 }
 
 function getIterator(state, mod, context) {
-  const options = state.options;
-
   return function iterator(reader, it, cb) {
     if(!cb) {
       cb = it; 
@@ -53,24 +51,7 @@ function getIterator(state, mod, context) {
           state.each(
             traits,
             (trait, next) => {
-              reader.onTrait(state, trait, (err) => {
-                if(err) {
-                  return next(err); 
-                }
-              
-                // perform {{id}} replacement
-                if(trait
-                  && trait.contents === String(trait.contents)
-                  && options.id
-                  && options.id.replace
-                  && (options.id.pattern instanceof RegExp)) {
-
-                  trait.contents = trait.contents.replace(
-                    options.id.pattern, mod.id); 
-                }
-
-                next(null, trait);
-              });
+              reader.onTrait(state, trait, next);
             },
             next
           );

@@ -37,14 +37,6 @@ describe('trucks:', function() {
         expect(state.result.scripts[0].inline).to.eql(false);
         expect(state.result.scripts[0].contents).to.be.a('string');
 
-        // babel ast state.result
-        expect(state.result.scripts[0].result).to.be.an('object');
-        // list of ast nodes for component definitions
-        expect(state.result.scripts[0].components).to.be.an('object');
-
-        expect(state.result.scripts[0].components['simple-component'])
-          .to.be.an('object');
-
         const expected = fs.readFileSync('test/expect/simple-component.js')
           .toString().trim();
         const js = 'target/simple-external.js';

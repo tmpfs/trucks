@@ -11,7 +11,8 @@ describe('trucks:', function() {
       {
         files: [src],
         out: 'target',
-        name: 'simple-inline'
+        name: 'simple-inline',
+        transforms: ['skate/src']
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -35,16 +36,9 @@ describe('trucks:', function() {
         expect(state.result.scripts[0].inline).to.eql(true);
         expect(state.result.scripts[0].contents).to.be.a('string');
 
-        // babel ast state.result
-        expect(state.result.scripts[0].result).to.be.an('object');
-        // list of ast nodes for component definitions
-        expect(state.result.scripts[0].components).to.be.an('object');
-
-        expect(state.result.scripts[0].components['simple-component'])
-          .to.be.an('object');
-
         const expected = fs.readFileSync('test/expect/simple-component.js')
           .toString().trim();
+
         const js = 'target/simple-inline.js';
         expect(fs.readFileSync(js).toString().trim())
           .to.eql(expected);

@@ -5,7 +5,8 @@ function visit(state, visitors, node, cb) {
       , Component = components.Component
       , Template = components.Template
       , Style = components.Style
-      , Script = components.Script;
+      , Script = components.Script
+      , COMPLETE = 'complete';
 
   function canVisit(key) {
 
@@ -39,31 +40,45 @@ function visit(state, visitors, node, cb) {
 
   state.each(
     visitors,
+
     // iterate list of visitors (transformations)
-    (visitor, next) => {
+    (visitor, visited) => {
       let keys = Object.keys(visitor);
       state.each(
         keys, 
         (key, next) => {
+
+          if(key === COMPLETE) {
+            return next(); 
+          }
+
           if(canVisit(key)) {
             // try to call the visitor function with the item
             return visitor[key](node, next); 
           }
+
           // not visiting this node
           next();
-        }, next);
-    }, cb);
+        },
+        visited
+      );
+    }, 
+    cb
+  );
 }
-
 
 function plugin(conf, state) {
   const visitors = conf.visitors || []
     , list = visitors.map((visitor) => {
+
+        // NOTE: require strings as plugins
         if(visitor === String(visitor)) {
           visitor = require('trucks-plugin-' + visitor); 
         }
+
         return visitor(state); 
       })
+
   return function transform(state, cb) {
 
     if(!Array.isArray(visitors)) {
@@ -71,7 +86,7 @@ function plugin(conf, state) {
     }
 
     const tree = state.tree
-      , items = [];
+        , items = [];
 
     // collect items to iterate
     // so we can do it async
@@ -81,7 +96,21 @@ function plugin(conf, state) {
       items,
       (item, next) => {
         visit(state, list, item, next);
-      }, cb)
+      }, (err) => {
+        if(err) {
+          return cb(err);
+        } 
+
+        // call complete functions
+        state.each(
+          list,
+          (visitor, next) => {
+            if(visitor.complete instanceof Function) {
+              return visitor.complete(next); 
+            }
+            next();
+          }, cb);
+      });
   }
 }
 

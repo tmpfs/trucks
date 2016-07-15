@@ -1,3 +1,4 @@
+const compiler = require('./compiler')
 /**
  *  Iterate all javascript strings parsing to an AST and extracting 
  *  components definitions `skate.define()`.
@@ -7,6 +8,7 @@
 module.exports = function transform(state) {
   const opts = state.options;
 
+  opts.compiler = opts.compiler || {};
 
   // configuration for id attribute replacement
   // which enables {{id}} to be replaced with the
@@ -21,63 +23,52 @@ module.exports = function transform(state) {
     file = state.getFile(opts.js); 
   }
 
-  let components = [];
+  // list of components processed
+  let components = []
+    // list of compiled template render functions
+    // used for the final map
+    , templates = [];
 
   return {
     complete: function(cb) {
 
-      state.each(
-        components,
-        (node, next) => {
-        
-          const mod = node.parent
-              , compiler = require('./compiler')
-              , babel = require('babel-core')
-              , tpl = mod.templates;
+      const babel = require('babel-core')
+        , hash = compiler.map(templates, opts.compiler)
+        , entry = compiler.main(opts.compiler);
 
-          let html = ''
-            , compiled = null
-            , map
-            , main;
+      let map
+        , main;
 
-          // TODO: do not concatenate for compilation
-          // TODO: pass a preparsed DOM of each template
-          tpl.forEach((item) => {
-            html += item.contents; 
-          });
+      // get the template map
+      map = babel.transformFromAst(hash, opts.babel);
 
-          compiled = compiler.html(html, opts.compiler);
+      // get the template main function
+      main = babel.transformFromAst(entry, opts.babel);
 
-          // get string code for the template map
-          map = babel.transformFromAst(
-            compiled.map, opts.babel);
+      file.prepend(main.code);
+      file.prepend(map.code);
 
-          // get string code for the template main function
-          main = babel.transformFromAst(
-            compiler.main(opts.compiler), opts.babel);
-
-          file.prepend(main.code);
-          file.prepend(map.code);
-
-          // compile next component
-          next();
-        }, cb);
+      cb();
     },
     'Script': function(node, cb) {
-      const mod = node.parent;
+
+      console.log('got script...');
 
       // perform {{id}} replacement
-      if(node
-        && node.contents === String(node.contents)) {
-        node.contents = node.contents.replace(
-          id.pattern, mod.id); 
+      if(node && node.contents === String(node.contents)) {
+        node.contents = node.contents.replace(id.pattern, node.parent.id); 
       }
-
       file.append(node.contents);
+
       cb();
     },
     'Component': function(node, cb) {
+      opts.compiler.querySelectorAll = node.template.querySelectorAll;
+
+      let res = compiler.render(node.template.element, opts.compiler);
+      templates.push(res);
       components.push(node); 
+
       cb();
     }
   }

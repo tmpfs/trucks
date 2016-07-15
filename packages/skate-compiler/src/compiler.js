@@ -29,6 +29,44 @@ function isEmpty(obj) {
   return true;
 }
 
+function options(opts) {
+  opts = opts || {};
+
+  opts.dom = opts.dom || {};
+
+  if(opts.normalize === undefined) {
+    opts.normalize = true; 
+  }else{
+    opts.normalize = Boolean(opts.normalize);
+  }
+
+  if(opts.normalize) {
+    opts.dom.normalizeWhitespace = true; 
+  }
+
+  if(opts.literals === undefined) {
+    opts.literals = {}; 
+  // truthy enable all template literals
+  }else if(opts.literals && opts.literals !== Object(opts.literals)) {
+    opts.literals = {text: true, attribute: true}; 
+  }
+
+
+  opts.attr = opts.attr || ID;
+
+  opts.skate = opts.skate || SKATE;
+  opts.vdom = opts.vdom || VDOM;
+  opts.element = opts.element || ELEMENT;
+  opts.text = opts.text || TEXT;
+
+  opts.name = opts.name || RENDER;
+  opts.arg = opts.arg || ELEM;
+
+  opts.templates = opts.templates || TEMPLATES;
+
+  return opts;
+}
+
 /**
  *  Compile an HTML string to babel AST programs representing each `<template>` 
  *  element in the input HTML.
@@ -94,40 +132,11 @@ function isEmpty(obj) {
  *    , {map, main, list} = trucks.compile(tpl);
  */
 function compile(html, opts) {
+  opts = options(opts);
+
   const cheerio = require('cheerio');
-  opts = opts || {};
-
-  opts.dom = opts.dom || {};
-
-  if(opts.normalize === undefined) {
-    opts.normalize = true; 
-  }else{
-    opts.normalize = Boolean(opts.normalize);
-  }
-
-  if(opts.normalize) {
-    opts.dom.normalizeWhitespace = true; 
-  }
-
-  if(opts.literals === undefined) {
-    opts.literals = {}; 
-  // truthy enable all template literals
-  }else if(opts.literals && opts.literals !== Object(opts.literals)) {
-    opts.literals = {text: true, attribute: true}; 
-  }
-
-  opts.$ = cheerio.load(html, opts.dom);
-  opts.attr = opts.attr || ID;
-
-  opts.skate = opts.skate || SKATE;
-  opts.vdom = opts.vdom || VDOM;
-  opts.element = opts.element || ELEMENT;
-  opts.text = opts.text || TEXT;
-
-  opts.name = opts.name || RENDER;
-  opts.arg = opts.arg || ELEM;
-
-  opts.templates = opts.templates || TEMPLATES;
+  opts.querySelectorAll = 
+    opts.querySelectorAll || cheerio.load(html, opts.dom);
 
   const templates = transform(opts);
 
@@ -366,11 +375,13 @@ function render(t, body, opts) {
  *  @returns {Object} function body AST.
  */
 function template(el, opts) {
-  const $ = opts.$
+
+  opts = options(opts);
+
+  const $ = opts.querySelectorAll
     , babel = require('babel-core')
     , t = babel.types
     , body = [];
-
 
   function propertyString(val) {
     if(val === true || val === false) {
@@ -507,7 +518,7 @@ function template(el, opts) {
  */
 function transform(opts) {
   const out = []
-    , $ = opts.$
+    , $ = opts.querySelectorAll
     , templates = $('template');
 
   templates.each((i, el) => {
@@ -518,6 +529,7 @@ function transform(opts) {
 }
 
 module.exports = {
+  render: template,
   html: compile,
   map: map,
   main: main

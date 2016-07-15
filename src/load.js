@@ -205,22 +205,21 @@ function sources(files, input, output, state, parent, cb) {
   );
 }
 
-/**
- *  @private
- */
-function load(state, cb) {
-  if(!state.files || !state.files.length) {
-    return cb(new Error('no input files specified'));
+function plugin(/*conf, state*/) {
+  return function load(state, cb) {
+    if(!state.files || !state.files.length) {
+      return cb(new Error('no input files specified'));
+    }
+
+    // run processing for the state sources
+    sources(state.files, state, state.result.files, null, (err) => {
+      if(err) {
+        return cb(err); 
+      } 
+
+      cb(null, state);
+    });
   }
-
-  // run processing for the state sources
-  sources(state.files, state, state.result.files, null, (err) => {
-    if(err) {
-      return cb(err); 
-    } 
-
-    cb(null, state);
-  });
 }
 
-module.exports = load;
+module.exports = plugin;

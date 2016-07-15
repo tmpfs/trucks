@@ -1,7 +1,6 @@
 const each = require('./each')
     , State = require('./state')
     , SOURCES = 'sources'
-    , OPTIONS = 'options'
     , LOAD = 'load'
     , PARSE = 'parse'
     , TRANSFORM = 'transform'
@@ -10,7 +9,6 @@ const each = require('./each')
     // names for exposed constants
     , PHASES = [
         SOURCES,
-        OPTIONS,
         LOAD,
         PARSE,
         TRANSFORM,
@@ -23,86 +21,163 @@ const each = require('./each')
         TRANSFORM,
         GENERATE,
         WRITE
-      ];
+      ]
+    , NAME = 'components'
+    , HTML = 'html'
+    , CSS = 'css'
+    , JS = 'js';
+
+function options(state, cb) {
+  const abs = state.absolute
+      , merge = require('merge')
+  
+  let opts = state.options
+    , options = require('../defaults')
+    , conf
+    , config;
+
+  opts = opts || {};
+
+  if(opts.eol !== undefined && opts.eol !== String(opts.eol)) {
+    return cb(new Error('eol option must be a string')); 
+  }
+
+  if(opts.conf === String(opts.conf)) {
+    opts.conf = [opts.conf];
+  }
+
+  // list of configuration files to require and merge
+  if(Array.isArray(opts.conf)) {
+    conf = opts.conf;
+    delete opts.conf;
+
+    let i, file;
+    for(i = 0;i < conf.length;i++) {
+      file = conf[i];
+      file = abs(file);
+      try {
+        config = require(file);
+        options = merge(true, options, config);
+      }catch(e) {
+        return cb(e); 
+      }
+    }
+  }
+
+  // merge in passed options after loading config files
+  options = merge(true, options, opts);
+
+  let html
+    , css
+    , js;
+
+  // set up output directory and file names
+  if(options.out === String(options.out)) {
+    options.name = options.name || NAME;
+
+    // build output paths using `out` directory and `name` options
+    html = abs(`${options.name}.${HTML}`, options.out);
+    css = abs(`${options.name}.${CSS}`, options.out);
+    js = abs(`${options.name}.${JS}`, options.out);
+  }
+
+  // specific overrides for each output type
+  if(html && !options.html) {
+    options.html = html;
+  }
+  if(css && !options.css) {
+    options.css = css;
+  }
+  if(js && !options.js) {
+    options.js = js;
+  }
+
+  // plugin configuration objects
+  options.conf = options.conf || {};
+
+  // re-assign modified options
+  state.options = options;
+
+  cb(null, state);
+}
 
 const handlers = {
-  sources: function() {
+  sources: function sources() {
     return [
-      require('./options'),
       require('./load'),
       require('./parse')
     ]; 
   },
-  options: function() {
-    return require('./options'); 
-  },
-  load: function() {
-    return require('./load'); 
-  },
-  parse: function() {
-    return require('./parse'); 
-  },
-  transform: function() {
-    return require('./transform'); 
-  },
-  generate: function() {
-    return require('./generate'); 
-  },
-  write: function() {
-    return require('./write'); 
-  }
+  load: require('./load'),
+  parse: require('./parse'),
+  transform: require('./transform'),
+  generate: require('./generate'),
+  write: require('./write')
 }
 
 function run(opts, cb) {
   const state = new State(opts);
 
-  let i
-    , phase
-    , phases = Array.isArray(state.options.plugins)
-        ? state.options.plugins : DEFAULTS
-    , middleware = state.middleware
-    , closure;
+  options(state, (err) => {
+    if(err) {
+      return cb(err); 
+    }
 
-  for(i = 0;i < phases.length;i++) {
-    phase = phases[i];
-    try {
-      // assume plugin is middleware
-      if(phase instanceof Function) {
-        closure = phase(state);
-      }else if(phase === String(phase)) {
-        // see if the phase is a known built in plugin
-        if(handlers[phase]) {
-          // initialize result phases
-          state.result[phase] = state.result[phase] || {};
-          closure = handlers[phase](state);
-        // treat as plugin module 
-        }else{
-          closure = require(phase)(state);
+    let i
+      , phase
+      , conf
+      , phases = Array.isArray(state.options.plugins)
+          ? state.options.plugins : DEFAULTS
+      , middleware = state.middleware
+      , closure;
+
+    for(i = 0;i < phases.length;i++) {
+      phase = phases[i];
+      conf = state.options.conf[phase] || {};
+
+      //console.dir(phase);
+
+      try {
+        // assume plugin is middleware
+        if(phase instanceof Function) {
+          closure = phase(conf, state);
+        }else if(phase === String(phase)) {
+          // see if the phase is a known built in plugin
+          if(handlers[phase]) {
+            closure = handlers[phase](conf, state);
+          // treat as plugin module 
+          }else{
+            closure = require(phase)(conf, state);
+          }
+        }
+      }catch(e) {
+        return cb(e); 
+      }
+    
+      if(closure instanceof Function) {
+        middleware.push(closure);
+      }else if(Array.isArray(closure)) {
+        for(let j = 0;j < closure.length;j++) {
+          phase = closure[j].name;
+          conf = state.options.conf[phase] || {};
+          middleware.push(closure[j](conf, state)); 
         }
       }
-    }catch(e) {
-      return cb(e); 
     }
-  
-    if(closure instanceof Function) {
-      middleware.push(closure);
-    }else if(Array.isArray(closure)) {
-      middleware.push(...closure); 
-    }
-  }
- 
-  each(
-    middleware,
-    (fn, next) => {
-      fn(state, next);
-    },
-    (err) => {
-      if(err) {
-        return cb(err); 
-      } 
-      cb(null, state);
-    }
-  );
+   
+    each(
+      middleware,
+      (fn, next) => {
+        fn(state, next);
+      },
+      (err) => {
+        if(err) {
+          return cb(err); 
+        } 
+        cb(null, state);
+      }
+    );
+  });
 
   return state;
 }

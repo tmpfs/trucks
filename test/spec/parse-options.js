@@ -4,12 +4,9 @@ var expect = require('chai').expect
 describe('parse:', function() {
 
   it('should handle no options', function(done) {
-    trucks.parse(
+    trucks(
       {
-        result: {
-          files: [],
-          templates: []
-        }
+        files: ['test/fixtures/simple-inline/components.html']
       },
       (err, result) => {
         expect(err).to.eql(null);

@@ -4,12 +4,9 @@ var expect = require('chai').expect
 describe('transform:', function() {
 
   it('should handle no options', function(done) {
-    trucks.transform(
+    trucks(
       {
-        result: {
-          templates: [],
-          scripts: []
-        }
+        files: ['test/fixtures/simple-inline/components.html']
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -20,13 +17,11 @@ describe('transform:', function() {
   });
 
   it('should transform with plugins option', function(done) {
-    trucks.transform(
+    trucks(
       {
-        options: {babel: {plugins: []}, extract: true},
-        result: {
-          templates: [],
-          scripts: [{contents: 'skate.define("x-foo", {});var foo = bar();'}]
-        }
+        files: ['test/fixtures/simple-inline/components.html'],
+        babel: {plugins: []},
+        extract: true
       },
       (err, state) => {
         expect(err).to.eql(null);

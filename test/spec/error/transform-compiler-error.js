@@ -4,24 +4,17 @@ var expect = require('chai').expect
 describe('transform:', function() {
 
   it('should error on invalid javascript (syntax error)', function(done) {
-    trucks.transform(
+    trucks(
       {
-        result: {
-          scripts: [
-            {
-              file: 'mock.js',
-              contents: 'var foo ='
-            }
-          ],
-          templates: []
-        }
+        files: ['test/fixtures/syntax-error.html']
       },
       (err) => {
         function fn() {
           throw err;
         }
         expect(fn).throws(Error);
-        expect(fn).throws(/mock.js/);
+        expect(fn).throws(/unexpected token/i);
+        //expect(fn).throws(/mock.js/);
         done();
       }
     );

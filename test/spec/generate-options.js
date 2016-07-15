@@ -4,13 +4,9 @@ var expect = require('chai').expect
 describe('generate:', function() {
 
   it('should handle no options', function(done) {
-    trucks.generate(
+    trucks(
       {
-        result: {
-          styles: [],
-          scripts: [],
-          templates: []
-        }
+        files: ['test/fixtures/simple-inline/components.html']
       }, (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');

@@ -16,14 +16,6 @@ trucks(
       throw err; 
     }
 
-    const generated = state.result.generate;
-
-    // NOTE: extract only relevant data for example output
-    const result = {
-      stylesheet: generated.stylesheet,
-      javascript: generated.javascript
-    }
-
-    console.log(JSON.stringify(result, undefined, 2));
+    console.dir(state.output);
   }
 );

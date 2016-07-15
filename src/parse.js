@@ -148,71 +148,69 @@ function component(state, mod, context, cb) {
   );
 }
 
-/**
- *  Iterate `<dom-module>` elements.
- *
- *  @private {function} modules
- */
-function modules(state, cb) {
-  each(
-    state.result.files,
-    (group, next) => {
-      // parse all the <dom-module> elements
-      const $ = group.querySelectorAll
-        , elements = $(selectors.modules).toArray();
+function plugin(/*conf, state*/) {
 
-      // no component imports and no modules declared
-      //if(!elements.length
-        //&& !group.imports.length
-        //&& !group.duplicates.length) {
-        //return cb(new Error(
-          //`no imports or component modules in ${group.file}`)); 
-      //}
+  return function parse(state, cb) {
+    each(
+      state.result.files,
+      (group, next) => {
+        // parse all the <dom-module> elements
+        const $ = group.querySelectorAll
+          , elements = $(selectors.modules).toArray();
 
-      each(
-        elements,
-        (context, next) => {
-          const id = $(context).attr(ID);
+        // no component imports and no modules declared
+        //if(!elements.length
+          //&& !group.imports.length
+          //&& !group.duplicates.length) {
+          //return cb(new Error(
+            //`no imports or component modules in ${group.file}`)); 
+        //}
 
-          if(!id) {
-            return next(
-              new Error(
-                `identifier missing for component module in ${group.file}`)); 
-          }
+        each(
+          elements,
+          (context, next) => {
+            const id = $(context).attr(ID);
 
-          const mod = new Module(id, group);
+            if(!id) {
+              return next(
+                new Error(
+                  `identifier missing for component module in ${group.file}`)); 
+            }
 
-          // validate custom element name as per the spec
-          try {
-            mod.validate(id);
-          }catch(e) {
-            return next(e); 
-          }
+            const mod = new Module(id, group);
 
-          // proxy document query function
-          mod.querySelectorAll = $;
+            // validate custom element name as per the spec
+            try {
+              mod.validate(id);
+            }catch(e) {
+              return next(e); 
+            }
 
-          // add to local list of modules
-          group.modules.push(mod);
+            // proxy document query function
+            mod.querySelectorAll = $;
 
-          // add to global list of all modules
-          state.result.modules.push(mod);
+            // add to local list of modules
+            group.modules.push(mod);
 
-          component(state, mod, context, next);
-        }, next)
-    },
-    (err) => {
+            // add to global list of all modules
+            state.result.modules.push(mod);
 
-      // test for duplicate id across all templates
-      try {
-        duplicates(state.result.templates);
-      }catch(e) {
-        return cb(e); 
+            component(state, mod, context, next);
+          }, next)
+      },
+      (err) => {
+
+        // test for duplicate id across all templates
+        try {
+          duplicates(state.result.templates);
+        }catch(e) {
+          return cb(e); 
+        }
+
+        cb(err, state); 
       }
-
-      cb(err, state); 
-    }
-  );
+    );
+  }
 }
 
-module.exports = modules;
+module.exports = plugin;

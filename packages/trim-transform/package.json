@@ -1,7 +1,7 @@
 {
-  "name": "trucks",
-  "version": "0.2.16",
-  "description": "Web component compiler and package manager",
+  "name": "trucks-transform-trim",
+  "version": "1.0.0",
+  "description": "Utility to trim input templates, styles and scripts",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -12,22 +12,14 @@
   "engines": {
     "node": ">=4.0"
   },
-  "dependencies": {
-    "cheerio": "~0.20.0",
-    "merge": "~1.2.0"
-  },
   "devDependencies": {
-    "babel-core": "~6.10.4",
     "babel-cli": "~6.10.1",
     "babel-preset-es2015": "~6.9.0",
     "chai": "~3.5.0",
     "coveralls": "~2.11.9",
     "express": "~4.14.0",
     "istanbul": "~0.4.4",
-    "mocha": "~2.5.3",
-    "skatejs": "~1.0.0-beta.7",
-    "trucks-transform-skate": "*",
-    "trucks-transform-trim": "*"
+    "mocha": "~2.5.3"
   },
   "scripts": {
     "clean": "rm -rf coverage target",

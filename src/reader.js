@@ -103,7 +103,6 @@ class TemplateReader extends TraitReader {
 
   onTrait(state, trait, cb) {
     trait.querySelectorAll = state.parser.parse(trait.contents);
-    trait.trim(state.options.trim); 
     trait.parent.templates.push(trait);
     state.result.templates.push(trait);
     cb(null, trait);
@@ -177,7 +176,6 @@ class StyleReader extends TraitReader {
 
   onTrait(state, trait, cb) {
     trait.querySelectorAll = state.parser.parse(trait.contents);
-    trait.trim(state.options.trim); 
 
     // global scope styles
     trait.parent.styles.push(trait);
@@ -206,7 +204,6 @@ class ScriptReader extends TraitReader {
 
   onTrait(state, trait, cb) {
     trait.querySelectorAll = state.parser.parse(trait.contents);
-    trait.trim(state.options.trim); 
     trait.parent.scripts.push(trait);
     state.result.scripts.push(trait);
     cb(null, trait);

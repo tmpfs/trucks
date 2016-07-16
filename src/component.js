@@ -194,35 +194,6 @@ class ComponentTrait {
   get inline() {
     return this.href === undefined;
   }
-
-  /**
-   *  Utility to trim a result object contents removing leading and trailing 
-   *  newlines.
-   *
-   *  @private {function} trim
-   *  @param {Object} options the trim options.
-   */
-  trim(options) {
-    // only configured to trim inline content
-    if(!options || (options.inline && !this.inline)) {
-      return; 
-    }
-
-    // trim leading and trailing newlines
-    if(options.newlines) {
-      this.contents = this.contents.replace(/^\n+/, '');
-      this.contents = this.contents.replace(/[\n ]+$/, '');
-    }
-
-    // trim every line
-    if(options.lines && (options.pattern instanceof RegExp)) {
-      let lines = this.contents.split('\n');
-      lines = lines.map((line) => {
-        return line.replace(options.pattern, ''); 
-      })
-      this.contents = lines.join('\n');
-    }
-  }
 }
 
 class ComponentTemplate extends ComponentTrait {

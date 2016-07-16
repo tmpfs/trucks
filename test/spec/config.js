@@ -22,8 +22,6 @@ function assert(state) {
   expect(stat).to.be.an('object');
   expect(stat.isFile()).to.eql(true);
   expect(stat.size).to.be.gt(0);
-
-  //expect(state.result.write.files).to.be.an('object');
 }
 
 describe('trucks:', function() {
@@ -37,7 +35,7 @@ describe('trucks:', function() {
         out: out,
         extract: true,
         conf: ['test/fixtures/mock-config.js'],
-        transforms: ['skate']
+        transforms: ['skate/src']
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -57,7 +55,7 @@ describe('trucks:', function() {
         force: true,
         extract: true,
         conf: path.join(process.cwd(), 'test/fixtures/mock-config.js'),
-        transforms: ['skate']
+        transforms: ['skate/src']
       },
       (err, state) => {
         expect(err).to.eql(null);

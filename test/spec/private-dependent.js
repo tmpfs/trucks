@@ -11,7 +11,7 @@ describe('trucks:', function() {
         files: [src],
         out: 'target',
         name: 'private-dependent',
-        transforms: ['skate/src']
+        transforms: ['trim/src', 'skate/src']
       },
       (err, state) => {
         expect(err).to.eql(null);

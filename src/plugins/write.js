@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-function plugin(/*conf, state*/) {
+function plugin(/*state, conf*/) {
 
   return function write(state, cb) {
     const opts = state.options

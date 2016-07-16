@@ -1,4 +1,4 @@
-function plugin(/*conf, state*/) {
+function plugin(/*state, conf*/) {
 
   return function generate(state, cb) {
     const opts = state.options;

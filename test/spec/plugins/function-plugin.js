@@ -18,7 +18,7 @@ describe('trucks:', function() {
         out: 'target',
         name: 'function-plugin',
         plugins: [
-          function mock(conf/*, state*/) {
+          function mock(state, conf) {
             expect(conf).to.eql(config);
             called = true;
             return function plugin(state, cb) {

@@ -202,7 +202,7 @@ function sources(files, input, output, state, parent, cb) {
   );
 }
 
-function plugin(/*conf, state*/) {
+function plugin(/*state, conf*/) {
   return function load(state, cb) {
     if(!state.files || !state.files.length) {
       return cb(new Error('no input files specified'));

@@ -71,7 +71,7 @@ function visit(state, visitors, node, cb) {
   );
 }
 
-function plugin(conf, state) {
+function plugin(state, conf) {
   const visitors = conf.visitors || []
   
   if(!Array.isArray(visitors)) {

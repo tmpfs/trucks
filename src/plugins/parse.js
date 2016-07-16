@@ -123,7 +123,7 @@ function component(state, mod, context, cb) {
   );
 }
 
-function plugin(/*conf, state*/) {
+function plugin(/*state, conf*/) {
 
   return function parse(state, cb) {
     const Module = state.components.Module;

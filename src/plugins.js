@@ -159,14 +159,14 @@ function run(opts, cb) {
       let closure; 
       // assume plugin is middleware
       if(phase instanceof Function) {
-        closure = phase(detail.conf, state);
+        closure = phase(state, detail.conf);
       }else if(phase === String(phase)) {
         // see if the phase is a known built in plugin
         if(handlers[phase]) {
-          closure = handlers[phase](detail.conf, state);
+          closure = handlers[phase](state, detail.conf);
         // treat as plugin module 
         }else{
-          closure = require(phase)(detail.conf, state);
+          closure = require(phase)(state, detail.conf);
         }
       }
 

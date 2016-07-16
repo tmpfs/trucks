@@ -1,9 +1,9 @@
-const MIME = {
-      template: 'text/html',
-      style: 'text/css',
-      script: 'text/javascript'
-    }
-    , RESERVED = [
+//const MIME = {
+      //template: 'text/html',
+      //style: 'text/css',
+      //script: 'text/javascript'
+    //}
+    const RESERVED = [
         'annotation-xml',
         'color-profile',
         'font-face',
@@ -189,10 +189,19 @@ class ComponentTrait {
     this.parent = parent;
     this.href = href;
     this.file = file;
+
   }
 
   get inline() {
     return this.href === undefined;
+  }
+
+  set type(val) {
+    this.element.attribs.type = val;
+  }
+
+  get type() {
+    return this.element.attribs.type; 
   }
 }
 
@@ -200,29 +209,17 @@ class ComponentTemplate extends ComponentTrait {
   constructor() {
     super(...arguments);
   }
-
-  get type() {
-    return this.type || MIME.template;
-  }
 }
 
 class ComponentStyle extends ComponentTrait {
   constructor() {
     super(...arguments);
   }
-
-  get type() {
-    return this.type || MIME.style;
-  }
 }
 
 class ComponentScript extends ComponentTrait {
   constructor() {
     super(...arguments);
-  }
-
-  get type() {
-    return this.type || MIME.script;
   }
 }
 

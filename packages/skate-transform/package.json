@@ -27,7 +27,7 @@
     "skatejs": "~1.0.0-beta.7"
   },
   "scripts": {
-    "clean": "rm -rf coverage target",
+    "clean": "rm -rf coverage target lib",
     "build": "babel --presets es2015 src --out-dir lib",
     "prepublish": "npm run build",
     "lint": "jshint src test doc && jscs src test/spec",

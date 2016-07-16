@@ -3,14 +3,14 @@ var expect = require('chai').expect
 
 describe('trim:', function() {
 
-  it('should not trim with disabled options', function(done) {
-    const src = '../../test/fixtures/simple-inline/components.html';
+  it('should trim inline elements only', function(done) {
+    const src = '../../test/fixtures/simple-external/components.html';
     trucks(
       {
         files: [src],
         out: 'target',
-        name: 'trim-options',
-        trim: {newlines: false, lines: false},
+        name: 'trim-inline',
+        trim: {inline: true},
         transforms: [require('../../src')]
       }, (err, result) => {
         expect(err).to.eql(null);

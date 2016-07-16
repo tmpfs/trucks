@@ -1,18 +1,13 @@
-//const MIME = {
-      //template: 'text/html',
-      //style: 'text/css',
-      //script: 'text/javascript'
-    //}
-    const RESERVED = [
-        'annotation-xml',
-        'color-profile',
-        'font-face',
-        'font-face-src',
-        'font-face-uri',
-        'font-face-format',
-        'font-face-name',
-        'missing-glyph'
-      ];
+const RESERVED = [
+    'annotation-xml',
+    'color-profile',
+    'font-face',
+    'font-face-src',
+    'font-face-uri',
+    'font-face-format',
+    'font-face-name',
+    'missing-glyph'
+  ];
 
 /**
  *  Represents an item with imports. 
@@ -21,7 +16,6 @@
  */
 class ComponentImport {
   constructor() {
-
     // dependencies referenced with `<link rel="import">`
     // propagated during the load compiler phase
     this.imports = [];
@@ -246,6 +240,10 @@ class Component {
 
   get id() {
     return this.parent.id;
+  }
+
+  get file() {
+    return this.parent.file;
   }
 }
 

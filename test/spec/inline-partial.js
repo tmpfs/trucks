@@ -10,7 +10,8 @@ describe('trucks:', function() {
       {
         files: [src],
         out: 'target',
-        name: 'inline-partial'
+        name: 'inline-partial',
+        transforms: ['trim', 'skate']
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -45,8 +46,19 @@ describe('trucks:', function() {
         expect(component.partials).to.be.an('array')
           .to.have.length(1);
 
+        expect(component.id).to.be.a('string');
+        expect(component.file).to.be.a('string');
+
         expect(component.template).to.equal(mod.templates[0]);
         expect(component.partials[0]).to.equal(mod.templates[1]);
+
+        expect(mod.styles[0].inline).to.eql(true);
+        expect(mod.styles[0].type).to.eql(undefined);
+
+        mod.styles[0].type = 'text/css';
+        expect(mod.styles[0].type).to.eql('text/css');
+
+        expect(component.scripts).to.be.an('array');
 
         done();
       }

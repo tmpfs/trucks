@@ -1,17 +1,17 @@
 var expect = require('chai').expect
   , fs = require('fs')
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('skate:', function() {
 
   it('should compile simple external component', function(done) {
-    const src = 'test/fixtures/simple-external/components.html';
+    const src = '../../test/fixtures/simple-external/components.html';
     trucks(
       {
         files: [src],
         out: 'target',
         name: 'simple-external',
-        transforms: ['skate/src']
+        transforms: [require('../../src')]
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -38,8 +38,9 @@ describe('trucks:', function() {
         expect(state.result.scripts[0].inline).to.eql(false);
         expect(state.result.scripts[0].contents).to.be.a('string');
 
-        const expected = fs.readFileSync('test/expect/simple-component.js')
-          .toString().trim();
+        const expected = fs.readFileSync(
+          '../../test/expect/simple-component.js')
+            .toString().trim();
         const js = 'target/simple-external.js';
         expect(fs.readFileSync(js).toString().trim())
           .to.eql(expected);

@@ -1,18 +1,18 @@
 var expect = require('chai').expect
   , fs = require('fs')
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('skate:', function() {
 
   it('should compile simple inline component', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html';
+    const src = '../../test/fixtures/simple-inline/components.html';
 
     trucks(
       {
         files: [src],
         out: 'target',
         name: 'simple-inline',
-        transforms: ['trim/src', 'skate/src']
+        transforms: ['trim/src', require('../..//src')]
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -36,8 +36,9 @@ describe('trucks:', function() {
         expect(state.result.scripts[0].inline).to.eql(true);
         expect(state.result.scripts[0].contents).to.be.a('string');
 
-        const expected = fs.readFileSync('test/expect/simple-component.js')
-          .toString().trim();
+        const expected = fs.readFileSync(
+          '../../test/expect/simple-component.js')
+            .toString().trim();
 
         const js = 'target/simple-inline.js';
         expect(fs.readFileSync(js).toString().trim())

@@ -405,24 +405,26 @@ function template(el, opts) {
     for(i = 0;i < childNodes.length;i++) {
       const child = childNodes[i];
       const el = $(child);
-      let script;
 
       // TODO: implement the logic to parse template scripts
-      if(child.type === SCRIPT && el.attr('data-compile') !== undefined) {
-        script = el.text();
-        let res; 
+      //let script;
+
+      //if(child.type === SCRIPT && el.attr('data-compile') !== undefined) {
+        //script = el.text();
+        //let res; 
         
-        try {
-          res = babel.transform(script, opts.babel);
+        //try {
+          //res = babel.transform(script, opts.babel);
           // TODO: parse AST for calls to html()
           // TODO: wrap in self-executing function
 
           //console.log(res.code);
-        }catch(e) {
-          throw e; 
-        }
+        //}catch(e) {
+          //throw e; 
+        //}
       // child tag node (element)
-      }else if(child.type === TAG
+      //}else if(child.type === TAG
+      if(child.type === TAG
         || child.type === STYLE
         // run time script
         || child.type === SCRIPT) {

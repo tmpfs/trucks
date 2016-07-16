@@ -35,8 +35,6 @@ function options(state, cb) {
     , conf
     , config;
 
-  opts = opts || {};
-
   if(opts.eol !== undefined && opts.eol !== String(opts.eol)) {
     return cb(new Error('eol option must be a string')); 
   }

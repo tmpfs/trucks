@@ -2,8 +2,6 @@ const path = require('path')
 
 class OutputFile {
   constructor(file, name, base, options) {
-    options = options || {};
-
     const EOL = require('os').EOL;
     this.eol = options.eol || (EOL + EOL);
 

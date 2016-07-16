@@ -8,22 +8,16 @@
  */
 module.exports = function transform(state) {
   var options = state.options,
-      compiler = require('./compiler');
-
-  options.compiler = options.compiler || {};
-
+      compiler = require('./compiler')
   // configuration for id attribute replacement
   // which enables {{id}} to be replaced with the
   // <dom-module> element id
-  var id = {
-    pattern: /\{\{id\}\}/gm
-  };
+  ,
+      id = options.compiler.id,
+      replace = id && id.pattern instanceof RegExp;
 
   // setup the output file
-  var file = void 0;
-  if (options.js && !state.hasFile(options.js)) {
-    file = state.getFile(options.js);
-  }
+  var file = state.getFile(options.js);
 
   // list of components processed
   var components = []
@@ -54,8 +48,9 @@ module.exports = function transform(state) {
       cb();
     },
     'Script': function Script(node, cb) {
+
       // perform {{id}} replacement
-      if (node && node.contents === String(node.contents)) {
+      if (replace && node && node.contents === String(node.contents)) {
         node.contents = node.contents.replace(id.pattern, node.parent.id);
       }
       file.append(node.contents);

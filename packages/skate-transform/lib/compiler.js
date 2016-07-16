@@ -355,24 +355,26 @@ function template(el, opts) {
     for (i = 0; i < childNodes.length; i++) {
       var child = childNodes[i];
       var _el = $(child);
-      var script = void 0;
 
       // TODO: implement the logic to parse template scripts
-      if (child.type === SCRIPT && _el.attr('data-compile') !== undefined) {
-        script = _el.text();
-        var res = void 0;
+      //let script;
 
-        try {
-          res = babel.transform(script, opts.babel);
-          // TODO: parse AST for calls to html()
-          // TODO: wrap in self-executing function
+      //if(child.type === SCRIPT && el.attr('data-compile') !== undefined) {
+      //script = el.text();
+      //let res; 
 
-          //console.log(res.code);
-        } catch (e) {
-          throw e;
-        }
-        // child tag node (element)
-      } else if (child.type === TAG || child.type === STYLE
+      //try {
+      //res = babel.transform(script, opts.babel);
+      // TODO: parse AST for calls to html()
+      // TODO: wrap in self-executing function
+
+      //console.log(res.code);
+      //}catch(e) {
+      //throw e; 
+      //}
+      // child tag node (element)
+      //}else if(child.type === TAG
+      if (child.type === TAG || child.type === STYLE
       // run time script
       || child.type === SCRIPT) {
         args = [t.stringLiteral(child.name)];

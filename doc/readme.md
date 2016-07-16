@@ -20,7 +20,6 @@ Uses ES6 code transpiled for `node@4.x` compatibility.
 
 <? @include {=readme}
       usage.md 
-      overview.md
       components.md
       roadmap.md ?>
 

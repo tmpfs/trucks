@@ -12,7 +12,7 @@ module.exports = function transform(state) {
 
     // only configured to trim inline content
     if (!options || options.inline && !node.inline) {
-      return;
+      return cb();
     }
 
     // trim leading and trailing newlines

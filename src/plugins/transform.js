@@ -73,7 +73,7 @@ function plugin(conf, state) {
 
         // NOTE: require strings as plugins
         if(visitor === String(visitor)) {
-          visitor = require('trucks-plugin-' + visitor); 
+          visitor = require('trucks-transform-' + visitor); 
         }
 
         return visitor(state); 

@@ -102,9 +102,7 @@ function component(state, mod, context, cb) {
             // shadow DOM
             const reader = new readers.Style(mod)
               , iterator = getIterator(state, mod, template.element)
-              //, types = [ reader ];
-            //each(types,, next);
-            //
+
             iterator(
               reader,
               (traits, next) => {

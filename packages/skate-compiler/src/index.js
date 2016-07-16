@@ -1,4 +1,3 @@
-const compiler = require('./compiler')
 /**
  *  Iterate all javascript strings parsing to an AST and extracting 
  *  components definitions `skate.define()`.
@@ -6,9 +5,10 @@ const compiler = require('./compiler')
  *  @private
  */
 module.exports = function transform(state) {
-  const opts = state.options;
+  const options = state.options
+      , compiler = require('./compiler');
 
-  opts.compiler = opts.compiler || {};
+  options.compiler = options.compiler || {};
 
   // configuration for id attribute replacement
   // which enables {{id}} to be replaced with the
@@ -19,8 +19,8 @@ module.exports = function transform(state) {
 
   // setup the output file
   let file;
-  if(opts.js && !state.hasFile(opts.js)) {
-    file = state.getFile(opts.js); 
+  if(options.js && !state.hasFile(options.js)) {
+    file = state.getFile(options.js); 
   }
 
   // list of components processed
@@ -33,17 +33,17 @@ module.exports = function transform(state) {
     complete: function(cb) {
 
       const babel = require('babel-core')
-        , hash = compiler.map(templates, opts.compiler)
-        , entry = compiler.main(opts.compiler);
+        , hash = compiler.map(templates, options.compiler)
+        , entry = compiler.main(options.compiler);
 
       let map
         , main;
 
       // get the template map
-      map = babel.transformFromAst(hash, opts.babel);
+      map = babel.transformFromAst(hash, options.babel);
 
       // get the template main function
-      main = babel.transformFromAst(entry, opts.babel);
+      main = babel.transformFromAst(entry, options.babel);
 
       file.prepend(main.code);
       file.prepend(map.code);
@@ -51,9 +51,6 @@ module.exports = function transform(state) {
       cb();
     },
     'Script': function(node, cb) {
-
-      console.log('got script...');
-
       // perform {{id}} replacement
       if(node && node.contents === String(node.contents)) {
         node.contents = node.contents.replace(id.pattern, node.parent.id); 
@@ -63,9 +60,9 @@ module.exports = function transform(state) {
       cb();
     },
     'Component': function(node, cb) {
-      opts.compiler.querySelectorAll = node.template.querySelectorAll;
+      options.compiler.querySelectorAll = node.template.querySelectorAll;
 
-      let res = compiler.render(node.template.element, opts.compiler);
+      let res = compiler.render(node.template.element, options.compiler);
       templates.push(res);
       components.push(node); 
 

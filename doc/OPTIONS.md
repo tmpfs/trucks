@@ -12,6 +12,12 @@ This document shows the default options used when none are provided.
 const options = {
   // array list of component source files
   files: null,
+  // array list of plugins to execute
+  plugins: undefined,
+  // map of plugin configuration objects
+  configuration: undefined,
+  // array list of transforms for the transform plugin to run
+  transforms: undefined,
   // options to pass to babel
   babel: {},
   // output directory
@@ -73,5 +79,5 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 16, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 

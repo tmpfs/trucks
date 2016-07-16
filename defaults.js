@@ -1,6 +1,12 @@
 const options = {
   // array list of component source files
   files: null,
+  // array list of plugins to execute
+  plugins: undefined,
+  // map of plugin configuration objects
+  configuration: undefined,
+  // array list of transforms for the transform plugin to run
+  transforms: undefined,
   // options to pass to babel
   babel: {},
   // output directory

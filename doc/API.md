@@ -37,5 +37,5 @@ Compile component files to CSS, Javascript and HTML.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 16, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 

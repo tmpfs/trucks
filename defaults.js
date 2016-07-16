@@ -49,7 +49,11 @@ const options = {
     // flags for template literal support
     literals: undefined,
     // options to use when parsing the DOM
-    dom: undefined
+    dom: undefined,
+    // options for id replacement
+    id: {
+      pattern: /\{\{id\}\}/gm
+    }
   }
 }
 

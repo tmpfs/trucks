@@ -1,17 +1,17 @@
 var expect = require('chai').expect
   , fs = require('fs')
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('skate:', function() {
 
-  it('should compile component with private dependency', function(done) {
-    const src = 'test/fixtures/private-dependent/components.html';
+  it('should compile component with dependency', function(done) {
+    const src = '../../test/fixtures/dependent/components.html';
     trucks(
       {
         files: [src],
         out: 'target',
-        name: 'private-dependent',
-        transforms: ['trim/src', 'skate/src']
+        name: 'dependent',
+        transforms: ['trim/src', require('../../src')]
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -36,18 +36,18 @@ describe('trucks:', function() {
         expect(state.result.scripts[1].contents).to.eql(
           'skate.define(\'x-button\', {});');
 
-        const js = 'target/private-dependent.js'
-            , css = 'target/private-dependent.css';
+        const js = 'target/dependent.js'
+            , css = 'target/dependent.css';
 
         expect(fs.readFileSync(js).toString())
           .to.eql(
             fs.readFileSync(
-              'test/expect/private-dependent-javascript.js').toString().trim());
+              '../../test/expect/dependent-javascript.js').toString().trim());
 
         expect(fs.readFileSync(css).toString())
           .to.eql(
             fs.readFileSync(
-              'test/expect/private-dependent-stylesheet.css').toString().trim());
+              '../../test/expect/dependent-stylesheet.css').toString().trim());
 
         done();
       }

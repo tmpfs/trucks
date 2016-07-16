@@ -1,17 +1,17 @@
 var expect = require('chai').expect
   , fs = require('fs')
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('skate:', function() {
 
   it('should compile component with deep dependency', function(done) {
-    const src = 'test/fixtures/deep-dependent/components.html';
+    const src = '../../test/fixtures/deep-dependent/components.html';
     trucks(
       {
         files: [src],
         out: 'target',
         name: 'deep-dependent',
-        transforms: ['trim/src', 'skate/src']
+        transforms: ['trim/src', require('../../src')]
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -47,12 +47,14 @@ describe('trucks:', function() {
         expect(fs.readFileSync(js).toString())
           .to.eql(
             fs.readFileSync(
-              'test/expect/deep-dependent-javascript.js').toString().trim());
+              '../../test/expect/deep-dependent-javascript.js')
+                .toString().trim());
 
         expect(fs.readFileSync(css).toString())
           .to.eql(
             fs.readFileSync(
-              'test/expect/deep-dependent-stylesheet.css').toString().trim());
+              '../../test/expect/deep-dependent-stylesheet.css')
+                .toString().trim());
 
         done();
       }

@@ -12,7 +12,7 @@ describe('skate:', function() {
         files: [src],
         out: 'target',
         name: 'simple-inline',
-        transforms: ['trim/src', require('../..//src')]
+        transforms: ['trim/src', require('../../src')]
       },
       (err, state) => {
         expect(err).to.eql(null);

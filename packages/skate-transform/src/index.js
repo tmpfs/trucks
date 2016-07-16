@@ -8,8 +8,6 @@ module.exports = function transform(state) {
   const options = state.options
       , compiler = require('./compiler');
 
-  options.compiler = options.compiler || {};
-
   // configuration for id attribute replacement
   // which enables {{id}} to be replaced with the
   // <dom-module> element id

@@ -4,7 +4,10 @@
  *  @private
  */
 module.exports = function transform(state) {
-  var options = state.options;
+
+  // TODO: use conf argument
+  var options = state.options.trim;
+
   function trim(node, cb) {
 
     // only configured to trim inline content
@@ -26,6 +29,7 @@ module.exports = function transform(state) {
       });
       node.contents = lines.join('\n');
     }
+
     cb();
   }
 

@@ -54,7 +54,11 @@ function visit(state, visitors, node, cb) {
 
           if(canVisit(key)) {
             // try to call the visitor function with the item
-            return visitor[key](node, next); 
+            try {
+              return visitor[key](node, next); 
+            }catch(e) {
+              return next(e); 
+            }
           }
 
           // not visiting this node
@@ -69,21 +73,22 @@ function visit(state, visitors, node, cb) {
 
 function plugin(conf, state) {
   const visitors = conf.visitors || []
-    , list = visitors.map((visitor) => {
+  
+  if(!Array.isArray(visitors)) {
+    throw new Error(`transform visitors array expected`); 
+  }
+  
+  const list = visitors.map((visitor) => {
 
-        // NOTE: require strings as plugins
-        if(visitor === String(visitor)) {
-          visitor = require('trucks-transform-' + visitor); 
-        }
+    // NOTE: require strings as plugins
+    if(visitor === String(visitor)) {
+      visitor = require('trucks-transform-' + visitor); 
+    }
 
-        return visitor(state); 
-      })
+    return visitor(state); 
+  })
 
   return function transform(state, cb) {
-
-    if(!Array.isArray(visitors)) {
-      return cb(new Error(`transform visitors array expected`)); 
-    }
 
     const tree = state.tree
         , items = [];

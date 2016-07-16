@@ -5,7 +5,7 @@ function api(cb) {
   // build intermediary file
   const exec = require('child_process').execSync;
   exec(
-    'mkapi src/index.js src/compile.js --level=3 '
+    'mkapi src/index.js --level=3 '
       + '> doc/api/api-docs.md');
 
   // build api docs with toc

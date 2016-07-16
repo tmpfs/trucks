@@ -33,10 +33,10 @@ The load phase will build the result object:
 ComponentTree {
   imports: 
    [ ComponentFile {
+       imports: [Object],
        file: '/home/muji/git/trucks/doc/compiler/components.html',
        contents: '<link rel="import" href="x-button.html">\n',
        parent: null,
-       imports: [Object],
        modules: [],
        duplicates: [],
        querySelectorAll: [Object],
@@ -53,10 +53,10 @@ The parse phase takes the output from the load phase and extracts the css, javas
 ComponentTree {
   imports: 
    [ ComponentFile {
+       imports: [Object],
        file: '/home/muji/git/trucks/doc/compiler/components.html',
        contents: '<link rel="import" href="x-button.html">\n',
        parent: null,
-       imports: [Object],
        modules: [],
        duplicates: [],
        querySelectorAll: [Object],
@@ -71,10 +71,10 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
 ComponentTree {
   imports: 
    [ ComponentFile {
+       imports: [Object],
        file: '/home/muji/git/trucks/doc/compiler/components.html',
        contents: '<link rel="import" href="x-button.html">\n',
        parent: null,
-       imports: [Object],
        modules: [],
        duplicates: [],
        querySelectorAll: [Object],
@@ -99,5 +99,5 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 15, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 16, 2016
 

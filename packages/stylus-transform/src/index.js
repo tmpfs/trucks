@@ -16,7 +16,6 @@ module.exports = function transform(/*state*/) {
           if(err) {
             return cb(err); 
           }
-          //console.log(css);
           node.contents = css;
           cb()
         }

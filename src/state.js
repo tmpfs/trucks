@@ -27,10 +27,6 @@ class OutputFile {
   }
 
   set contents(list) {
-    // wrap string values
-    if(list === String(list)) {
-      list = [list]; 
-    }
     this._contents = list; 
   }
 

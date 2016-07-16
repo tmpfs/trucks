@@ -137,42 +137,66 @@ function run(opts, cb) {
     let i
       , phase
       , conf
+      , detail
       , phases = Array.isArray(state.options.plugins)
           ? state.options.plugins : DEFAULTS
       , middleware = state.middleware
-      , closure;
+      , closures = [];
+
+    function getDetail(phase) {
+      const out = {}; 
+      if(phase === String(phase)) {
+        out.name = phase; 
+      }else if(phase instanceof Function) {
+        out.name = phase.name; 
+      }
+      conf = state.options.configuration[out.name] || {};
+      out.conf = conf;
+      return out;
+    }
+
+    function getClosure(phase, detail) {
+      let closure; 
+      // assume plugin is middleware
+      if(phase instanceof Function) {
+        closure = phase(detail.conf, state);
+      }else if(phase === String(phase)) {
+        // see if the phase is a known built in plugin
+        if(handlers[phase]) {
+          closure = handlers[phase](detail.conf, state);
+        // treat as plugin module 
+        }else{
+          closure = require(phase)(detail.conf, state);
+        }
+      }
+
+      // closure returned an array of middleware to defer to 
+      // so invoke each function
+      if(Array.isArray(closure)) {
+        let j
+          , closures = [];
+        for(j = 0;j < closure.length;j++) {
+          closures = closures.concat(
+            getClosure(closure[j], detail));
+        }
+        return closures;
+      }
+      return [closure];
+    }
 
     for(i = 0;i < phases.length;i++) {
       phase = phases[i];
-      conf = state.options.configuration[phase] || {};
-
+      detail = getDetail(phase);
       try {
-        // assume plugin is middleware
-        if(phase instanceof Function) {
-          closure = phase(conf, state);
-        }else if(phase === String(phase)) {
-          // see if the phase is a known built in plugin
-          if(handlers[phase]) {
-            closure = handlers[phase](conf, state);
-          // treat as plugin module 
-          }else{
-            closure = require(phase)(conf, state);
-          }
-        }
+        closures = closures.concat(getClosure(phase, detail));
       }catch(e) {
         return cb(e); 
       }
-    
-      if(closure instanceof Function) {
-        middleware.push(closure);
-      }else if(Array.isArray(closure)) {
-        for(let j = 0;j < closure.length;j++) {
-          phase = closure[j].name;
-          conf = state.options.configuration[phase] || {};
-          middleware.push(closure[j](conf, state)); 
-        }
-      }
     }
+
+    closures.forEach((closure) => {
+      middleware.push(closure);
+    })
    
     state.each(
       middleware,

@@ -148,7 +148,7 @@ class TemplateReader extends TraitReader {
           mod.component = new Component(tpl, mod);
         // prefix module id to template with existing
         // identifier and treat as a partial template
-        }else if(id && id !== mod.id) {
+        }else{
           el.attr(ID, prefix + id); 
         }
 

@@ -11,7 +11,7 @@ describe('write:', function() {
         out: 'target',
         name: 'write',
         plugins: [trucks.SOURCES, trucks.TRANSFORM, require('../../src')],
-        transforms: ['skate']
+        transforms: ['skate/src']
       }, (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');

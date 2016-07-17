@@ -4,11 +4,11 @@ const MIME = 'text/sass';
  *  @private
  */
 module.exports = function sass(/*state*/) {
-  const sass = require('node-sass');
+  const processor = require('node-sass');
 
   function style(node, cb) {
     if(node.type === MIME) {
-      sass.render(
+      processor.render(
         { 
           file: node.file || node.parent.file,
           data: node.contents 

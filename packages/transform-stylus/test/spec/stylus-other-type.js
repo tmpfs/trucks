@@ -11,7 +11,7 @@ describe('stylus:', function() {
         files: [src],
         out: 'target',
         name: 'stylus-other-type',
-        transforms: ['trim', require('../../src')]
+        transforms: ['trim/src', require('../../src')]
       }, (err, state) => {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');

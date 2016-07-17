@@ -23,7 +23,7 @@ Compiles web components to separate files for javascript, styles and template ma
 + `-m, --html [file]` Template output file (--extract only)
 + `-s, --css [file]` Stylesheet output file
 + `-j, --js [file]` Javascript output file
-+ `-c, --conf [file...]` Configuration files to require
++ `-c, --rc [file...]` Configuration files to require
 + `-e, --extract` Extract templates
 + `-h, --help` Display help and exit
 + `--version` Print the version and exit

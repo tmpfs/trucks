@@ -33,25 +33,25 @@ function options(state, cb) {
   
   let opts = state.options
     , options = require('../defaults')
-    , conf
+    , rc
     , config;
 
   if(opts.eol !== undefined && opts.eol !== String(opts.eol)) {
     return cb(new Error('eol option must be a string')); 
   }
 
-  if(opts.conf === String(opts.conf)) {
-    opts.conf = [opts.conf];
+  if(opts.rc === String(opts.rc)) {
+    opts.rc = [opts.rc];
   }
 
-  // list of configuration files to require and merge
-  if(Array.isArray(opts.conf)) {
-    conf = opts.conf;
-    delete opts.conf;
+  // list of rciguration files to require and merge
+  if(Array.isArray(opts.rc)) {
+    rc = opts.rc;
+    delete opts.rc;
 
     let i, file;
-    for(i = 0;i < conf.length;i++) {
-      file = conf[i];
+    for(i = 0;i < rc.length;i++) {
+      file = rc[i];
       file = abs(file);
       try {
         config = require(file);

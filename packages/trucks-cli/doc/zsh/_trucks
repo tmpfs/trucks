@@ -10,7 +10,7 @@ _trucks(){
     "(-m --html)"{-m=,--html=}"[Template output file (--extract only)]:file:_files" 
     "(-s --css)"{-s=,--css=}"[Stylesheet output file]:file:_files" 
     "(-j --js)"{-j=,--js=}"[Javascript output file]:file:_files" 
-    "*"{-c=,--conf=}"[Configuration files to require]:file:_files" 
+    "*"{-c=,--rc=}"[Configuration files to require]:file:_files" 
     "(-e --extract)"{-e,--extract}"[Extract templates]" 
     "(-h --help)"{-h,--help}"[Display help and exit]" 
     "--version[Print the version and exit]"

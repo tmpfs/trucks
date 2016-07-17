@@ -34,7 +34,7 @@ describe('trucks:', function() {
         files: [src],
         out: out,
         extract: true,
-        conf: ['test/fixtures/mock-config.js'],
+        rc: ['test/fixtures/mock-config.js'],
         transforms: ['skate/src']
       },
       (err, state) => {
@@ -54,7 +54,7 @@ describe('trucks:', function() {
         out: out,
         force: true,
         extract: true,
-        conf: path.join(process.cwd(), 'test/fixtures/mock-config.js'),
+        rc: path.join(process.cwd(), 'test/fixtures/mock-config.js'),
         transforms: ['skate/src']
       },
       (err, state) => {

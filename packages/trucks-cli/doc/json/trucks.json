@@ -77,18 +77,18 @@
       "multiple": false,
       "name": "--js"
     },
-    "conf": {
-      "key": "conf",
+    "rc": {
+      "key": "rc",
       "description": "Configuration files to require",
       "names": [
         "-c",
-        "--conf"
+        "--rc"
       ],
       "type": "option",
       "extra": " [file...]",
       "required": false,
       "multiple": true,
-      "name": "--conf"
+      "name": "--rc"
     },
     "extract": {
       "key": "extract",

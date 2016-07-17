@@ -1,5 +1,5 @@
 Usage: trucks [-eh] [--extract] [--help] [--version] [--out <dir>] [--name
-              <val>] [--html <file>] [--css <file>] [--js <file>] [--conf
+              <val>] [--html <file>] [--css <file>] [--js <file>] [--rc
               <file...>] [files...]
 
   Compiles web components.
@@ -10,9 +10,9 @@ Options
   -m, --html=[file]       Template output file (--extract only)
   -s, --css=[file]        Stylesheet output file
   -j, --js=[file]         Javascript output file
-  -c, --conf=[file...]    Configuration files to require
+  -c, --rc=[file...]      Configuration files to require
   -e, --extract           Extract templates
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks-cli@1.0.2
+trucks-cli@1.0.3

@@ -113,8 +113,16 @@ function run(opts, cb) {
       return cb(err); 
     }
 
-    const phases = Array.isArray(state.options.plugins)
+    let phases = Array.isArray(state.options.plugins)
           ? state.options.plugins : DEFAULTS;
+
+    if(Array.isArray(state.options.before.plugins)) {
+      phases = state.options.before.plugins.concat(phases);
+    }
+
+    if(Array.isArray(state.options.after.plugins)) {
+      phases = phases.concat(state.options.after.plugins);
+    }
     
     let closures;
 

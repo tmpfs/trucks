@@ -12,6 +12,16 @@ const options = {
     plugins: {},
     transforms: {}
   },
+  before: {
+    // array list to run before plugins or transforms
+    plugins: undefined, 
+    transforms: undefined
+  },
+  after: {
+    // array list to run after plugins or transforms
+    plugins: undefined, 
+    transforms: undefined
+  },
   // options to pass to babel
   babel: {},
   // output directory

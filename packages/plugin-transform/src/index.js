@@ -74,10 +74,18 @@ function visit(state, visitors, node, cb) {
 }
 
 function transform(state, conf) {
-  const visitors = conf.visitors || []
-  
+  let visitors = conf.visitors || []
+
   if(!Array.isArray(visitors)) {
     throw new Error(`transform visitors array expected`); 
+  }
+
+  if(Array.isArray(state.options.before.transforms)) {
+    visitors = state.options.before.transforms.concat(visitors);
+  }
+
+  if(Array.isArray(state.options.after.transforms)) {
+    visitors = visitors.concat(state.options.after.transforms);
   }
   
   const list = state.getMiddleware(

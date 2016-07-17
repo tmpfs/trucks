@@ -108,10 +108,9 @@ function getHandlers() {
     sources: function sources() {
       return [
         require('trucks-plugin-load'),
-        require('./plugins/parse')
+        require('trucks-plugin-parse')
       ]; 
     },
-    parse: require('./plugins/parse'),
     transform: require('./plugins/transform'),
     generate: require('./plugins/generate'),
     write: require('./plugins/write')

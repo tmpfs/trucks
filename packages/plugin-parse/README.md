@@ -1,17 +1,13 @@
-# Load
+# Parse
 
-> Reads the web component import tree
+> Parses web component modules
 
-Reads HTML imports into the component tree.
-
-```html
-<link rel="import" href="components.html">
-```
+Reads component modules (`<dom-module>`) into the component tree.
 
 ## Install
 
 ```
-npm i trucks-plugin-load --save-dev
+npm i trucks-plugin-parse --save-dev
 ```
 
 For the command line interface see [trucks-cli][].

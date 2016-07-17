@@ -1,7 +1,7 @@
 {
   "name": "trucks-plugin-load",
   "version": "1.0.0",
-  "description": "Reads the web component import tree",
+  "description": "Reads HTML imports into the component tree",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",

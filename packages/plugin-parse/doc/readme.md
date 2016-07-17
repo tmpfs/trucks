@@ -1,12 +1,8 @@
-# Load
+# Parse
 
-> Reads the web component import tree
+> Parses web component modules
 
-Reads HTML imports into the component tree.
-
-```html
-<link rel="import" href="components.html">
-```
+Parses component modules (`<dom-module>`) into the component tree.
 
 <? @include {=readme}
       install.md  ?>

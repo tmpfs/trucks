@@ -36,3 +36,4 @@ Each key in the returned map is evaluated to determine whether the visitor funct
 ### Utility
 
 * [trim][] Trim whitespace from inline styles and scripts
+

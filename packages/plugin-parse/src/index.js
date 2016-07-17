@@ -135,14 +135,6 @@ function parse(/*state, conf*/) {
         const $ = group.querySelectorAll
           , elements = $(state.selectors.modules).toArray();
 
-        // no component imports and no modules declared
-        //if(!elements.length
-          //&& !group.imports.length
-          //&& !group.duplicates.length) {
-          //return cb(new Error(
-            //`no imports or component modules in ${group.file}`)); 
-        //}
-
         state.each(
           elements,
           (context, next) => {

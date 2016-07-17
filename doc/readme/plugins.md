@@ -14,7 +14,7 @@ Plugins are named functions that are passed the compiler state object and a conf
 
 ```javascript
 function plugin(state, conf) {
-  return function handler(state, cb) {
+  return function(state, cb) {
     cb(null, state); 
   }
 }

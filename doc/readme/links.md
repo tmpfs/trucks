@@ -26,3 +26,9 @@
 [transform]: /packages/plugin-transform
 [generate]: /packages/plugin-generate
 [write]: /packages/plugin-write
+
+[skate]: /packages/transform-skate
+[trim]: /packages/transform-trim
+[stylus]: /packages/transform-stylus
+[less]: /packages/transform-less
+[sass]: /packages/transform-sass

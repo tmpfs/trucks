@@ -8,7 +8,7 @@ A transform plugin returns a map of visitor functions:
 function plugin(state, conf) {
   return {
     '*': function handler(node, cb) {
-      cb(null, state); 
+      cb(); 
     }
   }
 }
@@ -22,3 +22,17 @@ Each key in the returned map is evaluated to determine whether the visitor funct
 * `Template` Visit HTML templates.
 * `Style` Visit style elements.
 * `Script` Visit script elements.
+
+### Compilers
+
+* [skate][] Compiles HTML template to render functions
+
+### Preprocessors
+
+* [stylus][] Preprocess style sources as stylus
+* [less][] Preprocess style sources as less
+* [sass][] Preprocess style sources sass 
+
+### Utility
+
+* [trim][] Trim whitespace from inline styles and scripts

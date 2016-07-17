@@ -68,6 +68,9 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
   - [Notes](#notes)
 - [Plugins](#plugins)
 - [Transforms](#transforms)
+  - [Compilers](#compilers)
+  - [Preprocessors](#preprocessors)
+  - [Utility](#utility)
 - [Roadmap](#roadmap)
   - [Packages](#packages)
   - [Styles](#styles)
@@ -294,7 +297,7 @@ A transform plugin returns a map of visitor functions:
 function plugin(state, conf) {
   return {
     '*': function handler(node, cb) {
-      cb(null, state); 
+      cb(); 
     }
   }
 }
@@ -308,6 +311,20 @@ Each key in the returned map is evaluated to determine whether the visitor funct
 * `Template` Visit HTML templates.
 * `Style` Visit style elements.
 * `Script` Visit script elements.
+
+### Compilers
+
+* [skate][] Compiles HTML template to render functions
+
+### Preprocessors
+
+* [stylus][] Preprocess style sources as stylus
+* [less][] Preprocess style sources as less
+* [sass][] Preprocess style sources sass
+
+### Utility
+
+* [trim][] Trim whitespace from inline styles and scripts
 ## Roadmap
 
 These features are not available yet however this section describes how they may be implemented.
@@ -437,4 +454,9 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
 

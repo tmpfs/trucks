@@ -38,6 +38,7 @@ describe('trucks:', function() {
         transforms: ['skate/src']
       },
       (err, state) => {
+        console.dir(err);
         expect(err).to.eql(null);
         assert(state);
         done();

@@ -28,7 +28,7 @@ module.exports = function skate(state, conf) {
     , templates = [];
 
   return {
-    complete: function(cb) {
+    end: function(tree, cb) {
 
       const babel = require('babel-core')
         , hash = compiler.map(templates, conf)

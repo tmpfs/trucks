@@ -74,8 +74,6 @@ function visit(state, visitors, node, cb) {
 }
 
 function transform(state, conf) {
-  //console.dir(conf);
-
   const visitors = conf.visitors || []
   
   if(!Array.isArray(visitors)) {
@@ -89,6 +87,37 @@ function transform(state, conf) {
       lookup: state.options.conf.transforms
     });
 
+  // collect lifecycle mappings
+  const lifecycle = {
+    begin: [],
+    enter: [],
+    leave: [],
+    end: []
+  }
+
+  list.forEach((item) => {
+
+    if(item.begin) {
+      lifecycle.begin.push(item.begin); 
+      delete item.begin;
+    } 
+
+    if(item.enter) {
+      lifecycle.enter.push(item.enter); 
+      delete item.enter;
+    } 
+
+    if(item.leave) {
+      lifecycle.leave.push(item.leave); 
+      delete item.leave;
+    } 
+
+    if(item.end) {
+      lifecycle.end.push(item.end); 
+      delete item.end;
+    } 
+  })
+
   return function transform(state, cb) {
 
     const tree = state.tree
@@ -98,25 +127,43 @@ function transform(state, conf) {
     // so we can do it async
     tree.iterator((item) => { items.push(item); });
 
-    state.each(
-      items,
-      (item, next) => {
-        visit(state, list, item, next);
-      }, (err) => {
-        if(err) {
-          return cb(err);
-        } 
+    function exec(visitors, cb) {
+      state.each(
+        visitors,
+        (item, next) => {
+          visit(state, list, item, next);
+        }, (err) => {
+          if(err) {
+            return cb(err);
+          } 
 
-        // call complete functions
-        state.each(
-          list,
-          (visitor, next) => {
-            if(visitor.complete instanceof Function) {
-              return visitor.complete(next); 
-            }
-            next();
-          }, cb);
-      });
+          // finished walking the tree
+          state.each(
+            lifecycle.end,
+            (visitor, next) => {
+              visitor(tree, next); 
+            },
+            cb);
+        }
+      );
+    }
+
+    if(lifecycle.begin.length) {
+      // finished walking the tree
+      state.each(
+        lifecycle.begin,
+        (visitor, next) => {
+          visitor(tree, next); 
+        },
+        (err) => {
+          if(err) {
+            return cb(err); 
+          }
+          exec(items, cb);
+        });
+    }else{
+      exec(items, cb);
+    }
   }
 }
 

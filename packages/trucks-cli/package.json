@@ -23,6 +23,7 @@
   },
   "scripts": {
     "clean": "rm -rf coverage target",
+    "build": "mk cli",
     "lint": "jshint cli test/spec && jscs cli test/spec",
     "target": "rm -rf target && mkdir target",
     "pretest": "npm run target",

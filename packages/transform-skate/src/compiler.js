@@ -15,7 +15,7 @@ const TAG = 'tag'
     , DATA_KEY = 'data-key'
     , DATA_SKIP = 'data-skip'
     , DATA_STATIC = /^data-static-(.+)/;
-  
+
 /**
  *  Utility to determine if an object is empty.
  *

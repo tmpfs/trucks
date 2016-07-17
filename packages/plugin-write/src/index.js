@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-function plugin(/*state, conf*/) {
+function write(/*state, conf*/) {
 
   return function write(state, cb) {
     const opts = state.options
@@ -47,4 +47,4 @@ function plugin(/*state, conf*/) {
 
 }
 
-module.exports = plugin;
+module.exports = write;

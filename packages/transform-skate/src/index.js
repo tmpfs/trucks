@@ -4,13 +4,18 @@
  *
  *  @private
  */
-module.exports = function transform(state) {
+module.exports = function skate(state, conf) {
+
+  conf.id = conf.id || {
+    pattern: /\{\{id\}\}/gm
+  }
+
   const options = state.options
       , compiler = require('./compiler')
       // configuration for id attribute replacement
       // which enables {{id}} to be replaced with the
       // <dom-module> element id
-      , id = options.compiler.id
+      , id = conf.id
       , replace = (id && id.pattern instanceof RegExp);
 
   // setup the output file
@@ -26,8 +31,8 @@ module.exports = function transform(state) {
     complete: function(cb) {
 
       const babel = require('babel-core')
-        , hash = compiler.map(templates, options.compiler)
-        , entry = compiler.main(options.compiler);
+        , hash = compiler.map(templates, conf)
+        , entry = compiler.main(conf);
 
       let map
         , main;
@@ -54,9 +59,9 @@ module.exports = function transform(state) {
       cb();
     },
     'Component': function(node, cb) {
-      options.compiler.querySelectorAll = node.template.querySelectorAll;
+      conf.querySelectorAll = node.template.querySelectorAll;
 
-      let res = compiler.render(node.template.element, options.compiler);
+      let res = compiler.render(node.template.element, conf);
       templates.push(res);
       components.push(node); 
 

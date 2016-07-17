@@ -73,7 +73,7 @@ function visit(state, visitors, node, cb) {
   );
 }
 
-function plugin(state, conf) {
+function transform(state, conf) {
   //console.dir(conf);
 
   const visitors = conf.visitors || []
@@ -120,4 +120,4 @@ function plugin(state, conf) {
   }
 }
 
-module.exports = plugin;
+module.exports = transform;

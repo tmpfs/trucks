@@ -11,7 +11,7 @@ describe('trucks:', function() {
         files: [src],
         out: 'target',
         name: 'inline-partial',
-        transforms: ['trim', 'skate']
+        transforms: ['trim', 'skate/src']
       },
       (err, state) => {
         expect(err).to.eql(null);

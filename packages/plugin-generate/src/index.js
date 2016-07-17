@@ -1,4 +1,4 @@
-function plugin(/*state, conf*/) {
+function generate(/*state, conf*/) {
 
   return function generate(state, cb) {
     const opts = state.options;
@@ -37,4 +37,4 @@ function plugin(/*state, conf*/) {
   }
 }
 
-module.exports = plugin;
+module.exports = generate;

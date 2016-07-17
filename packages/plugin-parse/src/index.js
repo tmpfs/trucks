@@ -123,7 +123,7 @@ function component(state, mod, context, cb) {
   );
 }
 
-function plugin(/*state, conf*/) {
+function parse(/*state, conf*/) {
 
   return function parse(state, cb) {
     const Module = state.components.Module;
@@ -190,4 +190,4 @@ function plugin(/*state, conf*/) {
   }
 }
 
-module.exports = plugin;
+module.exports = parse;

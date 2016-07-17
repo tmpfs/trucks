@@ -90,6 +90,8 @@ function options(state, cb) {
     options.js = js;
   }
 
+  options.conf.plugins = options.conf.plugins || {};
+
   // respect `transforms` shortcut option
   if(Array.isArray(options.transforms)) {
     options.conf.plugins.transform = 
@@ -117,6 +119,7 @@ function run(opts, cb) {
     let closures;
 
     try {
+      //console.log(state.options.conf.plugins);
       closures = state.getMiddleware(
         {
           phases: phases,

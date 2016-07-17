@@ -188,7 +188,7 @@ function sources(state, info, files, parent, cb) {
   );
 }
 
-function plugin(/*state, conf*/) {
+function load(/*state, conf*/) {
   return function load(state, cb) {
     if(!state.files || !state.files.length) {
       return cb(new Error('no input files specified'));
@@ -206,4 +206,4 @@ function plugin(/*state, conf*/) {
   }
 }
 
-module.exports = plugin;
+module.exports = load;

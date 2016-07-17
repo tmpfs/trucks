@@ -39,32 +39,6 @@ const options = {
     pattern: /^(  |\t){2,2}/,
     // trim lines using pattern
     lines: true
-  },
-  // options to pass to the compiler
-  compiler: {
-    // template element attribute used to extract the template id
-    // changing this will have bad consequences
-    attr: 'id',
-    // name of the skatejs variable
-    skate: 'skate',
-    // name of the vdom property
-    vdom: 'vdom',
-    // name of the element function
-    element: 'element',
-    // name of the templates map
-    templates: 'templates',
-    // name of the main function
-    main: 'template',
-    // normalize whitespace in templates
-    normalize: true,
-    // flags for template literal support
-    literals: undefined,
-    // options to use when parsing the DOM
-    dom: undefined,
-    // options for id replacement
-    id: {
-      pattern: /\{\{id\}\}/gm
-    }
   }
 }
 

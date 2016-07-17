@@ -12,8 +12,12 @@ describe('skate:', function() {
         files: [src],
         out: 'target',
         name: 'id-disabled',
-        compiler: {
-          id: {pattern: null} 
+        conf: {
+          transforms: {
+            skate: {
+              id: {pattern: null} 
+            }
+          }
         },
         transforms: ['trim/src', require('../../src')]
       },

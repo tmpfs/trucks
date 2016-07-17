@@ -66,6 +66,7 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
   - [Dependencies](#dependencies)
   - [Private Dependencies](#private-dependencies)
   - [Notes](#notes)
+- [Plugins](#plugins)
 - [Roadmap](#roadmap)
   - [Packages](#packages)
   - [Styles](#styles)
@@ -229,6 +230,58 @@ Components defined for [skatejs][] can ignore the HTML file as the templates are
 
 When authoring components using [polymer][] you would need to include the resulting HTML page containing all `<template>` elements in to your HTML page(s), how you do this depends upon your build process. Use the `--extract` option when compiling with the command line interface to also generate an HTML file containing the template elements.
 
+## Plugins
+
+Plugins execute the main compiler phases that are bundled with the core libary:
+
+* [load][] Read the HTML import tree
+* [parse][] Parse the `<dom-module>` elements
+* [transform][] Run tree transformations
+* [generate][] Create output file contents
+* [write][] Write output files to disc
+
+An additional plugin [sources][] reads the entire component tree by combining the [load][] and [parse][] plugins.
+
+Plugins are named functions that are passed the compiler state object and a configuration for the plugin and return a closure.
+
+```javascript
+function plugin(state, conf) {
+  return function handler(state, cb) {
+    cb(null, state); 
+  }
+}
+```
+
+Closures returned by the plugin functions are executed asynchronously in series and may modify the state object.
+
+The `state` object contains several useful fields but most noteworthy are:
+
+* `options` Reference to the processing options
+* `tree` Component tree populated by the [load][] and [parse][] plugins
+
+You may configure the plugins used for low-level access. For example if you just wanted to print the HTML import tree:
+
+```javascript
+const options = {
+  files: ['components.html'],
+  plugins: [trucks.LOAD /* add custom tree plugin */]
+};
+```
+
+To configure a plugin you can set a plugin configuration object:
+
+```javascript
+const options = {
+  files: ['components.html'],
+  plugins: [trucks.LOAD],
+  conf: {
+    plugins: {
+      load: {/* plugin configuration goes here */}
+    }
+  }
+};
+```
+
 ## Roadmap
 
 These features are not available yet however this section describes how they may be implemented.
@@ -352,4 +405,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
+[load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
+[parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
 

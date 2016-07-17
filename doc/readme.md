@@ -21,6 +21,7 @@ Uses ES6 code transpiled for `node@4.x` compatibility.
 <? @include {=readme}
       usage.md 
       components.md
+      plugins.md
       roadmap.md ?>
 
 ## Example

@@ -19,3 +19,10 @@
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+
+[sources]: /packages/plugin-sources
+[load]: /packages/plugin-load
+[parse]: /packages/plugin-parse
+[load]: /packages/plugin-load
+[load]: /packages/plugin-load
+[load]: /packages/plugin-load

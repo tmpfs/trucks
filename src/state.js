@@ -38,9 +38,6 @@ class OutputFile {
 class CompilerState {
   constructor(options) {
 
-    // private list of middleware to execute
-    this.middleware = [];
-
     // map of output files for write phase
     this._output = {};
 

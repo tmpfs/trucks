@@ -140,7 +140,7 @@ function run(opts, cb) {
       , detail
       , phases = Array.isArray(state.options.plugins)
           ? state.options.plugins : DEFAULTS
-      , middleware = state.middleware
+      , middleware = []
       , closures = [];
 
     function getDetail(phase) {

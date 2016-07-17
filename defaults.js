@@ -8,7 +8,10 @@ const options = {
   // array list of transform plugins to run
   transforms: undefined,
   // map of plugin configuration objects
-  configuration: undefined,
+  conf: {
+    plugins: {},
+    transforms: {}
+  },
   // options to pass to babel
   babel: {},
   // output directory

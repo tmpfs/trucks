@@ -10,11 +10,13 @@ describe('transform:', function() {
       {
         files: [src],
         out: 'target',
-        name: 'transform-plugin',
+        name: 'transform-plugin-bad-visitors-array',
         plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
-        configuration: {
-          transform: {
-            visitors: 'foo'
+        conf: {
+          plugins: {
+            transform: {
+              visitors: 'foo'
+            }
           }
         }
       },

@@ -27,8 +27,10 @@ describe('trucks:', function() {
             }
           }
         ],
-        configuration: {
-          mock: config
+        conf: {
+          plugins: {
+            mock: config
+          }
         }
       },
       (err, state) => {

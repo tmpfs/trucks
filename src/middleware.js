@@ -14,7 +14,7 @@ function middleware(state, options) {
   let i
     , phases = options.phases
     , handlers = options.handlers
-    , lookup = options.lookup
+    , lookup = options.lookup || {}
     , prefix = options.prefix
     , phase
     , detail
@@ -58,7 +58,7 @@ function middleware(state, options) {
       // treat as plugin module 
       }else{
         let file = phase;
-        if(prefix && (options.force || path.basename(phase) === phase)) {
+        if(prefix && !path.isAbsolute(phase) && !/^\.*\//.test(phase)) {
           file = prefix + file; 
         }
         closure = require(file)(state, detail.conf);

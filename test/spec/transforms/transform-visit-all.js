@@ -16,22 +16,18 @@ describe('transform:', function() {
         out: 'target',
         name: 'transform-plugin',
         plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
-        configuration: {
-          transform: {
-            visitors: [
-              function visit() {
-                return {
-                  '*': function(node, cb) {
-                    expect(node).to.be.an('object');
-                    nodes.push(node);
-                    visited = true;
-                    count++;
-                    cb(null, node);
-                  }
+        transforms: [
+          function visit() {
+            return {
+              '*': function(node, cb) {
+                expect(node).to.be.an('object');
+                nodes.push(node);
+                visited = true;
+                count++;
+                cb(null, node);
               }
-            }]
           }
-        }
+        }]
       },
       (err, state) => {
         expect(err).to.eql(null);

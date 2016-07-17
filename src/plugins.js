@@ -90,18 +90,11 @@ function options(state, cb) {
     options.js = js;
   }
 
-  // plugin configuration objects
-  options.configuration = options.configuration || {};
-
   // respect `transforms` shortcut option
   if(Array.isArray(options.transforms)) {
-    options.configuration.transform = options.configuration.transform || {};
-    options.configuration.transform.visitors = 
-      options.configuration.transform.visitors  || [];
-
-    options.transforms.forEach((transform) => {
-      options.configuration.transform.visitors.push(transform); 
-    })
+    options.conf.plugins.transform = 
+      options.conf.plugins.transform || {};
+    options.conf.plugins.transform.visitors = options.transforms.slice();
   }
 
   // re-assign modified options
@@ -145,7 +138,7 @@ function run(opts, cb) {
           phases: phases,
           handlers: getHandlers(),
           prefix: PREFIX,
-          lookup: state.options.configuration
+          lookup: state.options.conf.plugins
         });
     }catch(e) {
       return cb(e); 

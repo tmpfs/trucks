@@ -12,18 +12,15 @@ describe('transform:', function() {
         out: 'target',
         name: 'transform-plugin',
         plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
-        configuration: {
-          transform: {
-            visitors: [
-              function visit() {
-                return {
-                  'Module': function() {
-                    throw new Error('mock error');
-                  }
+        transforms: [
+          function visit() {
+            return {
+              'Module': function() {
+                throw new Error('mock error');
               }
-            }]
+            }
           }
-        }
+        ]
       },
       (err) => {
         function fn() {
@@ -45,18 +42,14 @@ describe('transform:', function() {
         out: 'target',
         name: 'transform-plugin',
         plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
-        configuration: {
-          transform: {
-            visitors: [
-              function visit() {
-                return {
-                  'Module': function(node, cb) {
-                    cb(new Error('mock error'));
-                  }
+        transforms: [
+          function visit() {
+            return {
+              'Module': function(node, cb) {
+                cb(new Error('mock error'));
               }
-            }]
           }
-        }
+        }]
       },
       (err) => {
         function fn() {

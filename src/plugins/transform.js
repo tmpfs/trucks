@@ -1,3 +1,5 @@
+const PREFIX = 'trucks-transform-';
+
 function visit(state, visitors, node, cb) {
   const components = state.components
       , File = components.File
@@ -72,6 +74,8 @@ function visit(state, visitors, node, cb) {
 }
 
 function plugin(state, conf) {
+  //console.dir(conf);
+
   const visitors = conf.visitors || []
   
   if(!Array.isArray(visitors)) {
@@ -82,9 +86,8 @@ function plugin(state, conf) {
     {
       phases: visitors,
       handlers: {},
-      prefix: 'trucks-transform-',
-      force: true,
-      lookup: state.options.configuration
+      prefix: PREFIX,
+      lookup: state.options.conf.transforms
     });
 
   return function transform(state, cb) {

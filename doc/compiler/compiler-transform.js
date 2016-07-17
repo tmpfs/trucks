@@ -5,7 +5,9 @@ trucks(
     files: ['doc/compiler/components.html'],
     selectors: require('../../defaults').selectors,
     plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
-    transforms: ['trim', 'skate/src']
+    transforms: ['trim', 'skate/src'],
+    out: 'target',
+    force: true
   },
   (err, state) => {
     if(err) {

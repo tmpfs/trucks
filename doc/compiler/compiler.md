@@ -20,7 +20,7 @@ Given a components file [components.html](/doc/compiler/components.html) such as
 
 The load phase will build the result object:
 
-<? @exec {javascript} node doc/compiler/compiler-load.js ?>
+<? @exec {javascript} mkdir -p target && node doc/compiler/compiler-load.js ?>
 
 Imported component file paths are resolved relative to the declaring file.
 

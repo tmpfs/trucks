@@ -188,11 +188,11 @@ ComponentModule {
 The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
 
 ```javascript
-{ '/home/muji/git/trucks/components.js': 
+{ '/home/muji/git/trucks/target/components.js': 
    OutputFile {
      eol: '\n\n',
-     file: '/home/muji/git/trucks/components.js',
-     name: '/home/muji/git/trucks/components.js',
+     file: '/home/muji/git/trucks/target/components.js',
+     name: 'target/components.js',
      base: undefined,
      _contents: 
       [ 'const templates = {\n  "x-icon": function render(elem) {},\n  "x-button": function render(elem) {}\n};',
@@ -206,22 +206,22 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
 After transformation the generate phase will concatenate all the css and transformed javascript code.
 
 ```javascript
-{ '/home/muji/git/trucks/components.js': 
+{ '/home/muji/git/trucks/target/components.js': 
    OutputFile {
      eol: '\n\n',
-     file: '/home/muji/git/trucks/components.js',
-     name: '/home/muji/git/trucks/components.js',
+     file: '/home/muji/git/trucks/target/components.js',
+     name: 'target/components.js',
      base: undefined,
      _contents: 
       [ 'const templates = {\n  "x-icon": function render(elem) {},\n  "x-button": function render(elem) {}\n};',
         'function template(elem) {\n  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n}',
         'skate.define(\'x-icon\', {});',
         'skate.define(\'x-button\', {});' ] },
-  '/home/muji/git/trucks/components.css': 
+  '/home/muji/git/trucks/target/components.css': 
    OutputFile {
      eol: '\n\n',
-     file: '/home/muji/git/trucks/components.css',
-     name: '/home/muji/git/trucks/components.css',
+     file: '/home/muji/git/trucks/target/components.css',
+     name: 'target/components.css',
      base: undefined,
      _contents: 
       [ 'x-icon {\n  /* component styles */\n}',

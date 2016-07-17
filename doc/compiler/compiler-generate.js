@@ -10,7 +10,9 @@ trucks(
       trucks.TRANSFORM,
       trucks.GENERATE
     ],
-    transforms: ['trim', 'skate/src']
+    transforms: ['trim', 'skate/src'],
+    out: 'target',
+    force: true
   }, 
   (err, state) => {
     if(err) {

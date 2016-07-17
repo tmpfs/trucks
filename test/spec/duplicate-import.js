@@ -10,7 +10,9 @@ describe('trucks:', function() {
           files: [
             'test/fixtures/duplicate-import/components.html',
             'test/fixtures/duplicate-import/components-alt.html'
-          ]
+          ],
+          force: true,
+          out: 'target'
         },
         (err, state) => {
           expect(err).to.eql(null);

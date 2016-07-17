@@ -6,7 +6,9 @@ describe('transform:', function() {
   it('should handle no options', function(done) {
     trucks(
       {
-        files: ['test/fixtures/simple-inline/components.html']
+        files: ['test/fixtures/simple-inline/components.html'],
+        force: true,
+        out: 'target'
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -20,6 +22,8 @@ describe('transform:', function() {
     trucks(
       {
         files: ['test/fixtures/simple-inline/components.html'],
+        force: true,
+        out: 'target',
         babel: {plugins: []},
         extract: true
       },

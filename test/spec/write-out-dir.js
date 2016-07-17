@@ -15,7 +15,8 @@ describe('trucks:', function() {
       {
         files: [src],
         extract: true,
-        out: out
+        out: out,
+        force: true
       },
       (err, state) => {
         expect(err).to.eql(null);

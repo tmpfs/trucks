@@ -4,7 +4,9 @@ trucks(
   {
     files: ['doc/compiler/components.html'],
     selectors: require('../../defaults').selectors,
-    plugins: [trucks.LOAD, trucks.PARSE]
+    plugins: [trucks.LOAD, trucks.PARSE],
+    out: 'target',
+    force: true
   },
   (err, state) => {
     if(err) {

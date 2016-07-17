@@ -9,7 +9,9 @@ describe('trucks:', function() {
         {
           files: [
             'test/fixtures/duplicate-dependency-import/components.html'
-          ]
+          ],
+          force: true,
+          out: 'target'
         },
         (err, state) => {
           expect(err).to.eql(null);

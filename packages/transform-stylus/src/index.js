@@ -3,7 +3,7 @@ const MIME = 'text/stylus';
 /**
  *  @private
  */
-module.exports = function transform(/*state*/) {
+module.exports = function stylus(/*state*/) {
   const stylus = require('stylus');
 
   function style(node, cb) {

@@ -3,7 +3,7 @@ const MIME = 'text/less';
 /**
  *  @private
  */
-module.exports = function transform(/*state*/) {
+module.exports = function less(/*state*/) {
   const less = require('less');
 
   function style(node, cb) {

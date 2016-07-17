@@ -3,7 +3,7 @@ const MIME = 'text/sass';
 /**
  *  @private
  */
-module.exports = function transform(/*state*/) {
+module.exports = function sass(/*state*/) {
   const sass = require('node-sass');
 
   function style(node, cb) {

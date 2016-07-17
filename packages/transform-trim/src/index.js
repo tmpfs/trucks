@@ -1,12 +1,12 @@
 /**
  *  @private
  */
-module.exports = function transform(state) {
+module.exports = function trim(state) {
 
   // TODO: use conf argument
   const options = state.options.trim;
 
-  function trim(node, cb) {
+  function strip(node, cb) {
 
     // only configured to trim inline content
     if(!options || (options.inline && !node.inline)) {
@@ -32,7 +32,7 @@ module.exports = function transform(state) {
   }
 
   return {
-    'Style': trim,
-    'Script': trim
+    'Style': strip,
+    'Script': strip
   }
 }

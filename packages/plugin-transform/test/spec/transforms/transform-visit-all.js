@@ -15,7 +15,7 @@ describe('transform:', function() {
         files: [src],
         out: 'target',
         name: 'transform-plugin',
-        plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
+        plugins: [trucks.LOAD, trucks.PARSE, require('../../../src')],
         transforms: [
           function visit() {
             return {

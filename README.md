@@ -90,7 +90,8 @@ const trucks = require('trucks');
 trucks(
   {
     files: ['example/components.html'],
-    transforms: ['skate']
+    transforms: ['skate'],
+    out: 'target'
   },
   (err, res) => {
     if(err) {

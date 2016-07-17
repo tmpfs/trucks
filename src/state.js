@@ -119,7 +119,7 @@ class CompilerState {
   }
 
   absolute(file, base) {
-    if(!path.isAbsolute(file)) {
+    if(file && !path.isAbsolute(file)) {
       base = base || process.cwd();
       return path.normalize(path.join(base, file)); 
     }

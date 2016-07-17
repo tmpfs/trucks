@@ -69,6 +69,10 @@ function options(state, cb) {
     , css
     , js;
 
+  if(!options.out) {
+    options.out = process.cwd(); 
+  }
+
   // set up output directory and file names
   if(options.out === String(options.out)) {
     options.name = options.name || NAME;

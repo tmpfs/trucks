@@ -1,12 +1,12 @@
 ## Compiler
 
-The compiler executes the following phases:
+The compiler executes the following plugins:
 
-* `load`: Load all source HTML files given with the `files` option and resolve the HTML imports.
-* `parse`: Parse the imported files resolving styles, javascript and template elements.
-* `transform`: Transform the imported component files compiling `<template>` elements to javascript.
-* `generate`: Convert the transformed components to css and javascript strings.
-* `write`: Write the generated styles and javascript to files.
+* [load][] Load all source HTML files given with the `files` option and resolve the HTML imports.
+* [parse][] Parse the imported files resolving styles, javascript and template elements.
+* [transform][] Transform the component tree.
+* [generate][] Convert the transformed components to css and javascript strings.
+* [write][] Write the generated styles and javascript to files.
 
 ***
 <!-- @toc -->
@@ -36,16 +36,14 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
 
 <? @exec {javascript} node doc/compiler/compiler-transform.js ?>
 
-Note that some data has been omitted from the example output for brevity.
-
 ### Generate
 
 After transformation the generate phase will concatenate all the css and transformed javascript code.
 
 <? @exec {javascript} node doc/compiler/compiler-generate.js ?>
 
-Note that some data has been omitted from the example output for brevity.
-
 ### Write
 
 The final phase writes the generated files to disc.
+
+<? @include ../readme/links.md ?>

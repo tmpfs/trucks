@@ -9,7 +9,8 @@ trucks(
       trucks.PARSE,
       trucks.TRANSFORM,
       trucks.GENERATE
-    ]
+    ],
+    transforms: ['trim', 'skate/src']
   }, 
   (err, state) => {
     if(err) {

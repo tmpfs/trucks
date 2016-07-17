@@ -11,6 +11,6 @@ trucks(
       throw err; 
     }
 
-    console.dir(state.tree);
+    console.dir(state.tree, {depth: 4});
   }
 );

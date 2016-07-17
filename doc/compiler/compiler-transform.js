@@ -4,12 +4,13 @@ trucks(
   {
     files: ['doc/compiler/components.html'],
     selectors: require('../../defaults').selectors,
-    plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM]
+    plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
+    transforms: ['trim', 'skate/src']
   },
   (err, state) => {
     if(err) {
       throw err; 
     }
-    console.dir(state.tree);
+    console.dir(state.output, {depth: 4});
   }
 );

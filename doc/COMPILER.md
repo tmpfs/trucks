@@ -197,8 +197,8 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
      _contents: 
       [ 'const templates = {\n  "x-icon": function render(elem) {},\n  "x-button": function render(elem) {}\n};',
         'function template(elem) {\n  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n}',
-        '\n    skate.define(\'x-icon\', {});\n  ',
-        '\n    skate.define(\'x-button\', {});\n  ' ] } }
+        'skate.define(\'x-icon\', {});',
+        'skate.define(\'x-button\', {});' ] } }
 ```
 
 ### Generate
@@ -215,8 +215,8 @@ After transformation the generate phase will concatenate all the css and transfo
      _contents: 
       [ 'const templates = {\n  "x-icon": function render(elem) {},\n  "x-button": function render(elem) {}\n};',
         'function template(elem) {\n  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n}',
-        '\n    skate.define(\'x-icon\', {});\n  ',
-        '\n    skate.define(\'x-button\', {});\n  ' ] },
+        'skate.define(\'x-icon\', {});',
+        'skate.define(\'x-button\', {});' ] },
   '/home/muji/git/trucks/target/components.css': 
    OutputFile {
      eol: '\n\n',
@@ -224,8 +224,8 @@ After transformation the generate phase will concatenate all the css and transfo
      name: 'target/components.css',
      base: undefined,
      _contents: 
-      [ '\n    x-icon {\n      /* component styles */\n    }\n  ',
-        '\n    x-button {\n      /* component styles */\n    }\n  ' ] } }
+      [ 'x-icon {\n  /* component styles */\n}',
+        'x-button {\n  /* component styles */\n}' ] } }
 ```
 
 ### Write
@@ -234,7 +234,7 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

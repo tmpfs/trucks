@@ -25,23 +25,11 @@ Uses ES6 code transpiled for `node@4.x` compatibility.
       transforms.md
       roadmap.md ?>
 
-## Example
+## Documentation
 
-An example for [skatejs][] is shown in [EXAMPLE](/doc/EXAMPLE.md), source files are in [doc/example](/doc/example).
+An example for [skatejs][] is shown in [EXAMPLE](/doc/EXAMPLE.md), source files are in [doc/example](/doc/example). 
 
-## Options
-
-An overview of the available options is in [OPTIONS](/doc/OPTIONS.md) see [API](/doc/API.md) for more detail.
-
-## Compiler
-
-For insights into the compiler phases and data structures see [COMPILER](/doc/COMPILER.md).
-
-## API
-
-For the API docs see [API](/doc/API.md).
-
-## Developer
+For the API docs see [API](/doc/API.md), an overview of the available options is in [OPTIONS](/doc/OPTIONS.md). For insights into the compiler phases and data structures see [COMPILER](/doc/COMPILER.md).
 
 Information on how to build this project is in [DEVELOPER](/doc/DEVELOPER.md).
 

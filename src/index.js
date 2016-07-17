@@ -111,9 +111,8 @@ function options(state, cb) {
  *  @param {Function} cb callback function.
  *
  *  @option {Array} files list of HTML files to compile.
- *  @option {Array|String} [conf] configuration files to load as options.
+ *  @option {Array|String} [rc] configuration files to load as options.
  *  @option {Object} [babel] options to pass to babel transform.
- *  @option {Object} [compiler] options to pass to the compiler.
  *  @option {Boolean=false} [extract] do not compile templates, write to file.
  *  @option {Object} [trim] configure whitespace trim options.
  *  @option {String} [out] output directory for files.

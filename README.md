@@ -74,11 +74,7 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
   - [Packages](#packages)
   - [Styles](#styles)
   - [Documentation](#documentation)
-- [Example](#example)
-- [Options](#options)
-- [Compiler](#compiler)
-- [API](#api)
-- [Developer](#developer)
+- [Documentation](#documentation-1)
 - [License](#license)
 
 ---
@@ -422,23 +418,11 @@ The suggestion is that in the future we could use the [mkapi][] and [mkparse][] 
 
 The generated markdown document would render the documentation comments followed by fenced code blocks showing the example usage(s) and the component implementation, these pages could then be converted to HTML (with source code higlighting) to be published online as static web pages.
 
-## Example
+## Documentation
 
 An example for [skatejs][] is shown in [EXAMPLE](https://github.com/tmpfs/trucks/blob/master/doc/EXAMPLE.md), source files are in [doc/example](https://github.com/tmpfs/trucks/blob/master/doc/example).
 
-## Options
-
-An overview of the available options is in [OPTIONS](https://github.com/tmpfs/trucks/blob/master/doc/OPTIONS.md) see [API](https://github.com/tmpfs/trucks/blob/master/doc/API.md) for more detail.
-
-## Compiler
-
-For insights into the compiler phases and data structures see [COMPILER](https://github.com/tmpfs/trucks/blob/master/doc/COMPILER.md).
-
-## API
-
-For the API docs see [API](https://github.com/tmpfs/trucks/blob/master/doc/API.md).
-
-## Developer
+For the API docs see [API](https://github.com/tmpfs/trucks/blob/master/doc/API.md), an overview of the available options is in [OPTIONS](https://github.com/tmpfs/trucks/blob/master/doc/OPTIONS.md). For insights into the compiler phases and data structures see [COMPILER](https://github.com/tmpfs/trucks/blob/master/doc/COMPILER.md).
 
 Information on how to build this project is in [DEVELOPER](https://github.com/tmpfs/trucks/blob/master/doc/DEVELOPER.md).
 

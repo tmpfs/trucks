@@ -23,6 +23,16 @@ const options = {
     plugins: {},
     transforms: {}
   },
+  before: {
+    // array list to run before plugins or transforms
+    plugins: undefined, 
+    transforms: undefined
+  },
+  after: {
+    // array list to run after plugins or transforms
+    plugins: undefined, 
+    transforms: undefined
+  },
   // options to pass to babel
   babel: {},
   // output directory
@@ -46,5 +56,5 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 

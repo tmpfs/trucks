@@ -102,45 +102,21 @@ Compiled javascript:
 const templates = {
   "x-panel": function render(elem) {
     skate.vdom.element("style", () => {
-      skate.vdom.text(`
-      /*
-        Inline styles for the shadow DOM.
-      */
-      * {
-        font-family: sans-serif;
-        color: white;
-      }
-
-      p, ::content p {
-        margin: 0; 
-        padding: 1em;
-      }
-
-      .title {
-        background: black;
-        cursor: pointer;
-      }
-
-      .content {
-        min-height: 10em;
-        background: gray;
-      }
-
-    `);
+      skate.vdom.text("\n      /*\n        Inline styles for the shadow DOM.\n      */\n      * {\n        font-family: sans-serif;\n        color: white;\n      }\n\n      p, ::content p {\n        margin: 0; \n        padding: 1em;\n      }\n\n      .title {\n        background: black;\n        cursor: pointer;\n      }\n\n      .content {\n        min-height: 10em;\n        background: gray;\n      }\n\n    ");
     });
     skate.vdom.element("div", {
-      "class": `container`
+      "class": "container"
     }, () => {
       skate.vdom.element("p", {
-        "class": `title`
+        "class": "title"
       }, () => {
-        skate.vdom.text(`${ this.title }`);
+        skate.vdom.text("${this.title}");
       });
       skate.vdom.element("div", {
-        "class": `content`
+        "class": "content"
       }, () => {
         skate.vdom.element("slot", {
-          "name": `content`
+          "name": "content"
         }, () => {});
       });
     });
@@ -151,16 +127,14 @@ function template(elem) {
   return templates[elem.tagName.toLowerCase()].call(elem, elem);
 }
 
-
-    skate.define('{{id}}', {
-      events: {
-        'click .container > .title' (elem/*, e*/) {
-          console.log('clicked: ' + elem.tagName.toLowerCase());
-        }
-      },
-      render: template
-    });
-  
+skate.define('x-panel', {
+  events: {
+    'click .container > .title' (elem/*, e*/) {
+      console.log('clicked: ' + elem.tagName.toLowerCase());
+    }
+  },
+  render: template
+});
 ```
 
 ### Stylesheet
@@ -168,31 +142,28 @@ function template(elem) {
 Compiled stylesheet:
 
 ```css
+  /*
+    Inline styles for the shadow DOM.
+  */
+  * {
+    font-family: sans-serif;
+    color: white;
+  }
 
-      /*
-        Inline styles for the shadow DOM.
-      */
-      * {
-        font-family: sans-serif;
-        color: white;
-      }
+  p, ::content p {
+    margin: 0; 
+    padding: 1em;
+  }
 
-      p, ::content p {
-        margin: 0; 
-        padding: 1em;
-      }
+  .title {
+    background: black;
+    cursor: pointer;
+  }
 
-      .title {
-        background: black;
-        cursor: pointer;
-      }
-
-      .content {
-        min-height: 10em;
-        background: gray;
-      }
-
-    
+  .content {
+    min-height: 10em;
+    background: gray;
+  }
 ```
 
 ### Markup
@@ -216,7 +187,7 @@ Compiled stylesheet:
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

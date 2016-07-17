@@ -1,7 +1,7 @@
 var expect = require('chai').expect
   , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('parse:', function() {
 
   it('should parse external partial', function(done) {
     const src = '../../test/fixtures/external-partial/components.html';

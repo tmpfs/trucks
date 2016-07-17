@@ -1,7 +1,7 @@
 var expect = require('chai').expect
   , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('parse:', function() {
 
   it('should parse inline partial', function(done) {
     const src = '../../test/fixtures/inline-partial/components.html';

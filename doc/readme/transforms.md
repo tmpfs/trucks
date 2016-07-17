@@ -50,15 +50,15 @@ const options = {
 
 ### Compilers
 
-* [skate][] Compiles HTML template to render functions
+* [skate][] Compiles HTML templates to render functions.
 
 ### Preprocessors
 
-* [stylus][] Preprocess style sources as stylus
-* [less][] Preprocess style sources as less
-* [sass][] Preprocess style sources sass 
+* [stylus][] Preprocess style sources as stylus.
+* [less][] Preprocess style sources as less.
+* [sass][] Preprocess style sources sass.
 
 ### Utility
 
-* [trim][] Trim whitespace from inline styles and scripts
+* [trim][] Trim whitespace from inline styles and scripts.
 

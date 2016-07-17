@@ -22,14 +22,15 @@ Uses ES6 code transpiled for `node@4.x` compatibility.
       usage.md 
       components.md
       plugins.md
-      transforms.md
-      roadmap.md ?>
+      transforms.md ?>
 
 ## Documentation
 
 An example for [skatejs][] is shown in [EXAMPLE](/doc/EXAMPLE.md), source files are in [doc/example](/doc/example). 
 
 For the API docs see [API](/doc/API.md), an overview of the available options is in [OPTIONS](/doc/OPTIONS.md). For insights into the compiler phases and data structures see [COMPILER](/doc/COMPILER.md).
+
+The [ROADMAP](/doc/ROADMAP.md) has some ideas for future features.
 
 Information on how to build this project is in [DEVELOPER](/doc/DEVELOPER.md).
 

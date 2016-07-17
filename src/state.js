@@ -38,9 +38,6 @@ class OutputFile {
 class CompilerState {
   constructor(options) {
 
-    // map of output files for write phase
-    this._output = {};
-
     // input options
     options = options || {};
 
@@ -55,12 +52,11 @@ class CompilerState {
       parse: cheerio.load
     }
 
+    // input processing options
     this.options = options;
 
     // the component tree stucture
     this.tree = new Tree();
-
-    this.list = [];
 
     this.result = {
       // list of all component files
@@ -74,6 +70,10 @@ class CompilerState {
       // javascript list of all scripts
       scripts: []
     };
+
+    // @private map of output files for write phase
+    this._output = {};
+
   }
 
   get output() {
@@ -116,6 +116,11 @@ class CompilerState {
   getMiddleware(options) {
     const middleware = require('./middleware'); 
     return middleware(this, options);
+  }
+
+  parse(contents, options) {
+    const cheerio = require('cheerio');
+    return cheerio.load(contents, options);
   }
 
   absolute(file, base) {

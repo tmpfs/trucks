@@ -102,7 +102,7 @@ class TemplateReader extends TraitReader {
   }
 
   onTrait(state, trait, cb) {
-    trait.querySelectorAll = state.parser.parse(trait.contents);
+    trait.querySelectorAll = state.parse(trait.contents);
     trait.parent.templates.push(trait);
     state.result.templates.push(trait);
     cb(null, trait);
@@ -117,7 +117,7 @@ class TemplateReader extends TraitReader {
       // separate all template elements into individual template traits
       let templates = [];
 
-      trait.querySelectorAll = state.parser.parse(trait.contents);
+      trait.querySelectorAll = state.parse(trait.contents);
 
       const elements = trait.querySelectorAll(TEMPLATE)
         , mod = trait.parent
@@ -175,7 +175,7 @@ class StyleReader extends TraitReader {
   }
 
   onTrait(state, trait, cb) {
-    trait.querySelectorAll = state.parser.parse(trait.contents);
+    trait.querySelectorAll = state.parse(trait.contents);
 
     // global scope styles
     trait.parent.styles.push(trait);
@@ -203,7 +203,7 @@ class ScriptReader extends TraitReader {
   }
 
   onTrait(state, trait, cb) {
-    trait.querySelectorAll = state.parser.parse(trait.contents);
+    trait.querySelectorAll = state.parse(trait.contents);
     trait.parent.scripts.push(trait);
     state.result.scripts.push(trait);
     cb(null, trait);

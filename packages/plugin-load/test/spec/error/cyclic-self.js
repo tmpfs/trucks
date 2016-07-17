@@ -1,8 +1,8 @@
 var expect = require('chai').expect
   , path = require('path')
-  , trucks = require('../../../src');
+  , trucks = require('../../../../../src');
 
-describe('trucks:', function() {
+describe('load:', function() {
 
   it('should error on load with cyclic dependency (self)', function(done) {
     trucks(
@@ -11,9 +11,10 @@ describe('trucks:', function() {
           // NOTE: use absolute path to trigger code path
           path.join(
             process.cwd(),
-            'test/fixtures/cyclic-self/components.html'
+            '../../test/fixtures/cyclic-self/components.html'
           )
-        ]
+        ],
+        plugins: [require('../../../src')]
       },
       (err) => {
         function fn() {

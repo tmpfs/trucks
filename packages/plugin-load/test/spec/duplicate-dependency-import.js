@@ -1,15 +1,16 @@
 var expect = require('chai').expect
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('load:', function() {
 
   it('should ignore duplicate component import (dependency)',
     function(done) {
       trucks(
         {
           files: [
-            'test/fixtures/duplicate-dependency-import/components.html'
+            '../../test/fixtures/duplicate-dependency-import/components.html'
           ],
+          plugins: [require('../../src'), trucks.PARSE],
           force: true,
           out: 'target'
         },

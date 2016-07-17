@@ -1,11 +1,14 @@
 var expect = require('chai').expect
-  , trucks = require('../../../src');
+  , trucks = require('../../../../../src');
 
 describe('load:', function() {
 
   it('should error on empty component file', function(done) {
     trucks(
-        {files: ['test/fixtures/error/empty-component/components.html']},
+        {
+          files: ['../../test/fixtures/error/empty-component/components.html'],
+          plugins: [require('../../../src')]
+        },
       (err) => {
         function fn() {
           throw err;

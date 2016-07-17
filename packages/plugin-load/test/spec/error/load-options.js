@@ -1,11 +1,13 @@
 var expect = require('chai').expect
-  , trucks = require('../../../src');
+  , trucks = require('../../../../../src');
 
 describe('load:', function() {
 
-  it('should error on load with no options', function(done) {
+  it('should error on load with no input files', function(done) {
     trucks(
-      null,
+      {
+        plugins: [require('../../../src')]
+      },
       (err) => {
         function fn() {
           throw err;
@@ -18,7 +20,10 @@ describe('load:', function() {
 
   it('should error on load with non-existent file', function(done) {
     trucks(
-        {files: ['non-existent/components.html']},
+        {
+          files: ['non-existent/components.html'],
+          plugins: [require('../../../src')]
+        },
       (err) => {
         function fn() {
           throw err;

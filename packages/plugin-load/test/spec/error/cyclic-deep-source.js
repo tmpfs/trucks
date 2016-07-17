@@ -1,13 +1,14 @@
 var expect = require('chai').expect
-  , trucks = require('../../../src');
+  , trucks = require('../../../../../src');
 
-describe('trucks:', function() {
+describe('load:', function() {
 
-  it('should error on load with cyclic dependency (deep parent)',
+  it('should error on load with cyclic dependency (deep source)',
     function(done) {
       trucks(
         {
-          files: ['test/fixtures/cyclic-deep-parent/components.html']
+          files: ['../../test/fixtures/cyclic-deep-source/components.html'],
+          plugins: [require('../../../src')]
         },
         (err) => {
           function fn() {

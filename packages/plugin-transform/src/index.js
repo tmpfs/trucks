@@ -105,15 +105,15 @@ function transform(state, conf) {
       delete item.begin;
     } 
 
-    if(item.enter) {
-      lifecycle.enter.push(item.enter); 
-      delete item.enter;
-    } 
+    //if(item.enter) {
+      //lifecycle.enter.push(item.enter); 
+      //delete item.enter;
+    //} 
 
-    if(item.leave) {
-      lifecycle.leave.push(item.leave); 
-      delete item.leave;
-    } 
+    //if(item.leave) {
+      //lifecycle.leave.push(item.leave); 
+      //delete item.leave;
+    //} 
 
     if(item.end) {
       lifecycle.end.push(item.end); 

@@ -85,6 +85,7 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 ```javascript
 module.exports = {
   files: ['doc/example/components.html'],
+  transforms: ['trim', 'skate'],
   out: 'doc/example/build',
   force: true,
   compiler: {
@@ -98,15 +99,10 @@ module.exports = {
 Compiled javascript:
 
 ```javascript
-
-```
-
-### Stylesheet
-
-Compiled stylesheet:
-
-```css
-
+const templates = {
+  "x-panel": function render(elem) {
+    skate.vdom.element("style", () => {
+      skate.vdom.text(`
       /*
         Inline styles for the shadow DOM.
       */
@@ -130,7 +126,68 @@ Compiled stylesheet:
         background: gray;
       }
 
-    
+    `);
+    });
+    skate.vdom.element("div", {
+      "class": `container`
+    }, () => {
+      skate.vdom.element("p", {
+        "class": `title`
+      }, () => {
+        skate.vdom.text(`${ this.title }`);
+      });
+      skate.vdom.element("div", {
+        "class": `content`
+      }, () => {
+        skate.vdom.element("slot", {
+          "name": `content`
+        }, () => {});
+      });
+    });
+  }
+};
+
+function template(elem) {
+  return templates[elem.tagName.toLowerCase()].call(elem, elem);
+}
+
+skate.define('{{id}}', {
+  events: {
+    'click .container > .title' (elem/*, e*/) {
+      console.log('clicked: ' + elem.tagName.toLowerCase());
+    }
+  },
+  render: template
+});
+```
+
+### Stylesheet
+
+Compiled stylesheet:
+
+```css
+  /*
+    Inline styles for the shadow DOM.
+  */
+  * {
+    font-family: sans-serif;
+    color: white;
+  }
+
+  p, ::content p {
+    margin: 0; 
+    padding: 1em;
+  }
+
+  .title {
+    background: black;
+    cursor: pointer;
+  }
+
+  .content {
+    min-height: 10em;
+    background: gray;
+  }
 ```
 
 ### Markup

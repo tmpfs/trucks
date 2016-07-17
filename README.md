@@ -86,12 +86,18 @@ Programmatic usage:
 ```javascript
 const trucks = require('trucks');
 
-trucks({files: ['example/components.html']}, (err, res) => {
-  if(err) {
-    throw err; 
+trucks(
+  {
+    files: ['example/components.html'],
+    transforms: ['skate']
+  },
+  (err, res) => {
+    if(err) {
+      throw err; 
+    }
+    console.log(res);
   }
-  console.log(res);
-});
+);
 ```
 
 For command line usage see [trucks-cli][].

@@ -1,7 +1,7 @@
 var expect = require('chai').expect
   , trucks = require('../../../src');
 
-describe('parse:', function() {
+describe('trucks:', function() {
 
   it('should error on non-existent template file', function(done) {
     trucks(

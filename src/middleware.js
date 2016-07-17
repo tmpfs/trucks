@@ -26,7 +26,7 @@ function middleware(state, options /*phases, handlers*//*, prefix */) {
     let conf = {};
 
     if(out.name) {
-      if(lookup[out.name]) {
+      if(lookup[out.name] && lookup[out.name] === Object(lookup[out.name])) {
         conf = lookup[out.name];
       } 
     }
@@ -48,6 +48,18 @@ function middleware(state, options /*phases, handlers*//*, prefix */) {
       }else{
         closure = require(phase)(state, detail.conf);
       }
+    }else if(phase && phase === Object(phase)) {
+      if(!phase.plugin || !(phase.plugin instanceof Function)) {
+        throw new Error('object middleware does not define plugin function'); 
+      }
+      detail = getDetail(phase.plugin);
+      const fn = phase.plugin;
+      delete phase.plugin;
+
+      // use input object as configuration
+      detail.conf = phase;
+
+      return getClosure(fn, detail); 
     }
 
     // closure returned an array of middleware to defer to 

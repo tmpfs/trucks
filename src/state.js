@@ -113,6 +113,11 @@ class CompilerState {
     return require('./reader');
   }
 
+  getMiddleware(options) {
+    const middleware = require('./middleware'); 
+    return middleware(this, options);
+  }
+
   absolute(file, base) {
     if(!path.isAbsolute(file)) {
       base = base || process.cwd();

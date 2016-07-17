@@ -135,14 +135,13 @@ function run(opts, cb) {
     }
 
     const phases = Array.isArray(state.options.plugins)
-          ? state.options.plugins : DEFAULTS
-        , middleware = require('./middleware')
+          ? state.options.plugins : DEFAULTS;
+        //, middleware = require('./middleware')
     
     let closures;
 
     try {
-      closures = middleware(
-        state,
+      closures = state.getMiddleware(
         {
           phases: phases,
           handlers: getHandlers(),

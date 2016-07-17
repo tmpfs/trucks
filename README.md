@@ -70,7 +70,6 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
 - [Transforms](#transforms)
   - [Compilers](#compilers)
   - [Preprocessors](#preprocessors)
-  - [Utility](#utility)
 - [Roadmap](#roadmap)
   - [Packages](#packages)
   - [Styles](#styles)
@@ -347,9 +346,6 @@ const options = {
 * [stylus][] Preprocess style sources as stylus.
 * [less][] Preprocess style sources as less.
 * [sass][] Preprocess style sources sass.
-
-### Utility
-
 * [trim][] Trim whitespace from inline styles and scripts.
 
 ## Roadmap

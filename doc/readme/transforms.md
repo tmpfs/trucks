@@ -57,8 +57,5 @@ const options = {
 * [stylus][] Preprocess style sources as stylus.
 * [less][] Preprocess style sources as less.
 * [sass][] Preprocess style sources sass.
-
-### Utility
-
 * [trim][] Trim whitespace from inline styles and scripts.
 

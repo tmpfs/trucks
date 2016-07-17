@@ -26,6 +26,13 @@ function api(cb) {
   doc('doc/api/api.md', 'doc/API.md', {toc: {depth: 2}}, cb);
 }
 
+// @task roadmap build the roadmap file
+function roadmap(cb) {
+  doc(
+    'doc/roadmap/roadmap.md', 'doc/ROADMAP.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
 // @task options build the options file
 function options(cb) {
   doc(
@@ -67,9 +74,10 @@ function docs(cb){
 }
 
 mk.task(api);
+mk.task(roadmap);
 mk.task(options);
 mk.task(developer);
 mk.task(compiler);
 mk.task(example);
 mk.task(readme);
-mk.task([api, options, developer, compiler, example, readme], docs)
+mk.task([api, roadmap, options, developer, compiler, example, readme], docs)

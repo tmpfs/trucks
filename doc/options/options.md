@@ -7,3 +7,5 @@ This document shows the default options used when none are provided.
 ***
 
 <? @source {javascript} ../../defaults.js ?>
+
+<? @include ../readme/links.md ?>

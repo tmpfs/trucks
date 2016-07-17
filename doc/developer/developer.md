@@ -98,3 +98,4 @@ To build the compiler doc:
 mk compiler
 ```
 
+<? @include ../readme/links.md ?>

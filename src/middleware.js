@@ -1,15 +1,18 @@
 /**
- *  Helper function to invoke middleware functions.
+ *  Helper function to locate and invoke middleware functions.
  *
  *  @private {function} middleware
+ *  @param {Object} state input compiler state.
+ *  @param {Object} options middleware configuration options.
  *
+ *  @throws Error if an object definition does not have a plugin function.
  *  @throws Error if the middleware function errors.
  */
-function middleware(state, options /*phases, handlers*//*, prefix */) {
+function middleware(state, options) {
   let i
     , phases = options.phases
     , handlers = options.handlers
-    , lookup = options.lookup || state.options.configuration
+    , lookup = options.lookup
     , phase
     , detail
     , middleware = []
@@ -17,16 +20,21 @@ function middleware(state, options /*phases, handlers*//*, prefix */) {
 
   function getDetail(phase) {
     const out = {}; 
+
     if(phase === String(phase)) {
       out.name = phase; 
     }else if(phase instanceof Function) {
       out.name = phase.name; 
+    // object function name
+    }else if(phase && phase.plugin && phase.plugin.name) {
+      out.name = phase.plugin.name; 
     }
 
     let conf = {};
 
     if(out.name) {
-      if(lookup[out.name] && lookup[out.name] === Object(lookup[out.name])) {
+      if(lookup[out.name]
+        && lookup[out.name] === Object(lookup[out.name])) {
         conf = lookup[out.name];
       } 
     }
@@ -50,7 +58,8 @@ function middleware(state, options /*phases, handlers*//*, prefix */) {
       }
     }else if(phase && phase === Object(phase)) {
       if(!phase.plugin || !(phase.plugin instanceof Function)) {
-        throw new Error('object middleware does not define plugin function'); 
+        throw new Error(
+          'object middleware does not define plugin function'); 
       }
       detail = getDetail(phase.plugin);
       const fn = phase.plugin;
@@ -72,7 +81,12 @@ function middleware(state, options /*phases, handlers*//*, prefix */) {
           getClosure(closure[j], detail));
       }
       return closures;
+    //}else if(closure) {
+      //if(!closure.name) {
+        //throw new Error('anonymous plugin functions are not allowed'); 
+      //}    
     }
+
     return [closure];
   }
 

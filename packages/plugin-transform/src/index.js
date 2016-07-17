@@ -144,7 +144,11 @@ function transform(state, conf) {
           state.each(
             lifecycle.end,
             (visitor, next) => {
-              visitor(tree, next); 
+              try {
+                visitor(tree, next); 
+              }catch(e) {
+                return next(e); 
+              }
             },
             cb);
         }
@@ -156,7 +160,11 @@ function transform(state, conf) {
       state.each(
         lifecycle.begin,
         (visitor, next) => {
-          visitor(tree, next); 
+          try {
+            visitor(tree, next); 
+          }catch(e) {
+            return next(e); 
+          }
         },
         (err) => {
           if(err) {

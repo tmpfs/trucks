@@ -23,6 +23,6 @@
 [sources]: /packages/plugin-sources
 [load]: /packages/plugin-load
 [parse]: /packages/plugin-parse
-[load]: /packages/plugin-load
-[load]: /packages/plugin-load
-[load]: /packages/plugin-load
+[transform]: /packages/plugin-transform
+[generate]: /packages/plugin-generate
+[write]: /packages/plugin-write

@@ -408,4 +408,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
 [load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
 [parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
+[transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
+[generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
+[write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 

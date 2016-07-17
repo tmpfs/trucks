@@ -11,7 +11,8 @@ describe('trucks:', function() {
         files: [src],
         out: 'target',
         name: 'require-plugin',
-        plugins: ['./plugins/load']
+        // NOTE: relative to module doing the including
+        plugins: ['../test/fixtures/mock-plugin.js']
       },
       (err, state) => {
         expect(err).to.eql(null);

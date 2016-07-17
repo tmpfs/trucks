@@ -10,8 +10,12 @@ describe('trim:', function() {
         files: [src],
         out: 'target',
         name: 'trim-inline',
-        trim: {inline: true},
-        transforms: [require('../../src')]
+        transforms: [require('../../src')],
+        conf: {
+          transforms: {
+            trim: {inline: true}
+          }
+        }
       }, (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');

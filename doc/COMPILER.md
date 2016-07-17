@@ -197,8 +197,8 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
      _contents: 
       [ 'const templates = {\n  "x-icon": function render(elem) {},\n  "x-button": function render(elem) {}\n};',
         'function template(elem) {\n  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n}',
-        'skate.define(\'x-icon\', {});',
-        'skate.define(\'x-button\', {});' ] } }
+        '\n    skate.define(\'x-icon\', {});\n  ',
+        '\n    skate.define(\'x-button\', {});\n  ' ] } }
 ```
 
 ### Generate
@@ -215,8 +215,8 @@ After transformation the generate phase will concatenate all the css and transfo
      _contents: 
       [ 'const templates = {\n  "x-icon": function render(elem) {},\n  "x-button": function render(elem) {}\n};',
         'function template(elem) {\n  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n}',
-        'skate.define(\'x-icon\', {});',
-        'skate.define(\'x-button\', {});' ] },
+        '\n    skate.define(\'x-icon\', {});\n  ',
+        '\n    skate.define(\'x-button\', {});\n  ' ] },
   '/home/muji/git/trucks/target/components.css': 
    OutputFile {
      eol: '\n\n',
@@ -224,8 +224,8 @@ After transformation the generate phase will concatenate all the css and transfo
      name: 'target/components.css',
      base: undefined,
      _contents: 
-      [ 'x-icon {\n  /* component styles */\n}',
-        'x-button {\n  /* component styles */\n}' ] } }
+      [ '\n    x-icon {\n      /* component styles */\n    }\n  ',
+        '\n    x-button {\n      /* component styles */\n    }\n  ' ] } }
 ```
 
 ### Write
@@ -263,4 +263,9 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
 

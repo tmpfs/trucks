@@ -10,8 +10,12 @@ describe('trim:', function() {
         files: [src],
         out: 'target',
         name: 'trim-options',
-        trim: {newlines: false, lines: false},
-        transforms: [require('../../src')]
+        transforms: [require('../../src')],
+        conf: {
+          transforms: {
+            trim: {newlines: false, lines: false, pattern: /^\t+/}
+          }
+        }
       }, (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');

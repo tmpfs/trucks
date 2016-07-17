@@ -151,14 +151,16 @@ function template(elem) {
   return templates[elem.tagName.toLowerCase()].call(elem, elem);
 }
 
-skate.define('{{id}}', {
-  events: {
-    'click .container > .title' (elem/*, e*/) {
-      console.log('clicked: ' + elem.tagName.toLowerCase());
-    }
-  },
-  render: template
-});
+
+    skate.define('{{id}}', {
+      events: {
+        'click .container > .title' (elem/*, e*/) {
+          console.log('clicked: ' + elem.tagName.toLowerCase());
+        }
+      },
+      render: template
+    });
+  
 ```
 
 ### Stylesheet
@@ -166,28 +168,31 @@ skate.define('{{id}}', {
 Compiled stylesheet:
 
 ```css
-  /*
-    Inline styles for the shadow DOM.
-  */
-  * {
-    font-family: sans-serif;
-    color: white;
-  }
 
-  p, ::content p {
-    margin: 0; 
-    padding: 1em;
-  }
+      /*
+        Inline styles for the shadow DOM.
+      */
+      * {
+        font-family: sans-serif;
+        color: white;
+      }
 
-  .title {
-    background: black;
-    cursor: pointer;
-  }
+      p, ::content p {
+        margin: 0; 
+        padding: 1em;
+      }
 
-  .content {
-    min-height: 10em;
-    background: gray;
-  }
+      .title {
+        background: black;
+        cursor: pointer;
+      }
+
+      .content {
+        min-height: 10em;
+        background: gray;
+      }
+
+    
 ```
 
 ### Markup
@@ -234,4 +239,15 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
+[load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
+[parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
+[transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
+[generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
+[write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
 

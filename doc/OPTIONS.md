@@ -12,12 +12,17 @@ This document shows the default options used when none are provided.
 const options = {
   // array list of component source files
   files: null,
+  // array list of configuration files to load and merge
+  rc: undefined,
   // array list of plugins to execute
   plugins: undefined,
-  // map of plugin configuration objects
-  configuration: undefined,
-  // array list of transforms for the transform plugin to run
+  // array list of transform plugins to run
   transforms: undefined,
+  // map of plugin configuration objects
+  conf: {
+    plugins: {},
+    transforms: {}
+  },
   // options to pass to babel
   babel: {},
   // output directory
@@ -33,45 +38,7 @@ const options = {
   // force overwrite files if they already exist
   force: false,
   // override the default operating system EOL for file concatenation
-  eol: undefined,
-  // behaviour for trimming whitespace
-  trim: {
-    // only trim inline content
-    inline: true,
-    // trim leading and trailing newlines
-    newlines: true,
-    // pattern used to trim lines, default is two spaces or a tab
-    // repeated twice at the beginning of each line
-    pattern: /^(  |\t){2,2}/,
-    // trim lines using pattern
-    lines: true
-  },
-  // options to pass to the compiler
-  compiler: {
-    // template element attribute used to extract the template id
-    // changing this will have bad consequences
-    attr: 'id',
-    // name of the skatejs variable
-    skate: 'skate',
-    // name of the vdom property
-    vdom: 'vdom',
-    // name of the element function
-    element: 'element',
-    // name of the templates map
-    templates: 'templates',
-    // name of the main function
-    main: 'template',
-    // normalize whitespace in templates
-    normalize: true,
-    // flags for template literal support
-    literals: undefined,
-    // options to use when parsing the DOM
-    dom: undefined,
-    // options for id replacement
-    id: {
-      pattern: /\{\{id\}\}/gm
-    }
-  }
+  eol: undefined
 }
 
 module.exports = options;

@@ -27,19 +27,7 @@ const options = {
   // force overwrite files if they already exist
   force: false,
   // override the default operating system EOL for file concatenation
-  eol: undefined,
-  // behaviour for trimming whitespace
-  trim: {
-    // only trim inline content
-    inline: true,
-    // trim leading and trailing newlines
-    newlines: true,
-    // pattern used to trim lines, default is two spaces or a tab
-    // repeated twice at the beginning of each line
-    pattern: /^(  |\t){2,2}/,
-    // trim lines using pattern
-    lines: true
-  }
+  eol: undefined
 }
 
 module.exports = options;

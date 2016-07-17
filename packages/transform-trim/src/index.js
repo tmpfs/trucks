@@ -1,29 +1,32 @@
 /**
  *  @private
  */
-module.exports = function trim(state) {
+module.exports = function trim(state, conf) {
 
-  // TODO: use conf argument
-  const options = state.options.trim;
+  conf.inline = conf.inline !== undefined ? conf.inline : true;
+  conf.newlines = conf.newlines !== undefined ? conf.newlines : true;
+  conf.lines = conf.lines !== undefined ? conf.lines : true;
+  conf.pattern = (conf.pattern instanceof RegExp)
+    ? conf.pattern : /^(  |\t){2,2}/;
 
   function strip(node, cb) {
 
     // only configured to trim inline content
-    if(!options || (options.inline && !node.inline)) {
+    if(!conf || (conf.inline && !node.inline)) {
       return cb();
     }
 
     // trim leading and trailing newlines
-    if(options.newlines) {
+    if(conf.newlines) {
       node.contents = node.contents.replace(/^\n+/, '');
       node.contents = node.contents.replace(/[\n ]+$/, '');
     }
 
     // trim every line
-    if(options.lines && (options.pattern instanceof RegExp)) {
+    if(conf.lines && (conf.pattern instanceof RegExp)) {
       let lines = node.contents.split('\n');
       lines = lines.map((line) => {
-        return line.replace(options.pattern, ''); 
+        return line.replace(conf.pattern, ''); 
       })
       node.contents = lines.join('\n');
     }

@@ -1,11 +1,11 @@
 var expect = require('chai').expect
   , path = require('path')
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('write:', function() {
 
   it('should write output files w/ out option', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html'
+    const src = '../../test/fixtures/simple-inline/components.html'
       , out = 'target'
       , name = 'mock-components'
       // names for assertions
@@ -15,6 +15,12 @@ describe('trucks:', function() {
     trucks(
       {
         files: [src],
+        plugins: [
+          trucks.SOURCES,
+          trucks.TRANSFORM,
+          trucks.GENERATE, 
+          require('../../src')
+        ],
         out: out,
         name: name,
         extract: true
@@ -43,7 +49,7 @@ describe('trucks:', function() {
 
   it('should write output files w/ out option and default name',
     function(done) {
-      const src = 'test/fixtures/simple-inline/components.html'
+      const src = '../../test/fixtures/simple-inline/components.html'
         , out = 'target'
         // names for assertions
         , css = 'target/components.css'

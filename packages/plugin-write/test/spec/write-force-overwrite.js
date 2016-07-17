@@ -1,21 +1,34 @@
 var expect = require('chai').expect
   , path = require('path')
-  , trucks = require('../../src');
+  , fs = require('fs')
+  , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('write:', function() {
 
-  it('should write output files w/ out option', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html'
-      , out = 'target'
-      // default names for assertions
-      , css = 'target/components.css'
-      , js = 'target/components.js'
-      , html = 'target/components.html';
+  it('should force overwrite output files', function(done) {
+    const src = '../../test/fixtures/simple-inline/components.html'
+      , css = 'target/simple-force.css'
+      , js = 'target/simple-force.js'
+      , html = 'target/simple-force.html';
+
+    // mock existing files
+    fs.writeFileSync(css, '');
+    fs.writeFileSync(js, '');
+    fs.writeFileSync(html, '');
+
     trucks(
       {
         files: [src],
+        plugins: [
+          trucks.SOURCES,
+          trucks.TRANSFORM,
+          trucks.GENERATE, 
+          require('../../src')
+        ],
+        css: css,
+        js: js,
+        html: html,
         extract: true,
-        out: out,
         force: true
       },
       (err, state) => {

@@ -1,15 +1,21 @@
 var expect = require('chai').expect
   , path = require('path')
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('write:', function() {
 
   it('should write css output', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html'
+    const src = '../../test/fixtures/simple-inline/components.html'
       , css = 'target/simple-css-only.css';
     trucks(
       {
         files: [src],
+        plugins: [
+          trucks.SOURCES,
+          trucks.TRANSFORM,
+          trucks.GENERATE, 
+          require('../../src')
+        ],
         css: css
       },
       (err, state) => {

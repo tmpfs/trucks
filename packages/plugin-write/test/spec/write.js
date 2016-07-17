@@ -10,7 +10,12 @@ describe('write:', function() {
         files: [src],
         out: 'target',
         name: 'write',
-        plugins: [trucks.SOURCES, trucks.TRANSFORM, require('../../src')],
+        plugins: [
+          trucks.SOURCES,
+          trucks.TRANSFORM,
+          trucks.GENERATE, 
+          require('../../src')
+        ],
         transforms: ['skate/src']
       }, (err, result) => {
         expect(err).to.eql(null);

@@ -1,21 +1,28 @@
 var expect = require('chai').expect
   , path = require('path')
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
-describe('trucks:', function() {
+describe('write:', function() {
 
-  it('should write output files', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html'
-      , css = 'target/simple.css'
-      , js = 'target/simple.js'
-      , html = 'target/simple.html';
+  it('should write output files w/ out option', function(done) {
+    const src = '../../test/fixtures/simple-inline/components.html'
+      , out = 'target'
+      // default names for assertions
+      , css = 'target/components.css'
+      , js = 'target/components.js'
+      , html = 'target/components.html';
     trucks(
       {
         files: [src],
-        css: css,
-        js: js,
-        html: html,
-        extract: true
+        plugins: [
+          trucks.SOURCES,
+          trucks.TRANSFORM,
+          trucks.GENERATE, 
+          require('../../src')
+        ],
+        extract: true,
+        out: out,
+        force: true
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -33,6 +40,7 @@ describe('trucks:', function() {
         expect(state.output[cssFile].result.file).to.be.a('string');
         expect(state.output[jsFile].name).to.eql(js);
         expect(state.output[jsFile].result.file).to.be.a('string');
+
         done();
       }
     );

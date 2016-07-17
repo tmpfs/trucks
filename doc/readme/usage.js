@@ -2,9 +2,10 @@ const trucks = require('../../lib/index');
 
 trucks(
   {
-    files: ['example/components.html'],
+    files: ['doc/example/components.html'],
     transforms: ['skate'],
-    out: 'target'
+    out: 'target',
+    force: true
   },
   (err, res) => {
     if(err) {

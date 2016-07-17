@@ -93,9 +93,10 @@ const trucks = require('trucks');
 
 trucks(
   {
-    files: ['example/components.html'],
+    files: ['doc/example/components.html'],
     transforms: ['skate'],
-    out: 'target'
+    out: 'target',
+    force: true
   },
   (err, res) => {
     if(err) {
@@ -451,7 +452,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

@@ -110,9 +110,7 @@ function getHandlers() {
         require('trucks-plugin-load'),
         require('trucks-plugin-parse')
       ]; 
-    },
-    generate: require('./plugins/generate'),
-    write: require('./plugins/write')
+    }
   }
 }
 

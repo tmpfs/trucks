@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-skate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compiler for skatejs components",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

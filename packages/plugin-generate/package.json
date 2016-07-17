@@ -1,6 +1,6 @@
 {
   "name": "trucks-plugin-generate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate file contents for output files",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

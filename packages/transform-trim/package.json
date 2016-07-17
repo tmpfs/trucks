@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-trim",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utility to trim input templates, styles and scripts",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

@@ -111,7 +111,6 @@ function getHandlers() {
         require('trucks-plugin-parse')
       ]; 
     },
-    transform: require('./plugins/transform'),
     generate: require('./plugins/generate'),
     write: require('./plugins/write')
   }

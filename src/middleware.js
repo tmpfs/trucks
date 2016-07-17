@@ -13,7 +13,7 @@ const path = require('path');
 function middleware(state, options) {
   let i
     , phases = options.phases
-    , handlers = options.handlers
+    , handlers = options.handlers || {}
     , lookup = options.lookup || {}
     , prefix = options.prefix
     , phase

@@ -85,7 +85,6 @@ function plugin(state, conf) {
   const list = state.getMiddleware(
     {
       phases: visitors,
-      handlers: {},
       prefix: PREFIX,
       lookup: state.options.conf.transforms
     });

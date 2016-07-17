@@ -7,8 +7,7 @@ function visit(state, visitors, node, cb) {
       , Component = components.Component
       , Template = components.Template
       , Style = components.Style
-      , Script = components.Script
-      , COMPLETE = 'complete';
+      , Script = components.Script;
 
   function canVisit(key) {
 
@@ -49,10 +48,6 @@ function visit(state, visitors, node, cb) {
       state.each(
         keys, 
         (key, next) => {
-
-          if(key === COMPLETE) {
-            return next(); 
-          }
 
           if(canVisit(key)) {
             // try to call the visitor function with the item

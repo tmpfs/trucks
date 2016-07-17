@@ -10,6 +10,6 @@ trucks(
     if(err) {
       throw err; 
     }
-    console.dir(state.tree, {depth: 4});
+    console.dir(state.tree.imports[0]);
   }
 );

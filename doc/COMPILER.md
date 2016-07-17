@@ -30,48 +30,46 @@ Given a components file [components.html](https://github.com/tmpfs/trucks/blob/m
 The load phase will build the result object:
 
 ```javascript
-ComponentTree {
+ComponentFile {
   imports: 
    [ ComponentFile {
-       imports: 
-        [ ComponentFile {
-            imports: [Object],
-            file: '/home/muji/git/trucks/doc/compiler/x-button.html',
-            contents: '<link rel="import" href="x-icon.html">\n\n<dom-module id="x-button">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define(\'{{id}}\', {});\n  </script>\n</dom-module>\n',
-            parent: [Circular],
-            modules: [],
-            duplicates: [],
-            querySelectorAll: [Object],
-            href: 'x-button.html' } ],
-       file: '/home/muji/git/trucks/doc/compiler/components.html',
-       contents: '<link rel="import" href="x-button.html">\n',
-       parent: null,
+       imports: [Object],
+       file: '/home/muji/git/trucks/doc/compiler/x-button.html',
+       contents: '<link rel="import" href="x-icon.html">\n\n<dom-module id="x-button">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define(\'{{id}}\', {});\n  </script>\n</dom-module>\n',
+       parent: [Circular],
        modules: [],
        duplicates: [],
-       querySelectorAll: 
-        { [Function]
-          fn: { constructor: [Circular], _originalRoot: [Object] },
-          load: [Function],
-          html: [Function],
-          xml: [Function],
-          text: [Function],
-          parseHTML: [Function],
-          root: [Function],
-          contains: [Function],
-          _root: 
-           { type: 'root',
-             name: 'root',
-             attribs: {},
-             children: [Object],
-             next: null,
-             prev: null,
-             parent: null },
-          _options: 
-           { withDomLvl1: true,
-             normalizeWhitespace: false,
-             xmlMode: false,
-             decodeEntities: true } },
-       href: 'doc/compiler/components.html' } ] }
+       querySelectorAll: [Object],
+       href: 'x-button.html' } ],
+  file: '/home/muji/git/trucks/doc/compiler/components.html',
+  contents: '<link rel="import" href="x-button.html">\n',
+  parent: null,
+  modules: [],
+  duplicates: [],
+  querySelectorAll: 
+   { [Function]
+     fn: { constructor: [Circular], _originalRoot: [Object] },
+     load: [Function],
+     html: [Function],
+     xml: [Function],
+     text: [Function],
+     parseHTML: [Function],
+     root: [Function],
+     contains: [Function],
+     _root: 
+      { type: 'root',
+        name: 'root',
+        attribs: {},
+        children: [Object],
+        next: null,
+        prev: null,
+        parent: null },
+     _options: 
+      { withDomLvl1: true,
+        normalizeWhitespace: false,
+        xmlMode: false,
+        decodeEntities: true } },
+  href: 'doc/compiler/components.html' }
 ```
 
 Imported component file paths are resolved relative to the declaring file.
@@ -81,48 +79,108 @@ Imported component file paths are resolved relative to the declaring file.
 The parse phase takes the output from the load phase and extracts the css, javascript and template elements:
 
 ```javascript
-ComponentTree {
-  imports: 
-   [ ComponentFile {
-       imports: 
-        [ ComponentFile {
-            imports: [Object],
-            file: '/home/muji/git/trucks/doc/compiler/x-button.html',
-            contents: '<link rel="import" href="x-icon.html">\n\n<dom-module id="x-button">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define(\'{{id}}\', {});\n  </script>\n</dom-module>\n',
-            parent: [Circular],
-            modules: [Object],
-            duplicates: [],
-            querySelectorAll: [Object],
-            href: 'x-button.html' } ],
-       file: '/home/muji/git/trucks/doc/compiler/components.html',
-       contents: '<link rel="import" href="x-button.html">\n',
-       parent: null,
-       modules: [],
-       duplicates: [],
-       querySelectorAll: 
-        { [Function]
-          fn: { constructor: [Circular], _originalRoot: [Object] },
-          load: [Function],
-          html: [Function],
-          xml: [Function],
-          text: [Function],
-          parseHTML: [Function],
-          root: [Function],
-          contains: [Function],
-          _root: 
-           { type: 'root',
-             name: 'root',
-             attribs: {},
-             children: [Object],
-             next: null,
-             prev: null,
-             parent: null },
-          _options: 
-           { withDomLvl1: true,
-             normalizeWhitespace: false,
-             xmlMode: false,
-             decodeEntities: true } },
-       href: 'doc/compiler/components.html' } ] }
+ComponentModule {
+  id: 'x-button',
+  parent: 
+   ComponentFile {
+     imports: [ [Object] ],
+     file: '/home/muji/git/trucks/doc/compiler/x-button.html',
+     contents: '<link rel="import" href="x-icon.html">\n\n<dom-module id="x-button">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define(\'{{id}}\', {});\n  </script>\n</dom-module>\n',
+     parent: 
+      ComponentFile {
+        imports: [Object],
+        file: '/home/muji/git/trucks/doc/compiler/components.html',
+        contents: '<link rel="import" href="x-button.html">\n',
+        parent: null,
+        modules: [],
+        duplicates: [],
+        querySelectorAll: [Object],
+        href: 'doc/compiler/components.html' },
+     modules: [ [Circular] ],
+     duplicates: [],
+     querySelectorAll: 
+      { [Function]
+        fn: [Object],
+        load: [Function],
+        html: [Function],
+        xml: [Function],
+        text: [Function],
+        parseHTML: [Function],
+        root: [Function],
+        contains: [Function],
+        _root: [Object],
+        _options: [Object] },
+     href: 'x-button.html' },
+  component: 
+   Component {
+     template: 
+      ComponentTemplate {
+        element: [Object],
+        contents: '<template id="x-button"></template>',
+        parent: [Circular],
+        href: undefined,
+        file: undefined,
+        id: 'x-button',
+        querySelectorAll: [Object] },
+     parent: [Circular],
+     partials: [],
+     styles: [] },
+  templates: 
+   [ ComponentTemplate {
+       element: [Object],
+       contents: '<template id="x-button"></template>',
+       parent: [Circular],
+       href: undefined,
+       file: undefined,
+       id: 'x-button',
+       querySelectorAll: [Object] } ],
+  stylesheets: 
+   [ ComponentStyle {
+       element: [Object],
+       contents: '\n    x-button {\n      /* component styles */\n    }\n  ',
+       parent: [Circular],
+       href: undefined,
+       file: undefined,
+       querySelectorAll: [Object] } ],
+  styles: 
+   [ ComponentStyle {
+       element: [Object],
+       contents: '\n    x-button {\n      /* component styles */\n    }\n  ',
+       parent: [Circular],
+       href: undefined,
+       file: undefined,
+       querySelectorAll: [Object] } ],
+  scripts: 
+   [ ComponentScript {
+       element: [Object],
+       contents: '\n    skate.define(\'{{id}}\', {});\n  ',
+       parent: [Circular],
+       href: undefined,
+       file: undefined,
+       querySelectorAll: [Object] } ],
+  querySelectorAll: 
+   { [Function]
+     fn: { constructor: [Circular], _originalRoot: [Object] },
+     load: [Function],
+     html: [Function],
+     xml: [Function],
+     text: [Function],
+     parseHTML: [Function],
+     root: [Function],
+     contains: [Function],
+     _root: 
+      { type: 'root',
+        name: 'root',
+        attribs: {},
+        children: [Object],
+        next: null,
+        prev: null,
+        parent: null },
+     _options: 
+      { withDomLvl1: true,
+        normalizeWhitespace: false,
+        xmlMode: false,
+        decodeEntities: true } } }
 ```
 
 ### Transform

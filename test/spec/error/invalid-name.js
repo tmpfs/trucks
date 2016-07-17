@@ -1,15 +1,14 @@
 var expect = require('chai').expect
-  , trucks = require('../../../../../src');
+  , trucks = require('../../../src');
 
-describe('parse:', function() {
+describe('trucks:', function() {
 
   it('should error on invalid custom element name', function(done) {
     trucks(
       {
         files: [
-          '../../test/fixtures/invalid-name/components.html'
-        ],
-        plugins: [trucks.LOAD, require('../../../src')]
+          'test/fixtures/invalid-name/components.html'
+        ]
       },
       (err) => {
         function fn() {

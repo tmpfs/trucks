@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-sass",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Process style elements in web components with sass",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

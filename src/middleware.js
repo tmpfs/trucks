@@ -1,3 +1,5 @@
+const path = require('path');
+
 /**
  *  Helper function to locate and invoke middleware functions.
  *
@@ -13,6 +15,7 @@ function middleware(state, options) {
     , phases = options.phases
     , handlers = options.handlers
     , lookup = options.lookup
+    , prefix = options.prefix
     , phase
     , detail
     , middleware = []
@@ -54,7 +57,11 @@ function middleware(state, options) {
         closure = handlers[phase](state, detail.conf);
       // treat as plugin module 
       }else{
-        closure = require(phase)(state, detail.conf);
+        let file = phase;
+        if(prefix && (options.force || path.basename(phase) === phase)) {
+          file = prefix + file; 
+        }
+        closure = require(file)(state, detail.conf);
       }
     }else if(phase && phase === Object(phase)) {
       if(!phase.plugin || !(phase.plugin instanceof Function)) {

@@ -78,15 +78,14 @@ function plugin(state, conf) {
     throw new Error(`transform visitors array expected`); 
   }
   
-  const list = visitors.map((visitor) => {
-
-    // NOTE: require strings as plugins
-    if(visitor === String(visitor)) {
-      visitor = require('trucks-transform-' + visitor); 
-    }
-
-    return visitor(state); 
-  })
+  const list = state.getMiddleware(
+    {
+      phases: visitors,
+      handlers: {},
+      prefix: 'trucks-transform-',
+      force: true,
+      lookup: state.options.configuration
+    });
 
   return function transform(state, cb) {
 

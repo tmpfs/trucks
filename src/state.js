@@ -65,12 +65,6 @@ class CompilerState {
 
     this.list = [];
 
-    // keep track of processed files during load phase
-    this.seen  = {
-      imports: [],
-      sources: []
-    }
-
     this.result = {
       // list of all component files
       files: [] ,

@@ -5,35 +5,20 @@ const fs = require('fs')
  *  Encapsulates the load state information.
  *
  *  @private {constructor} LoadState
- *  @param {Object} input compiler state input object.
+ *  @param {Object} state compiler state input object.
  *  @param {Array} output list for the output result objects.
- *  @param {Object} opts processing options.
  */
-function LoadState(input, output) {
-  
-  this.input = input;
+function LoadInfo(state, output) {
   this.output = output;
 
-  // TODO: prefer `output` property
-  this.out = output;
-
-  this.parser = input.parser;
-  this.opts = input.options;
-  // source input files passed to be loaded
-  this.files = input.files;
+  // keep track of processed files during load phase
+  this.seen  = {
+    imports: [],
+    sources: []
+  }
 
   // list of parent file hierarchies used to detect circular imports
   this.hierarchy = [];
-
-
-  // pass reference to component tree into load state
-  this.tree = input.tree;
-
-  // list of component files that have been processed used to prevent
-  // duplication compilation when multiple components share the same
-  // dependency, proxied from the compiler state so it applies to all
-  // source files
-  this.seen = input.seen;
 }
 
 /**
@@ -46,14 +31,15 @@ function LoadState(input, output) {
  *
  *  @throws Error if a circular dependency is detected.
  */
-function cyclic(state, file, hierarchy, name) {
+function cyclic(state, info, file, name) {
+  const hierarchy = info.hierarchy;
 
   let i
-    , source = state.input.absolute(file)
+    , source = state.absolute(file)
     , dest;
 
   for(i = 0;i < hierarchy.length;i++) {
-    dest = state.input.absolute(hierarchy[i]);
+    dest = state.absolute(hierarchy[i]);
     if(source === dest) {
       throw new Error(
         `cyclic dependency detected in ${name} (${source} <> ${dest})`);
@@ -66,26 +52,27 @@ function cyclic(state, file, hierarchy, name) {
  *
  *  @private {function} read
  */
-function read(group, parent, state, cb) {
+function read(state, group, parent, info, cb) {
   const file = group.file;
 
   // cyclic dependency: must be tested before the logic to ignore 
   // duplicate components as we want to notify users on circular dependency
   try {
-    cyclic(state, file, state.hierarchy, parent ? parent.file : null);
+    cyclic(state, info, file, parent ? parent.file : null);
   }catch(e) {
     return cb(e); 
   }
 
   // duplicate component: do no not re-read components that have already 
   // been loaded
-  let pth = state.input.absolute(file);
+  let pth = state.absolute(file);
 
-  if(~state.seen.imports.indexOf(pth)) {
+  if(~info.seen.imports.indexOf(pth)) {
     group.duplicates.push(pth);
     return cb();
   }
-  state.seen.imports.push(pth);
+
+  info.seen.imports.push(pth);
 
   fs.readFile(pth, (err, contents) => {
     if(err) {
@@ -102,7 +89,7 @@ function read(group, parent, state, cb) {
 
     // prepend the loaded group information so that
     // dependencies appear before the declaring group
-    state.out.unshift(group);
+    info.output.unshift(group);
 
     if(parent) {
       parent.imports.unshift(group); 
@@ -111,13 +98,13 @@ function read(group, parent, state, cb) {
     group.querySelectorAll = state.parser.parse(group.contents);
 
     const $ = group.querySelectorAll
-      , dependencies = $(state.input.selectors.imports);
+      , dependencies = $(state.selectors.imports);
 
     // component has dependencies we need to load
     if(dependencies.length) {
 
       // track hierarchy
-      state.hierarchy.push(group.file);
+      info.hierarchy.push(group.file);
 
       // map of dependencies
       let deps = [];
@@ -128,7 +115,7 @@ function read(group, parent, state, cb) {
       })
 
       // resolve relative to the parent file: `group`
-      sources(deps, state.input, state.output, state, group, cb);
+      sources(state, info, deps, group, cb);
 
     // no dependencies move on to the next item in the list
     }else{
@@ -147,21 +134,20 @@ function read(group, parent, state, cb) {
  *  @param {Object} state processing state.
  *  @param {Function} cb callback function.
  */
-function sources(files, input, output, state, parent, cb) {
+function sources(state, info, files, parent, cb) {
   if(parent instanceof Function) {
     cb = parent;
     parent = null;
   }
 
-  input.each(
+  state.each(
     files,
     (file, next) => {
     
       if(!parent) {
-        // create a state per file so that the hierarchy
-        // is correct, note the load state proxies some fields
-        // from the global compiler state for ease of use
-        state = new LoadState(input, output);     
+        // for each file without a parent reset so that the hierarchy
+        // is correct
+        info.hierarchy = [];
       }
 
       let base
@@ -171,21 +157,21 @@ function sources(files, input, output, state, parent, cb) {
         base = path.dirname(parent.file); 
       }
 
-      pth = state.input.absolute(file, base);
+      pth = state.absolute(file, base);
 
-      if(!parent && ~state.seen.sources.indexOf(pth)) {
+      if(!parent && ~info.seen.sources.indexOf(pth)) {
         // this could just ignore and move on to the next
         // file to process but prefer to be strict and error
         return cb(
           new Error(`duplicate component source file ${file}`));
       }
 
-      state.seen.sources.push(pth);
+      info.seen.sources.push(pth);
 
-      const group = new state.input.components.File(pth);
+      const group = new state.components.File(pth);
       group.href = file;
 
-      read(group, parent, state, (err) => {
+      read(state, group, parent, info, (err) => {
         if(err) {
           return next(err); 
         } 
@@ -208,12 +194,13 @@ function plugin(/*state, conf*/) {
       return cb(new Error('no input files specified'));
     }
 
+    const info = new LoadInfo(state, state.result.files);
+
     // run processing for the state sources
-    sources(state.files, state, state.result.files, null, (err) => {
+    sources(state, info, state.files, (err) => {
       if(err) {
         return cb(err); 
       } 
-
       cb(null, state);
     });
   }

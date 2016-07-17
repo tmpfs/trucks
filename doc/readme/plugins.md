@@ -36,7 +36,7 @@ const options = {
 };
 ```
 
-To configure a plugin you can set a plugin configuration object:
+To configure a plugin you can set a configuration object:
 
 ```javascript
 const options = {

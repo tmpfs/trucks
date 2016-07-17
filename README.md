@@ -273,7 +273,7 @@ const options = {
 };
 ```
 
-To configure a plugin you can set a plugin configuration object:
+To configure a plugin you can set a configuration object:
 
 ```javascript
 const options = {
@@ -311,6 +311,31 @@ Each key in the returned map is evaluated to determine whether the visitor funct
 * `Template` Visit HTML templates.
 * `Style` Visit style elements.
 * `Script` Visit script elements.
+
+There are lifecycle keys that may be used:
+
+* `begin`: Called before the tree is walked.
+* `end`: Called when the tree walk is complete.
+
+The `begin` and `end` functions are passed the component tree so the signature is always:
+
+```javascript
+function(node, cb);
+```
+
+To configure a transform plugin you can set a configuration object:
+
+```javascript
+const options = {
+  files: ['components.html'],
+  transforms: ['skate'],
+  conf: {
+    transforms: {
+      skate: {/* plugin configuration goes here */}
+    }
+  }
+};
+```
 
 ### Compilers
 

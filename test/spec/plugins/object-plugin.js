@@ -13,7 +13,7 @@ describe('trucks:', function() {
       {
         files: [src],
         out: 'target',
-        name: 'function-plugin',
+        name: 'object-plugin',
         plugins: [
           {
             plugin: function mock(state, conf) {

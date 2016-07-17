@@ -1,14 +1,15 @@
 var expect = require('chai').expect
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
 describe('trucks:', function() {
 
   it('should parse external partial', function(done) {
-    const src = 'test/fixtures/external-partial/components.html';
+    const src = '../../test/fixtures/external-partial/components.html';
 
     trucks(
       {
         files: [src],
+        plugins: [trucks.LOAD, require('../../src'), trucks.TRANSFORM],
         out: 'target',
         name: 'external-partial'
       },

@@ -1,12 +1,13 @@
 var expect = require('chai').expect
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
 describe('parse:', function() {
 
   it('should handle no options', function(done) {
     trucks(
       {
-        files: ['test/fixtures/simple-inline/components.html'],
+        files: ['../../test/fixtures/simple-inline/components.html'],
+        plugins: [trucks.LOAD, require('../../src'), trucks.TRANSFORM],
         force: true,
         out: 'target'
       },

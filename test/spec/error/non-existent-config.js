@@ -6,7 +6,7 @@ describe('trucks:', function() {
   it('should error with non-existent config file', function(done) {
     trucks(
       {
-        conf: ['non-existent-config.js']
+        rc: ['non-existent-config.js']
       },
       (err) => {
         function fn() {

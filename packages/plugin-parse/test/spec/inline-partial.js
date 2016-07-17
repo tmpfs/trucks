@@ -1,16 +1,17 @@
 var expect = require('chai').expect
-  , trucks = require('../../src');
+  , trucks = require('../../../../src');
 
 describe('trucks:', function() {
 
   it('should parse inline partial', function(done) {
-    const src = 'test/fixtures/inline-partial/components.html';
+    const src = '../../test/fixtures/inline-partial/components.html';
 
     trucks(
       {
         files: [src],
         out: 'target',
         name: 'inline-partial',
+        plugins: [trucks.LOAD, require('../../src'), trucks.TRANSFORM],
         transforms: ['trim', 'skate/src']
       },
       (err, state) => {

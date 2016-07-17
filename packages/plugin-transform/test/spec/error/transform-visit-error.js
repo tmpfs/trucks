@@ -1,17 +1,21 @@
 var expect = require('chai').expect
-  , trucks = require('../../../src');
+  , trucks = require('../../../../../src');
 
 describe('transform:', function() {
 
   it('should callback with thrown error (visitor)', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html';
+    const src = '../../test/fixtures/simple-inline/components.html';
   
     trucks(
       {
         files: [src],
         out: 'target',
         name: 'transform-plugin',
-        plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
+        plugins: [
+          trucks.SOURCES, 
+          trucks.GENERATE, 
+          require('../../../src')
+        ],
         transforms: [
           function visit() {
             return {
@@ -34,14 +38,18 @@ describe('transform:', function() {
   });
 
   it('should callback with callback error (visitor)', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html';
+    const src = '../../test/fixtures/simple-inline/components.html';
   
     trucks(
       {
         files: [src],
         out: 'target',
         name: 'transform-plugin',
-        plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
+        plugins: [
+          trucks.SOURCES, 
+          trucks.GENERATE, 
+          require('../../../src')
+        ],
         transforms: [
           function visit() {
             return {

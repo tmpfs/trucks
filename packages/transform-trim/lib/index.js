@@ -34,7 +34,6 @@ module.exports = function transform(state) {
   }
 
   return {
-    'Template': trim,
     'Style': trim,
     'Script': trim
   };

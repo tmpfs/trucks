@@ -3,17 +3,17 @@ var expect = require('chai').expect
 
 describe('parse:', function() {
 
-  it('should error on non-existent css file', function(done) {
+  it('should error on non-existent template file', function(done) {
     trucks(
       {
-        files: ['test/fixtures/error/css-enoent/components.html']
+        files: ['test/fixtures/error/tpl-enoent/components.html']
       },
       (err) => {
         function fn() {
           throw err;
         }
         expect(fn).throws(/ENOENT/);
-        expect(fn).throws(/non-existent.css/);
+        expect(fn).throws(/non-existent.html/);
         done();
       }
     );

@@ -13,7 +13,6 @@ const path = require('path');
 function middleware(state, options) {
   let i
     , phases = options.phases
-    , handlers = options.handlers || {}
     , lookup = options.lookup || {}
     , prefix = options.prefix
     , phase
@@ -52,17 +51,11 @@ function middleware(state, options) {
     if(phase instanceof Function) {
       closure = phase(state, detail.conf);
     }else if(phase === String(phase)) {
-      // see if the phase is a known built in plugin
-      if(handlers[phase]) {
-        closure = handlers[phase](state, detail.conf);
-      // treat as plugin module 
-      }else{
-        let file = phase;
-        if(prefix && !path.isAbsolute(phase) && !/^\.*\//.test(phase)) {
-          file = prefix + file; 
-        }
-        closure = require(file)(state, detail.conf);
+      let file = phase;
+      if(prefix && !path.isAbsolute(phase) && !/^\.*\//.test(phase)) {
+        file = prefix + file; 
       }
+      closure = require(file)(state, detail.conf);
     }else if(phase && phase === Object(phase)) {
       if(!phase.plugin || !(phase.plugin instanceof Function)) {
         throw new Error(

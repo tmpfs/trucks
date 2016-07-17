@@ -103,17 +103,6 @@ function options(state, cb) {
   cb(null, state);
 }
 
-function getHandlers() {
-  return {
-    sources: function sources() {
-      return [
-        require('trucks-plugin-load'),
-        require('trucks-plugin-parse')
-      ]; 
-    }
-  }
-}
-
 function run(opts, cb) {
   const state = new State(opts);
 
@@ -131,7 +120,6 @@ function run(opts, cb) {
       closures = state.getMiddleware(
         {
           phases: phases,
-          handlers: getHandlers(),
           prefix: PREFIX,
           lookup: state.options.conf.plugins
         });

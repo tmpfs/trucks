@@ -296,7 +296,7 @@ A transform plugin returns a map of visitor functions:
 ```javascript
 function plugin(state, conf) {
   return {
-    '*': function handler(node, cb) {
+    '*': function(node, cb) {
       cb(); 
     }
   }

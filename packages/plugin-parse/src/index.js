@@ -107,7 +107,7 @@ function component(state, mod, context, cb) {
               reader,
               (traits, next) => {
                 traits.forEach((trait) => {
-                  trait.querySelectorAll = state.parser.parse(trait.contents);
+                  trait.querySelectorAll = state.parse(trait.contents);
                   mod.component.styles.push(trait);
                   trait.parent.stylesheets.push(trait);
                   state.result.styles.push(trait);

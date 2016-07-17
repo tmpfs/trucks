@@ -44,13 +44,7 @@ class CompilerState {
     // list of input files
     this.files = options.files || [];
 
-    const cheerio = require('cheerio')
-        , Tree = require('./component').Tree;
-
-    this.parser = {
-      module: cheerio,
-      parse: cheerio.load
-    }
+    const Tree = require('./component').Tree;
 
     // input processing options
     this.options = options;

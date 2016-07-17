@@ -95,7 +95,7 @@ function read(state, group, parent, info, cb) {
       parent.imports.unshift(group); 
     }
 
-    group.querySelectorAll = state.parser.parse(group.contents);
+    group.querySelectorAll = state.parse(group.contents);
 
     const $ = group.querySelectorAll
       , dependencies = $(state.selectors.imports);

@@ -1,10 +1,10 @@
 var expect = require('chai').expect
-  , trucks = require('../../../src');
+  , trucks = require('../../../../../src');
 
 describe('transform:', function() {
 
-  it('should visit template nodes', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html';
+  it('should visit script nodes', function(done) {
+    const src = '../../test/fixtures/simple-inline/components.html';
   
     let visited = false
       , count = 0;
@@ -18,7 +18,7 @@ describe('transform:', function() {
         transforms: [
           function visit() {
             return {
-              'Template': function(node, cb) {
+              'Script': function(node, cb) {
                 expect(node).to.be.an('object');
                 visited = true;
                 count++;

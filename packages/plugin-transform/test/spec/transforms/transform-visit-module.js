@@ -1,10 +1,10 @@
 var expect = require('chai').expect
-  , trucks = require('../../../src');
+  , trucks = require('../../../../../src');
 
 describe('transform:', function() {
 
   it('should visit module nodes', function(done) {
-    const src = 'test/fixtures/simple-inline/components.html';
+    const src = '../../test/fixtures/simple-inline/components.html';
   
     let visited = false
       , count = 0;

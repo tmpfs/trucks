@@ -47,7 +47,7 @@ const trucks = require('trucks');
 
 trucks(
   {
-    files: ['example/components.html'],
+    files: ['components.html'],
     transforms: ['trim'],
     conf: {
       transforms: {

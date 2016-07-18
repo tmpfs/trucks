@@ -2,7 +2,7 @@ const trucks = require('../../../../lib/index');
 
 trucks(
   {
-    files: ['example/components.html'],
+    files: ['components.html'],
     transforms: ['trim'],
     conf: {
       transforms: {

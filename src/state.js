@@ -37,7 +37,6 @@ class OutputFile {
 
 class CompilerState {
   constructor(options) {
-
     // input options
     options = options || {};
 

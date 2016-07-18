@@ -9,12 +9,18 @@ const RESERVED = [
     'missing-glyph'
   ];
 
+/**
+ *  Abstract class for all nodes of a component tree.
+ *
+ *  @public {class} ComponentNode
+ */
 class ComponentNode {}
 
 /**
- *  Represents an item with imports. 
+ *  Represents a node with imports.
  *
  *  @public {class} ComponentImport
+ *  @inherits ComponentNode
  */
 class ComponentImport extends ComponentNode {
   constructor() {
@@ -37,6 +43,7 @@ class ComponentImport extends ComponentNode {
  *  Represents the root of a component hierarchy. 
  *
  *  @public {class} ComponentTree
+ *  @inherits ComponentImport
  */
 class ComponentTree extends ComponentImport {
   constructor() {
@@ -45,11 +52,21 @@ class ComponentTree extends ComponentImport {
 }
 
 /**
- *  Represents a component file in the component tree. 
+ *  Represents a file in the component tree. 
  *
  *  @public {class} ComponentFile
+ *  @inherits ComponentImport
  */
 class ComponentFile extends ComponentImport {
+
+  /**
+   *  Creates a component file node.
+   *
+   *  @public {constructor} ComponentFile
+   *  @param {String} file path to the file.
+   *  @param {String} contents file contents.
+   *  @param {Object} parent file owner.
+   */
   constructor(file, contents, parent) {
     super(...arguments);
 
@@ -89,7 +106,21 @@ class ComponentFile extends ComponentImport {
   }
 }
 
+/**
+ *  Represents a a module definition.
+ *
+ *  @public {class} ComponentModule
+ *  @inherits ComponentNode
+ */
 class ComponentModule extends ComponentNode {
+
+  /**
+   *  Creates a component module node.
+   *
+   *  @public {constructor} ComponentModule
+   *  @param {String} id module identifier.
+   *  @param {Object} parent module owner.
+   */
   constructor(id, parent) {
     super(...arguments);
     this.id = id;

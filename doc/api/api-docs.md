@@ -26,3 +26,46 @@ Compile component files to CSS, Javascript and HTML.
 * `js` String path to write the generated javascript.
 * `eol` String override the default EOL for concatenation.
 
+### ComponentNode
+
+Abstract class for all nodes of a component tree.
+
+### ComponentImport < ComponentNode
+
+Represents a node with imports.
+
+### ComponentTree < ComponentImport
+
+Represents the root of a component hierarchy.
+
+### ComponentFile < ComponentImport
+
+Represents a file in the component tree.
+
+#### ComponentFile
+
+```javascript
+public ComponentFile(file, contents, parent)
+```
+
+Creates a component file node.
+
+* `file` String path to the file.
+* `contents` String file contents.
+* `parent` Object file owner.
+
+### ComponentModule < ComponentNode
+
+Represents a a module definition.
+
+#### ComponentModule
+
+```javascript
+public ComponentModule(id, parent)
+```
+
+Creates a component module node.
+
+* `id` String module identifier.
+* `parent` Object module owner.
+

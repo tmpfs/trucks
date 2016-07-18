@@ -40,7 +40,7 @@ For the command line interface see [trucks-cli][].
 
 ## Usage
 
-Programmatic usage:
+Use the `trim` key to configure this transform:
 
 ```javascript
 const trucks = require('trucks');
@@ -48,7 +48,14 @@ const trucks = require('trucks');
 trucks(
   {
     files: ['example/components.html'],
-    transforms: ['trim']
+    transforms: ['trim'],
+    conf: {
+      transforms: {
+        trim: {
+          lines: false
+        } 
+      }
+    }
   }, (err, res) => {
     if(err) {
       throw err; 
@@ -57,8 +64,6 @@ trucks(
   }
 );
 ```
-
-For command line usage see [trucks-cli][].
 
 ## API
 

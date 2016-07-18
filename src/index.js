@@ -27,6 +27,15 @@ const State = require('./state')
     , CSS = 'css'
     , JS = 'js';
 
+/**
+ *  Creates a computed options object from the input processing options.
+ *
+ *  @private {function} options
+ *  @param {Object} state compiler state.
+ *  @param {Function} cb callback function.
+ *
+ *  @returns map of computed options.
+ */
 function options(state, cb) {
   const abs = state.absolute
       , merge = require('merge')
@@ -126,6 +135,8 @@ function options(state, cb) {
  *  @option {String} [css] path to write the generated stylesheet.
  *  @option {String} [js] path to write the generated javascript.
  *  @option {String} [eol] override the default EOL for concatenation.
+ *
+ *  @returns compiler state.
  */
 function trucks(opts, cb) {
   const state = new State(opts);

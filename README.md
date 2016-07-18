@@ -65,12 +65,12 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
 - [Components](#components)
   - [Dependencies](#dependencies)
   - [Private Dependencies](#private-dependencies)
-  - [Notes](#notes)
 - [Plugins](#plugins)
 - [Transforms](#transforms)
   - [Compilers](#compilers)
   - [Preprocessors](#preprocessors)
 - [Documentation](#documentation)
+- [Notes](#notes)
 - [License](#license)
 
 ---
@@ -221,12 +221,6 @@ A component file can declare multiple components in a single file which can be u
 </dom-module>
 ```
 
-### Notes
-
-Components defined for [skatejs][] can ignore the HTML file as the templates are compiled to javascript; the command line interface will not generate an HTML file as it compiles for [skatejs][] by default.
-
-When authoring components using [polymer][] you would need to include the resulting HTML page containing all `<template>` elements in to your HTML page(s), how you do this depends upon your build process. Use the `--extract` option when compiling with the command line interface to also generate an HTML file containing the template elements.
-
 ## Plugins
 
 Plugins execute the main compiler phases that are bundled with the core libary:
@@ -349,6 +343,12 @@ For the API docs see [API](https://github.com/tmpfs/trucks/blob/master/doc/API.m
 The [ROADMAP](https://github.com/tmpfs/trucks/blob/master/doc/ROADMAP.md) has some ideas for future features.
 
 Information on how to build this project is in [DEVELOPER](https://github.com/tmpfs/trucks/blob/master/doc/DEVELOPER.md).
+
+## Notes
+
+Components defined for [skatejs][] can ignore the HTML file as the templates are compiled to javascript; the command line interface will not generate an HTML file as it compiles for [skatejs][] by default.
+
+When authoring components using [polymer][] you would need to include the resulting HTML page containing all `<template>` elements in to your HTML page(s), how you do this depends upon your build process. Use the `--extract` option when compiling with the command line interface to also generate an HTML file containing the template elements.
 
 ## License
 

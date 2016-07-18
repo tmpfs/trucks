@@ -119,10 +119,3 @@ A component file can declare multiple components in a single file which can be u
 </dom-module>
 ```
 
-### Notes
-
-Components defined for [skatejs][] can ignore the HTML file as the templates are compiled to javascript; the command line interface will not generate an HTML file as it compiles for [skatejs][] by default.
-
-When authoring components using [polymer][] you would need to include the resulting HTML page containing all `<template>` elements in to your HTML page(s), how you do this depends upon your build process. Use the `--extract` option when compiling with the command line interface to also generate an HTML file containing the template elements.
-
-

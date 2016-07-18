@@ -9,13 +9,18 @@ const RESERVED = [
     'missing-glyph'
   ];
 
+class ComponentNode {
+  constructor() {}
+}
+
 /**
  *  Represents an item with imports. 
  *
  *  @public {class} ComponentImport
  */
-class ComponentImport {
+class ComponentImport extends ComponentNode {
   constructor() {
+    super(...arguments);
     // dependencies referenced with `<link rel="import">`
     // propagated during the load compiler phase
     this.imports = [];
@@ -36,7 +41,7 @@ class ComponentImport {
  */
 class ComponentTree extends ComponentImport {
   constructor() {
-    super();
+    super(...arguments);
   }
 }
 
@@ -47,7 +52,7 @@ class ComponentTree extends ComponentImport {
  */
 class ComponentFile extends ComponentImport {
   constructor(file, contents, parent) {
-    super();
+    super(...arguments);
 
     this.file = file;
     this.contents = contents;
@@ -84,8 +89,9 @@ class ComponentFile extends ComponentImport {
   }
 }
 
-class ComponentModule {
+class ComponentModule extends ComponentNode {
   constructor(id, parent) {
+    super(...arguments);
     this.id = id;
 
     // the owner component file
@@ -176,8 +182,9 @@ class ComponentModule {
   }
 }
 
-class ComponentTrait {
+class ComponentTrait extends ComponentNode {
   constructor(element, contents, parent, href, file) {
+    super(...arguments);
     this.element = element;
     this.contents = contents; 
     this.parent = parent;
@@ -217,8 +224,9 @@ class ComponentScript extends ComponentTrait {
   }
 }
 
-class Component {
+class Component extends ComponentNode {
   constructor(template, parent) {
+    super(...arguments);
     // primary template for this component
     this.template = template; 
 

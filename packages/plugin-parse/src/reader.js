@@ -1,24 +1,20 @@
 const fs = require('fs')
     , path = require('path')
-    , selectors = require('./selectors')
-    , Template = require('./component').Template
-    , Style = require('./component').Style
-    , Script = require('./component').Script
-    , Component = require('./component').Component
+    , Component = require('../../../src/component').Component
     , TEMPLATE = 'template'
     , ID = 'id'
     , HREF = 'href'
     , SRC = 'src';
 
 class TraitReader {
-  constructor(module) {
+  constructor(module, type, selector) {
     this.parent = module; 
 
     // type of trait to instantiate
-    this.Type = null;
+    this.Type = type;
 
     // selector for the component module
-    this.selector = null;
+    this.selector = selector;
 
     this.querySelectorAll = module.querySelectorAll;
   }
@@ -92,8 +88,8 @@ class TraitReader {
 class TemplateReader extends TraitReader {
   constructor() {
     super(...arguments);
-    this.Type = Template;
-    this.selector = selectors.templates;
+    //this.Type = Template;
+    //this.selector = selectors.templates;
   }
 
   getInlineContents(el, $) {
@@ -170,8 +166,8 @@ class TemplateReader extends TraitReader {
 class StyleReader extends TraitReader {
   constructor() {
     super(...arguments);
-    this.Type = Style;
-    this.selector = selectors.styles;
+    //this.Type = Style;
+    //this.selector = selectors.styles;
   }
 
   onTrait(state, trait, cb) {
@@ -193,8 +189,8 @@ class StyleReader extends TraitReader {
 class ScriptReader extends TraitReader {
   constructor() {
     super(...arguments);
-    this.Type = Script;
-    this.selector = selectors.scripts;
+    //this.Type = Script;
+    //this.selector = selectors.scripts;
   }
 
   getExternalHref(el, $) {

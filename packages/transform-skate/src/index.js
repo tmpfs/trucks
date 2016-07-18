@@ -28,7 +28,7 @@ module.exports = function skate(state, conf) {
     , templates = [];
 
   return {
-    end: function(tree, cb) {
+    end: (tree, cb) => {
 
       const babel = require('babel-core')
         , hash = compiler.map(templates, conf)
@@ -48,7 +48,7 @@ module.exports = function skate(state, conf) {
 
       cb();
     },
-    'Script': function(node, cb) {
+    'Script': (node, cb) => {
 
       // perform {{id}} replacement
       if(replace && node && node.contents === String(node.contents)) {
@@ -58,7 +58,7 @@ module.exports = function skate(state, conf) {
 
       cb();
     },
-    'Component': function(node, cb) {
+    'Component': (node, cb) => {
       conf.querySelectorAll = node.template.querySelectorAll;
 
       let res = compiler.render(node.template.element, conf);

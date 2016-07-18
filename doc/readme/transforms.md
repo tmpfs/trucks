@@ -7,7 +7,7 @@ A transform plugin returns a map of visitor functions and/or lifecycle callbacks
 ```javascript
 function plugin(state, conf) {
   return {
-    '*': function(node, cb) {
+    '*': (node, cb) => {
       cb(); 
     }
   }
@@ -35,11 +35,11 @@ For example you may want to collect all nodes of a type and operate once the wal
 function plugin(state, conf) {
   const styles = [];
   return {
-    end: function(node, cb) {
+    end: (node, cb) => {
       // operate on the list of styles 
       cb();
     },
-    'Style': function(node, cb) {
+    'Style': (node, cb) => {
       styles.push(node);
       cb(); 
     }

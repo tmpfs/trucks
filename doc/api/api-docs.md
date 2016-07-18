@@ -26,6 +26,38 @@ Compile component files to CSS, Javascript and HTML.
 * `js` String path to write the generated javascript.
 * `eol` String override the default EOL for concatenation.
 
+### CompilerState
+
+Encapsulates the state of the compiler plugin execution.
+
+#### CompilerState
+
+```javascript
+public CompilerState(options)
+```
+
+Creates a compiler state.
+
+* `options` Object computed options.
+
+### OutputFile
+
+Represents an output file that will be written to disc when the 
+write plugin is executed.
+
+#### OutputFile
+
+```javascript
+public OutputFile(file, name, base, options)
+```
+
+Creates an output file.
+
+* `file` String path to the file.
+* `name` String relative path for the file.
+* `base` STring base path for the file.
+* `options` Object computed options.
+
 ### ComponentNode
 
 Abstract class for all nodes of a component tree.

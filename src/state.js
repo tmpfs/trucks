@@ -1,49 +1,26 @@
 const path = require('path')
 
-class OutputFile {
-  constructor(file, name, base, options) {
-    const EOL = require('os').EOL;
-    this.eol = options.eol || (EOL + EOL);
-
-    // absolute file path
-    this.file = file;
-
-    // relative path and file name
-    this.name = name;
-
-    // base path for relative path
-    this.base = base;
-
-    // list of string contents
-    this._contents = [];
-  }
-
-  prepend(buf) {
-    this._contents.unshift(buf); 
-  }
-
-  append(buf) {
-    this._contents.push(buf); 
-  }
-
-  set contents(list) {
-    this._contents = list; 
-  }
-
-  get contents() {
-    return this._contents.join(this.eol);
-  }
-}
-
+/**
+ *  Encapsulates the state of the compiler plugin execution.
+ *
+ *  @public {class} CompilerState
+ */
 class CompilerState {
+
+  /**
+   *  Creates a compiler state.
+   *
+   *  @public {constructor} CompilerState
+   *  @param {Object} options computed options.
+   */
   constructor(options) {
-    // input options
+    const Tree = this.components.Tree;
+
+    // computed processing options
     options = options || {};
 
     // list of input files
     this.files = options.files || [];
-
-    const Tree = require('./component').Tree;
 
     // input processing options
     this.options = options;
@@ -66,7 +43,6 @@ class CompilerState {
 
     // @private map of output files for write phase
     this._output = {};
-
   }
 
   get output() {
@@ -141,5 +117,57 @@ class CompilerState {
     return file;
   }
 }
+
+/**
+ *  Represents an output file that will be written to disc when the 
+ *  write plugin is executed.
+ *
+ *  @public {class} OutputFile
+ */
+class OutputFile {
+
+  /**
+   *  Creates an output file.
+   *
+   *  @public {constructor} OutputFile 
+   *  @param {String} file path to the file.
+   *  @param {String} name relative path for the file.
+   *  @param {STring} base base path for the file.
+   *  @param {Object} options computed options.
+   */
+  constructor(file, name, base, options) {
+    const EOL = require('os').EOL;
+    this.eol = options.eol || (EOL + EOL);
+
+    // absolute file path
+    this.file = file;
+
+    // relative path and file name
+    this.name = name;
+
+    // base path for relative path
+    this.base = base;
+
+    // list of string contents
+    this._contents = [];
+  }
+
+  prepend(buf) {
+    this._contents.unshift(buf); 
+  }
+
+  append(buf) {
+    this._contents.push(buf); 
+  }
+
+  set contents(list) {
+    this._contents = list; 
+  }
+
+  get contents() {
+    return this._contents.join(this.eol);
+  }
+}
+
 
 module.exports = CompilerState;

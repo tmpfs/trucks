@@ -5,6 +5,10 @@
 - [API](#api)
   - [trucks](#trucks)
     - [Options](#options)
+  - [CompilerState](#compilerstate)
+    - [CompilerState](#compilerstate-1)
+  - [OutputFile](#outputfile)
+    - [OutputFile](#outputfile-1)
   - [ComponentNode](#componentnode)
   - [ComponentImport < ComponentNode](#componentimport-componentnode)
   - [ComponentTree < ComponentImport](#componenttree-componentimport)
@@ -42,6 +46,38 @@ Compile component files to CSS, Javascript and HTML.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
 * `eol` String override the default EOL for concatenation.
+
+### CompilerState
+
+Encapsulates the state of the compiler plugin execution.
+
+#### CompilerState
+
+```javascript
+public CompilerState(options)
+```
+
+Creates a compiler state.
+
+* `options` Object computed options.
+
+### OutputFile
+
+Represents an output file that will be written to disc when the
+write plugin is executed.
+
+#### OutputFile
+
+```javascript
+public OutputFile(file, name, base, options)
+```
+
+Creates an output file.
+
+* `file` String path to the file.
+* `name` String relative path for the file.
+* `base` STring base path for the file.
+* `options` Object computed options.
 
 ### ComponentNode
 

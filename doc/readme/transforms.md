@@ -85,9 +85,9 @@ Existing transform plugins are in [packages](/packages).
 
 ### Preprocessors
 
-* [stylus][] Preprocess style sources as stylus.
-* [less][] Preprocess style sources as less.
-* [sass][] Preprocess style sources sass.
+* [less][] Preprocess less sources.
+* [sass][] Preprocess sass sources.
+* [stylus][] Preprocess stylus sources.
 * [trim][] Trim whitespace from inline styles and scripts.
 
 ### Miscellaneous

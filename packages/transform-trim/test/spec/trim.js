@@ -11,9 +11,9 @@ describe('trim:', function() {
         out: 'target',
         name: 'trim',
         transforms: [require('../../src')]
-      }, (err, result) => {
+      }, (err, state) => {
         expect(err).to.eql(null);
-        expect(result).to.be.an('object');
+        expect(state).to.be.an('object');
         done();
       }
     );

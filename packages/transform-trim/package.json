@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-trim",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Trim inline styles and scripts",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

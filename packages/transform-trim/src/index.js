@@ -1,13 +1,26 @@
 /**
- *  @private
+ *  Removes leading and trailing whitespace from inline styles and scripts.
+ *
+ *  When the `lines` option is given each line is stripped of leading 
+ *  whitespace that matches the `pattern` regular expression.
+ *
+ *  @public {function} trim
+ *  @param {Object} state compiler state.
+ *  @param {Object} conf transform plugin configuration.
+ *  @option {Boolean=true} [inline] only replace inline elements.
+ *  @option {Boolean=true} [lines] strip each line.
+ *  @option {RegExp} [pattern] used for line whitespace.
+ *  @options {Boolean=false} [templates] also trim template elements.
+ *
+ *  @returns map of visitor functions.
  */
 module.exports = function trim(state, conf) {
 
   conf.inline = conf.inline !== undefined ? conf.inline : true;
-  conf.newlines = conf.newlines !== undefined ? conf.newlines : true;
   conf.lines = conf.lines !== undefined ? conf.lines : true;
   conf.pattern = (conf.pattern instanceof RegExp)
     ? conf.pattern : /^(  |\t){2,2}/;
+  conf.templates = conf.templates !== undefined ? conf.templates : false;
 
   function strip(node, cb) {
 
@@ -16,11 +29,8 @@ module.exports = function trim(state, conf) {
       return cb();
     }
 
-    // trim leading and trailing newlines
-    if(conf.newlines) {
-      node.contents = node.contents.replace(/^\n+/, '');
-      node.contents = node.contents.replace(/[\n ]+$/, '');
-    }
+    // trim leading and trailing whitespace
+    node.contents = node.contents.trim();
 
     // trim every line
     if(conf.lines && (conf.pattern instanceof RegExp)) {
@@ -34,8 +44,14 @@ module.exports = function trim(state, conf) {
     cb();
   }
 
-  return {
-    'Style': strip,
-    'Script': strip
+  let visitors = {
+    Style: strip,
+    Script: strip
   }
+
+  if(conf.templates) {
+    visitors.Template = strip;
+  }
+
+  return visitors;
 }

@@ -29,5 +29,9 @@ Using this transform is not typically necessary as you would ordinarily build to
 
 <? @include {=readme} usage.md ?>
 
+## API
+
+<? @exec mkapi src/index.js --level=3 ?>
+
 <? @include ../../../doc/readme/license.md ?>
 <? @include ../../../doc/readme/links.md ?>

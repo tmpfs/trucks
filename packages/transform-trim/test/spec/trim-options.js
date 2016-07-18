@@ -3,7 +3,7 @@ var expect = require('chai').expect
 
 describe('trim:', function() {
 
-  it('should not trim with disabled options', function(done) {
+  it('should use custom options', function(done) {
     const src = '../../test/fixtures/simple-inline/components.html';
     trucks(
       {
@@ -13,12 +13,12 @@ describe('trim:', function() {
         transforms: [require('../../src')],
         conf: {
           transforms: {
-            trim: {newlines: false, lines: false, pattern: /^\t+/}
+            trim: {templates: true, lines: false, pattern: /^\t+/}
           }
         }
-      }, (err, result) => {
+      }, (err, state) => {
         expect(err).to.eql(null);
-        expect(result).to.be.an('object');
+        expect(state).to.be.an('object');
         done();
       }
     );

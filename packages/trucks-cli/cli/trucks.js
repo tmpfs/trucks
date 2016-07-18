@@ -62,6 +62,11 @@ function main(argv, conf, cb) {
       return cb(err); 
     }
 
+    if(this.printTree) {
+      this.plugins = [trucks.SOURCES, trucks.TRANSFORM];
+      this.transforms = ['tree'];
+    }
+
     this.files = req.unparsed;
 
     /* istanbul ignore next: don't want to write to cwd in test env */
@@ -69,7 +74,17 @@ function main(argv, conf, cb) {
       this.out = process.cwd();
     }
 
-    trucks(this, cb);
+    trucks(this, (err, state) => {
+      if(err) {
+        return cb(err); 
+      }
+
+      if(this.printTree) {
+        process.stdout.write(state.result.tree.toString()); 
+      }
+
+      cb();
+    });
   })
 }
 

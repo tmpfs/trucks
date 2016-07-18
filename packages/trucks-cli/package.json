@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "mkcli": "~1.0.32",
-    "trucks": "*"
+    "trucks": "*",
+    "trucks-transform-tree": "*"
   },
   "devDependencies": {
     "chai": "~3.5.0",

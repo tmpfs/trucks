@@ -1,6 +1,6 @@
-Usage: trucks [-eh] [--extract] [--help] [--version] [--out <dir>] [--name
-              <val>] [--html <file>] [--css <file>] [--js <file>] [--rc
-              <file...>] [files...]
+Usage: trucks [-teh] [--print-tree] [--extract] [--help] [--version] [--out
+              <dir>] [--name <val>] [--html <file>] [--css <file>] [--js
+              <file>] [--rc <file...>] [files...]
 
   Compiles web components.
 
@@ -11,8 +11,9 @@ Options
   -s, --css=[file]        Stylesheet output file
   -j, --js=[file]         Javascript output file
   -c, --rc=[file...]      Configuration files to require
+  -t, --print-tree        Print the component tree hierarchy
   -e, --extract           Extract templates
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks-cli@1.0.3
+trucks-cli@1.0.4

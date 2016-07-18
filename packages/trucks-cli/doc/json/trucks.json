@@ -90,6 +90,16 @@
       "multiple": true,
       "name": "--rc"
     },
+    "printTree": {
+      "key": "printTree",
+      "description": "Print the component tree hierarchy",
+      "names": [
+        "-t",
+        "--print-tree"
+      ],
+      "type": "flag",
+      "name": "--print-tree"
+    },
     "extract": {
       "key": "extract",
       "description": "Extract templates",

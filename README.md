@@ -292,7 +292,7 @@ function plugin(state, conf) {
 
 ### Lifecycle
 
-Lifecycle callbacks use names that are used to hook into events when iterating the component tree:
+Lifecycle callbacks are functions that hook into events when iterating the component tree:
 
 * `begin` Called before the tree is walked.
 * `enter` Called when entering a node before visitor functions are invoked.

@@ -12,14 +12,14 @@ const RESERVED = [
 /**
  *  Abstract class for all nodes of a component tree.
  *
- *  @public {class} ComponentNode
+ *  @private {class} ComponentNode
  */
 class ComponentNode {}
 
 /**
  *  Represents a node with imports.
  *
- *  @public {class} ComponentImport
+ *  @private {class} ComponentImport
  *  @inherits ComponentNode
  */
 class ComponentImport extends ComponentNode {
@@ -107,7 +107,7 @@ class ComponentFile extends ComponentImport {
 }
 
 /**
- *  Represents a a module definition.
+ *  Represents a module defined by a `<dom-module>` element.
  *
  *  @public {class} ComponentModule
  *  @inherits ComponentNode

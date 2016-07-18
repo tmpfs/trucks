@@ -88,14 +88,6 @@ Array contents
 
 list of file contents.
 
-### ComponentNode
-
-Abstract class for all nodes of a component tree.
-
-### ComponentImport < ComponentNode
-
-Represents a node with imports.
-
 ### ComponentTree < ComponentImport
 
 Represents the root of a component hierarchy.
@@ -118,7 +110,7 @@ Creates a component file node.
 
 ### ComponentModule < ComponentNode
 
-Represents a a module definition.
+Represents a module defined by a `<dom-module>` element.
 
 #### ComponentModule
 

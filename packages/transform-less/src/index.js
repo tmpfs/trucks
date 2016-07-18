@@ -3,15 +3,16 @@ const MIME = 'text/less';
 /**
  *  @private
  */
-module.exports = function less(/*state*/) {
-  const processor = require('less');
+module.exports = function less(state, conf) {
+  const processor = require('less')
+    , opts = Object.create(conf);
 
   function style(node, cb) {
     if(node.type === MIME) {
-
+      opts.filename = node.file || node.parent.file;
       processor.render(
         node.contents,
-        { filename: node.file || node.parent.file },
+        opts,
         (err, res) => {
           if(err) {
             return cb(err); 

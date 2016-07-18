@@ -48,8 +48,6 @@ trucks(
 );
 ```
 
-For command line usage see [trucks-cli][].
-
 ## Configuration
 
 Use the `stylus` key to configure this transform:

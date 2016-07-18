@@ -96,10 +96,6 @@ class CompilerState {
     return require('./component');
   }
 
-  get readers() {
-    return require('./reader');
-  }
-
   middleware(options) {
     return (require('./middleware'))(this, options);
   }

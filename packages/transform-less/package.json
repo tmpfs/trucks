@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-less",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Process style elements in web components with less",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

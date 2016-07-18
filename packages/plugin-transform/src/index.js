@@ -89,7 +89,8 @@ function transform(state, conf) {
       phases: visitors,
       prefix: PREFIX,
       lookup: state.options.conf.transforms
-    });
+    }
+  );
 
   // collect lifecycle mappings
   const lifecycle = {
@@ -100,7 +101,6 @@ function transform(state, conf) {
   }
 
   list.forEach((item) => {
-
     if(item.begin) {
       lifecycle.begin.push(item.begin); 
       delete item.begin;
@@ -123,7 +123,6 @@ function transform(state, conf) {
   })
 
   return function transform(state, cb) {
-
     const tree = state.tree
         , events = [];
 
@@ -191,7 +190,6 @@ function transform(state, conf) {
     }
 
     if(lifecycle.begin.length) {
-
       // call begin lifecycle visitors
       onEvent(
         lifecycle.begin,

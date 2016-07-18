@@ -1,6 +1,6 @@
 # Trim Transform
 
-> Removes leading whitespace from inline content 
+> Removes whitespace from inline content 
 
 Designed to prettify inline content so that styles and scripts have leading whitespace removed:
 
@@ -20,8 +20,7 @@ skate.define('{{id}}', {});
 
 Using this transform is not typically necessary as you would ordinarily build to a minified file (possibly with source maps) however it is used internally to simplify test assertions.
 
-<? @include {=readme}
-      install.md  ?>
+<? @include {=readme} install.md ?>
 
 ***
 <!-- @toc -->

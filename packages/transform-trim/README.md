@@ -1,6 +1,6 @@
 # Trim Transform
 
-> Removes leading whitespace from inline content
+> Removes whitespace from inline content
 
 Designed to prettify inline content so that styles and scripts have leading whitespace removed:
 

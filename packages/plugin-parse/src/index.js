@@ -71,13 +71,17 @@ function getIterator(state, mod, context) {
 function component(state, mod, context, cb) {
     const readers = require('./reader')
       , selectors = state.selectors
-      , Template = state.components.Template
-      , Style = state.components.Style
-      , Script = state.components.Script
+      , components = state.components
+      , Template = components.Template
+      , Style = components.Style
+      , Script = components.Script
       , types = [
-          new readers.Template(mod, Template, selectors.templates), 
-          new readers.Style(mod, Style, selectors.styles), 
-          new readers.Script(mod, Script, selectors.scripts)
+          new readers.Template(
+            mod, Template, selectors.templates, components), 
+          new readers.Style(
+            mod, Style, selectors.styles, components), 
+          new readers.Script(
+            mod, Script, selectors.scripts, components)
         ]
       , iterator = getIterator(state, mod, context);
 
@@ -104,8 +108,9 @@ function component(state, mod, context, cb) {
             // read in style traits defined in the <template> context
             // these are component styles that should be applied to the 
             // shadow DOM
-            const reader = new readers.Style(mod, Style, selectors.styles)
-              , iterator = getIterator(state, mod, template.element)
+            const reader = new readers.Style(
+                    mod, Style, selectors.styles, components)
+                , iterator = getIterator(state, mod, template.element)
 
             iterator(
               reader,

@@ -1,13 +1,12 @@
 const fs = require('fs')
     , path = require('path')
-    , Component = require('../../../src/component').Component
     , TEMPLATE = 'template'
     , ID = 'id'
     , HREF = 'href'
     , SRC = 'src';
 
 class TraitReader {
-  constructor(module, type, selector) {
+  constructor(module, type, selector, components) {
     this.parent = module; 
 
     // type of trait to instantiate
@@ -16,6 +15,10 @@ class TraitReader {
     // selector for the component module
     this.selector = selector;
 
+    // reference to the components classes
+    this.components = components;
+
+    // proxy the document query function
     this.querySelectorAll = module.querySelectorAll;
   }
 
@@ -141,7 +144,7 @@ class TemplateReader extends TraitReader {
           el.attr(ID, mod.id);
 
           // assign as primary component template
-          mod.component = new Component(tpl, mod);
+          mod.component = new this.components.Component(tpl, mod);
         // prefix module id to template with existing
         // identifier and treat as a partial template
         }else{

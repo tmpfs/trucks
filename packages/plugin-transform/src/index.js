@@ -84,7 +84,7 @@ function transform(state, conf) {
     visitors = visitors.concat(state.options.after.transforms);
   }
   
-  const list = state.getMiddleware(
+  const list = state.middleware(
     {
       phases: visitors,
       prefix: PREFIX,

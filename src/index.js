@@ -44,7 +44,7 @@ function options(state, cb) {
     opts.rc = [opts.rc];
   }
 
-  // list of rciguration files to require and merge
+  // list of configuration files to require and merge
   if(Array.isArray(opts.rc)) {
     rc = opts.rc;
     delete opts.rc;
@@ -147,15 +147,14 @@ function trucks(opts, cb) {
     }
     
     let closures;
-
     try {
-      //console.log(state.options.conf.plugins);
-      closures = state.getMiddleware(
+      closures = state.middleware(
         {
           phases: phases,
           prefix: PREFIX,
           lookup: state.options.conf.plugins
-        });
+        }
+      );
     }catch(e) {
       return cb(e); 
     }

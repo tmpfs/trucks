@@ -81,10 +81,6 @@ function middleware(state, options) {
           getClosure(closure[j], detail));
       }
       return closures;
-    //}else if(closure) {
-      //if(!closure.name) {
-        //throw new Error('anonymous plugin functions are not allowed'); 
-      //}    
     }
 
     return [closure];

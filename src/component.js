@@ -9,9 +9,7 @@ const RESERVED = [
     'missing-glyph'
   ];
 
-class ComponentNode {
-  constructor() {}
-}
+class ComponentNode {}
 
 /**
  *  Represents an item with imports. 

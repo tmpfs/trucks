@@ -125,9 +125,8 @@ class CompilerState {
     return require('./reader');
   }
 
-  getMiddleware(options) {
-    const middleware = require('./middleware'); 
-    return middleware(this, options);
+  middleware(options) {
+    return (require('./middleware'))(this, options);
   }
 
   parse(contents, options) {

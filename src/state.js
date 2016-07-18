@@ -122,6 +122,8 @@ class CompilerState {
  *  Represents an output file that will be written to disc when the 
  *  write plugin is executed.
  *
+ *  To get an instance of this class call `state.getFile()`.
+ *
  *  @public {class} OutputFile
  */
 class OutputFile {
@@ -136,6 +138,7 @@ class OutputFile {
    *  @param {Object} options computed options.
    */
   constructor(file, name, base, options) {
+
     const EOL = require('os').EOL;
     this.eol = options.eol || (EOL + EOL);
 
@@ -152,14 +155,29 @@ class OutputFile {
     this._contents = [];
   }
 
+  /**
+   *  Prepend data to this output file.
+   *
+   *  @function prepend
+   *  @param {String} buf contents to prepend to the file.
+   */
   prepend(buf) {
     this._contents.unshift(buf); 
   }
 
+  /**
+   *  Append data to this output file.
+   *
+   *  @function append
+   *  @param {String} buf contents to append to the file.
+   */
   append(buf) {
     this._contents.push(buf); 
   }
 
+  /**
+   *  @property {Array} contents list of file contents.
+   */
   set contents(list) {
     this._contents = list; 
   }

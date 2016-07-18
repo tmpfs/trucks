@@ -9,6 +9,9 @@
     - [CompilerState](#compilerstate-1)
   - [OutputFile](#outputfile)
     - [OutputFile](#outputfile-1)
+    - [prepend](#prepend)
+    - [append](#append)
+    - [contents](#contents)
   - [ComponentNode](#componentnode)
   - [ComponentImport < ComponentNode](#componentimport-componentnode)
   - [ComponentTree < ComponentImport](#componenttree-componentimport)
@@ -66,6 +69,8 @@ Creates a compiler state.
 Represents an output file that will be written to disc when the
 write plugin is executed.
 
+To get an instance of this class call `state.getFile()`.
+
 #### OutputFile
 
 ```javascript
@@ -78,6 +83,34 @@ Creates an output file.
 * `name` String relative path for the file.
 * `base` STring base path for the file.
 * `options` Object computed options.
+
+#### prepend
+
+```javascript
+prepend(buf)
+```
+
+Prepend data to this output file.
+
+* `buf` String contents to prepend to the file.
+
+#### append
+
+```javascript
+append(buf)
+```
+
+Append data to this output file.
+
+* `buf` String contents to append to the file.
+
+#### contents
+
+```javascript
+Array contents
+```
+
+list of file contents.
 
 ### ComponentNode
 

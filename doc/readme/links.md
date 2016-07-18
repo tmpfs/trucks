@@ -32,3 +32,7 @@
 [stylus]: /packages/transform-stylus
 [less]: /packages/transform-less
 [sass]: /packages/transform-sass
+
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/

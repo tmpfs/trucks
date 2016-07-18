@@ -111,16 +111,18 @@ function options(state, cb) {
  *  @param {Function} cb callback function.
  *
  *  @option {Array} files list of HTML files to compile.
+ *  @option {String} [out] output directory for files.
+ *  @option {Boolean} [force] overwrite files that already exist.
+ *  @option {String=components} [name] name of the output files.
  *  @option {Array|String} [rc] configuration files to load as options.
  *  @option {Object} [babel] options to pass to babel transform.
+ *  @option {Object} [conf] configuration for plugins and transforms.
+ *  @option {Object} [before] before hooks for plugins and transforms.
+ *  @option {Object} [after] after hooks for plugins and transforms.
  *  @option {Boolean=false} [extract] do not compile templates, write to file.
- *  @option {Object} [trim] configure whitespace trim options.
- *  @option {String} [out] output directory for files.
- *  @option {String=components} [name] name of the output files.
  *  @option {String} [html] path to write the generated template markup.
  *  @option {String} [css] path to write the generated stylesheet.
  *  @option {String} [js] path to write the generated javascript.
- *  @option {Boolean} [force] overwrite files that already exist.
  *  @option {String} [eol] override the default EOL for concatenation.
  */
 function trucks(opts, cb) {

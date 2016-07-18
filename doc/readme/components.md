@@ -1,13 +1,6 @@
 ## Components
 
-Component collections declare a group of components using HTML imports to allow related components to be grouped together.
-
-```html
-<link rel="import" href="x-icon.html">
-<link rel="import" href="x-button.html">
-```
-
-These are the files you pass to the library when compiling components.
+Component files load components using HTML imports and/or declare component modules using the `<dom-module>` element, these are the files you specify when compiling components.
 
 Components follow the [polymer][] style definition to encourage encapsulating all the aspects of a component into a single file:
 
@@ -30,13 +23,11 @@ Components follow the [polymer][] style definition to encourage encapsulating al
 </dom-module>
 ```
 
-During compilation all `<template>` elements are concatenated to an HTML file, styles are concatenated into a stylesheet and scripts are concatenated into a javascript file.
-
-You can then include the resulting component files in your HTML page(s):
+To allow related components to be grouped together you may wish to use an index file:
 
 ```html
-<link rel="stylesheet" href="components.css">
-<script src="components.js"></script>
+<link rel="import" href="x-icon.html">
+<link rel="import" href="x-button.html">
 ```
 
 Complex components can reference external files if you prefer which is particularly useful for editors that automatically lint javascript and stylesheets:
@@ -50,6 +41,13 @@ Complex components can reference external files if you prefer which is particula
 ```
 
 Note the use of the `rel="template"` attribute if you want to use an external HTML file for the component template.
+
+To include the resulting component files in your HTML page(s) load the compiled styles and javascript:
+
+```html
+<link rel="stylesheet" href="components.css">
+<script src="components.js"></script>
+```
 
 ### Dependencies
 

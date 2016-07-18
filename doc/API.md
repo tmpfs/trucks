@@ -22,16 +22,18 @@ Compile component files to CSS, Javascript and HTML.
 #### Options
 
 * `files` Array list of HTML files to compile.
+* `out` String output directory for files.
+* `force` Boolean overwrite files that already exist.
+* `name` String=components name of the output files.
 * `rc` Array|String configuration files to load as options.
 * `babel` Object options to pass to babel transform.
+* `conf` Object configuration for plugins and transforms.
+* `before` Object before hooks for plugins and transforms.
+* `after` Object after hooks for plugins and transforms.
 * `extract` Boolean=false do not compile templates, write to file.
-* `trim` Object configure whitespace trim options.
-* `out` String output directory for files.
-* `name` String=components name of the output files.
 * `html` String path to write the generated template markup.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
-* `force` Boolean overwrite files that already exist.
 * `eol` String override the default EOL for concatenation.
 
 ---

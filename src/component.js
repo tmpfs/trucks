@@ -27,10 +27,11 @@ class ComponentImport extends ComponentNode {
   }
 
   iterator(it) {
-    this.imports.forEach((item) => {
-      it(item);
-      item.iterator(it);
+    it({entering: true, node: this});
+    this.imports.forEach((node) => {
+      node.iterator(it);
     })
+    it({entering: false, node: this});
   }
 }
 
@@ -74,18 +75,19 @@ class ComponentFile extends ComponentImport {
   }
 
   iterator(it) {
+    it({entering: true, node: this});
+
     // iterate our imports
-    super.iterator(it); 
+    this.imports.forEach((node) => {
+      node.iterator(it);
+    })
 
     // iterate modules
-    this.modules.forEach((mod) => {
-
-      // call iterator with module
-      it(mod);
-
-      // iterate module items
-      mod.iterator(it); 
+    this.modules.forEach((node) => {
+      node.iterator(it); 
     })
+
+    it({entering: false, node: this});
   }
 }
 
@@ -123,19 +125,25 @@ class ComponentModule extends ComponentNode {
 
   iterator(it) {
 
+    it({entering: true, node: this});
+
     if(this.component) {
-      it(this.component);
+      this.component.iterator(it);
     }
 
-    this.templates.forEach((item) => {
-      it(item); 
+    this.templates.forEach((node) => {
+      node.iterator(it);
     })
-    this.stylesheets.forEach((item) => {
-      it(item); 
+
+    this.stylesheets.forEach((node) => {
+      node.iterator(it);
     })
-    this.scripts.forEach((item) => {
-      it(item); 
+
+    this.scripts.forEach((node) => {
+      node.iterator(it);
     })
+
+    it({entering: false, node: this});
   }
 
   get file() {
@@ -190,7 +198,6 @@ class ComponentTrait extends ComponentNode {
     this.parent = parent;
     this.href = href;
     this.file = file;
-
   }
 
   get inline() {
@@ -203,6 +210,12 @@ class ComponentTrait extends ComponentNode {
 
   get type() {
     return this.element.attribs.type; 
+  }
+
+  iterator(it) {
+    it({entering: true, node: this});
+    // component traits are considered leaf nodes at the moment
+    it({entering: false, node: this});
   }
 }
 
@@ -252,6 +265,15 @@ class Component extends ComponentNode {
 
   get file() {
     return this.parent.file;
+  }
+
+  iterator(it) {
+    it({entering: true, node: this});
+
+    // all our children are duplicates of the module generic lists
+    // so emitting them here is not a good idea
+
+    it({entering: false, node: this});
   }
 }
 

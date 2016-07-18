@@ -2,6 +2,7 @@ const PREFIX = 'trucks-transform-';
 
 function visit(state, visitors, node, cb) {
   const components = state.components
+      , Tree = components.Tree
       , File = components.File
       , Module = components.Module
       , Component = components.Component
@@ -15,6 +16,9 @@ function visit(state, visitors, node, cb) {
     switch(key) {
       case '*':
         valid = true;
+        break;
+      case 'Tree':
+        valid = (node instanceof Tree);
         break;
       case 'File':
         valid = (node instanceof File);
@@ -128,7 +132,11 @@ function transform(state, conf) {
 
     // collect items to iterate
     // so we can do it async
-    tree.iterator((item) => { items.push(item); });
+    tree.iterator((event) => {
+      if(event.entering) {
+        items.push(event.node); 
+      }
+    });
 
     function exec(visitors, cb) {
       state.each(

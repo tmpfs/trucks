@@ -1,8 +1,6 @@
 ## Usage
 
-Programmatic usage:
+Use the `tree` key to configure this transform:
 
 <? @source {javascript=s/(\.\.\/)+lib\/index/trucks/gm} usage.js ?>
-
-For command line usage see [trucks-cli][].
 

@@ -1,29 +1,13 @@
-# Trim Transform
+# Tree Transform
 
-> Removes leading whitespace from inline content
+> Humanize the component tree
 
-Designed to prettify inline content so that styles and scripts have leading whitespace removed:
-
-```html
-<dom-module id="x-blog-post">
-  <script>
-    skate.define('{{id}}', {});
-  </script>
-</dom-module>
-```
-
-Yields script content without the leading indentation:
-
-```javascript
-skate.define('{{id}}', {});
-```
-
-Using this transform is not typically necessary as you would ordinarily build to a minified file (possibly with source maps) however it is used internally to simplify test assertions.
+Converts the component tree to another tree suitable for passing to [archy][].
 
 ## Install
 
 ```
-npm i trucks-transform-trim --save-dev
+npm i trucks-transform-tree --save-dev
 ```
 
 For the command line interface see [trucks-cli][].
@@ -38,25 +22,32 @@ For the command line interface see [trucks-cli][].
 
 ## Usage
 
-Programmatic usage:
+Use the `tree` key to configure this transform:
 
 ```javascript
 const trucks = require('trucks');
 
 trucks(
   {
-    files: ['example/components.html'],
-    transforms: ['trim']
-  }, (err, res) => {
+    files: ['components.html'],
+    transforms: ['tree'],
+    conf: {
+      transforms: {
+        tree: {
+          label: (tag, id) => {
+            return tag + '#' + id; 
+          }
+        }
+      }
+    }
+  }, (err, state) => {
     if(err) {
       throw err; 
     }
-    console.log(res);
+    console.log(state.result.tree.toString());
   }
 );
 ```
-
-For command line usage see [trucks-cli][].
 
 ## License
 
@@ -64,7 +55,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -87,4 +78,20 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
+[load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
+[parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
+[transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
+[generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
+[write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

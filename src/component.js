@@ -235,7 +235,7 @@ class ComponentTrait extends ComponentNode {
   }
 
   get id() {
-    return this._id || this.parent.id;
+    return this._id;
   }
 
   set file(val) {
@@ -274,6 +274,14 @@ class ComponentTrait extends ComponentNode {
 class ComponentTemplate extends ComponentTrait {
   constructor() {
     super(...arguments);
+  }
+
+  set id(val) {
+    super.id = val; 
+  }
+
+  get id() {
+    return super.id || this.parent.id;
   }
 }
 

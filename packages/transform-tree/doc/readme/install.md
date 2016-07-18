@@ -1,7 +1,7 @@
 ## Install
 
 ```
-npm i trucks-transform-trim --save-dev
+npm i trucks-transform-tree --save-dev
 ```
 
 For the command line interface see [trucks-cli][].

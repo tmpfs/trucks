@@ -2,10 +2,9 @@
 
 > Humanize the component tree
 
-Designed to prettify the component tree using [archy][].
+Converts the component tree to another tree suitable for passing to [archy][].
 
-<? @include {=readme}
-      install.md  ?>
+<? @include {=readme} install.md ?>
 
 ***
 <!-- @toc -->

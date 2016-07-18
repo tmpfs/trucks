@@ -1,15 +1,34 @@
+function getLabel(tag, id, attrs) {
+  let s = tag
+    , a = '';
+
+  if(id) {
+    s += '#' + id;
+  }
+  s += ' '
+  for(let k in attrs) {
+    if(a) {
+      a += ', ';
+    }
+    if(attrs[k] !== undefined) {
+      a += k + '=' + attrs[k];
+    }
+  }
+  if(a) {
+    s += '(' + a + ')';
+  }
+  return s;
+}
+
+function Node(label, nodes) {
+  this.label = label;
+  this.nodes = Array.isArray(nodes) ? nodes : [];
+}
+
 /**
  *  @private
  */
-module.exports = function tree(state/*, conf*/) {
-
-  //get label() {
-    //return '#' + this.id;
-  //}
-
-  //get nodes() {
-    //return this.templates.concat(this.stylesheets).concat(this.scripts);
-  //}
+module.exports = function tree(state, conf) {
 
   const components = state.components
     , Tree = components.Tree
@@ -20,18 +39,23 @@ module.exports = function tree(state/*, conf*/) {
     , Style = components.Style
     , Script = components.Script;
 
-  function Node(label, nodes) {
-    this.label = label;
-    this.nodes = nodes || [];
-  }
-
   let root = new Node('.')
     , current = root
-    , parents = [root];
+    , parents = [root]
+    , label = conf.label;
+
+  if(!(label instanceof Function)) {
+    label = getLabel; 
+  }
+
+  function createNode(tag, id, attrs, nodes) {
+    return new Node(label(tag, id, attrs), nodes); 
+  }
 
   function isLeaf(node) {
     return (node instanceof Template)
-      || (node instanceof Style) || (node instanceof Script);
+      || (node instanceof Style)
+      || (node instanceof Script);
   }
 
   return {
@@ -40,37 +64,87 @@ module.exports = function tree(state/*, conf*/) {
       if(node instanceof Tree) {
         return cb(); 
       }else if(node instanceof File) {
-        newNode = new Node(node.file); 
+        newNode = createNode(
+          'file',
+          node.id,
+          {
+            href: node.href,
+            imports: node.imports.length,
+            modules: node.modules.length
+          }
+      ); 
       }else if(node instanceof Module) {
-        newNode = new Node('Module#' + node.id); 
-        console.log(node.templates.length);
+        newNode = createNode(
+          'module',
+          node.id,
+          {
+            templates: node.templates.length,
+            stylesheets: node.stylesheets.length,
+            scripts: node.scripts.length
+          }
+        ); 
       }else if(node instanceof Component) {
-        newNode = new Node('Component#' + node.parent.id);
-
-        // main template
-        newNode.nodes.push(new Node('Template#' + node.id));
+        newNode = createNode(
+          'component',
+          node.id,
+          {
+            partials: node.partials.length,
+            styles: node.styles.length
+          },
+          [
+            createNode(
+              'template',
+              node.template.id,
+              {
+                type: node.template.type, href: node.template.href
+              }
+            )
+          ]
+        ); 
 
         // partials
         node.partials.forEach((template) => {
-          newNode.nodes.push(new Node('Partial#' + template.id)); 
+          newNode.nodes.push(
+            createNode('partial', template.id, {type: node.type}));
         })
 
         // local styles
         node.styles.forEach((style) => {
-          newNode.nodes.push(new Node('Style#' + style.id)); 
+          newNode.nodes.push(
+            createNode('style', style.id, {type: node.type}));
         })
 
       }else if(node instanceof Template) {
-        newNode = new Node('Template#' + node.id);
+        newNode = createNode(
+          'template',
+          node.id,
+          {
+            type: node.type,
+            href: node.href
+          }
+        );
       }else if(node instanceof Style) {
-        newNode = new Node('Style#' + node.id);
+        newNode = createNode(
+          'style',
+          node.id,
+          {
+            type: node.type,
+            href: node.href
+          }
+        );
+      /* istanbul ignore else: prefer to be explicit */
       }else if(node instanceof Script) {
-        newNode = new Node('Script#' + node.id);
+        newNode = createNode(
+          'script',
+          node.id,
+          {
+            type: node.type,
+            href: node.href
+          }
+        );
       }
 
-      if(current && current.nodes && newNode) {
-        current.nodes.push(newNode); 
-      }
+      current.nodes.push(newNode); 
 
       if(!isLeaf(node)) {
         parents.push(newNode);
@@ -95,10 +169,11 @@ module.exports = function tree(state/*, conf*/) {
     },
     end: (tree, cb) => {
       const archy = require('archy');
-      if(root) {
-        state.result.tree = archy(root);
-        console.log();
-        console.log(state.result.tree);
+      state.result.tree = {
+        node: root,
+        toString: () => {
+          return archy(root);
+        }
       }
       cb();
     }

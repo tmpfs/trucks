@@ -2,12 +2,21 @@ const trucks = require('../../../../lib/index');
 
 trucks(
   {
-    files: ['example/components.html'],
-    transforms: ['trim']
-  }, (err, res) => {
+    files: ['components.html'],
+    transforms: ['tree'],
+    conf: {
+      transforms: {
+        tree: {
+          label: (tag, id) => {
+            return tag + '#' + id; 
+          }
+        }
+      }
+    }
+  }, (err, state) => {
     if(err) {
       throw err; 
     }
-    console.log(res);
+    console.log(state.result.tree.toString());
   }
 );

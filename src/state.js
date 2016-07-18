@@ -38,7 +38,9 @@ class CompilerState {
       // javascript list of all styles
       styles: [],
       // javascript list of all scripts
-      scripts: []
+      scripts: [],
+      // optional transformed tree result
+      tree: undefined
     };
 
     // @private map of output files for write phase

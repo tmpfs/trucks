@@ -92,5 +92,5 @@ Existing transform plugins are in [packages](/packages).
 
 ### Miscellaneous
 
-* [tree][] Humanize the component tree using [archy][]
+* [tree][] Humanize the component tree using [archy][].
 

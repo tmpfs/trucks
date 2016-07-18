@@ -370,7 +370,7 @@ Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blo
 
 ### Miscellaneous
 
-* [tree][] Humanize the component tree using [archy][]
+* [tree][] Humanize the component tree using [archy][].
 
 ## Documentation
 

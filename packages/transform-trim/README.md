@@ -88,6 +88,7 @@ Returns map of visitor functions.
 * `inline` Boolean=true only replace inline elements.
 * `lines` Boolean=true strip each line.
 * `pattern` RegExp used for line whitespace.
+* `templates` Boolean=false also trim template elements.
 
 ## License
 

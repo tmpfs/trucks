@@ -10,7 +10,7 @@
  *  @option {Boolean=true} [inline] only replace inline elements.
  *  @option {Boolean=true} [lines] strip each line.
  *  @option {RegExp} [pattern] used for line whitespace.
- *  @options {Boolean=false} [templates] also trim template elements.
+ *  @option {Boolean=false} [templates] also trim template elements.
  *
  *  @returns map of visitor functions.
  */

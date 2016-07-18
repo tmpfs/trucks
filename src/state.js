@@ -92,7 +92,13 @@ class CompilerState {
   }
 
   get selectors() {
-    return require('./selectors');
+    return {
+      modules: 'dom-module',
+      imports: 'link[rel="import"][href]',
+      styles: '> style, > link[rel="stylesheet"][href]',
+      scripts: '> script',
+      templates: '> template, > link[rel="template"][href]'
+    }
   }
 
   each(list, it, cb) {

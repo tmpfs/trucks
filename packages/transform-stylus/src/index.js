@@ -10,7 +10,7 @@ module.exports = function stylus(state, conf) {
   function style(node, cb) {
     if(node.type === MIME) {
 
-      opts.filename = node.file || node.parent.file;
+      opts.filename = node.file;
 
       processor.render(
         node.contents,

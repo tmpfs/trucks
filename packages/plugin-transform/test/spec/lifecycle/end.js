@@ -1,9 +1,9 @@
 var expect = require('chai').expect
   , trucks = require('../../../../../src');
 
-describe('transform:', function() {
+describe('lifecycle:', function() {
 
-  it('should invoke end lifecycle callback', function(done) {
+  it('should callback on end event', function(done) {
     const src = '../../test/fixtures/simple-inline/components.html';
   
     let visited = false
@@ -13,7 +13,7 @@ describe('transform:', function() {
       {
         files: [src],
         out: 'target',
-        name: 'transform-plugin-end',
+        name: 'lifecycle-end',
         plugins: [trucks.LOAD, trucks.PARSE, require('../../../src')],
         transforms: [
           function visit() {

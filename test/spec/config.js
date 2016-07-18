@@ -40,6 +40,9 @@ describe('trucks:', function() {
       (err, state) => {
         expect(err).to.eql(null);
         assert(state);
+
+        //console.log(state.tree.label);
+
         done();
       }
     );

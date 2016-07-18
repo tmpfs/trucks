@@ -1,7 +1,7 @@
 {
-  "name": "trucks-transform-trim",
-  "version": "1.0.1",
-  "description": "Trim inline styles and scripts",
+  "name": "trucks-transform-tree",
+  "version": "1.0.0",
+  "description": "Humanize the component tree",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -32,5 +32,8 @@
     "precover": "npm run pretest",
     "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "dependencies": {
+    "archy": "~1.0.0"
   }
 }

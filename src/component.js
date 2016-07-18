@@ -227,6 +227,15 @@ class ComponentTrait extends ComponentNode {
     this.parent = parent;
     this.href = href;
     this._file = file;
+    this._id = null;
+  }
+
+  set id(val) {
+    this._id = val; 
+  }
+
+  get id() {
+    return this._id || this.parent.id;
   }
 
   set file(val) {

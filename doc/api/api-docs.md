@@ -123,3 +123,31 @@ Creates a component module node.
 * `id` String module identifier.
 * `parent` Object module owner.
 
+### ComponentTemplate < ComponentTrait
+
+Represents a template defined by a `<template>` or `<link>` element.
+
+### ComponentStyle < ComponentTrait
+
+Represents a style defined by a `<style>` or `<link>` element.
+
+### ComponentScript < ComponentTrait
+
+Represents a script defined by a `<script>` element.
+
+### Component < ComponentNode
+
+Represents a component node with a main template, list of 
+template partials and component local styles.
+
+#### Component
+
+```javascript
+public Component(template, parent)
+```
+
+Creates a component node.
+
+* `template` Object primary template for the component.
+* `parent` Object component owner (module).
+

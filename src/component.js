@@ -248,27 +248,61 @@ class ComponentTrait extends ComponentNode {
   }
 }
 
+/**
+ *  Represents a template defined by a `<template>` or `<link>` element.
+ *
+ *  @public {class} ComponentTemplate
+ *  @inherits ComponentTrait
+ */
 class ComponentTemplate extends ComponentTrait {
   constructor() {
     super(...arguments);
   }
 }
 
+/**
+ *  Represents a style defined by a `<style>` or `<link>` element.
+ *
+ *  @public {class} ComponentStyle
+ *  @inherits ComponentTrait
+ */
 class ComponentStyle extends ComponentTrait {
   constructor() {
     super(...arguments);
   }
 }
 
+/**
+ *  Represents a script defined by a `<script>` element.
+ *
+ *  @public {class} ComponentScript
+ *  @inherits ComponentTrait
+ */
 class ComponentScript extends ComponentTrait {
   constructor() {
     super(...arguments);
   }
 }
 
+/**
+ *  Represents a component node with a main template, list of 
+ *  template partials and component local styles.
+ *
+ *  @public {class} Component
+ *  @inherits ComponentNode
+ */
 class Component extends ComponentNode {
+
+  /**
+   *  Creates a component node.
+   *
+   *  @public {constructor} Component
+   *  @param {Object} template primary template for the component.
+   *  @param {Object} parent component owner (module).
+   */
   constructor(template, parent) {
     super(...arguments);
+
     // primary template for this component
     this.template = template; 
 

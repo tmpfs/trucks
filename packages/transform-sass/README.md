@@ -1,12 +1,12 @@
-# Less Transform
+# Sass Transform
 
-> Compile less sources
+> Compile sass sources
 
-Reads `<style>` and `<link>` elements with a MIME type of `text/less` and compiles the source to CSS.
+Reads `<style>` and `<link>` elements with a MIME type of `text/sass` and compiles the source to CSS using the [bindings to libsass for node][node-sass].
 
 ```html
-<link rel="stylesheet" type="text/less" href="styles.less">
-<style type="text/less"></style>
+<link rel="stylesheet" type="text/sass" href="styles.scss">
+<style type="text/sass"></style>
 ```
 
 This transform rewrites the `contents` property of each style node.
@@ -14,7 +14,7 @@ This transform rewrites the `contents` property of each style node.
 ## Install
 
 ```
-npm i trucks-transform-less --save-dev
+npm i trucks-transform-sass --save-dev
 ```
 
 For the command line interface see [trucks-cli][].
@@ -38,7 +38,7 @@ const trucks = require('trucks');
 trucks(
   {
     files: ['components.html'],
-    transforms: ['less']
+    transforms: ['sass']
   }, (err, res) => {
     if(err) {
       throw err; 
@@ -52,22 +52,22 @@ For command line usage see [trucks-cli][].
 
 ## Configuration
 
-Use the `less` key to configure this transform:
+Use the `sass` key to configure this transform:
 
 ```javascript
 const options = {
   files: ['component.html'],
   conf: {
     transforms: {
-      less: {
-        paths: [process.cwd()]
+      sass: {
+        includePaths: [process.cwd()]
       }
     }
   }
 }
 ```
 
-The configuration object is passed to `less.render()`, see the [less documentation][less-css].
+The configuration object is passed to `sass.render()`, see the [sass documentation][node-sass].
 
 ## License
 

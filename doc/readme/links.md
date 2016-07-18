@@ -28,10 +28,11 @@
 [write]: /packages/plugin-write
 
 [skate]: /packages/transform-skate
-[trim]: /packages/transform-trim
 [stylus]: /packages/transform-stylus
 [less]: /packages/transform-less
 [sass]: /packages/transform-sass
+[trim]: /packages/transform-trim
+[tree]: /packages/transform-tree
 
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/

@@ -75,6 +75,10 @@ const options = {
 };
 ```
 
+## Transformers
+
+Existing transform plugins are in [packages](/packages).
+
 ### Compilers
 
 * [skate][] Compiles HTML templates to render functions.
@@ -85,4 +89,8 @@ const options = {
 * [less][] Preprocess style sources as less.
 * [sass][] Preprocess style sources sass.
 * [trim][] Trim whitespace from inline styles and scripts.
+
+### Miscellaneous
+
+* [tree][] Humanize the component tree using [archy][]
 

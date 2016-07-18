@@ -70,8 +70,10 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
   - [Lifecycle](#lifecycle)
   - [Visitors](#visitors)
   - [Configuration](#configuration)
+- [Transformers](#transformers)
   - [Compilers](#compilers)
   - [Preprocessors](#preprocessors)
+  - [Miscellaneous](#miscellaneous)
 - [Documentation](#documentation)
 - [Notes](#notes)
 - [License](#license)
@@ -351,6 +353,10 @@ const options = {
 };
 ```
 
+## Transformers
+
+Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
+
 ### Compilers
 
 * [skate][] Compiles HTML templates to render functions.
@@ -361,6 +367,10 @@ const options = {
 * [less][] Preprocess style sources as less.
 * [sass][] Preprocess style sources sass.
 * [trim][] Trim whitespace from inline styles and scripts.
+
+### Miscellaneous
+
+* [tree][] Humanize the component tree using [archy][]
 
 ## Documentation
 
@@ -414,8 +424,14 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
-[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

@@ -11,13 +11,13 @@ Reads `<style>` and `<link>` elements with a MIME type of `text/less` and compil
 
 This transform rewrites the `contents` property of each style node.
 
-<? @include {=readme} install.md  ?>
+<? @include {=readme} install.md ?>
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md config.md ?>
+<? @include {=readme} usage.md ?>
 
 <? @include ../../../doc/readme/license.md ?>
 <? @include ../../../doc/readme/links.md ?>

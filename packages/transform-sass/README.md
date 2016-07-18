@@ -23,14 +23,13 @@ For the command line interface see [trucks-cli][].
 
 - [Install](#install)
 - [Usage](#usage)
-- [Configuration](#configuration)
 - [License](#license)
 
 ---
 
 ## Usage
 
-Programmatic usage:
+Use the `sass` key to configure this transform:
 
 ```javascript
 const trucks = require('trucks');
@@ -38,7 +37,14 @@ const trucks = require('trucks');
 trucks(
   {
     files: ['components.html'],
-    transforms: ['sass']
+    transforms: ['sass'],
+    conf: {
+      transforms: {
+        sass: {
+          includePaths: [process.cwd()]
+        }
+      }
+    }
   }, (err, res) => {
     if(err) {
       throw err; 
@@ -46,23 +52,6 @@ trucks(
     console.log(res);
   }
 );
-```
-
-## Configuration
-
-Use the `sass` key to configure this transform:
-
-```javascript
-const options = {
-  files: ['component.html'],
-  conf: {
-    transforms: {
-      sass: {
-        includePaths: [process.cwd()]
-      }
-    }
-  }
-}
 ```
 
 The configuration object is passed to `sass.render()`, see the [sass documentation][node-sass].

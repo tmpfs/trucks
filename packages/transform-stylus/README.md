@@ -23,14 +23,13 @@ For the command line interface see [trucks-cli][].
 
 - [Install](#install)
 - [Usage](#usage)
-- [Configuration](#configuration)
 - [License](#license)
 
 ---
 
 ## Usage
 
-Programmatic usage:
+Use the `stylus` key to configure this transform:
 
 ```javascript
 const trucks = require('trucks');
@@ -38,7 +37,14 @@ const trucks = require('trucks');
 trucks(
   {
     files: ['components.html'],
-    transforms: ['stylus']
+    transforms: ['stylus'],
+    conf: {
+      transforms: {
+        stylus: {
+          paths: [process.cwd()]
+        }
+      }
+    }
   }, (err, res) => {
     if(err) {
       throw err; 
@@ -46,23 +52,6 @@ trucks(
     console.log(res);
   }
 );
-```
-
-## Configuration
-
-Use the `stylus` key to configure this transform:
-
-```javascript
-const options = {
-  files: ['component.html'],
-  conf: {
-    transforms: {
-      stylus: {
-        paths: [process.cwd()]
-      }
-    }
-  }
-}
 ```
 
 The configuration object is passed to `stylus.render()`, see the [stylus documentation][stylus-css].

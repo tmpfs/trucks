@@ -3,13 +3,13 @@ var expect = require('chai').expect
 
 describe('tree:', function() {
 
-  it('should use default tree options', function(done) {
-    const src = '../../test/fixtures/simple-inline/components.html';
+  it('should include template partials', function(done) {
+    const src = '../../test/fixtures/inline-partial/components.html';
     trucks(
       {
         files: [src],
         out: 'target',
-        name: 'tree-default-options',
+        name: 'tree-partial',
         transforms: [require('../../src')]
       }, (err, state) => {
         expect(err).to.eql(null);

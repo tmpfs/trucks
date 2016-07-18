@@ -10,7 +10,7 @@ module.exports = function sass(state, conf) {
   function style(node, cb) {
     if(node.type === MIME) {
 
-      opts.file = node.file || node.parent.file;
+      opts.file = node.file;
       opts.data = node.contents;
 
       processor.render(

@@ -2,7 +2,7 @@
 
 Transforms are a different type of plugin that are executed when the entire component tree is available.
 
-A transform plugin returns a map of visitor functions:
+A transform plugin returns a map of visitor functions and/or lifecycle callbacks:
 
 ```javascript
 function plugin(state, conf) {
@@ -14,25 +14,52 @@ function plugin(state, conf) {
 }
 ```
 
-Each key in the returned map is evaluated to determine whether the visitor function wants to see a particular node, the wildcard `*` matches all nodes. Available node types are:
+### Lifecycle
 
-* `File` Visit component files.
-* `Module` Visit component modules.
-* `Component` Visit components.
-* `Template` Visit HTML templates.
-* `Style` Visit style elements.
-* `Script` Visit script elements.
+Lifecycle callbacks use names that are used to hook into events when iterating the component tree:
 
-There are lifecycle keys that may be used:
-
-* `begin`: Called before the tree is walked.
-* `end`: Called when the tree walk is complete.
+* `begin` Called before the tree is walked.
+* `enter` Called when entering a node before visitor functions are invoked.
+* `leave` Called when leaving a node after visitor functions have been invoked.
+* `end` Called when the tree walk is complete.
 
 The `begin` and `end` functions are passed the component tree so the signature is always:
 
 ```javascript
 function(node, cb);
 ```
+
+For example you may want to collect all nodes of a type and operate once the walk is completed:
+
+```javascript
+function plugin(state, conf) {
+  const styles = [];
+  return {
+    end: function(node, cb) {
+      // operate on the list of styles 
+      cb();
+    },
+    'Style': function(node, cb) {
+      styles.push(node);
+      cb(); 
+    }
+  }
+}
+```
+
+### Visitors
+
+Each key in the returned map is evaluated to determine whether the visitor function wants to see a particular node, the wildcard `*` matches all nodes. Available node types are:
+
+* `Tree` Visit tree nodes.
+* `File` Visit file nodes.
+* `Module` Visit module nodes.
+* `Component` Visit component nodes.
+* `Template` Visit template nodes.
+* `Style` Visit style nodes.
+* `Script` Visit script nodes.
+
+### Configuration
 
 To configure a transform plugin you can set a configuration object:
 

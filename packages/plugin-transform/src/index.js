@@ -1,6 +1,6 @@
 const PREFIX = 'trucks-transform-';
 
-function visit(state, visitors, node, cb) {
+function runVisitor(state, visitors, node, cb) {
   const components = state.components
       , Tree = components.Tree
       , File = components.File
@@ -39,20 +39,17 @@ function visit(state, visitors, node, cb) {
         valid = (node instanceof Script);
         break;
     }
-
     return valid;
   }
 
   state.each(
     visitors,
-
     // iterate list of visitors (transformations)
     (visitor, visited) => {
       let keys = Object.keys(visitor);
       state.each(
         keys, 
         (key, next) => {
-
           if(canVisit(key)) {
             // try to call the visitor function with the item
             try {
@@ -109,15 +106,15 @@ function transform(state, conf) {
       delete item.begin;
     } 
 
-    //if(item.enter) {
-      //lifecycle.enter.push(item.enter); 
-      //delete item.enter;
-    //} 
+    if(item.enter) {
+      lifecycle.enter.push(item.enter); 
+      delete item.enter;
+    } 
 
-    //if(item.leave) {
-      //lifecycle.leave.push(item.leave); 
-      //delete item.leave;
-    //} 
+    if(item.leave) {
+      lifecycle.leave.push(item.leave); 
+      delete item.leave;
+    } 
 
     if(item.end) {
       lifecycle.end.push(item.end); 
@@ -128,60 +125,86 @@ function transform(state, conf) {
   return function transform(state, cb) {
 
     const tree = state.tree
-        , items = [];
+        , events = [];
 
-    // collect items to iterate
+    // collect events to iterate
     // so we can do it async
     tree.iterator((event) => {
-      if(event.entering) {
-        items.push(event.node); 
-      }
+      events.push(event);
     });
 
-    function exec(visitors, cb) {
+    function onEvent(visitors, node, cb) {
       state.each(
         visitors,
-        (item, next) => {
-          visit(state, list, item, next);
+        (visitor, next) => {
+          try {
+            visitor(node, next); 
+          }catch(e) {
+            return next(e); 
+          }
+        },
+        cb);
+    }
+
+    function visit(events, cb) {
+      state.each(
+        events,
+        (event, next) => {
+          if(event.entering) {
+
+            // handle enter events
+            if(lifecycle.enter.length) {
+              onEvent(
+                lifecycle.enter,
+                event.node,
+                (err) => {
+                  if(err) {
+                    return next(err); 
+                  }  
+
+                  // run visitors after enter lifecycle callbacks
+                  runVisitor(state, list, event.node, next);
+                }
+              );
+            }else{
+              // no enter events - run the visitors
+              runVisitor(state, list, event.node, next);
+            }
+          }else{
+            // call leave lifecycle callbacks
+            if(lifecycle.leave.length) {
+              onEvent(lifecycle.leave, event.node, next);
+            // nothing left to do - move on
+            }else{
+              next();
+            }
+          }
         }, (err) => {
           if(err) {
             return cb(err);
           } 
 
           // finished walking the tree
-          state.each(
-            lifecycle.end,
-            (visitor, next) => {
-              try {
-                visitor(tree, next); 
-              }catch(e) {
-                return next(e); 
-              }
-            },
-            cb);
+          onEvent(lifecycle.end, tree, cb);
         }
       );
     }
 
     if(lifecycle.begin.length) {
-      // finished walking the tree
-      state.each(
+
+      // call begin lifecycle visitors
+      onEvent(
         lifecycle.begin,
-        (visitor, next) => {
-          try {
-            visitor(tree, next); 
-          }catch(e) {
-            return next(e); 
-          }
-        },
+        tree,
         (err) => {
           if(err) {
             return cb(err); 
           }
-          exec(items, cb);
-        });
+          visit(events, cb);
+        }
+      );
     }else{
-      exec(items, cb);
+      visit(events, cb);
     }
   }
 }

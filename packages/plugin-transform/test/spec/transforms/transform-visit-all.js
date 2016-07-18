@@ -30,7 +30,6 @@ describe('transform:', function() {
         }]
       },
       (err, state) => {
-        console.dir(err);
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 

@@ -28,8 +28,7 @@ describe('write:', function() {
         const manifest = state.manifest;
 
         const jsFile = path.join(process.cwd(), js);
-        expect(manifest[jsFile].name).to.eql(js);
-        expect(manifest[jsFile].file).to.be.a('string');
+        expect(manifest[jsFile].checksum).to.be.a('string');
 
         done();
       }

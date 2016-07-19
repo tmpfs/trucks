@@ -43,12 +43,9 @@ describe('write:', function() {
 
         const manifest = state.manifest;
 
-        expect(manifest[htmlFile].name).to.eql(html);
-        expect(manifest[htmlFile].file).to.be.a('string');
-        expect(manifest[cssFile].name).to.eql(css);
-        expect(manifest[cssFile].file).to.be.a('string');
-        expect(manifest[jsFile].name).to.eql(js);
-        expect(manifest[jsFile].file).to.be.a('string');
+        expect(manifest[htmlFile].checksum).to.be.a('string');
+        expect(manifest[cssFile].checksum).to.be.a('string');
+        expect(manifest[jsFile].checksum).to.be.a('string');
 
         done();
       }

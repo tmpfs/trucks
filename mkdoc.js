@@ -69,7 +69,17 @@ function test(cb) {
     if(err) { 
       return cb(err)
     }
-    script('test', res, cb);
+    script(test.name, res, cb);
+  }) 
+}
+
+// @task build compile all packages
+function build(cb) {
+  dirs((err, res) => {
+    if(err) { 
+      return cb(err)
+    }
+    script(build.name, res, cb);
   }) 
 }
 
@@ -147,6 +157,7 @@ function docs(cb){
 }
 
 mk.task(test);
+mk.task(build);
 
 mk.task(api);
 mk.task(roadmap);

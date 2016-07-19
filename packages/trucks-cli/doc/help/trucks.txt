@@ -16,4 +16,4 @@ Options
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks-cli@1.0.4
+trucks-cli@1.0.5

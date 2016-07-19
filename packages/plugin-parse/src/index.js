@@ -174,9 +174,6 @@ function parse(/*state, conf*/) {
             // add to local list of modules
             group.modules.push(mod);
 
-            // add to global list of all modules
-            state.result.modules.push(mod);
-
             component(state, mod, context, next);
           }, next)
       },

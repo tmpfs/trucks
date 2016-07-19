@@ -31,8 +31,7 @@ class CompilerState {
     this.result = {
       // list of all component files
       files: [] ,
-      // lists of component modules
-      modules: [],
+
       // javascript list of all templates
       templates: [],
       // javascript list of all styles

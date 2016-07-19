@@ -1,7 +1,7 @@
 {
-  "name": "trucks-transform-style-extract",
-  "version": "1.0.1",
-  "description": "Write component styles to files",
+  "name": "trucks-transform-style-inject",
+  "version": "1.0.0",
+  "description": "Read component styles from files",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -20,6 +20,7 @@
     "express": "~4.14.0",
     "istanbul": "~0.4.4",
     "mocha": "~2.5.3",
+    "trucks-transform-style-extract": "*",
     "trucks-transform-trim": "*"
   },
   "scripts": {

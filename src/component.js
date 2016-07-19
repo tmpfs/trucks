@@ -379,6 +379,20 @@ class Component extends ComponentNode {
     return this.parent.file;
   }
 
+  clearStyles() {
+    const stylesheets = this.parent.stylesheets;
+
+    // remove styles from parent collection
+    this.styles.forEach((style) => {
+      const ind = stylesheets.indexOf(style);
+      if(~ind) {
+        stylesheets.splice(ind, 1); 
+      }
+    })
+
+    this.styles = [];
+  }
+
   iterator(it) {
     it({entering: true, node: this});
 

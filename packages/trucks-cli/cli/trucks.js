@@ -65,6 +65,12 @@ function main(argv, conf, cb) {
     let plugins = []
       , transforms = [];
 
+    if((this.printImports || this.printTree) && this.printManifest) {
+      return cb(
+        new Error(
+          'incompatible printers for tree and manifest, check arguments')); 
+    }
+
     if(this.printImports || this.printTree) {
       plugins = [
         this.printTree ? trucks.SOURCES : trucks.LOAD, trucks.TRANSFORM];
@@ -78,11 +84,10 @@ function main(argv, conf, cb) {
     this.transforms = transforms;
     this.files = req.unparsed;
 
+    // TODO: support --manifest=[FILE]
     if(this.manifest || this.printManifest) {
       this.manifest = true; 
     }
-
-    console.log(this.manifest);
 
     /* istanbul ignore next: don't want to write to cwd in test env */
     if(!this.out) {
@@ -98,10 +103,9 @@ function main(argv, conf, cb) {
         conf.output.write(state.result.tree.toString()); 
       }
 
-      console.dir(state.manifest);
-
       if(state.manifest && this.printManifest) {
-        conf.output.write(JSON.stringify(state.manifest, undefined, 2)); 
+        conf.output.write(
+          JSON.stringify(state.manifest, undefined, 2) + '\n'); 
       }
 
       cb(null, state);

@@ -75,7 +75,7 @@ const options = {
 };
 ```
 
-## Transform Plugin List
+## Transform Plugins
 
 Existing transform plugins are in [packages](/packages).
 

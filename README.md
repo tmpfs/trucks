@@ -72,7 +72,7 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
   - [Lifecycle](#lifecycle)
   - [Visitors](#visitors)
   - [Configuration](#configuration)
-- [Transform Plugin List](#transform-plugin-list)
+- [Transform Plugins](#transform-plugins)
   - [Compilers](#compilers)
   - [Preprocessors](#preprocessors)
   - [Styles](#styles)
@@ -466,7 +466,7 @@ const options = {
 };
 ```
 
-## Transform Plugin List
+## Transform Plugins
 
 Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
 

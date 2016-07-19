@@ -27,6 +27,7 @@ function inject(state, conf) {
     href = path.join(dir, filename);
 
     fs.readFile(file, (err, contents) => {
+      /* istanbul ignore next: touch to mock an error here */
       if(err && err.code !== 'ENOENT') {
         return cb(err); 
       } 

@@ -1,5 +1,4 @@
 var expect = require('chai').expect
-  //, fs = require('fs')
   , trucks = require('../../../../src');
 
 describe('style-inject:', function() {

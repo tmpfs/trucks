@@ -5,7 +5,7 @@ const State = require('./state')
     , PARSE = 'parse'
     , TRANSFORM = 'transform'
     , GENERATE = 'generate'
-    , WRITE = 'write'
+    , WRITE = 'write/src'
     // names for exposed constants
     , PHASES = [
         SOURCES,

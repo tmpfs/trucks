@@ -1,6 +1,6 @@
-Usage: trucks [-ith] [--print-imports] [--print-tree] [--help] [--version]
-              [--out <dir>] [--name <val>] [--html <file>] [--css <file>] [--js
-              <file>] [--rc <file...>] [files...]
+Usage: trucks [-ith] [--print-imports] [--print-tree] [--print-manifest]
+              [--help] [--version] [--out <dir>] [--name <val>] [--html <file>]
+              [--css <file>] [--js <file>] [--rc <file...>] [files...]
 
   Compiles web components.
 
@@ -13,7 +13,8 @@ Options
   -c, --rc=[file...]      Configuration files to require
   -i, --print-imports     Print the file hierarchy
   -t, --print-tree        Print the component tree hierarchy
+  --print-manifest        Print the file manifest
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks-cli@1.0.5
+trucks-cli@1.0.6

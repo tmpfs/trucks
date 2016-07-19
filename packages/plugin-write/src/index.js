@@ -1,11 +1,22 @@
-const fs = require('fs')
-
 function write(state, conf) {
-  let manifest;
+  const fs = require('fs')
+      , crypto = require('crypto');
 
-  if(conf.manifest || state.options.manifest) {
+  let manifest
+    , options = conf.manifest || state.options.manifest;
+
+  if(options) {
     manifest = state.manifest = {};
+
+    if(options && options !== Object(options)) {
+      options = {
+        hash: 'sha256',
+        digest: 'hex'
+      } 
+    }
   }
+
+  console.log('writing manifest %j', options);
 
   return function write(state, cb) {
     const opts = state.options
@@ -26,12 +37,21 @@ function write(state, conf) {
               return cb(err); 
             } 
 
+            let item;
+
             if(manifest) {
-              manifest[path] = {
-                name: file.name,
+              const hash = crypto.createHash(options.hash);
+              hash.update(contents);
+
+              item = {
                 file: path,
-                contents: contents
+                name: file.name,
+                base: file.base,
+                size: Buffer.byteLength(contents),
+                checksum: hash.digest(options.digest)
               }
+
+              manifest[path] = item;
             }
 
             cb();

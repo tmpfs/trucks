@@ -26,6 +26,7 @@ Compiles web components to separate files for javascript, styles and template ma
 + `-c, --rc [file...]` Configuration files to require
 + `-i, --print-imports` Print the file hierarchy
 + `-t, --print-tree` Print the component tree hierarchy
++ `--print-manifest` Print the file manifest
 + `-h, --help` Display help and exit
 + `--version` Print the version and exit
 

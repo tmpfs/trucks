@@ -74,9 +74,15 @@ function main(argv, conf, cb) {
     if(plugins.length) {
       this.plugins = plugins;
     }
-    this.transforms = transforms;
 
+    this.transforms = transforms;
     this.files = req.unparsed;
+
+    if(this.manifest || this.printManifest) {
+      this.manifest = true; 
+    }
+
+    console.log(this.manifest);
 
     /* istanbul ignore next: don't want to write to cwd in test env */
     if(!this.out) {
@@ -89,7 +95,13 @@ function main(argv, conf, cb) {
       }
 
       if(this.printImports || this.printTree) {
-        process.stdout.write(state.result.tree.toString()); 
+        conf.output.write(state.result.tree.toString()); 
+      }
+
+      console.dir(state.manifest);
+
+      if(state.manifest && this.printManifest) {
+        conf.output.write(JSON.stringify(state.manifest, undefined, 2)); 
       }
 
       cb(null, state);

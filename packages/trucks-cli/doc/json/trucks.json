@@ -110,6 +110,15 @@
       "type": "flag",
       "name": "--print-tree"
     },
+    "printManifest": {
+      "key": "printManifest",
+      "description": "Print the file manifest",
+      "names": [
+        "--print-manifest"
+      ],
+      "type": "flag",
+      "name": "--print-manifest"
+    },
     "help": {
       "key": "help",
       "description": "Display help and exit",

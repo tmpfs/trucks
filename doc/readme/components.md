@@ -1,20 +1,18 @@
 ## Components
 
-Component files load components using HTML imports and/or declare component modules using the `<dom-module>` element, these are the files you specify when compiling components.
-
 Components follow the [polymer][] style definition to encourage encapsulating all the aspects of a component into a single file:
 
 ```html
 <dom-module id="x-icon">
   <template>
     <style>
-      /* inline component styles */
+      /* component styles (shadow scope) */
     </style>
     <!-- template markup -->
   </template>
 
   <style>
-    /* global component styles */
+    /* global styles (document scope) */
   </style>
 
   <script>
@@ -47,6 +45,46 @@ To include the resulting component files in your HTML page(s) load the compiled 
 ```html
 <link rel="stylesheet" href="components.css">
 <script src="components.js"></script>
+```
+
+### Style Scopes
+
+Style elements whether they are inline (`<style>`) or external (`<link>`) are given a scope, when they are directly within the `<dom-module>` element they are deemed to be of a document scope and are written to the primary output stylesheet which should be included in the document head.
+
+```html
+<dom-module id="x-icon">
+  <style>
+    /* global styles (document scope) written to `components.css` */
+  </style>
+</dom-module>
+```
+
+When the style element appears within a `<template>` element it is deemed to be a component style and given a shadow scope. These styles should be written within the shadow DOM to ensure they are applied correctly.
+
+```html
+<dom-module id="x-icon">
+  <template>
+    <style>
+      /* component styles (shadow scope) written as inline <style> elements */
+    </style>
+    <!-- template markup -->
+  </template>
+</dom-module>
+```
+
+The shadow scope is preferred but you can use the document scope if you need to use shadow piercing selectors to style the component:
+
+```html
+<dom-module id="x-icon">
+  <template>
+    <em>${this.title}</em>
+  </template>
+  <style>
+    x-icon /deep/ em {
+      font-size: 2rem;
+    }
+  </style>
+</dom-module>
 ```
 
 ### Dependencies

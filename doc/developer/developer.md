@@ -46,6 +46,12 @@ To generate coverage for all packages:
 mk cover
 ```
 
+You can also build a coverage report for all packages with:
+
+```
+mk cover && npm run report
+```
+
 To generate code coverage for the core library:
 
 ```

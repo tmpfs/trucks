@@ -45,7 +45,7 @@
     "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",
     "precover": "npm run pretest",
     "cover": "NODE_ENV=test istanbul cover --root src --dir packages/trucks/coverage _mocha -- ${SPEC:-test/spec}",
-    "coveralls": "npm run report && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "report": "istanbul report --include 'packages/**/coverage/coverage.json'"
   }
 }

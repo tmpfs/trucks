@@ -1,8 +1,8 @@
 const path = require('path')
-  , cli = require('mkcli')
-  , pkg = require('../package.json')
-  , prg = cli.load(require('../doc/json/trucks.json'))
-  , trucks = require('trucks');
+    , cli = require('mkcli')
+    , pkg = require('../package.json')
+    , prg = cli.load(require('../doc/json/trucks.json'))
+    , trucks = require('trucks');
 
 // override package name
 pkg.name = 'trucks';
@@ -62,15 +62,17 @@ function main(argv, conf, cb) {
       return cb(err); 
     }
 
-    if(this.printImports) {
-      this.plugins = [trucks.LOAD, trucks.TRANSFORM];
-      this.transforms = ['tree'];
+    let plugins = []
+      , transforms = [];
+
+    if(this.printImports || this.printTree) {
+      plugins = [
+        this.printTree ? trucks.SOURCES : trucks.LOAD, trucks.TRANSFORM];
+      transforms = ['tree'];
     }
 
-    if(this.printTree) {
-      this.plugins = [trucks.SOURCES, trucks.TRANSFORM];
-      this.transforms = ['tree'];
-    }
+    this.plugins = plugins;
+    this.transforms = transforms;
 
     this.files = req.unparsed;
 

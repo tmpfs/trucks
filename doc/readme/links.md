@@ -34,6 +34,7 @@
 [trim]: /packages/transform-trim
 [tree]: /packages/transform-tree
 [style-extract]: /packages/transform-style-extract
+[style-inject]: /packages/transform-style-inject
 
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/

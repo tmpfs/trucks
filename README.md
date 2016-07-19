@@ -484,6 +484,7 @@ Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blo
 ### Styles
 
 * [style-extract][] Write stylesheets for each component.
+* [style-inject][] Read and overwrite stylesheets for each component.
 
 ### Miscellaneous
 
@@ -547,6 +548,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
 [trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

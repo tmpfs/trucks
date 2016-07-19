@@ -8,6 +8,8 @@ Files are named using the component id and written to the directory specified us
 
 Be careful using this transform with the `force` option, if you have already edited the generated styles they will be overwritten.
 
+Designed to be used by component consumers to modify the shadow DOM styles per component in conjunction with the [style-inject][] transform; useful when using third-party components.
+
 <? @include {=readme} install.md ?>
 
 ***

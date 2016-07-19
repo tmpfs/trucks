@@ -93,6 +93,7 @@ Existing transform plugins are in [packages](/packages).
 ### Styles
 
 * [style-extract][] Write stylesheets for each component.
+* [style-inject][] Read and overwrite stylesheets for each component.
 
 ### Miscellaneous
 

@@ -103,7 +103,6 @@ class TemplateReader extends TraitReader {
   onTrait(state, trait, cb) {
     trait.querySelectorAll = state.parse(trait.contents);
     trait.parent.templates.push(trait);
-    state.result.templates.push(trait);
     cb(null, trait);
   }
 

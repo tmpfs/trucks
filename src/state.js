@@ -32,9 +32,6 @@ class CompilerState {
       // list of all component files found during the load phase
       files: [] ,
 
-      // javascript list of all templates
-      templates: [],
-
       // optional transformed tree result
       tree: undefined
     };

@@ -7,7 +7,7 @@ function generate(/*state, conf*/) {
 
     if(opts.html && opts.extract && !state.hasFile(opts.html)) {
       // concatenate all templates
-      const templates = state.result.templates.map((tpl) => {
+      const templates = state.tree.getTemplates().map((tpl) => {
         return tpl.contents;
       })
       file = state.getFile(opts.html); 

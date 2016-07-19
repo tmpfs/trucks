@@ -30,6 +30,22 @@ class ComponentImport extends ComponentNode {
     this.imports = [];
   }
 
+  getTemplates() {
+    let out = []; 
+
+    this.imports.forEach((file) => {
+      out = out.concat(file.getTemplates()); 
+    })
+
+    if(this.modules) {
+      this.modules.forEach((mod) => {
+        out = out.concat(mod.templates); 
+      })
+    }
+
+    return out;
+  }
+
   getScripts() {
     let out = []; 
 
@@ -82,9 +98,9 @@ class ComponentTree extends ComponentImport {
     super(...arguments);
   }
 
-  getStyles() {
-    return super.getStyles(...arguments);
-  }
+  //getStyles() {
+    //return super.getStyles(...arguments);
+  //}
 }
 
 /**

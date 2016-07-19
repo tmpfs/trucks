@@ -180,7 +180,7 @@ function parse(/*state, conf*/) {
 
         // test for duplicate id across all templates
         try {
-          duplicates(state.result.templates);
+          duplicates(state.tree.getTemplates());
         }catch(e) {
           return cb(e); 
         }

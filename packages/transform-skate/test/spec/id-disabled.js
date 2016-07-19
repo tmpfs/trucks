@@ -31,10 +31,10 @@ describe('skate:', function() {
 
         // parse phase data
         expect(state.tree.getScripts()).to.be.an('array').to.have.length(1);
-        expect(state.result.templates).to.be.an('array').to.have.length(1);
+        expect(state.tree.getTemplates()).to.be.an('array').to.have.length(1);
 
-        expect(state.result.templates[0].inline).to.eql(true);
-        expect(state.result.templates[0].contents).to.be.a('string');
+        expect(state.tree.getTemplates()[0].inline).to.eql(true);
+        expect(state.tree.getTemplates()[0].contents).to.be.a('string');
 
         expect(state.tree.getStyles()[0].inline).to.eql(true);
         expect(state.tree.getStyles()[0].contents).to.be.a('string');

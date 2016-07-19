@@ -17,7 +17,7 @@ describe('load:', function() {
         (err, state) => {
           expect(err).to.eql(null);
 
-          expect(state.result.templates).to.be.an('array').to.have.length(1);
+          expect(state.tree.getTemplates()).to.be.an('array').to.have.length(1);
           expect(state.tree.getStyles()).to.be.an('array').to.have.length(1);
           expect(state.tree.getScripts()).to.be.an('array').to.have.length(1);
 

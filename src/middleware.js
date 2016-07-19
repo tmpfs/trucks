@@ -93,6 +93,7 @@ function middleware(state, options) {
   }
 
   closures.forEach((closure) => {
+    //console.dir(closure);
     middleware.push(closure);
   })
 

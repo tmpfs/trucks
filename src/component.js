@@ -285,6 +285,9 @@ class ComponentTemplate extends ComponentTrait {
   }
 }
 
+const DOCUMENT_SCOPE = '::document'
+    , SHADOW_SCOPE = '::shadow';
+
 /**
  *  Represents a style defined by a `<style>` or `<link>` element.
  *
@@ -294,8 +297,29 @@ class ComponentTemplate extends ComponentTrait {
 class ComponentStyle extends ComponentTrait {
   constructor() {
     super(...arguments);
+    this._scope = DOCUMENT_SCOPE;
+  }
+
+  set scope(val) {
+    this._scope = val;
+  }
+
+  get scope() {
+    return this._scope;
+  }
+
+  isDocumentScope() {
+    return (this._scope === DOCUMENT_SCOPE); 
+  }
+
+  isShadowScope() {
+    return (this._scope === SHADOW_SCOPE); 
   }
 }
+
+// expose scope constants
+ComponentStyle.DOCUMENT = DOCUMENT_SCOPE;
+ComponentStyle.SHADOW = SHADOW_SCOPE;
 
 /**
  *  Represents a script defined by a `<script>` element.

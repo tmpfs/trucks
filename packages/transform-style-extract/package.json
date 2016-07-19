@@ -1,7 +1,7 @@
 {
-  "name": "trucks-plugin-parse",
-  "version": "1.0.4",
-  "description": "Parse web component modules into the component tree",
+  "name": "trucks-transform-style-extract",
+  "version": "1.0.0",
+  "description": "Extract component styles to files",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -19,7 +19,8 @@
     "coveralls": "~2.11.9",
     "express": "~4.14.0",
     "istanbul": "~0.4.4",
-    "mocha": "~2.5.3"
+    "mocha": "~2.5.3",
+    "trucks-transform-trim": "*"
   },
   "scripts": {
     "clean": "rm -rf coverage target lib",

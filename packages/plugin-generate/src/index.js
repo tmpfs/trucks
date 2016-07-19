@@ -17,7 +17,9 @@ function generate(/*state, conf*/) {
     if(opts.css && !state.hasFile(opts.css)) {
       // concatenate all style contents
       const styles = state.result.styles.map((style) => {
-        return style.contents;
+        if(style.isDocumentScope()) {
+          return style.contents;
+        }
       })
       file = state.getFile(opts.css); 
       file.contents = styles;

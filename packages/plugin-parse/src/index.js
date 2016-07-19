@@ -117,6 +117,10 @@ function component(state, mod, context, cb) {
               (traits, next) => {
                 traits.forEach((trait) => {
                   trait.querySelectorAll = state.parse(trait.contents);
+
+                  // assign style scope
+                  trait.scope = Style.SHADOW;
+
                   mod.component.styles.push(trait);
                   trait.parent.stylesheets.push(trait);
                   state.result.styles.push(trait);

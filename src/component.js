@@ -30,6 +30,22 @@ class ComponentImport extends ComponentNode {
     this.imports = [];
   }
 
+  getStyles() {
+    let out = []; 
+
+    this.imports.forEach((file) => {
+      out = out.concat(file.getStyles()); 
+    })
+
+    if(this.modules) {
+      this.modules.forEach((mod) => {
+        out = out.concat(mod.stylesheets); 
+      })
+    }
+
+    return out;
+  }
+
   iterator(it) {
     it({entering: true, node: this});
     this.imports.forEach((node) => {
@@ -48,6 +64,10 @@ class ComponentImport extends ComponentNode {
 class ComponentTree extends ComponentImport {
   constructor() {
     super(...arguments);
+  }
+
+  getStyles() {
+    return super.getStyles(...arguments);
   }
 }
 

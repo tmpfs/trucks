@@ -28,9 +28,6 @@ describe('trucks:', function() {
             , mod = file.imports[0].modules[0]
             , component = mod.component;
 
-        // styles for all components
-        expect(state.result.styles.length).to.eql(1);
-
         // all styles for the module
         expect(mod.stylesheets.length).to.eql(1);
 

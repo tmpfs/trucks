@@ -169,8 +169,6 @@ class TemplateReader extends TraitReader {
 class StyleReader extends TraitReader {
   constructor() {
     super(...arguments);
-    //this.Type = Style;
-    //this.selector = selectors.styles;
   }
 
   onTrait(state, trait, cb) {
@@ -182,8 +180,6 @@ class StyleReader extends TraitReader {
     // all styles
     trait.parent.stylesheets.push(trait);
 
-    // flat collection of all styles
-    state.result.styles.push(trait);
     cb(null, this);
   }
 
@@ -192,8 +188,6 @@ class StyleReader extends TraitReader {
 class ScriptReader extends TraitReader {
   constructor() {
     super(...arguments);
-    //this.Type = Script;
-    //this.selector = selectors.scripts;
   }
 
   getExternalHref(el, $) {

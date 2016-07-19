@@ -123,7 +123,6 @@ function component(state, mod, context, cb) {
 
                   mod.component.styles.push(trait);
                   trait.parent.stylesheets.push(trait);
-                  state.result.styles.push(trait);
                 })
                 next();
               }, next)

@@ -29,13 +29,13 @@ class CompilerState {
     this.tree = new Tree();
 
     this.result = {
-      // list of all component files
+      // list of all component files found during the load phase
       files: [] ,
 
       // javascript list of all templates
       templates: [],
       // javascript list of all styles
-      styles: [],
+      //styles: [],
       // javascript list of all scripts
       scripts: [],
       // optional transformed tree result

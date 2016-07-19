@@ -62,6 +62,11 @@ function main(argv, conf, cb) {
       return cb(err); 
     }
 
+    if(this.printImports) {
+      this.plugins = [trucks.LOAD, trucks.TRANSFORM];
+      this.transforms = ['tree'];
+    }
+
     if(this.printTree) {
       this.plugins = [trucks.SOURCES, trucks.TRANSFORM];
       this.transforms = ['tree'];
@@ -79,7 +84,7 @@ function main(argv, conf, cb) {
         return cb(err); 
       }
 
-      if(this.printTree) {
+      if(this.printImports || this.printTree) {
         process.stdout.write(state.result.tree.toString()); 
       }
 

@@ -90,6 +90,16 @@
       "multiple": true,
       "name": "--rc"
     },
+    "printImports": {
+      "key": "printImports",
+      "description": "Print the file hierarchy",
+      "names": [
+        "-i",
+        "--print-imports"
+      ],
+      "type": "flag",
+      "name": "--print-imports"
+    },
     "printTree": {
       "key": "printTree",
       "description": "Print the component tree hierarchy",

@@ -24,6 +24,7 @@ Compiles web components to separate files for javascript, styles and template ma
 + `-s, --css [file]` Stylesheet output file
 + `-j, --js [file]` Javascript output file
 + `-c, --rc [file...]` Configuration files to require
++ `-i, --print-imports` Print the file hierarchy
 + `-t, --print-tree` Print the component tree hierarchy
 + `-e, --extract` Extract templates
 + `-h, --help` Display help and exit

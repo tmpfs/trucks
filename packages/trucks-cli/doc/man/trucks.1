@@ -58,11 +58,11 @@ trucks \- compiles web components
 .nl
 .h1 "SYNOPSIS"
 .P
-trucks [\-teh] [\-\-print\-tree] [\-\-extract] [\-\-help] [\-\-version] [\-\-out <dir>]
+trucks [\-iteh] [\-\-print\-imports] [\-\-print\-tree] [\-\-extract] [\-\-help]
 .br
-       [\-\-name <val>] [\-\-html <file>] [\-\-css <file>] [\-\-js <file>] [\-\-rc
+       [\-\-version] [\-\-out <dir>] [\-\-name <val>] [\-\-html <file>] [\-\-css <file>]
 .br
-       <file...>] [files...]
+       [\-\-js <file>] [\-\-rc <file...>] [files...]
 .nl
 .h1 "DESCRIPTION"
 .P
@@ -92,6 +92,10 @@ Compiles web components to separate files for javascript, styles and template ma
 .TP
 \fB\-c, \-\-rc\fR [\fIfile\fR...]
  Configuration files to require
+.nl
+.TP
+\fB\-i, \-\-print\-imports\fR
+ Print the file hierarchy
 .nl
 .TP
 \fB\-t, \-\-print\-tree\fR

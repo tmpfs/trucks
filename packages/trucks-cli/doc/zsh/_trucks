@@ -11,6 +11,7 @@ _trucks(){
     "(-s --css)"{-s=,--css=}"[Stylesheet output file]:file:_files" 
     "(-j --js)"{-j=,--js=}"[Javascript output file]:file:_files" 
     "*"{-c=,--rc=}"[Configuration files to require]:file:_files" 
+    "(-i --print-imports)"{-i,--print-imports}"[Print the file hierarchy]" 
     "(-t --print-tree)"{-t,--print-tree}"[Print the component tree hierarchy]" 
     "(-e --extract)"{-e,--extract}"[Extract templates]" 
     "(-h --help)"{-h,--help}"[Display help and exit]" 

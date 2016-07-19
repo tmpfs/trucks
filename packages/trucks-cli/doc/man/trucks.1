@@ -58,11 +58,11 @@ trucks \- compiles web components
 .nl
 .h1 "SYNOPSIS"
 .P
-trucks [\-ith] [\-\-print\-imports] [\-\-print\-tree] [\-\-print\-manifest] [\-\-help]
+trucks [\-fh] [\-\-force] [\-\-print\-imports] [\-\-print\-tree] [\-\-print\-manifest]
 .br
-       [\-\-version] [\-\-out <dir>] [\-\-name <val>] [\-\-html <file>] [\-\-css <file>]
+       [\-\-help] [\-\-version] [\-\-out <dir>] [\-\-name <val>] [\-\-html <file>] [\-\-css
 .br
-       [\-\-js <file>] [\-\-rc <file...>] [files...]
+       <file>] [\-\-js <file>] [\-\-rc <file...>] [\-\-manifest <file>] [files...]
 .nl
 .h1 "DESCRIPTION"
 .P
@@ -94,11 +94,19 @@ Compiles web components to separate files for javascript, styles and template ma
  Configuration files to require
 .nl
 .TP
-\fB\-i, \-\-print\-imports\fR
+\fB\-a, \-\-manifest\fR [\fIfile\fR]
+ Write manifest to file
+.nl
+.TP
+\fB\-f, \-\-force\fR
+ Force overwrite existing files
+.nl
+.TP
+\fB\-\-print\-imports\fR
  Print the file hierarchy
 .nl
 .TP
-\fB\-t, \-\-print\-tree\fR
+\fB\-\-print\-tree\fR
  Print the component tree hierarchy
 .nl
 .TP

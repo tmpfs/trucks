@@ -42,9 +42,6 @@ function write(state, conf) {
               hash.update(contents);
 
               item = {
-                file: path,
-                name: file.name,
-                base: file.base,
                 size: Buffer.byteLength(contents),
                 checksum: hash.digest(options.digest)
               }

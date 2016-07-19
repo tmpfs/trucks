@@ -1,4 +1,5 @@
 const path = require('path')
+    , fs = require('fs')
     , cli = require('mkcli')
     , pkg = require('../package.json')
     , prg = cli.load(require('../doc/json/trucks.json'))
@@ -84,8 +85,7 @@ function main(argv, conf, cb) {
     this.transforms = transforms;
     this.files = req.unparsed;
 
-    // TODO: support --manifest=[FILE]
-    if(this.manifest || this.printManifest) {
+    if(this.printManifest && !this.manifest) {
       this.manifest = true; 
     }
 
@@ -108,7 +108,18 @@ function main(argv, conf, cb) {
           JSON.stringify(state.manifest, undefined, 2) + '\n'); 
       }
 
-      cb(null, state);
+      if(state.manifest && this.manifest === String(this.manifest)) {
+        var contents = JSON.stringify(state.manifest, undefined, 2) + '\n';
+        fs.writeFile(this.manifest, contents, function(err) {
+          if(err) {
+            return cb(err); 
+          }
+
+          cb(null, state);
+        });
+      }else{
+        cb(null, state);
+      }
     });
   })
 }

@@ -90,11 +90,33 @@
       "multiple": true,
       "name": "--rc"
     },
+    "manifest": {
+      "key": "manifest",
+      "description": "Write manifest to file",
+      "names": [
+        "-a",
+        "--manifest"
+      ],
+      "type": "option",
+      "extra": " [file]",
+      "required": false,
+      "multiple": false,
+      "name": "--manifest"
+    },
+    "force": {
+      "key": "force",
+      "description": "Force overwrite existing files",
+      "names": [
+        "-f",
+        "--force"
+      ],
+      "type": "flag",
+      "name": "--force"
+    },
     "printImports": {
       "key": "printImports",
       "description": "Print the file hierarchy",
       "names": [
-        "-i",
         "--print-imports"
       ],
       "type": "flag",
@@ -104,7 +126,6 @@
       "key": "printTree",
       "description": "Print the component tree hierarchy",
       "names": [
-        "-t",
         "--print-tree"
       ],
       "type": "flag",

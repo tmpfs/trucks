@@ -19,7 +19,7 @@ describe('load:', function() {
           expect(err).to.eql(null);
 
           expect(state.result.templates).to.be.an('array').to.have.length(1);
-          //expect(state.result.styles).to.be.an('array').to.have.length(1);
+          expect(state.tree.getStyles()).to.be.an('array').to.have.length(1);
           expect(state.result.scripts).to.be.an('array').to.have.length(1);
 
           done();

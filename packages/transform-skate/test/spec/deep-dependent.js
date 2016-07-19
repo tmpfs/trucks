@@ -29,9 +29,9 @@ describe('skate:', function() {
         expect(state.result.templates[2].contents).to.eql(
           '<template id="x-widget"></template>');
 
-        //expect(state.result.styles[0].contents).to.eql('x-icon {}');
-        //expect(state.result.styles[1].contents).to.eql('x-button {}');
-        //expect(state.result.styles[2].contents).to.eql('x-widget {}');
+        expect(state.tree.getStyles()[0].contents).to.eql('x-icon {}');
+        expect(state.tree.getStyles()[1].contents).to.eql('x-button {}');
+        expect(state.tree.getStyles()[2].contents).to.eql('x-widget {}');
 
         expect(state.result.scripts[0].contents).to.eql(
           'skate.define(\'x-icon\', {});');

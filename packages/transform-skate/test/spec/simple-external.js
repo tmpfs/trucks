@@ -22,7 +22,7 @@ describe('skate:', function() {
         expect(file.href).to.eql(src);
 
         // parse phase data
-        //expect(state.result.styles).to.be.an('array').to.have.length(1);
+        expect(state.tree.getStyles()).to.be.an('array').to.have.length(1);
         expect(state.result.scripts).to.be.an('array').to.have.length(1);
         expect(state.result.templates).to.be.an('array').to.have.length(1);
 
@@ -30,9 +30,9 @@ describe('skate:', function() {
         expect(state.result.templates[0].inline).to.eql(false);
         expect(state.result.templates[0].contents).to.be.a('string');
 
-        //expect(state.result.styles[0].href).to.eql('simple-component.css');
-        //expect(state.result.styles[0].inline).to.eql(false);
-        //expect(state.result.styles[0].contents).to.be.a('string');
+        expect(state.tree.getStyles()[0].href).to.eql('simple-component.css');
+        expect(state.tree.getStyles()[0].inline).to.eql(false);
+        expect(state.tree.getStyles()[0].contents).to.be.a('string');
 
         expect(state.result.scripts[0].href).to.eql('simple-component.js');
         expect(state.result.scripts[0].inline).to.eql(false);

@@ -30,6 +30,22 @@ class ComponentImport extends ComponentNode {
     this.imports = [];
   }
 
+  getScripts() {
+    let out = []; 
+
+    this.imports.forEach((file) => {
+      out = out.concat(file.getScripts()); 
+    })
+
+    if(this.modules) {
+      this.modules.forEach((mod) => {
+        out = out.concat(mod.scripts); 
+      })
+    }
+
+    return out;
+  }
+
   getStyles() {
     let out = []; 
 

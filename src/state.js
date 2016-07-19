@@ -34,10 +34,7 @@ class CompilerState {
 
       // javascript list of all templates
       templates: [],
-      // javascript list of all styles
-      //styles: [],
-      // javascript list of all scripts
-      scripts: [],
+
       // optional transformed tree result
       tree: undefined
     };

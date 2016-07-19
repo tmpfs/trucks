@@ -30,7 +30,7 @@ describe('skate:', function() {
         expect(file.href).to.eql(src);
 
         // parse phase data
-        expect(state.result.scripts).to.be.an('array').to.have.length(1);
+        expect(state.tree.getScripts()).to.be.an('array').to.have.length(1);
         expect(state.result.templates).to.be.an('array').to.have.length(1);
 
         expect(state.result.templates[0].inline).to.eql(true);
@@ -39,8 +39,8 @@ describe('skate:', function() {
         expect(state.tree.getStyles()[0].inline).to.eql(true);
         expect(state.tree.getStyles()[0].contents).to.be.a('string');
 
-        expect(state.result.scripts[0].inline).to.eql(true);
-        expect(state.result.scripts[0].contents).to.be.a('string');
+        expect(state.tree.getScripts()[0].inline).to.eql(true);
+        expect(state.tree.getScripts()[0].contents).to.be.a('string');
 
         const expected = fs.readFileSync(
           '../../test/expect/simple-component-id-disabled.js')

@@ -19,7 +19,7 @@ describe('skate:', function() {
 
         expect(state.result.templates).to.be.an('array').to.have.length(2);
         expect(state.tree.getStyles()).to.be.an('array').to.have.length(2);
-        expect(state.result.scripts).to.be.an('array').to.have.length(2);
+        expect(state.tree.getScripts()).to.be.an('array').to.have.length(2);
 
         // NOTE: assert that dependency is declared first
 
@@ -31,9 +31,9 @@ describe('skate:', function() {
         expect(state.tree.getStyles()[0].contents).to.eql('x-icon {}');
         expect(state.tree.getStyles()[1].contents).to.eql('x-button {}');
 
-        expect(state.result.scripts[0].contents).to.eql(
+        expect(state.tree.getScripts()[0].contents).to.eql(
           'skate.define(\'x-icon\', {});');
-        expect(state.result.scripts[1].contents).to.eql(
+        expect(state.tree.getScripts()[1].contents).to.eql(
           'skate.define(\'x-button\', {});');
 
         const js = 'target/private-dependent.js'

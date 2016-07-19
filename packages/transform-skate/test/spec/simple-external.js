@@ -23,7 +23,7 @@ describe('skate:', function() {
 
         // parse phase data
         expect(state.tree.getStyles()).to.be.an('array').to.have.length(1);
-        expect(state.result.scripts).to.be.an('array').to.have.length(1);
+        expect(state.tree.getScripts()).to.be.an('array').to.have.length(1);
         expect(state.result.templates).to.be.an('array').to.have.length(1);
 
         expect(state.result.templates[0].href).to.eql('simple-template.html');
@@ -34,9 +34,9 @@ describe('skate:', function() {
         expect(state.tree.getStyles()[0].inline).to.eql(false);
         expect(state.tree.getStyles()[0].contents).to.be.a('string');
 
-        expect(state.result.scripts[0].href).to.eql('simple-component.js');
-        expect(state.result.scripts[0].inline).to.eql(false);
-        expect(state.result.scripts[0].contents).to.be.a('string');
+        expect(state.tree.getScripts()[0].href).to.eql('simple-component.js');
+        expect(state.tree.getScripts()[0].inline).to.eql(false);
+        expect(state.tree.getScripts()[0].contents).to.be.a('string');
 
         const expected = fs.readFileSync(
           '../../test/expect/simple-component.js')

@@ -27,8 +27,8 @@ function generate(/*state, conf*/) {
 
     if(opts.js && !state.hasFile(opts.js)) {
       // concatenate all javascript contents
-      const scripts = state.result.scripts.map((script) => {
-        return script.code;
+      const scripts = state.tree.getScripts().map((script) => {
+        return script.contents;
       })
 
       file = state.getFile(opts.js); 

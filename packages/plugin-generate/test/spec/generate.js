@@ -11,9 +11,9 @@ describe('generate:', function() {
         out: 'target',
         name: 'generate',
         plugins: [trucks.SOURCES, trucks.TRANSFORM, require('../../src')]
-      }, (err, result) => {
+      }, (err, state) => {
         expect(err).to.eql(null);
-        expect(result).to.be.an('object');
+        expect(state).to.be.an('object');
         done();
       }
     );

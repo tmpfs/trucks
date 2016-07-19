@@ -430,7 +430,7 @@ function plugin(state, conf) {
       // operate on the list of styles 
       cb();
     },
-    'Style': (node, cb) => {
+    Style: (node, cb) => {
       styles.push(node);
       cb(); 
     }

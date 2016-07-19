@@ -1,17 +1,15 @@
-# Style Extract
+# Style Inject
 
-> Extract component styles to files
+> Inject component styles from files
 
-For each input component write a file containing all component styles (shadow scope) to a file.
+For each input component read a file containing all component styles and overwrite the output styles for the component, designed to be used with files created by [style-extract][].
 
-Files are named using the component id and written to the directory specified using the `dir` option.
-
-Be careful using this transform with the `force` option, if you have already edited the generated styles they will be overwritten.
+Files are read from the directory specified using the `dir` option.
 
 ## Install
 
 ```
-npm i trucks-transform-style-extract --save-dev
+npm i trucks-transform-style-inject --save-dev
 ```
 
 For the command line interface see [trucks-cli][].
@@ -21,14 +19,14 @@ For the command line interface see [trucks-cli][].
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
-  - [extract](#extract)
+  - [inject](#inject)
 - [License](#license)
 
 ---
 
 ## Usage
 
-Use the `style-extract` key to configure this transform:
+Use the `style-inject` key to configure this transform:
 
 ```javascript
 const trucks = require('trucks');
@@ -36,10 +34,10 @@ const trucks = require('trucks');
 trucks(
   {
     files: ['components.html'],
-    transforms: ['style-extract'],
+    transforms: ['style-inject'],
     conf: {
       transforms: {
-        'style-extract': {
+        'style-inject': {
           dir: 'src/components/css'
         } 
       }
@@ -55,13 +53,13 @@ trucks(
 
 ## API
 
-### extract
+### inject
 
 ```javascript
-public extract(state, conf)
+public inject(state, conf)
 ```
 
-Extract component styles to files.
+Inject component styles from files.
 
 Returns map of visitor functions.
 
@@ -70,7 +68,7 @@ Returns map of visitor functions.
 
 #### Options
 
-* `dir` String output directory.
+* `dir` String input directory.
 
 ## License
 
@@ -113,6 +111,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
 [trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

@@ -33,6 +33,9 @@ class CompilerState {
       tree: undefined
     };
 
+    // output file manifest created during the write phase
+    this.manifest = undefined;
+
     // @private map of output files for write phase
     this._output = {};
   }

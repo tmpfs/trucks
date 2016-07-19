@@ -20,7 +20,8 @@ describe('write:', function() {
         ],
         css: css,
         js: js,
-        html: html
+        html: html,
+        manifest: true
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -28,16 +29,18 @@ describe('write:', function() {
 
         expect(state.output).to.be.an('object');
 
+        const manifest = state.manifest;
+
         const htmlFile = path.join(process.cwd(), html)
             , cssFile = path.join(process.cwd(), css)
             , jsFile = path.join(process.cwd(), js);
 
-        expect(state.output[htmlFile].name).to.eql(html);
-        expect(state.output[htmlFile].result.file).to.be.a('string');
-        expect(state.output[cssFile].name).to.eql(css);
-        expect(state.output[cssFile].result.file).to.be.a('string');
-        expect(state.output[jsFile].name).to.eql(js);
-        expect(state.output[jsFile].result.file).to.be.a('string');
+        expect(manifest[htmlFile].name).to.eql(html);
+        expect(manifest[htmlFile].file).to.be.a('string');
+        expect(manifest[cssFile].name).to.eql(css);
+        expect(manifest[cssFile].file).to.be.a('string');
+        expect(manifest[jsFile].name).to.eql(js);
+        expect(manifest[jsFile].file).to.be.a('string');
         done();
       }
     );

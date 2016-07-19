@@ -16,7 +16,8 @@ describe('write:', function() {
           trucks.GENERATE, 
           require('../../src')
         ],
-        css: css
+        css: css,
+        manifest: true
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -24,9 +25,11 @@ describe('write:', function() {
 
         expect(state.output).to.be.an('object');
 
+        const manifest = state.manifest;
+
         const cssFile = path.join(process.cwd(), css);
-        expect(state.output[cssFile].name).to.eql(css);
-        expect(state.output[cssFile].result.file).to.be.a('string');
+        expect(manifest[cssFile].name).to.eql(css);
+        expect(manifest[cssFile].file).to.be.a('string');
 
         done();
       }

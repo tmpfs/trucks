@@ -1,12 +1,19 @@
 const fs = require('fs')
 
-function write(/*state, conf*/) {
+function write(state, conf) {
+  let manifest;
+
+  if(conf.manifest || state.options.manifest) {
+    manifest = state.manifest = {};
+  }
 
   return function write(state, cb) {
     const opts = state.options
-      , output = state.output;
+        , output = state.output;
 
-    function writer(path, contents) {
+    function writer(path, file) {
+      const contents = file.contents;
+
       return function write(cb) {
         fs.stat(path, (err, stat) => {
           // NOTE: if path is a directory we'll let if fall through to 
@@ -19,9 +26,12 @@ function write(/*state, conf*/) {
               return cb(err); 
             } 
 
-            output[path].result = {
-              file: path,
-              contents: contents
+            if(manifest) {
+              manifest[path] = {
+                name: file.name,
+                file: path,
+                contents: contents
+              }
             }
 
             cb();
@@ -30,12 +40,12 @@ function write(/*state, conf*/) {
       } 
     }
 
-    const files = Object.keys(state.output)
+    const files = Object.keys(output)
         , writers = [];
 
     // map output files to writer functions
     files.forEach((file) => {
-      writers.push(writer(file, state.output[file].contents)); 
+      writers.push(writer(file, output[file])); 
     })
 
     state.each(

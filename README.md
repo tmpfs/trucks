@@ -339,7 +339,7 @@ Closures returned by the plugin functions are executed asynchronously in series 
 
 The `state` object contains several useful fields but most noteworthy are:
 
-* `options` Reference to the processing options
+* `options` Reference to the computed options
 * `tree` Component tree populated by the [load][] and [parse][] plugins
 
 You may configure the plugins used for low-level access. For example if you just wanted to print the HTML import tree:

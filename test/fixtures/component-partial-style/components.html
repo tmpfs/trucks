@@ -1,0 +1,25 @@
+<dom-module id="component-partial-style">
+
+  <template>
+    <style>
+      p {
+        margin: 0;
+      }
+    </style>
+    <p><em>Simple</em> component.</p>
+  </template>
+
+  <template id="partial">
+    <style>
+      em {
+        font-style: italic;
+      }
+    </style>
+  </template>
+
+  <script>
+    skate.define('{{id}}', {
+      render: template
+    });
+  </script>
+</dom-module>

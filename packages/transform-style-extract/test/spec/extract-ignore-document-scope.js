@@ -30,7 +30,7 @@ describe('style-extract:', function() {
 
         const styles = 'target/component-style.css';
         expect(fs.readFileSync(styles).toString().trim())
-          .to.eql('p {\n    margin: 0;\n  }');
+          .to.eql('p {\n  margin: 0;\n}');
 
         done();
       }

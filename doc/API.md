@@ -49,7 +49,6 @@ Returns compiler state.
 * `conf` Object configuration for plugins and transforms.
 * `before` Object before hooks for plugins and transforms.
 * `after` Object after hooks for plugins and transforms.
-* `extract` Boolean=false do not compile templates, write to file.
 * `html` String path to write the generated template markup.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
@@ -182,7 +181,7 @@ Creates a component node.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -212,8 +211,16 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
-[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

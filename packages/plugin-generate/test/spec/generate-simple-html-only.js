@@ -11,8 +11,7 @@ describe('generate:', function() {
       {
         files: [src],
         plugins: [trucks.SOURCES, trucks.TRANSFORM, require('../../src')],
-        html: html,
-        extract: true
+        html: html
       },
       (err, state) => {
         expect(err).to.eql(null);

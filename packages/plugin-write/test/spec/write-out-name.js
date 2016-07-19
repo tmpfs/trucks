@@ -22,8 +22,7 @@ describe('write:', function() {
           require('../../src')
         ],
         out: out,
-        name: name,
-        extract: true
+        name: name
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -60,8 +59,7 @@ describe('write:', function() {
           files: [src],
           force: true,
           out: out,
-          name: null,
-          extract: true
+          name: null
         },
         (err, state) => {
           expect(err).to.eql(null);

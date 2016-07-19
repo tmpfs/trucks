@@ -130,7 +130,6 @@ function options(state, cb) {
  *  @option {Object} [conf] configuration for plugins and transforms.
  *  @option {Object} [before] before hooks for plugins and transforms.
  *  @option {Object} [after] after hooks for plugins and transforms.
- *  @option {Boolean=false} [extract] do not compile templates, write to file.
  *  @option {String} [html] path to write the generated template markup.
  *  @option {String} [css] path to write the generated stylesheet.
  *  @option {String} [js] path to write the generated javascript.

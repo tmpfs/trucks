@@ -20,7 +20,6 @@ describe('write:', function() {
           trucks.GENERATE, 
           require('../../src')
         ],
-        extract: true,
         out: out,
         force: true
       },

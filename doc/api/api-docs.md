@@ -22,7 +22,6 @@ Returns compiler state.
 * `conf` Object configuration for plugins and transforms.
 * `before` Object before hooks for plugins and transforms.
 * `after` Object after hooks for plugins and transforms.
-* `extract` Boolean=false do not compile templates, write to file.
 * `html` String path to write the generated template markup.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.

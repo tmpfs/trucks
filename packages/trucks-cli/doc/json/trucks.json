@@ -40,7 +40,7 @@
     },
     "html": {
       "key": "html",
-      "description": "Template output file (--extract only)",
+      "description": "Template output file",
       "names": [
         "-m",
         "--html"
@@ -109,16 +109,6 @@
       ],
       "type": "flag",
       "name": "--print-tree"
-    },
-    "extract": {
-      "key": "extract",
-      "description": "Extract templates",
-      "names": [
-        "-e",
-        "--extract"
-      ],
-      "type": "flag",
-      "name": "--extract"
     },
     "help": {
       "key": "help",

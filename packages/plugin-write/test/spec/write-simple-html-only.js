@@ -16,8 +16,7 @@ describe('write:', function() {
           trucks.GENERATE, 
           require('../../src')
         ],
-        html: html,
-        extract: true
+        html: html
       },
       (err, state) => {
         expect(err).to.eql(null);

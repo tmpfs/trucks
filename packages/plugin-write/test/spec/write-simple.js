@@ -20,8 +20,7 @@ describe('write:', function() {
         ],
         css: css,
         js: js,
-        html: html,
-        extract: true
+        html: html
       },
       (err, state) => {
         expect(err).to.eql(null);

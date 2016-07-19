@@ -58,11 +58,11 @@ trucks \- compiles web components
 .nl
 .h1 "SYNOPSIS"
 .P
-trucks [\-iteh] [\-\-print\-imports] [\-\-print\-tree] [\-\-extract] [\-\-help]
+trucks [\-ith] [\-\-print\-imports] [\-\-print\-tree] [\-\-help] [\-\-version] [\-\-out
 .br
-       [\-\-version] [\-\-out <dir>] [\-\-name <val>] [\-\-html <file>] [\-\-css <file>]
+       <dir>] [\-\-name <val>] [\-\-html <file>] [\-\-css <file>] [\-\-js <file>] [\-\-rc
 .br
-       [\-\-js <file>] [\-\-rc <file...>] [files...]
+       <file...>] [files...]
 .nl
 .h1 "DESCRIPTION"
 .P
@@ -79,7 +79,7 @@ Compiles web components to separate files for javascript, styles and template ma
 .nl
 .TP
 \fB\-m, \-\-html\fR [\fIfile\fR]
- Template output file (\-\-extract only)
+ Template output file
 .nl
 .TP
 \fB\-s, \-\-css\fR [\fIfile\fR]
@@ -102,10 +102,6 @@ Compiles web components to separate files for javascript, styles and template ma
  Print the component tree hierarchy
 .nl
 .TP
-\fB\-e, \-\-extract\fR
- Extract templates
-.nl
-.TP
 \fB\-h, \-\-help\fR
  Display help and exit
 .nl
@@ -119,11 +115,4 @@ By default files are written to the current working directory. The \fB\-\-out\fR
 .nl
 .P
 The \fB\-\-html\fR, \fB\-\-css\fR and \fB\-\-js\fR option allows setting specific paths for each output file type, in this case they override any paths generated using the \fB\-\-out\fR and \fB\-\-name\fR options and the file extension should be specified.
-.nl
-.h1 "TEMPLATES"
-.P
-Template markup is only generated when the \fB\-\-extract\fR option is given therefore the \fB\-\-html\fR option will have no effect unless \fB\-\-extract\fR is specified.
-.nl
-.P
-Use the \fB\-\-extract\fR option when building components for the polymer framework, in this case the compiler is not invoked and the generated javascript is verbatim.
 .nl

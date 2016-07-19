@@ -26,8 +26,7 @@ describe('transform:', function() {
         plugins: [trucks.SOURCES, require('../../src')],
         force: true,
         out: 'target',
-        babel: {plugins: []},
-        extract: true
+        babel: {plugins: []}
       },
       (err, state) => {
         expect(err).to.eql(null);

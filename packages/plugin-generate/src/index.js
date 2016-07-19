@@ -5,7 +5,7 @@ function generate(/*state, conf*/) {
 
     let file;
 
-    if(opts.html && opts.extract && !state.hasFile(opts.html)) {
+    if(opts.html && !state.hasFile(opts.html)) {
       // concatenate all templates
       const templates = state.tree.getTemplates().map((tpl) => {
         return tpl.contents;

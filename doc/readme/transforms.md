@@ -75,7 +75,7 @@ const options = {
 };
 ```
 
-## Transformers
+## Transform Plugin List
 
 Existing transform plugins are in [packages](/packages).
 
@@ -89,6 +89,10 @@ Existing transform plugins are in [packages](/packages).
 * [sass][] Preprocess sass sources.
 * [stylus][] Preprocess stylus sources.
 * [trim][] Trim whitespace from inline styles and scripts.
+
+### Styles
+
+* [style-extract][] Write stylesheets for each component.
 
 ### Miscellaneous
 

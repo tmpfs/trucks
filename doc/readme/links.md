@@ -33,6 +33,7 @@
 [sass]: /packages/transform-sass
 [trim]: /packages/transform-trim
 [tree]: /packages/transform-tree
+[style-extract]: /packages/transform-style-extract
 
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/

@@ -72,9 +72,10 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
   - [Lifecycle](#lifecycle)
   - [Visitors](#visitors)
   - [Configuration](#configuration)
-- [Transformers](#transformers)
+- [Transform Plugin List](#transform-plugin-list)
   - [Compilers](#compilers)
   - [Preprocessors](#preprocessors)
+  - [Styles](#styles)
   - [Miscellaneous](#miscellaneous)
 - [Documentation](#documentation)
 - [Notes](#notes)
@@ -465,7 +466,7 @@ const options = {
 };
 ```
 
-## Transformers
+## Transform Plugin List
 
 Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
 
@@ -479,6 +480,10 @@ Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blo
 * [sass][] Preprocess sass sources.
 * [stylus][] Preprocess stylus sources.
 * [trim][] Trim whitespace from inline styles and scripts.
+
+### Styles
+
+* [style-extract][] Write stylesheets for each component.
 
 ### Miscellaneous
 
@@ -541,6 +546,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
 [trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

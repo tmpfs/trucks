@@ -1,0 +1,23 @@
+<dom-module id="document-style">
+
+  <template>
+    <style>
+      p {
+        margin: 0;
+      }
+    </style>
+    <p>Simple component.</p>
+  </template>
+
+  <style>
+    document-style /deep/ p {
+      margin: 0;
+    }
+  </style>
+
+  <script>
+    skate.define('{{id}}', {
+      render: template
+    });
+  </script>
+</dom-module>

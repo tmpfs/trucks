@@ -7,7 +7,7 @@ trucks(
     conf: {
       transforms: {
         'style-extract': {
-          out: 'src/components/css'
+          dir: 'src/components/css'
         } 
       }
     }

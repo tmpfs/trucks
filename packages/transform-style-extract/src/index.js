@@ -4,11 +4,11 @@
  *  @public {function} extract
  *  @param {Object} state compiler state.
  *  @param {Object} conf transform plugin configuration.
+ *  @option {String} [dir] output directory.
  *
  *  @returns map of visitor functions.
  */
 function extract(state, conf) {
-
   const dir = conf.dir || state.options.out;
 
   let file

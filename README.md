@@ -157,7 +157,7 @@ To include the resulting component files in your HTML page(s) load the compiled 
 
 ### Style Scopes
 
-Style elements whether they are inline (`<style>`) or external (`<link>`) are given a scope, when they are directly within the `<dom-module>` element they are deemed to be of a document scope and are written to the primary output stylesheet which should be included in the document head.
+Style elements whether they are inline (`<style>`) or external (`<link>`) are given a scope, when they are directly within the `<dom-module>` element they are deemed to be of a document scope and are written to the primary output stylesheet.
 
 ```html
 <dom-module id="x-icon">
@@ -173,9 +173,8 @@ When the style element appears within a `<template>` element it is deemed to be 
 <dom-module id="x-icon">
   <template>
     <style>
-      /* component styles (shadow scope) written as inline <style> elements */
+      /* component styles (shadow scope) written to the shadow DOM for the component */
     </style>
-    <!-- template markup -->
   </template>
 </dom-module>
 ```
@@ -194,6 +193,8 @@ The shadow scope is preferred but you can use the document scope if you need to 
   </style>
 </dom-module>
 ```
+
+Note that the `/deep/` and `::shadow` selectors are deprecated and should be avoided.
 
 ### Dependencies
 

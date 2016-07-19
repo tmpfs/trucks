@@ -46,16 +46,19 @@ function middleware(state, options) {
   }
 
   function getClosure(phase, detail) {
-    let closure; 
+    let fn
+      , closure; 
     // assume plugin is middleware
     if(phase instanceof Function) {
-      closure = phase(state, detail.conf);
+      fn = phase;
+      //closure = phase(state, detail.conf);
     }else if(phase === String(phase)) {
       let file = phase;
       if(prefix && !path.isAbsolute(phase) && !/^\.*\//.test(phase)) {
         file = prefix + file; 
       }
-      closure = require(file)(state, detail.conf);
+      //closure = require(file)(state, detail.conf);
+      fn = require(file);
     }else if(phase && phase === Object(phase)) {
       if(!phase.plugin || !(phase.plugin instanceof Function)) {
         throw new Error(
@@ -64,12 +67,17 @@ function middleware(state, options) {
       detail = getDetail(phase.plugin);
       const fn = phase.plugin;
       delete phase.plugin;
-
       // use input object as configuration
       detail.conf = phase;
-
       return getClosure(fn, detail); 
     }
+
+    if(fn.id) {
+      // rewrite conf using specific id
+      detail.conf = getDetail(fn.id).conf;
+    }
+
+    closure = fn(state, detail.conf);
 
     // closure returned an array of middleware to defer to 
     // so invoke each function
@@ -88,12 +96,16 @@ function middleware(state, options) {
 
   for(i = 0;i < phases.length;i++) {
     phase = phases[i];
+
+    if(!phase) {
+      throw new Error(`invalid middleware plugin declaration`); 
+    }
+
     detail = getDetail(phase);
     closures = closures.concat(getClosure(phase, detail));
   }
 
   closures.forEach((closure) => {
-    //console.dir(closure);
     middleware.push(closure);
   })
 

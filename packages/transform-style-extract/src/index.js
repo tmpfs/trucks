@@ -9,7 +9,7 @@
  */
 function extract(state, conf) {
 
-  const dir = conf.out || state.options.out;
+  const dir = conf.dir || state.options.out;
 
   let file
     , filename;

@@ -4,18 +4,24 @@ var expect = require('chai').expect
 
 describe('style-extract:', function() {
 
-  it('should use default style extract options', function(done) {
+  it('should use dir extract option', function(done) {
     const src = '../../test/fixtures/component-style/components.html';
     trucks(
       {
         files: [src],
-        out: 'target',
-        name: 'style-extract',
+        name: 'style-extract-dir',
         force: true,
         transforms: [
           'trim/src',
           require('../../src')
-        ]
+        ],
+        conf: {
+          transforms: {
+            'style-extract': {
+              dir: 'target'
+            }
+          }
+        }
       }, (err, state) => {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');

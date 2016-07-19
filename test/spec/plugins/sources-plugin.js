@@ -3,15 +3,15 @@ var expect = require('chai').expect
 
 describe('trucks:', function() {
 
-  it('should use init plugin', function(done) {
+  it('should use sources plugin', function(done) {
     const src = 'test/fixtures/simple-inline/components.html';
 
     trucks(
       {
         files: [src],
         out: 'target',
-        name: 'init-plugin',
-        plugins: [trucks.INIT]
+        name: 'sources-plugin',
+        plugins: [trucks.SOURCES]
       },
       (err, state) => {
         expect(err).to.eql(null);

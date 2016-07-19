@@ -36,7 +36,7 @@ const options = {
 };
 ```
 
-To configure a plugin you can set a configuration object:
+To configure a plugin you can set a configuration object using the plugin id:
 
 ```javascript
 const options = {
@@ -49,3 +49,28 @@ const options = {
   }
 };
 ```
+
+By default the plugin id is the name of the function but it may be changed by assigning an `id`:
+
+```javascript
+function plugin(state, conf) {
+  return function(state, cb) {
+    cb(); 
+  }
+}
+plugin.id = 'custom-plugin';
+module.exports = plugin;
+```
+
+To configure such a plugin use:
+
+```javascript
+const options = {
+  conf: {
+    plugins: {
+      'custom-plugin': {/* plugin configuration goes here */}
+    }
+  }
+};
+```
+

@@ -71,7 +71,9 @@ function main(argv, conf, cb) {
       transforms = ['tree'];
     }
 
-    this.plugins = plugins;
+    if(plugins.length) {
+      this.plugins = plugins;
+    }
     this.transforms = transforms;
 
     this.files = req.unparsed;

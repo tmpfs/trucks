@@ -6,7 +6,7 @@ To compile components pass HTML source files, for example:
 trucks src/*.html
 ```
 
-Which will generate `components.css` and `components.js` in the current working directory. Template elements in the source component files are compiled to javascript functions and prepended to `components.js`.
+Which will generate `components.css`, `components.js` and `components.html` in the current working directory. Template elements in the source component files are compiled to javascript functions and prepended to `components.js`.
 
 In this case the HTML templates are not compiled to javascript. Use this option when compiling [polymer][] components.
 

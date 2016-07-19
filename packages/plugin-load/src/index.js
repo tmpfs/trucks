@@ -5,11 +5,8 @@ const fs = require('fs')
  *  Encapsulates the load state information.
  *
  *  @private {constructor} LoadState
- *  @param {Object} state compiler state input object.
- *  @param {Array} output list for the output result objects.
  */
-function LoadInfo(state, output) {
-  this.output = output;
+function LoadInfo() {
 
   // keep track of processed files during load phase
   this.seen  = {
@@ -86,10 +83,6 @@ function read(state, group, parent, info, cb) {
     if(!group.contents) {
       return cb(new Error(`empty component file ${file}`));
     }
-
-    // prepend the loaded group information so that
-    // dependencies appear before the declaring group
-    info.output.unshift(group);
 
     if(parent) {
       parent.imports.unshift(group); 
@@ -194,7 +187,7 @@ function load(/*state, conf*/) {
       return cb(new Error('no input files specified'));
     }
 
-    const info = new LoadInfo(state, state.result.files);
+    const info = new LoadInfo();
 
     // run processing for the state sources
     sources(state, info, state.files, (err) => {

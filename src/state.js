@@ -22,16 +22,13 @@ class CompilerState {
     // list of input files
     this.files = options.files || [];
 
-    // input processing options
+    // computed processing options
     this.options = options;
 
     // the component tree stucture
     this.tree = new Tree();
 
     this.result = {
-      // list of all component files found during the load phase
-      files: [] ,
-
       // optional transformed tree result
       tree: undefined
     };

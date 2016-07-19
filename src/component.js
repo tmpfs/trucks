@@ -46,6 +46,17 @@ class ComponentImport extends ComponentNode {
     return out;
   }
 
+  getFiles() {
+    let out = []; 
+
+    this.imports.forEach((file) => {
+      out.push(file);
+      out = out.concat(file.getFiles()); 
+    })
+
+    return out;
+  }
+
   getScripts() {
     let out = []; 
 

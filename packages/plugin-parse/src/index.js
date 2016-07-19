@@ -141,7 +141,7 @@ function parse(/*state, conf*/) {
     const Module = state.components.Module;
 
     state.each(
-      state.result.files,
+      state.tree.getFiles(),
       (group, next) => {
         // parse all the <dom-module> elements
         const $ = group.querySelectorAll

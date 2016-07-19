@@ -1,4 +1,77 @@
-var mk = require('mktask');
+var mk = require('mktask')
+  , path = require('path')
+  , exec = require('child_process').exec
+  , fs = require('fs');
+
+function dirs(cb) {
+  const packages = './packages'
+    , result = [];
+
+  fs.readdir(packages, (err, dirs) => {
+    if(err) {
+      return cb(err); 
+    } 
+
+    dirs.forEach((name) => {
+      let item = {
+        file: path.join(packages, name),
+        name: name
+      }
+
+      try {
+        item.package = require(
+          './' + path.join(item.file, 'package.json')) 
+      }catch(e) {
+        // do not add invalid project folders 
+        return; 
+      }
+
+      result.push(item); 
+    })
+
+    cb(null, result);
+  })
+}
+
+function script(name, packages, cb) {
+
+  const list = packages.slice();
+
+  function next(err) {
+    if(err) {
+      return cb(err); 
+    }
+    const item = list.shift(); 
+    if(!item) {
+      return cb(null); 
+    }
+
+    if(item.package && item.package.scripts && item.package.scripts[name]) {
+      const cmd = `npm run ${name}`;
+      console.log('[%s] %s (%s)', cmd, item.name, item.file);
+      exec(cmd, {stdio: [0,2,2], cwd: item.file}, (err, stdout, stderr) => {
+        if(err) {
+          console.error(stderr || ''); 
+        } 
+        next(err);
+      });
+    }else{
+      next();
+    }
+  }
+
+  next();
+}
+
+// @task test run tests in all packages
+function test(cb) {
+  dirs((err, res) => {
+    if(err) { 
+      return cb(err)
+    }
+    script('test', res, cb);
+  }) 
+}
 
 function doc(src, dest, opts, cb) {
   mk.doc(src)
@@ -72,6 +145,8 @@ function readme(cb) {
 function docs(cb){
   cb();
 }
+
+mk.task(test);
 
 mk.task(api);
 mk.task(roadmap);

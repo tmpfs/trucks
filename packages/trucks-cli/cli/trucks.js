@@ -83,7 +83,7 @@ function main(argv, conf, cb) {
         process.stdout.write(state.result.tree.toString()); 
       }
 
-      cb();
+      cb(null, state);
     });
   })
 }

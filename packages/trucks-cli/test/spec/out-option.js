@@ -12,13 +12,9 @@ describe('trucks-cli:', function() {
         '--out=' + out,
         src
       ],
-      (err, result) => {
+      (err, state) => {
         expect(err).to.eql(null);
-
-        expect(result.files).to.be.an('object');
-        expect(result.files.html.file).to.be.eql('target/components.html');
-        expect(result.files.css.file).to.be.eql('target/components.css');
-        expect(result.files.js.file).to.be.eql('target/components.js');
+        expect(state).to.be.an('object');
 
         done();
       }

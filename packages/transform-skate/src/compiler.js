@@ -407,23 +407,7 @@ function template(el, opts) {
       const el = $(child);
 
       // TODO: implement the logic to parse template scripts
-      //let script;
 
-      //if(child.type === SCRIPT && el.attr('data-compile') !== undefined) {
-        //script = el.text();
-        //let res; 
-        
-        //try {
-          //res = babel.transform(script, opts.babel);
-          // TODO: parse AST for calls to html()
-          // TODO: wrap in self-executing function
-
-          //console.log(res.code);
-        //}catch(e) {
-          //throw e; 
-        //}
-      // child tag node (element)
-      //}else if(child.type === TAG
       if(child.type === TAG
         || child.type === STYLE
         // run time script

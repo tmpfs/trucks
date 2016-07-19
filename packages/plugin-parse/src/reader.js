@@ -145,9 +145,9 @@ class TemplateReader extends TraitReader {
 
           // assign as primary component template
           mod.component = new this.components.Component(tpl, mod);
-        // prefix module id to template with existing
-        // identifier and treat as a partial template
         }else{
+          // prefix module id to template with existing
+          // identifier and treat as a partial template
           el.attr(ID, prefix + id); 
         }
 

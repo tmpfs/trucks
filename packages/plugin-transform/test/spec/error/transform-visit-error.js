@@ -56,8 +56,9 @@ describe('transform:', function() {
               'Module': function(node, cb) {
                 cb(new Error('mock error'));
               }
+            }
           }
-        }]
+        ]
       },
       (err) => {
         function fn() {

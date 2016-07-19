@@ -69,21 +69,21 @@ function getIterator(state, mod, context) {
  *  @private
  */
 function component(state, mod, context, cb) {
-    const readers = require('./reader')
-      , selectors = state.selectors
-      , components = state.components
-      , Template = components.Template
-      , Style = components.Style
-      , Script = components.Script
-      , types = [
-          new readers.Template(
-            mod, Template, selectors.templates, components), 
-          new readers.Style(
-            mod, Style, selectors.styles, components), 
-          new readers.Script(
-            mod, Script, selectors.scripts, components)
-        ]
-      , iterator = getIterator(state, mod, context);
+  const readers = require('./reader')
+    , selectors = state.selectors
+    , components = state.components
+    , Template = components.Template
+    , Style = components.Style
+    , Script = components.Script
+    , types = [
+        new readers.Template(
+          mod, Template, selectors.templates, components), 
+        new readers.Style(
+          mod, Style, selectors.styles, components), 
+        new readers.Script(
+          mod, Script, selectors.scripts, components)
+      ]
+    , iterator = getIterator(state, mod, context);
 
   state.each(
     types,

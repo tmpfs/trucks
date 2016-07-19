@@ -24,8 +24,9 @@ describe('transform:', function() {
                 count++;
                 cb(null, node);
               }
+            }
           }
-        }]
+        ]
       },
       (err, state) => {
         expect(err).to.eql(null);

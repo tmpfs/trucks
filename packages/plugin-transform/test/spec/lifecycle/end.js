@@ -24,8 +24,9 @@ describe('lifecycle:', function() {
                 count++;
                 cb(null, node);
               }
+            }
           }
-        }]
+        ]
       },
       (err, state) => {
         expect(err).to.eql(null);
@@ -57,8 +58,9 @@ describe('lifecycle:', function() {
               end: function() {
                 throw new Error('mock error');
               }
+            }
           }
-        }]
+        ]
       },
       (err) => {
         function fn() {
@@ -85,8 +87,9 @@ describe('lifecycle:', function() {
               end: function(node, cb) {
                 return cb(new Error('mock error'));
               }
+            }
           }
-        }]
+        ]
       },
       (err) => {
         function fn() {

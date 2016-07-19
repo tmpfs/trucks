@@ -5,8 +5,6 @@ var expect = require('chai').expect
 describe('compiler:', function() {
 
   it('should generate AST for main template function', function(done) {
-    const tpl = '<template id="x-foo"><span></span></template>';
-
     const main = compiler.main();
 
     expect(main).to.be.an('object');

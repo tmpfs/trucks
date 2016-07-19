@@ -28,7 +28,7 @@
     "clean": "rm -rf coverage target lib",
     "build": "babel --presets es2015 src --out-dir lib",
     "prepublish": "npm run build",
-    "lint": "jshint src test doc && jscs src test/spec",
+    "lint": "jshint src test/spec doc && jscs src test/spec",
     "target": "rm -rf target && mkdir target",
     "pretest": "npm run target",
     "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",

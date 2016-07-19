@@ -29,6 +29,8 @@ function dirs(cb) {
       result.push(item); 
     })
 
+    const pkg = require('./package.json');
+    result.unshift({file: './', package: pkg, name: pkg.name});
     cb(null, result);
   })
 }
@@ -51,6 +53,8 @@ function script(name, packages, cb) {
       console.log('[%s] %s (%s)', cmd, item.name, item.file);
       exec(cmd, {stdio: [0,2,2], cwd: item.file}, (err, stdout, stderr) => {
         if(err) {
+          console.error(stdout|| ''); 
+          console.error('---');
           console.error(stderr || ''); 
         } 
         next(err);
@@ -80,6 +84,26 @@ function build(cb) {
       return cb(err)
     }
     script(build.name, res, cb);
+  }) 
+}
+
+// @task lint style check all packages
+function lint(cb) {
+  dirs((err, res) => {
+    if(err) { 
+      return cb(err)
+    }
+    script(lint.name, res, cb);
+  }) 
+}
+
+// @task cover style check all packages
+function cover(cb) {
+  dirs((err, res) => {
+    if(err) { 
+      return cb(err)
+    }
+    script(cover.name, res, cb);
   }) 
 }
 
@@ -158,6 +182,8 @@ function docs(cb){
 
 mk.task(test);
 mk.task(build);
+mk.task(lint);
+mk.task(cover);
 
 mk.task(api);
 mk.task(roadmap);

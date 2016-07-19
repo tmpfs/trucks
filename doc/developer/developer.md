@@ -10,7 +10,13 @@ To build the documentation [mkdoc][] is required (`npm i -g mkdoc`).
 
 ### Build
 
-Convert the ES6 sources:
+Build all packages:
+
+```
+mk build
+```
+
+Convert the ES6 sources for this package:
 
 ```
 npm run build
@@ -18,7 +24,13 @@ npm run build
 
 ### Test
 
-To run the test suite:
+To run all test suites:
+
+```
+mk test
+```
+
+To run the test suite for the core library:
 
 ```
 npm test
@@ -28,13 +40,25 @@ Tests are not included in the npm package you should clone the repository to run
 
 ### Cover
 
-To generate code coverage run:
+To generate coverage for all packages:
+
+```
+mk cover
+```
+
+To generate code coverage for the core library:
 
 ```
 npm run cover
 ```
 
 ### Lint
+
+To lint all packages:
+
+```
+mk lint
+```
 
 Run the source tree through [jshint][] and [jscs][]:
 

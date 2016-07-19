@@ -16,8 +16,6 @@ function write(state, conf) {
     }
   }
 
-  console.log('writing manifest %j', options);
-
   return function write(state, cb) {
     const opts = state.options
         , output = state.output;

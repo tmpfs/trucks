@@ -1,8 +1,8 @@
 ## Developer
 
-Install dependencies and build the source files `npm i && npm run build` from [src](/src) to [lib](/lib).
+Install [mkdoc][] `npm i -g mkdoc` and then install dependencies for all packages with `mk install`.
 
-To build the documentation [mkdoc][] is required (`npm i -g mkdoc`).
+You should now be able to use the scripts and tasks.
 
 ***
 <!-- @toc -->

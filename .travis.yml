@@ -3,7 +3,7 @@ sudo: false
 branches:
   except:
     - develop
-script: npm i -g mkdoc && mk cover && npm run report
+script: npm i -g mkdoc && mk install && mk cover && npm run report
 node_js:
   - '6.1.0'
   - stable

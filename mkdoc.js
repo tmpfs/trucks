@@ -39,6 +39,23 @@ function script(name, packages, cb) {
 
   const list = packages.slice();
 
+  let cmd = `npm run ${name}`;
+
+  if(name === Object(name) && name.cmd) {
+    cmd = `npm ${name.cmd}`;
+  }
+
+  function run(cmd, item, next) {
+    exec(cmd, {cwd: item.file}, (err, stdout, stderr) => {
+      if(err) {
+        console.error(stdout|| ''); 
+        console.error('---');
+        console.error(stderr || ''); 
+      } 
+      next(err);
+    });
+  }
+
   function next(err) {
     if(err) {
       return cb(err); 
@@ -48,23 +65,33 @@ function script(name, packages, cb) {
       return cb(null); 
     }
 
-    if(item.package && item.package.scripts && item.package.scripts[name]) {
-      const cmd = `npm run ${name}`;
+    if(
+      name.cmd
+      || (name === String(name)
+        && item.package
+        && item.package.scripts
+        && item.package.scripts[name])) {
       console.log('[%s] %s (%s)', cmd, item.name, item.file);
-      exec(cmd, {stdio: [0,2,2], cwd: item.file}, (err, stdout, stderr) => {
-        if(err) {
-          console.error(stdout|| ''); 
-          console.error('---');
-          console.error(stderr || ''); 
-        } 
-        next(err);
-      });
+      run(cmd, item, next);
+    //}else if(name.cmd) {
+      //console.log('[%s] %s (%s)', cmd, item.name, item.file);
+      //run(cmd, next);
     }else{
       next();
     }
   }
 
   next();
+}
+
+// @task install install dependencies for all packages
+function install(cb) {
+  dirs((err, res) => {
+    if(err) { 
+      return cb(err)
+    }
+    script({cmd: install.name}, res, cb);
+  }) 
 }
 
 // @task test run tests in all packages
@@ -180,6 +207,7 @@ function docs(cb){
   cb();
 }
 
+mk.task(install);
 mk.task(test);
 mk.task(build);
 mk.task(lint);

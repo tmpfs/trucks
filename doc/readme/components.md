@@ -47,6 +47,53 @@ To include the resulting component files in your HTML page(s) load the compiled 
 <script src="components.js"></script>
 ```
 
+### Templates
+
+The parser differentiates between a primary template and template partials. The primary template is one with no `id` attribute (it inherits from the `<dom-module>` identifier) whilst partials are those with identifiers:
+
+```html
+<dom-module id="x-button">
+  <!-- primary template -->
+  <template></template>
+  <!-- template partial, fully qualified id: x-button-icon -->
+  <template id="icon"></template>
+</dom-module>
+```
+
+There may only be one primary template in a module and template partial `id` attributes are prefixed with the component identifier.
+
+#### Template Styles
+
+Because all styles within templates should be applied to the shadow DOM when styles are declared in multiple templates they may be hoisted, for example:
+
+```html
+<dom-module id="x-button">
+  <template>
+    <style>
+      p {margin: 0;}
+    </style>
+  </template>
+  <template id="icon">
+    <style>
+      i {padding: 0;}
+    </style>
+  </template>
+</dom-module>
+```
+
+Is equivalent to:
+
+```html
+<dom-module id="x-button">
+  <template>
+    <style>
+      p {margin: 0;}
+      i {padding: 0;}
+    </style>
+  </template>
+</dom-module>
+```
+
 ### Style Scopes
 
 Style elements whether they are inline (`<style>`) or external (`<link>`) are given a scope, when they are directly within the `<dom-module>` element they are deemed to be of a document scope and are written to the primary output stylesheet.

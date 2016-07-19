@@ -63,6 +63,7 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
   - [Trucks](#trucks)
 - [Usage](#usage)
 - [Components](#components)
+  - [Templates](#templates)
   - [Style Scopes](#style-scopes)
   - [Dependencies](#dependencies)
   - [Private Dependencies](#private-dependencies)
@@ -153,6 +154,53 @@ To include the resulting component files in your HTML page(s) load the compiled 
 ```html
 <link rel="stylesheet" href="components.css">
 <script src="components.js"></script>
+```
+
+### Templates
+
+The parser differentiates between a primary template and template partials. The primary template is one with no `id` attribute (it inherits from the `<dom-module>` identifier) whilst partials are those with identifiers:
+
+```html
+<dom-module id="x-button">
+  <!-- primary template -->
+  <template></template>
+  <!-- template partial, fully qualified id: x-button-icon -->
+  <template id="icon"></template>
+</dom-module>
+```
+
+There may only be one primary template in a module and template partial `id` attributes are prefixed with the component identifier.
+
+#### Template Styles
+
+Because all styles within templates should be applied to the shadow DOM when styles are declared in multiple templates they may be hoisted, for example:
+
+```html
+<dom-module id="x-button">
+  <template>
+    <style>
+      p {margin: 0;}
+    </style>
+  </template>
+  <template id="icon">
+    <style>
+      i {padding: 0;}
+    </style>
+  </template>
+</dom-module>
+```
+
+Is equivalent to:
+
+```html
+<dom-module id="x-button">
+  <template>
+    <style>
+      p {margin: 0;}
+      i {padding: 0;}
+    </style>
+  </template>
+</dom-module>
 ```
 
 ### Style Scopes

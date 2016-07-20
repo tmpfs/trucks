@@ -1,6 +1,7 @@
 var mk = require('mktask')
   , path = require('path')
-  , exec = require('child_process').exec
+  , NPM = 'npm'
+  , NPM_RUN = 'npm run'
   , fs = require('fs');
 
 function dirs(cb) {
@@ -36,25 +37,17 @@ function dirs(cb) {
 }
 
 function script(name, packages, cb) {
-
   const list = packages.slice();
 
-  let cmd = `npm run ${name}`;
+  let prefix = NPM_RUN
+    , cmd = name;
 
   if(name === Object(name) && name.cmd) {
-    cmd = `npm ${name.cmd}`;
+    prefix = NPM;
+    cmd = name.cmd;
   }
 
-  function run(cmd, item, next) {
-    exec(cmd, {cwd: item.file}, (err, stdout, stderr) => {
-      if(err) {
-        console.error(stdout|| ''); 
-        console.error('---');
-        console.error(stderr || ''); 
-      } 
-      next(err);
-    });
-  }
+  let exec = mk.command(prefix);
 
   function next(err) {
     if(err) {
@@ -71,11 +64,15 @@ function script(name, packages, cb) {
         && item.package
         && item.package.scripts
         && item.package.scripts[name])) {
-      console.log('[%s] %s (%s)', cmd, item.name, item.file);
-      run(cmd, item, next);
-    //}else if(name.cmd) {
-      //console.log('[%s] %s (%s)', cmd, item.name, item.file);
-      //run(cmd, next);
+      console.log('[%s %s] %s (%s)', prefix, cmd, item.name, item.file);
+      exec(cmd, {cwd: item.file}, (err, stdout, stderr) => {
+        if(err) {
+          console.error(stdout|| ''); 
+          console.error('---');
+          console.error(stderr || ''); 
+        } 
+        next(err);
+      });
     }else{
       next();
     }
@@ -208,9 +205,9 @@ function docs(cb){
 }
 
 mk.task(install);
-mk.task(test);
-mk.task(build);
 mk.task(lint);
+mk.task(build);
+mk.task(test);
 mk.task(cover);
 
 mk.task(api);

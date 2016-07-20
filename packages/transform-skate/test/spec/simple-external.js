@@ -26,7 +26,8 @@ describe('skate:', function() {
         expect(state.tree.getScripts()).to.be.an('array').to.have.length(1);
         expect(state.tree.getTemplates()).to.be.an('array').to.have.length(1);
 
-        expect(state.tree.getTemplates()[0].href).to.eql('simple-template.html');
+        expect(
+          state.tree.getTemplates()[0].href).to.eql('simple-template.html');
         expect(state.tree.getTemplates()[0].inline).to.eql(false);
         expect(state.tree.getTemplates()[0].contents).to.be.a('string');
 

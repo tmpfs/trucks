@@ -108,10 +108,6 @@ class ComponentTree extends ComponentImport {
   constructor() {
     super(...arguments);
   }
-
-  //getStyles() {
-    //return super.getStyles(...arguments);
-  //}
 }
 
 /**

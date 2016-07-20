@@ -33,8 +33,8 @@ describe('csp:', function() {
             , txt = fs.readFileSync(
                 state.getFile('csp.txt', 'target').file).toString()
 
-        expect(/style nonce="([^"]+)"/.test(style.contents)).to.eql(true);
-        expect(/script nonce="([^"]+)"/.test(script.contents)).to.eql(true);
+        expect(style.attr('nonce')).to.be.a('string');
+        expect(script.attr('nonce')).to.be.a('string');
 
         expect(/style-src 'self' nonce-/.test(meta)).to.eql(true);
         expect(/style-src 'self' nonce-/.test(txt)).to.eql(true);

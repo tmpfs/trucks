@@ -61,6 +61,8 @@ module.exports = function skate(state, conf) {
     'Component': (node, cb) => {
       conf.querySelectorAll = node.template.querySelectorAll;
 
+      //console.log(conf.querySelectorAll.html(node.template.element));
+
       let res = compiler.render(node.template.element, conf);
       templates.push(res);
       components.push(node); 

@@ -92,6 +92,7 @@ function transform(state, conf) {
     }
   );
 
+
   // collect lifecycle mappings
   const lifecycle = {
     begin: [],

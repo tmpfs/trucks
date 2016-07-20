@@ -287,7 +287,19 @@ class ComponentTrait extends ComponentNode {
     this.href = href;
     this._file = file;
     this._id = null;
-    //console.log(Object.keys(this.element));
+  }
+
+  attr(name, val) {
+    if(name === String(name)) {
+      if(val !== undefined) {
+        this.element.attribs[name] = val; 
+      }else{
+        return this.element.attribs[name];
+      }
+    }else if(name === Object(name)) {
+      this.element.attribs = name;
+    }
+    return this.element.attribs;
   }
 
   set id(val) {

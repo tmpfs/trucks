@@ -102,9 +102,7 @@ module.exports = function csp(state, conf) {
 
     val = fn(node);
     if(nonce) {
-      let el = node.querySelectorAll(node.element);
-      el.attr(name, val);
-      node.contents = node.querySelectorAll.html(node.element);
+      node.attr(name, val);
     }
 
     let item = {id: nonce ? NONCE : conf.sha, value: val};

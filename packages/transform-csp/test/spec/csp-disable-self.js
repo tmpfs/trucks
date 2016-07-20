@@ -26,13 +26,15 @@ describe('csp:', function() {
 
         const file = state.tree.imports[0]
             , mod = file.modules[0]
-            , style = mod.stylesheets[0]
+            , component = mod.component
+            , style = component.styles[0]
             , meta = fs.readFileSync(
                 state.getFile('csp.html', 'target').file).toString()
             , txt = fs.readFileSync(
                 state.getFile('csp.txt', 'target').file).toString()
 
-        expect(/nonce="([^"]+)"/.test(style.contents)).to.eql(true);
+        expect(style.attr('nonce')).to.be.a('string');
+
         expect(/style-src nonce-/.test(meta)).to.eql(true);
         expect(/^style-src nonce-/.test(txt)).to.eql(true);
 

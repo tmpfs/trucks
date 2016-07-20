@@ -26,13 +26,17 @@ describe('csp:', function() {
 
         const file = state.tree.imports[0]
             , mod = file.modules[0]
-            , style = mod.stylesheets[0]
+            , component = mod.component
+            , style = component.styles[0]
             , meta = fs.readFileSync(
                 state.getFile('csp.html', 'target').file).toString()
             , txt = fs.readFileSync(
                 state.getFile('csp.txt', 'target').file).toString()
 
-        expect(/data-static-nonce="([^"]+)"/.test(style.contents)).to.eql(true);
+        //console.log(
+        // mod.querySelectorAll.html(mod.component.template.element));
+
+        expect(style.attr('data-static-nonce')).to.be.a('string');
 
         expect(/style-src 'self' nonce-/.test(meta)).to.eql(true);
         expect(/^style-src 'self' nonce-/.test(txt)).to.eql(true);

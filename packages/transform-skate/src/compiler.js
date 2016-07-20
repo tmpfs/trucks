@@ -255,12 +255,15 @@ function getObjectExpression(t, map, it) {
   if(map === String(map)) {
     return it(map); 
   }
+
+  function onArray(item) {
+    val.push(getObjectExpression(t, item, it)); 
+  }
+
   for(let k in map) {
     if(Array.isArray(map[k])) {
       val = [];
-      map[k].forEach((item) => {
-        val.push(getObjectExpression(t, item, it)); 
-      })
+      map[k].forEach(onArray);
 
       val = t.arrayExpression(val);
     }else{

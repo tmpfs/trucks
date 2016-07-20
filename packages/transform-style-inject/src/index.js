@@ -48,12 +48,16 @@ function inject(state, conf) {
         node.vdom('template > style', node.parent.element).remove();
 
         if(node.template) {
+
           // prepend style to primary template
+          // reflected in the vdom
           node.vdom(node.template.element)
             .prepend(`<style>${contents}</style>`);
-        }
 
-        //console.log(node.vdom.html(node.parent.element));
+          // update the template contents when writing out templates
+          // as HTML
+          node.template.contents = node.vdom.html(node.template.element);
+        }
 
         node.styles.push(
           // mock an element

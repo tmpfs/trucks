@@ -197,6 +197,10 @@ class ScriptReader extends TraitReader {
   onTrait(state, trait, cb) {
     trait.querySelectorAll = state.parse(trait.contents);
     trait.parent.scripts.push(trait);
+
+    // all javascript
+    trait.parent.javascript.push(trait);
+
     cb(null, trait);
   }
 }

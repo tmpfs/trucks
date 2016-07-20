@@ -63,6 +63,13 @@ function getIterator(state, mod, context) {
   }
 }
 
+function read(state, types, iterator, cb) {
+  state.each(
+    types,
+    iterator,
+    cb);
+}
+
 /**
  *  Iterate the templates, scripts and styles in a component module.
  *
@@ -85,7 +92,8 @@ function component(state, mod, context, cb) {
       ]
     , iterator = getIterator(state, mod, context);
 
-  state.each(
+  read(
+    state,
     types,
     iterator,
     (err) => {
@@ -105,27 +113,60 @@ function component(state, mod, context, cb) {
               mod.component.partials.push(template);
             } 
 
+            const types = [
+                    new readers.Style(
+                      mod, Style, selectors.styles, components),
+                    new readers.Script(
+                      mod, Script, selectors.scripts, components)           
+                  ]
+                , iterator = getIterator(state, mod, template.element);
+
+            function it(reader, cb) {
+              iterator(
+                reader,
+                (traits, next) => {
+                  traits.forEach((trait) => {
+                    trait.querySelectorAll = state.parse(trait.contents);
+
+                    // assign style scope
+                    trait.scope = Style.SHADOW;
+
+                    if(trait instanceof Style) {
+                      mod.component.styles.push(trait);
+                      trait.parent.stylesheets.push(trait);
+                    }else{
+                      // should be a script
+                      mod.component.scripts.push(trait);
+                      trait.parent.javascript.push(trait);
+                    }
+                  })
+                  next();
+                }, cb)
+            }
+
+            read(state, types, it, next);
+
             // read in style traits defined in the <template> context
             // these are component styles that should be applied to the 
             // shadow DOM
-            const reader = new readers.Style(
-                    mod, Style, selectors.styles, components)
-                , iterator = getIterator(state, mod, template.element)
+            //const reader = new readers.Style(
+                    //mod, Style, selectors.styles, components)
+                //, iterator = getIterator(state, mod, template.element)
 
-            iterator(
-              reader,
-              (traits, next) => {
-                traits.forEach((trait) => {
-                  trait.querySelectorAll = state.parse(trait.contents);
+            //iterator(
+              //reader,
+              //(traits, next) => {
+                //traits.forEach((trait) => {
+                  //trait.querySelectorAll = state.parse(trait.contents);
 
-                  // assign style scope
-                  trait.scope = Style.SHADOW;
+                  //// assign style scope
+                  //trait.scope = Style.SHADOW;
 
-                  mod.component.styles.push(trait);
-                  trait.parent.stylesheets.push(trait);
-                })
-                next();
-              }, next)
+                  //mod.component.styles.push(trait);
+                  //trait.parent.stylesheets.push(trait);
+                //})
+                //next();
+              //}, next)
           }, cb);
 
       }else{
@@ -136,6 +177,22 @@ function component(state, mod, context, cb) {
 }
 
 function parse(/*state, conf*/) {
+
+  //const readers = require('./reader')
+    //, selectors = state.selectors
+    //, components = state.components
+    //, Template = components.Template
+    //, Style = components.Style
+    //, Script = components.Script
+    //, types = [
+        //new readers.Template(
+          //mod, Template, selectors.templates, components), 
+        //new readers.Style(
+          //mod, Style, selectors.styles, components), 
+        //new readers.Script(
+          //mod, Script, selectors.scripts, components)
+      //]
+    //, iterator = getIterator(state, mod, context);
 
   return function parse(state, cb) {
     const Module = state.components.Module;

@@ -21,12 +21,15 @@ function inject(state, conf) {
     , href;
 
   function component(node, cb) {
+
+    if(!(node instanceof state.components.Component)) {
+      return cb(); 
+    }
+
     // component module id becomes the name of the file
     filename = `${node.id}.css`;
     file = state.absolute(filename, dir);
     href = path.join(dir, filename);
-
-    //console.log('inject %s', file);
 
     fs.readFile(file, (err, contents) => {
       /* istanbul ignore next: tough to mock an error here */
@@ -36,30 +39,39 @@ function inject(state, conf) {
 
       if(contents) {
 
+        contents = contents.toString();
+
         // clear existing styles
         node.clearStyles();
+
+        // remove styles from DOM in the module context
+        node.vdom('template > style', node.parent.element).remove();
+
+        if(node.template) {
+          // prepend style to primary template
+          node.vdom(node.template.element)
+            .prepend(`<style>${contents}</style>`);
+        }
+
+        //console.log(node.vdom.html(node.parent.element));
 
         node.styles.push(
           // mock an element
           new Style(
-            //state.parse(
-              //`<link rel="stylesheet" href="${href}">`)('link').get(0),
             state.parse(
-              `<style>${contents.toString()}</style>`)('style').get(0),
-            contents.toString(),
+              `<link rel="stylesheet" href="${href}">`)('link').get(0),
+            contents,
             node,
             href
           )
         );
-
-        //console.dir(node.styles);
       }
       cb();
     })
   }
 
   return {
-    Component: component
+    leave: component
   }
 }
 

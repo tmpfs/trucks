@@ -1,8 +1,8 @@
 ## Developer
 
-Install dependencies and build the source files `npm i && npm run build` from [src](https://github.com/tmpfs/trucks/blob/master/src) to [lib](https://github.com/tmpfs/trucks/blob/master/lib).
+Install [mkdoc][] `npm i -g mkdoc` and then install dependencies for all packages with `mk install`.
 
-To build the documentation [mkdoc][] is required (`npm i -g mkdoc`).
+You should now be able to use the scripts and tasks, list tasks with `mk --tasks`.
 
 ---
 
@@ -143,7 +143,7 @@ mk compiler
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 20, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

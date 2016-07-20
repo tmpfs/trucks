@@ -33,9 +33,6 @@ describe('csp:', function() {
             , txt = fs.readFileSync(
                 state.getFile('csp.txt', 'target').file).toString()
 
-        //console.log(
-        // mod.querySelectorAll.html(mod.component.template.element));
-
         expect(style.attr('data-static-nonce')).to.be.a('string');
 
         expect(/style-src 'self' nonce-/.test(meta)).to.eql(true);

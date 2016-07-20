@@ -415,7 +415,8 @@ function template(el, opts) {
         args = [t.stringLiteral(child.name)];
 
         // push attributes into function call when not empty
-        let attrs = el.attr();
+        //let attrs = el.attr();
+        let attrs = child.attribs;
         if(!isEmpty(attrs)) {
           let it = propertyString;
 

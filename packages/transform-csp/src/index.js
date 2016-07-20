@@ -103,6 +103,14 @@ module.exports = function csp(state, conf) {
     val = fn(node);
     if(nonce) {
       node.attr(name, val);
+
+      console.log(node.attr());
+
+      console.log(node.element.parent === node.parent.template);
+
+        //console.log(
+         //node.querySelectorAll.html(node.parent.template.element));
+
     }
 
     let item = {id: nonce ? NONCE : conf.sha, value: val};

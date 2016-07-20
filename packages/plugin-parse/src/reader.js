@@ -42,6 +42,7 @@ class TraitReader {
   }
 
   getElements(context, selector, $) {
+    //console.log('get elements %s', this.parent.querySelectorAll);
     $ = $ || this.querySelectorAll;
     return $(selector || this.selector, context).toArray()
   }
@@ -122,6 +123,7 @@ class TemplateReader extends TraitReader {
         , $ = this.querySelectorAll;
 
       elements.each((index, elem) => {
+
         let tpl = this.getTrait(elem);
         tpl.href = trait.href;
         tpl.file = trait.file;

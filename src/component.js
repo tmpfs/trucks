@@ -293,6 +293,7 @@ class ComponentTrait extends ComponentNode {
     if(name === String(name)) {
       if(val !== undefined) {
         this.element.attribs[name] = val; 
+        //this.querySelectorAll(this.element).attr(name, val);
       }else{
         return this.element.attribs[name];
       }

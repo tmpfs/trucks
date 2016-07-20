@@ -55,8 +55,8 @@ function getHash(node, algorithm) {
  *  @param {Object} state compiler state.
  *  @param {Object} conf transform plugin configuration.
  *  @option {Boolean=true} [self] include `'self'` in the output.
- *  @option {Boolean=true} [styles] generate csp attributes for styles.
- *  @option {Boolean=true} [scripts] generate csp attributes for scripts.
+ *  @option {Boolean=true} [styles] generate csp for styles.
+ *  @option {Boolean=true} [scripts] generate csp for scripts.
  *  @option {String} [sha] use sha algorithm (sha256, sha384 or sha512).
  *  @option {String=csp.txt} [text] name of the text output file.
  *  @option {String=csp.html} [html] name of the html output file.

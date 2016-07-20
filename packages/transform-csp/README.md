@@ -102,8 +102,8 @@ See https://www.w3.org/TR/CSP2/.
 #### Options
 
 * `self` Boolean=true include `'self'` in the output.
-* `styles` Boolean=true generate csp attributes for styles.
-* `scripts` Boolean=true generate csp attributes for scripts.
+* `styles` Boolean=true generate csp for styles.
+* `scripts` Boolean=true generate csp for scripts.
 * `sha` String use sha algorithm (sha256, sha384 or sha512).
 * `text` String=csp.txt name of the text output file.
 * `html` String=csp.html name of the html output file.

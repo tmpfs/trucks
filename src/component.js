@@ -223,11 +223,10 @@ class ComponentModule extends ComponentNode {
   }
 
   iterator(it) {
-
     it({entering: true, node: this});
 
     if(this.component) {
-      this.component.iterator(it);
+      it({entering: true, node: this.component});
     }
 
     this.templates.forEach((node) => {
@@ -241,6 +240,10 @@ class ComponentModule extends ComponentNode {
     this.javascript.forEach((node) => {
       node.iterator(it);
     })
+
+    if(this.component) {
+      it({entering: false, node: this.component});
+    }
 
     it({entering: false, node: this});
   }
@@ -499,14 +502,6 @@ class Component extends ComponentNode {
     this.styles = [];
   }
 
-  iterator(it) {
-    it({entering: true, node: this});
-
-    // all our children are duplicates of the module generic lists
-    // so emitting them here is not a good idea
-
-    it({entering: false, node: this});
-  }
 }
 
 module.exports = {

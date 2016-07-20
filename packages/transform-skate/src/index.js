@@ -58,15 +58,15 @@ module.exports = function skate(state, conf) {
 
       cb();
     },
-    'Component': (node, cb) => {
-      // pass in query selector for the compiler
-      conf.querySelectorAll = node.template.vdom;
+    leave: (node, cb) => {
+      if(node instanceof state.components.Component) {
+        // pass in query selector for the compiler
+        conf.querySelectorAll = node.template.vdom;
 
-      //console.log(conf.querySelectorAll.html(node.template.element));
-
-      let res = compiler.render(node.template.element, conf);
-      templates.push(res);
-      components.push(node); 
+        let res = compiler.render(node.template.element, conf);
+        templates.push(res);
+        components.push(node); 
+      }
 
       cb();
     }

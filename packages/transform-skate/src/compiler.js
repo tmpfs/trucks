@@ -340,12 +340,14 @@ function statics(prop, value, attrs) {
  *  @return mutated attributes object.
  */
 function attributes(attrs) {
-  for(let k in attrs) {
-    key(k, attrs[k], attrs); 
-    skip(k, attrs[k], attrs); 
-    statics(k, attrs[k], attrs); 
+  let o = {}, k;
+  for(k in attrs) {
+    o[k] = attrs[k];
+    key(k, attrs[k], o); 
+    skip(k, attrs[k], o); 
+    statics(k, attrs[k], o); 
   }
-  return attrs;
+  return o;
 }
 
 /**
@@ -415,7 +417,6 @@ function template(el, opts) {
         args = [t.stringLiteral(child.name)];
 
         // push attributes into function call when not empty
-        //let attrs = el.attr();
         let attrs = child.attribs;
         if(!isEmpty(attrs)) {
           let it = propertyString;

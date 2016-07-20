@@ -85,6 +85,7 @@ module.exports = function csp(state, conf) {
   }
 
   function policy(node, cb) {
+
     // only modify shadow dom scope 
     if(!node.isShadowScope()) {
       return cb();
@@ -103,18 +104,6 @@ module.exports = function csp(state, conf) {
     val = fn(node);
     if(nonce) {
       node.attr(name, val);
-
-      //console.log(node.attr());
-
-      //if(node.parent.parent.template) {
-        //console.log('has parent template element'); 
-        //console.log(node.parent === node.parent.template);
-
-      //}
-
-        //console.log(
-         //node.querySelectorAll.html(node.parent.template.element));
-
     }
 
     let item = {id: nonce ? NONCE : conf.sha, value: val};

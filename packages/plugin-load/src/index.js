@@ -1,12 +1,12 @@
-const fs = require('fs')
-    , path = require('path');
-
 /**
  *  Encapsulates the load state information.
  *
  *  @private {constructor} LoadState
  */
 function LoadInfo() {
+
+  // current import resolver
+  this.resolver = null;
 
   // keep track of processed files during load phase
   this.seen  = {
@@ -50,7 +50,10 @@ function cyclic(state, info, file, name) {
  *  @private {function} read
  */
 function read(state, group, parent, info, cb) {
-  const file = group.file;
+
+  // file path is now the resolved path
+  const file = group.file
+      , resolver = info.resolver;
 
   // cyclic dependency: must be tested before the logic to ignore 
   // duplicate components as we want to notify users on circular dependency
@@ -62,16 +65,18 @@ function read(state, group, parent, info, cb) {
 
   // duplicate component: do no not re-read components that have already 
   // been loaded
-  let pth = state.absolute(file);
+  //let pth = info.resolver.getCanonicalPath(parent);
 
-  if(~info.seen.imports.indexOf(pth)) {
-    group.duplicates.push(pth);
+  // TODO: ensure the file gets a reference to the existing parsed component
+  if(~info.seen.imports.indexOf(file)) {
+    group.duplicates.push(file);
     return cb();
   }
 
-  info.seen.imports.push(pth);
+  info.seen.imports.push(file);
 
-  fs.readFile(pth, (err, contents) => {
+  //fs.readFile(file, (err, contents) => {
+  resolver.getFileContents((err, contents) => {
     if(err) {
       return cb(err); 
     }
@@ -137,6 +142,14 @@ function sources(state, info, files, parent, cb) {
     parent = null;
   }
 
+  const url = require('url')
+      , FileResolver = require('./file').Resolver;
+ 
+  // default file resolver handler
+  let handler
+    // handler for a protocol
+    , resolver;
+
   state.each(
     files,
     (file, next) => {
@@ -147,14 +160,20 @@ function sources(state, info, files, parent, cb) {
         info.hierarchy = [];
       }
 
-      let base
-        , pth;
+      let pth
+        , uri = url.parse(file);
 
-      if(parent && parent.file) {
-        base = path.dirname(parent.file); 
+      handler = new FileResolver(state, file, uri, parent); 
+
+      // no scheme or file:// use the default handler
+      if(!uri.scheme || uri.scheme === FileResolver.SCHEME) {
+        resolver = handler;
       }
 
-      pth = state.absolute(file, base);
+      // reference to the current resolver
+      info.resolver = resolver;
+
+      pth = resolver.getCanonicalPath();
 
       if(!parent && ~info.seen.sources.indexOf(pth)) {
         // this could just ignore and move on to the next
@@ -165,27 +184,45 @@ function sources(state, info, files, parent, cb) {
 
       info.seen.sources.push(pth);
 
-      const group = new state.components.File(pth);
-      group.href = file;
+      // allow resolver to fetch remote resources
+      resolver.fetch(
+        (err) => {
+          if(err) {
+            return next(err); 
+          }
 
-      read(state, group, parent, info, (err) => {
-        if(err) {
-          return next(err); 
-        } 
+          // allow resolver to return new local path
+          const pth = resolver.getResolvedPath();
 
-        // add to root of tree hierarchy
-        if(!parent) {
-          state.tree.imports.push(group);
+          const group = new state.components.File(pth);
+          group.href = file;
+
+          read(state, group, parent, info, (err) => {
+            if(err) {
+              return next(err); 
+            } 
+
+            // add to root of tree hierarchy
+            if(!parent) {
+              state.tree.imports.push(group);
+            }
+
+            next();
+          });
         }
-
-        next();
-      });
+      );
     },
     cb
   );
 }
 
 function load(/*state, conf*/) {
+
+  // plugin registry for resolvers
+  //const registry = conf.registry || [];
+
+  //console.log(registry);
+
   return function load(state, cb) {
     if(!state.files || !state.files.length) {
       return cb(new Error('no input files specified'));

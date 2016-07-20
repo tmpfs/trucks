@@ -195,16 +195,16 @@ class ComponentModule extends ComponentNode {
     // list of parsed templates
     this.templates = [];
 
-    // list of all styles parsed
+    // list of all styles and scripts parsed
     // includes those within dom-module (global) 
     // and those within template elements (component local)
     this.stylesheets = [];
+    this.javascript = [];
 
-    // list of global styles parsed
-    // as dom-module > style
+    // list of global styles parsed as dom-module > style
     this.styles = [];
 
-    // list of parsed javascript
+    // list of global javascript parsed as dom-module > script
     this.scripts = [];
 
     // injected during the parse phase
@@ -227,7 +227,7 @@ class ComponentModule extends ComponentNode {
       node.iterator(it);
     })
 
-    this.scripts.forEach((node) => {
+    this.javascript.forEach((node) => {
       node.iterator(it);
     })
 
@@ -347,13 +347,7 @@ class ComponentTemplate extends ComponentTrait {
 const DOCUMENT_SCOPE = '::document'
     , SHADOW_SCOPE = '::shadow';
 
-/**
- *  Represents a style defined by a `<style>` or `<link>` element.
- *
- *  @public {class} ComponentStyle
- *  @inherits ComponentTrait
- */
-class ComponentStyle extends ComponentTrait {
+class ScopedTrait extends ComponentTrait {
   constructor() {
     super(...arguments);
     this._scope = DOCUMENT_SCOPE;
@@ -376,6 +370,18 @@ class ComponentStyle extends ComponentTrait {
   }
 }
 
+/**
+ *  Represents a style defined by a `<style>` or `<link>` element.
+ *
+ *  @public {class} ComponentStyle
+ *  @inherits ComponentTrait
+ */
+class ComponentStyle extends ScopedTrait {
+  constructor() {
+    super(...arguments);
+  }
+}
+
 // expose scope constants
 ComponentStyle.DOCUMENT = DOCUMENT_SCOPE;
 ComponentStyle.SHADOW = SHADOW_SCOPE;
@@ -386,7 +392,7 @@ ComponentStyle.SHADOW = SHADOW_SCOPE;
  *  @public {class} ComponentScript
  *  @inherits ComponentTrait
  */
-class ComponentScript extends ComponentTrait {
+class ComponentScript extends ScopedTrait {
   constructor() {
     super(...arguments);
   }
@@ -424,10 +430,14 @@ class Component extends ComponentNode {
     // list of component local styles that
     // will exist within the shadow DOM
     this.styles = [];
+
+    // list of component local scripts
+    // within <template> elements
+    this._scripts = [];
   }  
 
   get scripts() {
-    return this.parent.scripts;
+    return this._scripts;
   }
 
   get id() {

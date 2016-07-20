@@ -27,6 +27,7 @@
 [generate]: /packages/plugin-generate
 [write]: /packages/plugin-write
 
+[transform-csp]: /packages/transform-csp
 [skate]: /packages/transform-skate
 [stylus]: /packages/transform-stylus
 [less]: /packages/transform-less

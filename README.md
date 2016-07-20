@@ -482,6 +482,7 @@ Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blo
 
 ### Styles
 
+* [transform-csp][] Content security policy transformations.
 * [style-extract][] Write stylesheets for each component.
 * [style-inject][] Read and overwrite stylesheets for each component.
 
@@ -534,6 +535,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 20, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less

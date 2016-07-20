@@ -92,6 +92,7 @@ Existing transform plugins are in [packages](/packages).
 
 ### Styles
 
+* [transform-csp][] Content security policy transformations.
 * [style-extract][] Write stylesheets for each component.
 * [style-inject][] Read and overwrite stylesheets for each component.
 

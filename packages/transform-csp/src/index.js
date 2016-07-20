@@ -3,6 +3,8 @@ const crypto = require('crypto')
     , SHA256 = 'sha256'
     , SHA384 = 'sha384'
     , SHA512 = 'sha512'
+    , HTML = 'csp.html'
+    , TXT = 'csp.txt'
     , HEX = 'hex'
     , BASE64 = 'base64'
     , NONCE = 'nonce'
@@ -19,15 +21,22 @@ function getNonce(node, digest) {
 
 function getHash(node, algorithm) {
   return function() {
-    const hash = crypto.createHash(algorithm || SHA256);
+    const hash = crypto.createHash(algorithm);
     hash.update(node.contents);
     return hash.digest(BASE64);
   }
 }
 
 /**
- *  Write `nonce` and `sha` content security policy attributes to inline 
- *  styles.
+ *  Write `nonce` content security policy attributes to inline styles.
+ *
+ *  This transform generates the files `csp.html` containing a `<meta>` 
+ *  element describing the content security policy and a `csp.txt` file 
+ *  containing a value suitable for appending to a `Content-Security-Policy` 
+ *  HTTP header.
+ *
+ *  When the `sha` option is specified attributes are not added but the output 
+ *  will be base64 encoded versions of the element contents.
  *
  *  @public {function} csp
  *  @param {Object} state compiler state.
@@ -35,6 +44,10 @@ function getHash(node, algorithm) {
  *  @option {Boolean=true} [self] include `'self'` in the output.
  *  @option {Boolean=true} [styles] generate csp attributes for styles.
  *  @option {Boolean=false} [scripts] generate csp attributes for scripts.
+ *  @option {String} [sha] use sha algorithm (sha256, sha384 or sha512).
+ *  @option {String=csp.txt} [text] name of the text output file.
+ *  @option {String=csp.html} [html] name of the html output file.
+ *  @option {String} [dir] override default output directory.
  *
  *  @returns map of visitor functions.
  *
@@ -53,14 +66,25 @@ module.exports = function csp(state, conf) {
       , components = state.components
       , Style = components.Style;
 
+  let txt = TXT
+    , html = HTML;
+
+  if(conf.text === String(conf.text)) {
+    txt = conf.text; 
+  }
+
+  if(conf.html === String(conf.html)) {
+    html = conf.html; 
+  }
+
   if(conf.sha && !~SHA.indexOf(conf.sha)) {
     throw new Error(
       `invalid sha value ${conf.sha}, expcting one of ${SHA.join(', ')}`); 
   }
 
   function policy(node, cb) {
-    // only modify inline content
-    if(!node.inline) {
+    // only modify shadow dom scope 
+    if(!node.isShadowScope()) {
       return cb();
     }
 
@@ -129,18 +153,22 @@ module.exports = function csp(state, conf) {
       })
 
       // write out header file
-      const headerFile = state.getFile('csp.txt', state.options.out);
+      const headerFile = state.getFile(
+        txt, conf.dir || state.options.out);
+
       headerFile.contents = [rules.join('; ')];
 
       // write out meta file
-      const metaFile = state.getFile('csp.html', state.options.out);
+      const metaFile = state.getFile(
+        html, conf.dir || state.options.out);
+
       metaFile.contents = [
         '<meta http-equiv="Content-Security-Policy"'
         + ' content="' + rules.join('; ') + '"'
         + '>'
       ];
 
-      cb();
+     cb();
     }
   };
 

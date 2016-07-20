@@ -4,15 +4,22 @@ var expect = require('chai').expect
 
 describe('csp:', function() {
 
-  it('should use default csp options', function(done) {
+  it('should disable self option', function(done) {
     const src = '../../test/fixtures/component-style/components.html';
     trucks(
       {
         files: [src],
         out: 'target',
-        name: 'csp-default-options',
+        name: 'csp-self-option',
         force: true,
-        transforms: [require('../../src'), 'skate/src']
+        transforms: [require('../../src'), 'skate/src'],
+        conf: {
+          transforms: {
+            csp: {
+              self: false
+            }
+          }
+        }
       }, (err, state) => {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
@@ -26,9 +33,8 @@ describe('csp:', function() {
                 state.getFile('csp.txt', 'target').file).toString()
 
         expect(/nonce="([^"]+)"/.test(style.contents)).to.eql(true);
-
-        expect(/style-src 'self' nonce-/.test(meta)).to.eql(true);
-        expect(/^style-src 'self' nonce-/.test(txt)).to.eql(true);
+        expect(/style-src nonce-/.test(meta)).to.eql(true);
+        expect(/^style-src nonce-/.test(txt)).to.eql(true);
 
         done();
       }

@@ -70,6 +70,7 @@ See https://www.w3.org/TR/CSP2/.
 
 #### Options
 
+* `self` Boolean=true include `'self'` in the output.
 * `styles` Boolean=true generate csp attributes for styles.
 * `scripts` Boolean=false generate csp attributes for scripts.
 

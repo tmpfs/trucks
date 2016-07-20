@@ -36,11 +36,11 @@ describe('csp:', function() {
         expect(style.attr('nonce')).to.be.a('string');
         expect(script.attr('nonce')).to.be.a('string');
 
-        expect(/style-src 'self' nonce-/.test(meta)).to.eql(true);
-        expect(/style-src 'self' nonce-/.test(txt)).to.eql(true);
+        expect(/style-src 'self' 'nonce-/.test(meta)).to.eql(true);
+        expect(/style-src 'self' 'nonce-/.test(txt)).to.eql(true);
 
-        expect(/script-src 'self' nonce-/.test(meta)).to.eql(true);
-        expect(/script-src 'self' nonce-/.test(txt)).to.eql(true);
+        expect(/script-src 'self' 'nonce-/.test(meta)).to.eql(true);
+        expect(/script-src 'self' 'nonce-/.test(txt)).to.eql(true);
 
         done();
       }

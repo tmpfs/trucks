@@ -250,9 +250,24 @@ function map(templates, opts) {
  */
 function getObjectExpression(t, map, it) {
   const out = [];
+  let val;
+
+  if(map === String(map)) {
+    return it(map); 
+  }
   for(let k in map) {
+    if(Array.isArray(map[k])) {
+      val = [];
+      map[k].forEach((item) => {
+        val.push(getObjectExpression(t, item, it)); 
+      })
+
+      val = t.arrayExpression(val);
+    }else{
+      val = it(map[k]);
+    }
     out.push(
-      t.objectProperty(t.stringLiteral(k), it(map[k]))
+      t.objectProperty(t.stringLiteral(k), val)
     );
   }
   return t.objectExpression(out);
@@ -324,8 +339,9 @@ function statics(prop, value, attrs) {
   let key;
   if(DATA_STATIC.test(prop)) {
     key = prop.replace(DATA_STATIC, '$1');
-    attrs.statics = attrs.statics || {};
-    attrs.statics[key] = value;
+    attrs.statics = attrs.statics || [];
+    attrs.statics.push(key);
+    attrs[key] = value;
     delete attrs[prop];
   }
   return attrs;
@@ -395,8 +411,12 @@ function template(el, opts) {
   }
 
   function propertyTemplate(val) {
-    return babel.transform(
-      '`' + val  + '`').ast.program.body[0].expression;
+    if(val === String(val)) {
+      return babel.transform(
+        '`' + val  + '`').ast.program.body[0].expression;
+    }else if(val && val === Object(val)) {
+      return getObjectExpression(t, val, propertyTemplate); 
+    }
   }
 
   function convert(childNodes, body) {

@@ -21,9 +21,8 @@ describe('compiler:', function() {
 
       const result = babel.transformFromAst(res.list[0].body);
       expect(result.code).to.eql('skate.vdom.element("style", {\n'
-        + '  "statics": {\n'
-        + '    "nonce": "UID"\n'
-        + '  }\n'
+        + '  "statics": ["nonce"],\n'
+        + '  "nonce": "UID"\n'
         + '});');
 
       done();

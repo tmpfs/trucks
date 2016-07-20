@@ -94,7 +94,7 @@ module.exports = function csp(state, conf) {
     let fn = getNonce
       , isStyle = (node instanceof Style)
       , nonce = (conf.sha === undefined)
-      , name = conf.statics ? STATIC : NONCE
+      //, name = conf.statics ? STATIC : NONCE
       , val;
 
     if(conf.sha) {
@@ -103,7 +103,10 @@ module.exports = function csp(state, conf) {
 
     val = fn(node);
     if(nonce) {
-      node.attr(name, val);
+      if(conf.statics) {
+        node.attr(STATIC, val);
+      }
+      node.attr(NONCE, val);
     }
 
     let item = {id: nonce ? NONCE : conf.sha, value: val};
@@ -119,7 +122,7 @@ module.exports = function csp(state, conf) {
 
   function values(list) {
     let values = list.map((item) => {
-      return item.id + '-' + item.value;
+      return "'" + item.id + '-' + item.value + "'";
     })
 
     if(conf.self) {

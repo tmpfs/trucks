@@ -1,11 +1,11 @@
 const express = require('express')
+  , fs = require('fs')
+  , config = fs.readFileSync(__dirname + '/build/csp.txt').toString()
   , app = express();
 
 app.get('*', (req, res, next) => {
-  //const policy = "default-src 'self'; style-src 'self' 'unsafe-inline'";
-  //const policy = "default-src 'self'";
-  //const policy = "default-src 'self'; style-src 'self' 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3';";
-  //res.set('Content-Security-Policy', policy);
+  const policy = "default-src 'self'; " + config;
+  res.set('Content-Security-Policy', policy);
   next();
 });
 

@@ -85,11 +85,18 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
 ```javascript
 module.exports = {
   files: ['doc/example/components.html'],
-  transforms: ['trim', 'skate'],
+  transforms: ['trim', 'csp', 'skate'],
   out: 'doc/example/build',
   force: true,
-  compiler: {
-    literals: true
+  conf: {
+    transforms: {
+      csp: {
+        statics: true 
+      },
+      skate: {
+        literals: true
+      }
+    }
   }
 }
 ```
@@ -101,22 +108,49 @@ Compiled javascript:
 ```javascript
 const templates = {
   "x-panel": function render(elem) {
-    skate.vdom.element("style", () => {
-      skate.vdom.text("\n      /*\n        Inline styles for the shadow DOM.\n      */\n      * {\n        font-family: sans-serif;\n        color: white;\n      }\n\n      p, ::content p {\n        margin: 0; \n        padding: 1em;\n      }\n\n      .title {\n        background: black;\n        cursor: pointer;\n      }\n\n      .content {\n        min-height: 10em;\n        background: gray;\n      }\n\n    ");
+    skate.vdom.element("style", {
+      "statics": [`nonce`],
+      "nonce": `9ed22a2142b674ad1c41cf796554f822721d6055`
+    }, () => {
+      skate.vdom.text(`
+      /*
+        Inline styles for the shadow DOM.
+      */
+      * {
+        font-family: sans-serif;
+        color: white;
+      }
+
+      p, ::content p {
+        margin: 0; 
+        padding: 1em;
+      }
+
+      .title {
+        background: black;
+        cursor: pointer;
+      }
+
+      .content {
+        min-height: 10em;
+        background: gray;
+      }
+
+    `);
     });
     skate.vdom.element("div", {
-      "class": "container"
+      "class": `container`
     }, () => {
       skate.vdom.element("p", {
-        "class": "title"
+        "class": `title`
       }, () => {
-        skate.vdom.text("${this.title}");
+        skate.vdom.text(`${ this.title }`);
       });
       skate.vdom.element("div", {
-        "class": "content"
+        "class": `content`
       }, () => {
         skate.vdom.element("slot", {
-          "name": "content"
+          "name": `content`
         }, () => {});
       });
     });
@@ -142,28 +176,7 @@ skate.define('x-panel', {
 Compiled stylesheet:
 
 ```css
-  /*
-    Inline styles for the shadow DOM.
-  */
-  * {
-    font-family: sans-serif;
-    color: white;
-  }
 
-  p, ::content p {
-    margin: 0; 
-    padding: 1em;
-  }
-
-  .title {
-    background: black;
-    cursor: pointer;
-  }
-
-  .content {
-    min-height: 10em;
-    background: gray;
-  }
 ```
 
 ### Markup
@@ -172,8 +185,6 @@ Compiled stylesheet:
 <!doctype html>
 <html>
   <head>
-    <!--<meta http-equiv="Content-Security-Policy" content="style-src 'self' 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3';">-->
-    <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline';">
     <script src="skate-1.0.0-beta.7.js"></script>
     <script src="build/components.js"></script>
   </head>
@@ -187,7 +198,7 @@ Compiled stylesheet:
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 20, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -217,8 +228,16 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
-[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

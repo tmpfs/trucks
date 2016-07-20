@@ -35,8 +35,8 @@ describe('csp:', function() {
 
         expect(script.attr('nonce')).to.be.a('string');
 
-        expect(/script-src 'self' nonce-/.test(meta)).to.eql(true);
-        expect(/^script-src 'self' nonce-/.test(txt)).to.eql(true);
+        expect(/script-src 'self' 'nonce-/.test(meta)).to.eql(true);
+        expect(/^script-src 'self' 'nonce-/.test(txt)).to.eql(true);
 
         done();
       }

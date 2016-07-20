@@ -29,8 +29,8 @@ describe('csp:', function() {
             , txt = fs.readFileSync(
                 state.getFile('csp.txt', 'target').file).toString()
 
-        expect(/style-src 'self' sha512-/.test(meta)).to.eql(true);
-        expect(/^style-src 'self' sha512-/.test(txt)).to.eql(true);
+        expect(/style-src 'self' 'sha512-/.test(meta)).to.eql(true);
+        expect(/^style-src 'self' 'sha512-/.test(txt)).to.eql(true);
 
         done();
       }

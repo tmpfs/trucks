@@ -63,8 +63,7 @@ function main(argv, conf, cb) {
       return cb(err); 
     }
 
-    let plugins = []
-      , transforms = [];
+    let plugins = [];
 
     if((this.printImports || this.printTree) && this.printManifest) {
       return cb(
@@ -75,15 +74,22 @@ function main(argv, conf, cb) {
     if(this.printImports || this.printTree) {
       plugins = [
         this.printTree ? trucks.SOURCES : trucks.LOAD, trucks.TRANSFORM];
-      transforms = ['tree'];
+      this.transforms = ['tree'];
     }
 
     if(plugins.length) {
       this.plugins = plugins;
     }
 
-    this.transforms = transforms;
+    //this.transforms = transforms;
     this.files = req.unparsed;
+
+    this.transforms = this.transforms.reduce((prev, next) => {
+      if(~next.indexOf(',')) {
+        next = next.split(/\s*,\s*/); 
+      }
+      return prev.concat(next); 
+    }, [])
 
     if(this.printManifest && !this.manifest) {
       this.manifest = true; 

@@ -62,7 +62,9 @@ trucks [\-fh] [\-\-force] [\-\-print\-imports] [\-\-print\-tree] [\-\-print\-man
 .br
        [\-\-help] [\-\-version] [\-\-out <dir>] [\-\-name <val>] [\-\-html <file>] [\-\-css
 .br
-       <file>] [\-\-js <file>] [\-\-rc <file...>] [\-\-manifest <file>] [files...]
+       <file>] [\-\-js <file>] [\-\-transforms <name...>] [\-\-rc <file...>]
+.br
+       [\-\-extract <dir>] [\-\-inject <dir>] [\-\-manifest <file>] [files...]
 .nl
 .h1 "DESCRIPTION"
 .P
@@ -90,8 +92,20 @@ Compiles web components to separate files for javascript, styles and template ma
  Javascript output file
 .nl
 .TP
+\fB\-t, \-\-transforms\fR [\fIname\fR...]
+ Run transform plugins
+.nl
+.TP
 \fB\-c, \-\-rc\fR [\fIfile\fR...]
  Configuration files to require
+.nl
+.TP
+\fB\-e, \-\-extract\fR [\fIdir\fR]
+ Extract shadow styles to directory
+.nl
+.TP
+\fB\-i, \-\-inject\fR [\fIdir\fR]
+ Inject shadow styles from directory
 .nl
 .TP
 \fB\-a, \-\-manifest\fR [\fIfile\fR]
@@ -111,7 +125,7 @@ Compiles web components to separate files for javascript, styles and template ma
 .nl
 .TP
 \fB\-\-print\-manifest\fR
- Print the file manifest
+ Print the generated files manifest
 .nl
 .TP
 \fB\-h, \-\-help\fR
@@ -128,3 +142,12 @@ By default files are written to the current working directory. The \fB\-\-out\fR
 .P
 The \fB\-\-html\fR, \fB\-\-css\fR and \fB\-\-js\fR option allows setting specific paths for each output file type, in this case they override any paths generated using the \fB\-\-out\fR and \fB\-\-name\fR options and the file extension should be specified.
 .nl
+.h1 "TRANSFORMS"
+.P
+Transforms can be specified using the name or a comma\-separated list of names:
+.nl
+.PP
+.in 12
+trucks \-t trim \-t skate components.html
+.br
+trucks \-t trim,skate components.html

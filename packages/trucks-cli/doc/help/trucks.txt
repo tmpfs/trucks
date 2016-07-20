@@ -1,7 +1,8 @@
 Usage: trucks [-fh] [--force] [--print-imports] [--print-tree]
               [--print-manifest] [--help] [--version] [--out <dir>] [--name
-              <val>] [--html <file>] [--css <file>] [--js <file>] [--rc
-              <file...>] [--manifest <file>] [files...]
+              <val>] [--html <file>] [--css <file>] [--js <file>] [--transforms
+              <name...>] [--rc <file...>] [--extract <dir>] [--inject <dir>]
+              [--manifest <file>] [files...]
 
   Compiles web components.
 
@@ -11,12 +12,16 @@ Options
   -m, --html=[file]       Template output file
   -s, --css=[file]        Stylesheet output file
   -j, --js=[file]         Javascript output file
+  -t, --transforms=[name...]   
+                          Run transform plugins
   -c, --rc=[file...]      Configuration files to require
+  -e, --extract=[dir]     Extract shadow styles to directory
+  -i, --inject=[dir]      Inject shadow styles from directory
   -a, --manifest=[file]   Write manifest to file
   -f, --force             Force overwrite existing files
   --print-imports         Print the file hierarchy
   --print-tree            Print the component tree hierarchy
-  --print-manifest        Print the file manifest
+  --print-manifest        Print the generated files manifest
   -h, --help              Display help and exit
   --version               Print the version and exit
 

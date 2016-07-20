@@ -77,6 +77,19 @@
       "multiple": false,
       "name": "--js"
     },
+    "transforms": {
+      "key": "transforms",
+      "description": "Run transform plugins",
+      "names": [
+        "-t",
+        "--transforms"
+      ],
+      "type": "option",
+      "extra": " [name...]",
+      "required": false,
+      "multiple": true,
+      "name": "--transforms"
+    },
     "rc": {
       "key": "rc",
       "description": "Configuration files to require",
@@ -89,6 +102,32 @@
       "required": false,
       "multiple": true,
       "name": "--rc"
+    },
+    "extract": {
+      "key": "extract",
+      "description": "Extract shadow styles to directory",
+      "names": [
+        "-e",
+        "--extract"
+      ],
+      "type": "option",
+      "extra": " [dir]",
+      "required": false,
+      "multiple": false,
+      "name": "--extract"
+    },
+    "inject": {
+      "key": "inject",
+      "description": "Inject shadow styles from directory",
+      "names": [
+        "-i",
+        "--inject"
+      ],
+      "type": "option",
+      "extra": " [dir]",
+      "required": false,
+      "multiple": false,
+      "name": "--inject"
     },
     "manifest": {
       "key": "manifest",
@@ -133,7 +172,7 @@
     },
     "printManifest": {
       "key": "printManifest",
-      "description": "Print the file manifest",
+      "description": "Print the generated files manifest",
       "names": [
         "--print-manifest"
       ],

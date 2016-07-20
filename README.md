@@ -482,7 +482,7 @@ Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blo
 
 ### Styles
 
-* [transform-csp][] Content security policy transformations.
+* [csp][transform-csp] Content security policy transformations.
 * [style-extract][] Write stylesheets for each component.
 * [style-inject][] Read and overwrite stylesheets for each component.
 

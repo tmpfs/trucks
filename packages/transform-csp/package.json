@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-csp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Content security policy nonce and sha checksums",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

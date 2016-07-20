@@ -287,6 +287,7 @@ class ComponentTrait extends ComponentNode {
     this.href = href;
     this._file = file;
     this._id = null;
+    //console.log(Object.keys(this.element));
   }
 
   set id(val) {

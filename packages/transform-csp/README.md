@@ -58,8 +58,15 @@ trucks(
 public csp(state, conf)
 ```
 
-Write `nonce` and `sha` content security policy attributes to inline
-styles.
+Write `nonce` content security policy attributes to inline styles.
+
+This transform generates the files `csp.html` containing a `<meta>`
+element describing the content security policy and a `csp.txt` file
+containing a value suitable for appending to a `Content-Security-Policy`
+HTTP header.
+
+When the `sha` option is specified attributes are not added but the output
+will be base64 encoded versions of the element contents.
 
 Returns map of visitor functions.
 
@@ -73,6 +80,11 @@ See https://www.w3.org/TR/CSP2/.
 * `self` Boolean=true include `'self'` in the output.
 * `styles` Boolean=true generate csp attributes for styles.
 * `scripts` Boolean=false generate csp attributes for scripts.
+* `sha` String use sha algorithm (sha256, sha384 or sha512).
+* `text` String=csp.txt name of the text output file.
+* `html` String=csp.html name of the html output file.
+* `dir` String override default output directory.
+* `statics` Boolean=false prefix attributes with `data-static-`.
 
 ## License
 

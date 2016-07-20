@@ -8,6 +8,7 @@ const crypto = require('crypto')
     , HEX = 'hex'
     , BASE64 = 'base64'
     , NONCE = 'nonce'
+    , STATIC = 'data-static-' + NONCE
     , STYLE_SRC = 'style-src'
     , SCRIPT_SRC = 'script-src'
     , SELF = "'self'"
@@ -48,6 +49,7 @@ function getHash(node, algorithm) {
  *  @option {String=csp.txt} [text] name of the text output file.
  *  @option {String=csp.html} [html] name of the html output file.
  *  @option {String} [dir] override default output directory.
+ *  @option {Boolean=false} [statics] prefix attributes with `data-static-`.
  *
  *  @returns map of visitor functions.
  *
@@ -91,7 +93,7 @@ module.exports = function csp(state, conf) {
     let fn = getNonce
       , isStyle = (node instanceof Style)
       , nonce = (conf.sha === undefined)
-      , name = NONCE
+      , name = conf.statics ? STATIC : NONCE
       , val;
 
     if(conf.sha) {
@@ -105,7 +107,7 @@ module.exports = function csp(state, conf) {
       node.contents = node.querySelectorAll.html(node.element);
     }
 
-    let item = {id: nonce ? name : conf.sha, value: val};
+    let item = {id: nonce ? NONCE : conf.sha, value: val};
 
     if(isStyle) {
       manifest.styles.push(item);

@@ -20,7 +20,7 @@ function dirs(cb) {
 
       try {
         item.package = require(
-          './' + path.join(item.file, 'package.json')) 
+          path.join(__dirname, item.file, 'package.json')) 
       }catch(e) {
         // do not add invalid project folders 
         return; 

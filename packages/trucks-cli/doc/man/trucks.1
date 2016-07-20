@@ -151,3 +151,21 @@ Transforms can be specified using the name or a comma\-separated list of names:
 trucks \-t trim \-t skate components.html
 .br
 trucks \-t trim,skate components.html
+.h1 "SHADOW STYLES"
+.P
+When using third\-party component you may wish to override the component styles.
+.nl
+.P
+Use the \fB\-\-extract\fR option to write individual stylesheet files per component, you can then modify these stylesheets and inject them later using the \fB\-\-inject\fR option.
+.nl
+.PP
+.in 12
+mkdir \-p src/components/css
+.br
+trucks components.html \-o build \-\-extract src/components/css
+.P
+Edit the generated stylesheets then apply the overriden styles:
+.nl
+.PP
+.in 12
+trucks components.html \-o build \-\-inject src/components/css

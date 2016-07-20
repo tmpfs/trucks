@@ -49,3 +49,20 @@ Transforms can be specified using the name or a comma-separated list of names:
 trucks -t trim -t skate components.html
 trucks -t trim,skate components.html
 ```
+
+# Shadow Styles
+
+When using third-party component you may wish to override the component styles.
+
+Use the `--extract` option to write individual stylesheet files per component, you can then modify these stylesheets and inject them later using the `--inject` option.
+
+```
+mkdir -p src/components/css
+trucks components.html -o build --extract src/components/css
+```
+
+Edit the generated stylesheets then apply the overriden styles:
+
+```
+trucks components.html -o build --inject src/components/css
+```

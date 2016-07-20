@@ -26,8 +26,10 @@ function inject(state, conf) {
     file = state.absolute(filename, dir);
     href = path.join(dir, filename);
 
+    //console.log('inject %s', file);
+
     fs.readFile(file, (err, contents) => {
-      /* istanbul ignore next: touch to mock an error here */
+      /* istanbul ignore next: tough to mock an error here */
       if(err && err.code !== 'ENOENT') {
         return cb(err); 
       } 
@@ -40,13 +42,17 @@ function inject(state, conf) {
         node.styles.push(
           // mock an element
           new Style(
+            //state.parse(
+              //`<link rel="stylesheet" href="${href}">`)('link').get(0),
             state.parse(
-              `<link rel="stylesheet" href="${href}">`)('link').get(0),
+              `<style>${contents.toString()}</style>`)('style').get(0),
             contents.toString(),
             node,
             href
           )
         );
+
+        //console.dir(node.styles);
       }
       cb();
     })

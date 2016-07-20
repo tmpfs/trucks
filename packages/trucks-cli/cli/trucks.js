@@ -65,6 +65,10 @@ function main(argv, conf, cb) {
 
     let plugins = [];
 
+    this.conf = this.conf || {};
+    this.conf.plugins = this.conf.plugins || {};
+    this.conf.transforms = this.conf.transforms || {};
+
     /* istanbul ignore next: don't want to write to cwd in test env */
     if(!this.out) {
       this.out = process.cwd();
@@ -74,12 +78,28 @@ function main(argv, conf, cb) {
       transforms: []
     }
 
+    this.before = {
+      transforms: []
+    }
+
     if(this.extract !== undefined) {
       // allows --extract= to defer to default output
       if(!this.extract) {
         this.extract = this.out; 
       }
+
+      this.conf.transforms['style-extract'] = {dir: this.extract};
       this.after.transforms.push('style-extract'); 
+    }
+
+    if(this.inject !== undefined) {
+      // allows --inject= to defer to default output
+      if(!this.inject) {
+        this.inject = this.out; 
+      }
+
+      this.conf.transforms['style-inject'] = {dir: this.inject};
+      this.before.transforms.push('style-inject/src'); 
     }
 
     if((this.printImports || this.printTree) && this.printManifest) {

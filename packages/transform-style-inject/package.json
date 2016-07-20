@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-style-inject",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Read component styles from files",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

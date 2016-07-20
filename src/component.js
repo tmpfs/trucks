@@ -143,9 +143,20 @@ class ComponentFile extends ComponentImport {
     // by another component definition
     this.duplicates = [];
 
+    // document DOM
+    this._document = null;
+
     // query for the DOM of this document
     // injected during the load phase
     this.querySelectorAll = null;
+  }
+
+  set vdom(val) {
+    this._document = val; 
+  }
+
+  get vdom() {
+    return this._document; 
   }
 
   iterator(it) {
@@ -234,6 +245,10 @@ class ComponentModule extends ComponentNode {
     it({entering: false, node: this});
   }
 
+  get vdom() {
+    return this.parent.vdom;
+  }
+
   get file() {
     return this.parent.file;
   }
@@ -301,6 +316,10 @@ class ComponentTrait extends ComponentNode {
       this.element.attribs = name;
     }
     return this.element.attribs;
+  }
+
+  get vdom() {
+    return this.parent.vdom;
   }
 
   set id(val) {
@@ -448,7 +467,11 @@ class Component extends ComponentNode {
     // list of component local scripts
     // within <template> elements
     this._scripts = [];
-  }  
+  }
+
+  get vdom() {
+    return this.parent.vdom;
+  }
 
   get scripts() {
     return this._scripts;

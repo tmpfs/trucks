@@ -64,10 +64,7 @@ function getIterator(state, mod, context) {
 }
 
 function read(state, types, iterator, cb) {
-  state.each(
-    types,
-    iterator,
-    cb);
+  state.each(types, iterator, cb);
 }
 
 /**
@@ -102,6 +99,7 @@ function component(state, mod, context, cb) {
       } 
 
       // found primary component template
+      // so parse out partials and deeper shadow elements
       if(mod.component) {
 
         state.each(
@@ -126,7 +124,6 @@ function component(state, mod, context, cb) {
                 reader,
                 (traits, next) => {
                   traits.forEach((trait) => {
-                    trait.querySelectorAll = state.parse(trait.contents);
 
                     // assign style scope
                     trait.scope = Style.SHADOW;
@@ -145,28 +142,6 @@ function component(state, mod, context, cb) {
             }
 
             read(state, types, it, next);
-
-            // read in style traits defined in the <template> context
-            // these are component styles that should be applied to the 
-            // shadow DOM
-            //const reader = new readers.Style(
-                    //mod, Style, selectors.styles, components)
-                //, iterator = getIterator(state, mod, template.element)
-
-            //iterator(
-              //reader,
-              //(traits, next) => {
-                //traits.forEach((trait) => {
-                  //trait.querySelectorAll = state.parse(trait.contents);
-
-                  //// assign style scope
-                  //trait.scope = Style.SHADOW;
-
-                  //mod.component.styles.push(trait);
-                  //trait.parent.stylesheets.push(trait);
-                //})
-                //next();
-              //}, next)
           }, cb);
 
       }else{
@@ -178,22 +153,6 @@ function component(state, mod, context, cb) {
 
 function parse(/*state, conf*/) {
 
-  //const readers = require('./reader')
-    //, selectors = state.selectors
-    //, components = state.components
-    //, Template = components.Template
-    //, Style = components.Style
-    //, Script = components.Script
-    //, types = [
-        //new readers.Template(
-          //mod, Template, selectors.templates, components), 
-        //new readers.Style(
-          //mod, Style, selectors.styles, components), 
-        //new readers.Script(
-          //mod, Script, selectors.scripts, components)
-      //]
-    //, iterator = getIterator(state, mod, context);
-
   return function parse(state, cb) {
     const Module = state.components.Module;
 
@@ -201,7 +160,7 @@ function parse(/*state, conf*/) {
       state.tree.getFiles(),
       (group, next) => {
         // parse all the <dom-module> elements
-        const $ = group.querySelectorAll
+        const $ = group.vdom
           , elements = $(state.selectors.modules).toArray();
 
         state.each(
@@ -223,9 +182,6 @@ function parse(/*state, conf*/) {
             }catch(e) {
               return next(e); 
             }
-
-            // proxy document query function
-            mod.querySelectorAll = $;
 
             // add to local list of modules
             group.modules.push(mod);

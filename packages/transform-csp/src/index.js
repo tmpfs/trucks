@@ -104,9 +104,13 @@ module.exports = function csp(state, conf) {
     if(nonce) {
       node.attr(name, val);
 
-      console.log(node.attr());
+      //console.log(node.attr());
 
-      console.log(node.element.parent === node.parent.template);
+      //if(node.parent.parent.template) {
+        //console.log('has parent template element'); 
+        //console.log(node.parent === node.parent.template);
+
+      //}
 
         //console.log(
          //node.querySelectorAll.html(node.parent.template.element));

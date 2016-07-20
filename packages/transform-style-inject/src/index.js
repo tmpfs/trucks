@@ -38,9 +38,10 @@ function inject(state, conf) {
         node.clearStyles();
 
         node.styles.push(
+          // mock an element
           new Style(
             state.parse(
-              `<link rel="stylesheet" href="${href}">`),
+              `<link rel="stylesheet" href="${href}">`)('link').get(0),
             contents.toString(),
             node,
             href

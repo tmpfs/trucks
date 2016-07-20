@@ -88,7 +88,11 @@ function read(state, group, parent, info, cb) {
       parent.imports.unshift(group); 
     }
 
-    group.querySelectorAll = state.parse(group.contents);
+    // new api
+    group.vdom =  state.parse(group.contents);
+
+    // backwards compat
+    group.querySelectorAll = group.vdom;
 
     const $ = group.querySelectorAll
       , dependencies = $(state.selectors.imports);

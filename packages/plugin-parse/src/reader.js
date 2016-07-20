@@ -1,6 +1,6 @@
 const fs = require('fs')
     , path = require('path')
-    , TEMPLATE = 'template'
+    //, TEMPLATE = 'template'
     , ID = 'id'
     , HREF = 'href'
     , SRC = 'src';
@@ -18,8 +18,10 @@ class TraitReader {
     // reference to the components classes
     this.components = components;
 
-    // proxy the document query function
-    this.querySelectorAll = module.querySelectorAll;
+  }
+
+  get vdom() {
+    return this.parent.vdom;
   }
 
   getTrait(el) {
@@ -27,23 +29,22 @@ class TraitReader {
   }
 
   getInlineContents(el, $) {
-    $ = $ || this.querySelectorAll;
+    $ = $ || this.vdom;
     return $(el).text();
   }
 
   isInline(el, $) {
-    $ = $ || this.querySelectorAll;
+    $ = $ || this.vdom;
     return $(el).attr(HREF) === undefined && $(el).attr(SRC) === undefined;
   }
 
   getExternalHref(el, $) {
-    $ = $ || this.querySelectorAll;
+    $ = $ || this.vdom;
     return $(el).attr(HREF) 
   }
 
   getElements(context, selector, $) {
-    //console.log('get elements %s', this.parent.querySelectorAll);
-    $ = $ || this.querySelectorAll;
+    $ = $ || this.vdom;
     return $(selector || this.selector, context).toArray()
   }
 
@@ -82,6 +83,12 @@ class TraitReader {
 
           trait.href = result.href;
           trait.file = result.path;
+
+          //if(this instanceof TemplateReader) {
+
+            //trait.vdom(trait.element).replaceWith(contents);
+          //}
+
           done(contents, result);
         }
       );
@@ -92,17 +99,14 @@ class TraitReader {
 class TemplateReader extends TraitReader {
   constructor() {
     super(...arguments);
-    //this.Type = Template;
-    //this.selector = selectors.templates;
   }
 
   getInlineContents(el, $) {
-    $ = $ || this.querySelectorAll;
+    $ = $ || this.vdom;
     return $.html(el);
   }
 
   onTrait(state, trait, cb) {
-    trait.querySelectorAll = state.parse(trait.contents);
     trait.parent.templates.push(trait);
     cb(null, trait);
   }
@@ -116,53 +120,71 @@ class TemplateReader extends TraitReader {
       // separate all template elements into individual template traits
       let templates = [];
 
-      trait.querySelectorAll = state.parse(trait.contents);
+      if(trait.href) {
+        console.log('re-parsing dom...');
+        trait.vdom(trait.element).replaceWith(contents);
+      }
 
-      const elements = trait.querySelectorAll(TEMPLATE)
-        , mod = trait.parent
-        , $ = this.querySelectorAll;
+      const mod = trait.parent
+          , query = 'dom-module[id="' + mod.id + '"] > template'
+          , elements = mod.vdom(query).toArray()
+          , $ = mod.vdom;
 
-      elements.each((index, elem) => {
+      //console.log(query);
+      console.log(elements.length);
+      //console.log($.html());
 
-        let tpl = this.getTrait(elem);
-        tpl.href = trait.href;
-        tpl.file = trait.file;
+      state.each(
+        elements,
+        (elem, next) => {
+          let tpl = this.getTrait(elem);
+          tpl.href = trait.href;
+          tpl.file = trait.file;
 
-        const el = $(elem); 
-        const prefix = /-$/.test(mod.id) ? mod.id : mod.id + '-'
-          , id = el.attr(ID);
+          const el = $(elem); 
+          const prefix = /-$/.test(mod.id) ? mod.id : mod.id + '-'
+            , id = el.attr(ID);
 
-        // inherit template from module
-        if(!id || id === mod.id) {
+          console.log('id %s', id);
 
-          if(mod.component) {
-            return cb(new Error(
-              `duplicate main template for ${mod.id} in ${mod.file}`)); 
+          // inherit template from module
+          if(!id || id === mod.id) {
+
+            if(mod.component) {
+              return next(new Error(
+                `duplicate main template for ${mod.id} in ${mod.file}`)); 
+            }
+
+            // set id attribute in case it were undefined
+            // thereby inherit from the module id
+            el.attr(ID, mod.id);
+
+            // assign as primary component template
+            mod.component = new this.components.Component(tpl, mod);
+          }else{
+            // prefix module id to template with existing
+            // identifier and treat as a partial template
+            el.attr(ID, prefix + id); 
           }
 
-          // set id attribute in case it were undefined
-          // thereby inherit from the module id
-          el.attr(ID, mod.id);
+          // assign id to trait
+          tpl.id = el.attr(ID);
 
-          // assign as primary component template
-          mod.component = new this.components.Component(tpl, mod);
-        }else{
-          // prefix module id to template with existing
-          // identifier and treat as a partial template
-          el.attr(ID, prefix + id); 
+          // update trait contents and query
+          // as we have written the dom with id attributes
+          tpl.contents = $.html(elem);
+
+          templates.push(tpl);
+
+          next();
+        },
+        (err) => {
+        if(err) {
+          return cb(err); 
         }
-
-        // assign id to trait
-        tpl.id = el.attr(ID);
-
-        // update trait contents and query
-        // as we have written the dom with id attributes
-        tpl.contents = $.html(elem);
-
-        templates.push(tpl);
+        cb(null, templates, contents, result);
       })
 
-      cb(null, templates, contents, result);
     })
   }
 }
@@ -173,7 +195,6 @@ class StyleReader extends TraitReader {
   }
 
   onTrait(state, trait, cb) {
-    trait.querySelectorAll = state.parse(trait.contents);
 
     // global scope styles
     trait.parent.styles.push(trait);
@@ -192,12 +213,11 @@ class ScriptReader extends TraitReader {
   }
 
   getExternalHref(el, $) {
-    $ = $ || this.querySelectorAll;
+    $ = $ || this.vdom;
     return $(el).attr(SRC);
   }
 
   onTrait(state, trait, cb) {
-    trait.querySelectorAll = state.parse(trait.contents);
     trait.parent.scripts.push(trait);
 
     // all javascript

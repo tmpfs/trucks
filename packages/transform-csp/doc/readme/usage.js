@@ -8,7 +8,7 @@ trucks(
       transforms: {
         csp: {
           sha: 'sha512',
-          scripts: true
+          dir: 'build/csp'
         } 
       }
     }

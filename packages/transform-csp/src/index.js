@@ -29,22 +29,34 @@ function getHash(node, algorithm) {
 }
 
 /**
- *  Write `nonce` content security policy attributes to inline styles.
+ *  Generates content security policy files for styles and scripts within the 
+ *  shadow DOM.
  *
- *  This transform generates the files `csp.html` containing a `<meta>` 
- *  element describing the content security policy and a `csp.txt` file 
- *  containing a value suitable for appending to a `Content-Security-Policy` 
- *  HTTP header.
+ *  Each type is mapped to either a `style_src` or `script_src` policy using a 
+ *  prefix of `'self'` unless disabled using the `self` option.
+ *
+ *  Unless the `sha` option is given the operation is in `nonce` mode which 
+ *  adds a `nonce` attribute to the matched elements, if the intention is to 
+ *  further process via the skate compiler you should enable the `statics` 
+ *  option so that the attribute is set as `data-static-nonce`.
  *
  *  When the `sha` option is specified attributes are not added but the output 
- *  will be base64 encoded versions of the element contents.
+ *  will be base64 encoded computed hashes of each element's content.
+ *
+ *  Generates the files `csp.html` containing a `<meta>` element describing 
+ *  the content security policy and a `csp.txt` file containing a value 
+ *  suitable for appending to a `Content-Security-Policy` HTTP header.
+ *
+ *  Use the `dir`, `text` and `html` options to change the output locations.
+ *
+ *  When `dir` is not given the default output directory is used.
  *
  *  @public {function} csp
  *  @param {Object} state compiler state.
  *  @param {Object} conf transform plugin configuration.
  *  @option {Boolean=true} [self] include `'self'` in the output.
  *  @option {Boolean=true} [styles] generate csp attributes for styles.
- *  @option {Boolean=false} [scripts] generate csp attributes for scripts.
+ *  @option {Boolean=true} [scripts] generate csp attributes for scripts.
  *  @option {String} [sha] use sha algorithm (sha256, sha384 or sha512).
  *  @option {String=csp.txt} [text] name of the text output file.
  *  @option {String=csp.html} [html] name of the html output file.
@@ -59,7 +71,7 @@ module.exports = function csp(state, conf) {
 
   conf.self = conf.self !== undefined ? conf.self : true;
   conf.styles = conf.styles !== undefined ? conf.styles : true;
-  conf.scripts = conf.scripts !== undefined ? conf.scripts : false;
+  conf.scripts = conf.scripts !== undefined ? conf.scripts : true;
 
   const manifest = {
           styles: [],

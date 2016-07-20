@@ -2,7 +2,19 @@
 
 > Content security policy nonce and sha checksums
 
-Writes `nonce` and `sha` attributes to inline styles and optionally scripts.
+For each style and script in the shadow DOM add a `nonce` attribute and create content security policy HTML and text files alternatively you can use the `sha` option to avoid the use of attributes but you should be certain the elements will not be processed further otherwise the checksums might not match.
+
+The generated text file is suitable for including as an HTTP header:
+
+```
+style-src 'self' 'nonce-9566b05df2a2e6503449f5de138e151f51a17ceb'; script-src 'self' 'nonce-fc76f6ed5eb71e5b9ceeb1298b7458e6d1bced7d'
+```
+
+The generated HTML file contains a `<meta>` element, for example:
+
+```html
+<meta http-equiv="Content-Security-Policy" content="style-src 'self' 'nonce-9566b05df2a2e6503449f5de138e151f51a17ceb'; script-src 'self' 'nonce-fc76f6ed5eb71e5b9ceeb1298b7458e6d1bced7d'">
+```
 
 ## Install
 
@@ -37,7 +49,7 @@ trucks(
       transforms: {
         csp: {
           sha: 'sha512',
-          scripts: true
+          dir: 'build/csp'
         } 
       }
     }
@@ -58,15 +70,27 @@ trucks(
 public csp(state, conf)
 ```
 
-Write `nonce` content security policy attributes to inline styles.
+Generates content security policy files for styles and scripts within the
+shadow DOM.
 
-This transform generates the files `csp.html` containing a `<meta>`
-element describing the content security policy and a `csp.txt` file
-containing a value suitable for appending to a `Content-Security-Policy`
-HTTP header.
+Each type is mapped to either a `style_src` or `script_src` policy using a
+prefix of `'self'` unless disabled using the `self` option.
+
+Unless the `sha` option is given the operation is in `nonce` mode which
+adds a `nonce` attribute to the matched elements, if the intention is to
+further process via the skate compiler you should enable the `statics`
+option so that the attribute is set as `data-static-nonce`.
 
 When the `sha` option is specified attributes are not added but the output
-will be base64 encoded versions of the element contents.
+will be base64 encoded computed hashes of each element's content.
+
+Generates the files `csp.html` containing a `<meta>` element describing
+the content security policy and a `csp.txt` file containing a value
+suitable for appending to a `Content-Security-Policy` HTTP header.
+
+Use the `dir`, `text` and `html` options to change the output locations.
+
+When `dir` is not given the default output directory is used.
 
 Returns map of visitor functions.
 
@@ -79,7 +103,7 @@ See https://www.w3.org/TR/CSP2/.
 
 * `self` Boolean=true include `'self'` in the output.
 * `styles` Boolean=true generate csp attributes for styles.
-* `scripts` Boolean=false generate csp attributes for scripts.
+* `scripts` Boolean=true generate csp attributes for scripts.
 * `sha` String use sha algorithm (sha256, sha384 or sha512).
 * `text` String=csp.txt name of the text output file.
 * `html` String=csp.html name of the html output file.
@@ -121,6 +145,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 20, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less

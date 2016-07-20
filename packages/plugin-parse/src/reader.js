@@ -121,18 +121,16 @@ class TemplateReader extends TraitReader {
       let templates = [];
 
       if(trait.href) {
-        console.log('re-parsing dom...');
         trait.vdom(trait.element).replaceWith(contents);
       }
 
-      const mod = trait.parent
+      const external = trait.href !== undefined
+          , mod = trait.parent
           , query = 'dom-module[id="' + mod.id + '"] > template'
-          , elements = mod.vdom(query).toArray()
+          , elements =
+              external ? mod.vdom(query).toArray()
+                : traits.map((trait) => { return trait.element })
           , $ = mod.vdom;
-
-      //console.log(query);
-      console.log(elements.length);
-      //console.log($.html());
 
       state.each(
         elements,
@@ -144,8 +142,6 @@ class TemplateReader extends TraitReader {
           const el = $(elem); 
           const prefix = /-$/.test(mod.id) ? mod.id : mod.id + '-'
             , id = el.attr(ID);
-
-          console.log('id %s', id);
 
           // inherit template from module
           if(!id || id === mod.id) {

@@ -11,8 +11,6 @@ describe('trucks:', function() {
         ]
       },
       (err) => {
-
-        console.dir(err.message);
         function fn() {
           throw err;
         }

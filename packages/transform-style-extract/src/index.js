@@ -22,11 +22,11 @@ function extract(state, conf) {
   }
 
   function style(node, cb) {
-
     // do not process styles that are not a shadow scope
     if(!node.isShadowScope()) {
       return cb(); 
     }
+
     file.append(node.contents);
     cb();
   }

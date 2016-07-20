@@ -81,7 +81,6 @@ function main(argv, conf, cb) {
       this.plugins = plugins;
     }
 
-    //this.transforms = transforms;
     this.files = req.unparsed;
 
     this.transforms = this.transforms.reduce((prev, next) => {
@@ -109,23 +108,28 @@ function main(argv, conf, cb) {
         conf.output.write(state.result.tree.toString()); 
       }
 
-      if(state.manifest && this.printManifest) {
-        conf.output.write(
-          JSON.stringify(state.manifest, undefined, 2) + '\n'); 
-      }
-
-      if(state.manifest && this.manifest === String(this.manifest)) {
+      if(state.manifest) {
         var contents = JSON.stringify(state.manifest, undefined, 2) + '\n';
-        fs.writeFile(this.manifest, contents, function(err) {
-          if(err) {
-            return cb(err); 
-          }
+        if(this.printManifest) {
+          conf.output.write(contents);
+        }
 
+        if(this.manifest === String(this.manifest)) {
+          var filepath = state.absolute(this.manifest, this.out);
+          fs.writeFile(filepath, contents, function(err) {
+            if(err) {
+              return cb(err); 
+            }
+
+            cb(null, state);
+          });
+        }else{
           cb(null, state);
-        });
+        }
       }else{
         cb(null, state);
       }
+
     });
   })
 }

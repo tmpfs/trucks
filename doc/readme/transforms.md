@@ -83,6 +83,10 @@ Existing transform plugins are in [packages](/packages).
 
 * [skate][] Compiles HTML templates to render functions.
 
+### Resolvers
+
+* [file][resolver-file] Default resolver for the `file:` scheme.
+
 ### Preprocessors
 
 * [less][] Preprocess less sources.

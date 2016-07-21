@@ -37,6 +37,8 @@
 [style-extract]: /packages/transform-style-extract
 [style-inject]: /packages/transform-style-inject
 
+[resolver-file]: /packages/resolver-file
+
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

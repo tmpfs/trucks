@@ -74,6 +74,7 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
   - [Configuration](#configuration)
 - [Transform Plugins](#transform-plugins)
   - [Compilers](#compilers)
+  - [Resolvers](#resolvers)
   - [Preprocessors](#preprocessors)
   - [Styles](#styles)
   - [Miscellaneous](#miscellaneous)
@@ -473,6 +474,10 @@ Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blo
 
 * [skate][] Compiles HTML templates to render functions.
 
+### Resolvers
+
+* [file][resolver-file] Default resolver for the `file:` scheme.
+
 ### Preprocessors
 
 * [less][] Preprocess less sources.
@@ -506,7 +511,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 20, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -544,6 +549,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 20, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

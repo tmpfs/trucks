@@ -145,10 +145,6 @@ class ComponentFile extends ComponentImport {
 
     // document DOM
     this._document = null;
-
-    // query for the DOM of this document
-    // injected during the load phase
-    this.querySelectorAll = null;
   }
 
   set vdom(val) {
@@ -217,9 +213,6 @@ class ComponentModule extends ComponentNode {
 
     // list of global javascript parsed as dom-module > script
     this.scripts = [];
-
-    // injected during the parse phase
-    this.querySelectorAll = null;
   }
 
   iterator(it) {
@@ -311,7 +304,6 @@ class ComponentTrait extends ComponentNode {
     if(name === String(name)) {
       if(val !== undefined) {
         this.element.attribs[name] = val; 
-        //this.querySelectorAll(this.element).attr(name, val);
       }else{
         return this.element.attribs[name];
       }

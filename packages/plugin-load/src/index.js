@@ -99,13 +99,10 @@ function read(state, group, parent, info, cb) {
     }
 
     // new api
-    group.vdom =  state.parse(group.contents);
+    group.vdom = state.parse(group.contents);
 
-    // backwards compat
-    group.querySelectorAll = group.vdom;
-
-    const $ = group.querySelectorAll
-      , dependencies = $(state.selectors.imports);
+    const vdom = group.vdom
+      , dependencies = vdom(state.selectors.imports);
 
     // component has dependencies we need to load
     if(dependencies.length) {
@@ -117,7 +114,7 @@ function read(state, group, parent, info, cb) {
       let deps = [];
 
       dependencies.each((index, elem) => {
-        const href = $(elem).attr('href'); 
+        const href = vdom(elem).attr('href'); 
         deps.push(href);
       })
 

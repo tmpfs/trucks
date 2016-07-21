@@ -39,14 +39,14 @@ ComponentFile {
        parent: [Circular],
        modules: [],
        duplicates: [],
-       querySelectorAll: [Object],
+       _document: [Object],
        href: 'x-button.html' } ],
   file: '/home/muji/git/trucks/doc/compiler/components.html',
   contents: '<link rel="import" href="x-button.html">\n',
   parent: null,
   modules: [],
   duplicates: [],
-  querySelectorAll: 
+  _document: 
    { [Function]
      fn: { constructor: [Circular], _originalRoot: [Object] },
      load: [Function],
@@ -94,11 +94,11 @@ ComponentModule {
         parent: null,
         modules: [],
         duplicates: [],
-        querySelectorAll: [Object],
+        _document: [Object],
         href: 'doc/compiler/components.html' },
      modules: [ [Circular] ],
      duplicates: [],
-     querySelectorAll: 
+     _document: 
       { [Function]
         fn: [Object],
         load: [Function],
@@ -119,68 +119,56 @@ ComponentModule {
         contents: '<template id="x-button"></template>',
         parent: [Circular],
         href: undefined,
-        file: undefined,
-        id: 'x-button',
-        querySelectorAll: [Object] },
+        _file: '/home/muji/git/trucks/doc/compiler/x-button.html',
+        _id: 'x-button' },
      parent: [Circular],
      partials: [],
-     styles: [] },
+     styles: [],
+     _scripts: [] },
   templates: 
    [ ComponentTemplate {
        element: [Object],
        contents: '<template id="x-button"></template>',
        parent: [Circular],
        href: undefined,
-       file: undefined,
-       id: 'x-button',
-       querySelectorAll: [Object] } ],
+       _file: '/home/muji/git/trucks/doc/compiler/x-button.html',
+       _id: 'x-button' } ],
   stylesheets: 
    [ ComponentStyle {
        element: [Object],
        contents: '\n    x-button {\n      /* component styles */\n    }\n  ',
        parent: [Circular],
        href: undefined,
-       file: undefined,
-       querySelectorAll: [Object] } ],
+       _file: undefined,
+       _id: null,
+       _scope: '::document' } ],
+  javascript: 
+   [ ComponentScript {
+       element: [Object],
+       contents: '\n    skate.define(\'{{id}}\', {});\n  ',
+       parent: [Circular],
+       href: undefined,
+       _file: undefined,
+       _id: null,
+       _scope: '::document' } ],
   styles: 
    [ ComponentStyle {
        element: [Object],
        contents: '\n    x-button {\n      /* component styles */\n    }\n  ',
        parent: [Circular],
        href: undefined,
-       file: undefined,
-       querySelectorAll: [Object] } ],
+       _file: undefined,
+       _id: null,
+       _scope: '::document' } ],
   scripts: 
    [ ComponentScript {
        element: [Object],
        contents: '\n    skate.define(\'{{id}}\', {});\n  ',
        parent: [Circular],
        href: undefined,
-       file: undefined,
-       querySelectorAll: [Object] } ],
-  querySelectorAll: 
-   { [Function]
-     fn: { constructor: [Circular], _originalRoot: [Object] },
-     load: [Function],
-     html: [Function],
-     xml: [Function],
-     text: [Function],
-     parseHTML: [Function],
-     root: [Function],
-     contains: [Function],
-     _root: 
-      { type: 'root',
-        name: 'root',
-        attribs: {},
-        children: [Object],
-        next: null,
-        prev: null,
-        parent: null },
-     _options: 
-      { withDomLvl1: true,
-        normalizeWhitespace: false,
-        xmlMode: false,
-        decodeEntities: true } } }
+       _file: undefined,
+       _id: null,
+       _scope: '::document' } ] }
 ```
 
 ### Transform
@@ -217,6 +205,15 @@ After transformation the generate phase will concatenate all the css and transfo
         'function template(elem) {\n  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n}',
         'skate.define(\'x-icon\', {});',
         'skate.define(\'x-button\', {});' ] },
+  '/home/muji/git/trucks/target/components.html': 
+   OutputFile {
+     eol: '\n\n',
+     file: '/home/muji/git/trucks/target/components.html',
+     name: 'target/components.html',
+     base: undefined,
+     _contents: 
+      [ '<template id="x-icon">\n  </template>',
+        '<template id="x-button"></template>' ] },
   '/home/muji/git/trucks/target/components.css': 
    OutputFile {
      eol: '\n\n',
@@ -234,7 +231,7 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -263,9 +260,18 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
-[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

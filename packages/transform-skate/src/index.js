@@ -48,7 +48,7 @@ module.exports = function skate(state, conf) {
 
       cb();
     },
-    'Script': (node, cb) => {
+    Script: (node, cb) => {
 
       // perform {{id}} replacement
       if(replace && node && node.contents === String(node.contents)) {

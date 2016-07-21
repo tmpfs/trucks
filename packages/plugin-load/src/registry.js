@@ -4,7 +4,6 @@
 class Registry {
   constructor() {
     this.protocols = {}; 
-
     // a default resolver to use when there is no scheme
     this._default = null;
   }

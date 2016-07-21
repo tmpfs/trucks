@@ -26,6 +26,7 @@ npm i trucks-cli --save-dev
 - [Documentation](#documentation)
 - [Usage](#usage)
 - [Completion](#completion)
+- [Help](#help)
 - [Developer](#developer)
   - [Build](#build)
   - [Readme](#readme)
@@ -84,6 +85,39 @@ For full cli documentation see the [man page](https://github.com/tmpfs/trucks/bl
 ## Completion
 
 Completion is available for zsh. To install copy [_trucks](https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli/doc/zsh/_trucks) to a directory in `$fpath`, see the [completion docs](https://github.com/mkdoc/mkcli#completion) for more information.
+
+## Help
+
+```
+Usage: trucks [-fh] [--force] [--print-imports] [--print-tree]
+              [--print-manifest] [--help] [--version] [--out <dir>] [--name
+              <val>] [--html <file>] [--css <file>] [--js <file>] [--transforms
+              <name...>] [--rc <file...>] [--extract <dir>] [--inject <dir>]
+              [--manifest <file>] [files...]
+
+  Compiles web components.
+
+Options
+  -o, --out=[dir]         Output directory (default: cwd)
+  -n, --name=[val]        Name for output files (default: components)
+  -m, --html=[file]       Template output file
+  -s, --css=[file]        Stylesheet output file
+  -j, --js=[file]         Javascript output file
+  -t, --transforms=[name...]   
+                          Run transform plugins
+  -c, --rc=[file...]      Configuration files to require
+  -e, --extract=[dir]     Extract shadow styles to directory
+  -i, --inject=[dir]      Inject shadow styles from directory
+  -a, --manifest=[file]   Write manifest to file
+  -f, --force             Force overwrite existing files
+  --print-imports         Print the file hierarchy
+  --print-tree            Print the component tree hierarchy
+  --print-manifest        Print the generated files manifest
+  -h, --help              Display help and exit
+  --version               Print the version and exit
+
+trucks-cli@1.0.7
+```
 
 ## Developer
 
@@ -147,7 +181,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -176,6 +210,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
@@ -184,6 +219,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

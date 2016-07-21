@@ -17,6 +17,7 @@ Command line interface for the [trucks][] libary.
       documentation.md
       usage.md
       completion.md
+      help.md
       developer.md
       license.md
       links.md ?>

@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-  , url = require('url')
+  , path = require('path')
   , plugin = require('../../src');
 
 function getRegistry(result) {
@@ -20,7 +20,7 @@ function getState(options) {
   return new State(options);
 }
 
-describe('http:', function() {
+describe('file:', function() {
 
   it('should run plugin function', function(done) {
     const state = {}
@@ -42,9 +42,9 @@ describe('http:', function() {
     closure(registry);
 
     expect(
-      result._schemes[plugin.Resolver.HTTP]).to.equal(plugin.Resolver);
+      result._default).to.equal(plugin.Resolver);
     expect(
-      result._schemes[plugin.Resolver.HTTPS]).to.equal(plugin.Resolver);
+      result._schemes[plugin.Resolver.SCHEME]).to.equal(plugin.Resolver);
 
     done();
   });
@@ -52,20 +52,20 @@ describe('http:', function() {
   it('should create resolver without parent', function(done) {
     const Resolver = plugin.Resolver
         , state = getState()
-        , name = 'http://localhost:3001/components.html'
+        , name = 'test/fixtures/components.html'
         , href = name
-        , uri = url.parse(href)
-        , resolver = new Resolver(state, href, uri);
+        , resolver = new Resolver(state, href);
 
     expect(resolver).to.be.an('object');
     const file = resolver.getCanonicalPath();
-
-    expect(file).to.eql(href);
+    expect(file).to.eql(path.join(process.cwd(), name));
 
     // trigger placeholder fetch function
     resolver.fetch(() => {
       const resolved = resolver.getResolvedPath();
       expect(resolved).to.equal(file);
+
+      expect(resolver.getResolvedImports([])).to.eql([]);
 
       resolver.getFileContents(done);
     });
@@ -74,15 +74,15 @@ describe('http:', function() {
   it('should create resolver with parent', function(done) {
     const Resolver = plugin.Resolver
         , state = getState()
-        , parent = {file: 'http://localhost:3001'}
+        , parent = {file: path.join(process.cwd(), 'test/fixtures/index.html')}
         , name = 'components.html'
         , href = name
-        , uri = url.parse(href)
-        , resolver = new Resolver(state, href, uri, parent);
+        , resolver = new Resolver(state, href, parent);
 
     expect(resolver).to.be.an('object');
     const file = resolver.getCanonicalPath();
-    expect(file).to.eql(parent.file + '/' + href);
+    expect(file).to.eql(
+      path.join(path.dirname(parent.file), name));
 
     // trigger placeholder fetch function
     resolver.fetch(() => {
@@ -94,21 +94,20 @@ describe('http:', function() {
   });
 
 
-  //it('should error with missing file', function(done) {
-    //const Resolver = plugin.Resolver
-        //, state = getState()
-        //, name = 'http://localhost:3001/components.html'
-        //, href = name
-        //, uri = url.parse(href)
-        //, resolver = new Resolver(state, href, uri);
+  it('should error with missing file', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState()
+        , name = 'test/fixtures/non-existent.html'
+        , href = name
+        , resolver = new Resolver(state, href);
 
-    //resolver.getFileContents((err) => {
-      //function fn() {
-        //throw err; 
-      //} 
-      //expect(fn).throws(/ENOENT/);
-      //done();
-    //});
-  //});
+    resolver.getFileContents((err) => {
+      function fn() {
+        throw err; 
+      } 
+      expect(fn).throws(/ENOENT/);
+      done();
+    });
+  });
 
 });

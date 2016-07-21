@@ -1,12 +1,13 @@
 const path = require('path')
+    , url = require('url')
     , SCHEME = 'file:';
 
 class FileResolver {
-  constructor(state, href, uri, parent) {
+  constructor(state, href, parent) {
     this.state = state;
     this.href = href;
-    this.uri = uri;
     this.parent = parent;
+    this.uri = url.parse(href);
   }
 
   /**

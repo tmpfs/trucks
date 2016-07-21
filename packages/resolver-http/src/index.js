@@ -4,11 +4,11 @@ const HTTP = 'http:'
     , http = require('http');
 
 class HttpResolver {
-  constructor(state, href, uri, parent) {
+  constructor(state, href, parent) {
     this.state = state;
     this.href = href;
-    this.uri = uri;
     this.parent = parent;
+    this.uri = url.parse(href);
   }
 
   /**
@@ -43,15 +43,15 @@ class HttpResolver {
 
     let pth = this.uri.pathname;
 
-    if(!/^\//.test(pth)) {
-      pth = '/' + pth;
-    }
-
-    const options = {
-      hostname: this.uri.hostname,
-      port: this.uri.port,
-      path: pth
-    }
+    const uri = url.format(this.uri)
+        , options = {
+            hostname: this.uri.hostname,
+            port: this.uri.port,
+            path: pth,
+            headers: {
+              'Accept': 'text/html'
+            }
+          };
 
     if(!options.port) {
       if(this.uri.protocol === HTTP) {
@@ -61,27 +61,33 @@ class HttpResolver {
       }
     }
 
-    console.dir(options);
+    //console.dir(options);
 
     const req = http.get(options, (res) => {
       console.log(`Got response: ${res.statusCode}`);
+
+      // expecting 200 response
+      if(res.statusCode !== 200) {
+        return done(
+          new Error(
+            `unexpected status code ${res.statusCode} from ${uri}`));
+      }
+
       // consume response body
       res.resume();
-      //console.dir(res); 
 
-      done();
+      // handle response error
+      res.once('error', (err) => {
+        done(err); 
+      });
+
+      res.once('end', done);
     })
 
+    // handle request error
     req.once('error', (err) => {
       done(err); 
     })
-
-    //fs.readFile(file, (err, contents) => {
-      //if(err) {
-        //return cb(err); 
-      //}
-      //return cb(null, contents);
-    //});
   }
 
   /**
@@ -119,7 +125,7 @@ HttpResolver.HTTP = HTTP;
 HttpResolver.HTTPS = HTTPS;
 
 /**
- *  Resolver for the default file:// protocol.
+ *  Resolver for the default http:// and https:// protocols.
  */
 function file(/*state, conf*/) {
   return function(registry) {

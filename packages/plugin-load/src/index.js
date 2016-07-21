@@ -175,7 +175,7 @@ function sources(state, info, files, parent, cb) {
           new Error(`no resolver registered for scheme ${uri.protocol}`)); 
       }
 
-      resolver = new Type(state, file, uri, parent); 
+      resolver = new Type(state, file, parent); 
 
       // reference to the current resolver
       info.resolver = resolver;

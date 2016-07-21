@@ -1,6 +1,4 @@
 var expect = require('chai').expect
-  , url = require('url')
-  , path = require('path')
   , plugin = require('../../src');
 
 function getRegistry(result) {
@@ -21,7 +19,7 @@ function getState(options) {
   return new State(options);
 }
 
-describe('file:', function() {
+describe('http:', function() {
 
   it('should run plugin function', function(done) {
     const state = {}
@@ -43,9 +41,9 @@ describe('file:', function() {
     closure(registry);
 
     expect(
-      result._default).to.equal(plugin.Resolver);
+      result._schemes[plugin.Resolver.HTTP]).to.equal(plugin.Resolver);
     expect(
-      result._schemes[plugin.Resolver.SCHEME]).to.equal(plugin.Resolver);
+      result._schemes[plugin.Resolver.HTTPS]).to.equal(plugin.Resolver);
 
     done();
   });
@@ -53,14 +51,35 @@ describe('file:', function() {
   it('should create resolver without parent', function(done) {
     const Resolver = plugin.Resolver
         , state = getState()
-        , name = 'test/fixtures/components.html'
+        , name = 'http://localhost:3001/components.html'
         , href = name
-        , uri = url.parse(href)
-        , resolver = new Resolver(state, href, uri);
+        , resolver = new Resolver(state, href);
 
     expect(resolver).to.be.an('object');
     const file = resolver.getCanonicalPath();
-    expect(file).to.eql(path.join(process.cwd(), name));
+
+    expect(file).to.eql(href);
+
+    // trigger placeholder fetch function
+    resolver.fetch(() => {
+      const resolved = resolver.getResolvedPath();
+      expect(resolved).to.equal(file);
+
+      resolver.getFileContents(done);
+    });
+  });
+
+  it('should create resolver with parent', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState()
+        , parent = {file: 'http://localhost:3001'}
+        , name = 'components.html'
+        , href = name
+        , resolver = new Resolver(state, href, parent);
+
+    expect(resolver).to.be.an('object');
+    const file = resolver.getCanonicalPath();
+    expect(file).to.eql(parent.file + '/' + href);
 
     // trigger placeholder fetch function
     resolver.fetch(() => {
@@ -73,43 +92,34 @@ describe('file:', function() {
     });
   });
 
-  it('should create resolver with parent', function(done) {
+  it('should error with ECONNREFUSED', function(done) {
     const Resolver = plugin.Resolver
         , state = getState()
-        , parent = {file: path.join(process.cwd(), 'test/fixtures/index.html')}
-        , name = 'components.html'
+        , name = 'http://localhost:60000/components.html'
         , href = name
-        , uri = url.parse(href)
-        , resolver = new Resolver(state, href, uri, parent);
-
-    expect(resolver).to.be.an('object');
-    const file = resolver.getCanonicalPath();
-    expect(file).to.eql(
-      path.join(path.dirname(parent.file), name));
-
-    // trigger placeholder fetch function
-    resolver.fetch(() => {
-      const resolved = resolver.getResolvedPath();
-      expect(resolved).to.equal(file);
-
-      resolver.getFileContents(done);
-    });
-  });
-
-
-  it('should error with missing file', function(done) {
-    const Resolver = plugin.Resolver
-        , state = getState()
-        , name = 'test/fixtures/non-existent.html'
-        , href = name
-        , uri = url.parse(href)
-        , resolver = new Resolver(state, href, uri);
+        , resolver = new Resolver(state, href);
 
     resolver.getFileContents((err) => {
       function fn() {
         throw err; 
       } 
-      expect(fn).throws(/ENOENT/);
+      expect(fn).throws(/ECONNREFUSED/);
+      done();
+    });
+  });
+
+  it('should error with 404 status code', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState()
+        , name = 'http://localhost:3001/non-existent.html'
+        , href = name
+        , resolver = new Resolver(state, href);
+
+    resolver.getFileContents((err) => {
+      function fn() {
+        throw err; 
+      } 
+      expect(fn).throws(/unexpected status code 404/);
       done();
     });
   });

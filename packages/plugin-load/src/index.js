@@ -166,9 +166,6 @@ function sources(state, info, files, parent, cb) {
 
       Type = registry.getResolver(uri.protocol);
 
-      //console.log(uri.scheme);
-      //console.log(uri);
-
       // no resolver for the uri scheme
       if(uri.protocol && !Type) {
         return next(

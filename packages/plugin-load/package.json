@@ -1,6 +1,6 @@
 {
   "name": "trucks-plugin-load",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Reads HTML imports into the component tree",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

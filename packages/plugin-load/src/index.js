@@ -86,8 +86,10 @@ function read(state, group, parent, info, cb) {
       return cb(err); 
     }
 
+    contents = contents.toString();
+
     group.parent = parent;
-    group.contents = contents.toString();
+    group.contents = contents;
 
     // empty component file
     if(!group.contents) {

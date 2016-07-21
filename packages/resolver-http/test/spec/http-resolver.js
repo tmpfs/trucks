@@ -1,5 +1,6 @@
 var expect = require('chai').expect
-  , plugin = require('../../src');
+  , plugin = require('../../src')
+  , expected = '<dom-module id="mock-http-resolver"></dom-module>\n';
 
 function getRegistry(result) {
   result._schemes = {};
@@ -71,7 +72,11 @@ describe('http:', function() {
       const resolved = resolver.getResolvedPath();
       expect(resolved).to.equal(file);
 
-      resolver.getFileContents(done);
+      resolver.getFileContents((err, contents) => {
+        expect(contents).to.be.instanceof(Buffer);
+        expect(contents.toString()).to.eql(expected);
+        done();
+      });
     });
   });
 
@@ -95,6 +100,23 @@ describe('http:', function() {
       expect(resolver.getResolvedImports([])).to.eql([]);
 
       resolver.getFileContents(done);
+    });
+  });
+
+  it('should handle file with gzip compresion', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState()
+        , name = 'http://localhost:3001/components.html.tgz'
+        , href = name
+        , resolver = new Resolver(state, href);
+
+    expect(resolver).to.be.an('object');
+    //const file = resolver.getCanonicalPath();
+
+    resolver.getFileContents((err, contents) => {
+      expect(contents).to.be.instanceof(Buffer);
+      expect(contents.toString()).to.eql(expected);
+      done();
     });
   });
 
@@ -146,4 +168,19 @@ describe('http:', function() {
     });
   });
 
+  it('should error with bad content type', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState()
+        , name = 'http://localhost:3001/mock.xml'
+        , href = name
+        , resolver = new Resolver(state, href);
+
+    resolver.getFileContents((err) => {
+      function fn() {
+        throw err; 
+      } 
+      expect(fn).throws(/unexpected content type/);
+      done();
+    });
+  });
 });

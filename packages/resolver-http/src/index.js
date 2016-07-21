@@ -1,6 +1,7 @@
 const HTTP = 'http:'
     , HTTPS = 'https:'
     , url = require('url')
+    , zlib = require('zlib')
     , http = require('http');
 
 class HttpResolver {
@@ -25,12 +26,12 @@ class HttpResolver {
   getFileContents(cb) {
     let called = false;
 
-    function done(err) {
+    function done(err, buf) {
       /* istanbul ignore next: guard against multiple events firing */
       if(called) {
         return; 
       }
-      cb(err);
+      cb(err, buf);
       called = true;
     }
 
@@ -64,8 +65,28 @@ class HttpResolver {
             `unexpected status code ${res.statusCode} from ${uri}`));
       }
 
+      const contentType = res.headers['content-type']
+          , encoding = res.headers['content-encoding'];
+
+      let gzip = false;
+
+      if(!/text\/html/.test(contentType)) {
+        return done(
+          new Error(`unexpected content type ${contentType}`)) ;
+      }
+
+      if(encoding && ~encoding.indexOf('gzip')) {
+        gzip = true;
+      }
+
+      let buf = new Buffer(0);
+
       // consume response body
       res.resume();
+
+      res.on('data', (chunk) => {
+        buf = Buffer.concat([buf, chunk], buf.length + chunk.length); 
+      })
 
       // handle response error
       res.once('error', (err) => {
@@ -73,7 +94,19 @@ class HttpResolver {
         done(err); 
       });
 
-      res.once('end', done);
+      res.once('end', () => {
+        if(gzip) {
+          zlib.gunzip(buf, (err, contents) => {
+            /* istanbul ignore next: not going to mock zlib deflate error */
+            if(err) {
+              return done(err); 
+            }
+            done(null, contents); 
+          });
+        }else{
+          done(null, buf); 
+        }
+      });
     })
 
     // handle request error

@@ -18,7 +18,7 @@ class Registry {
 
   getResolver(scheme) {
     if(!scheme) {
-      return this._default; 
+      return this.getDefault(); 
     }
     return this._schemes[scheme];
   }
@@ -29,6 +29,30 @@ class Registry {
         'constructor function expected when registering scheme'); 
     }
     this._schemes[scheme] = type;
+  }
+
+  factory(state, href, parent) {
+    let Type
+      , resolver
+      , url = require('url')
+      , uri = url.parse(href);
+
+    Type = this.getResolver(uri.protocol);
+
+    // no resolver for the uri scheme
+    if(uri.protocol && !Type) {
+      throw new Error(
+        `no resolver registered for scheme ${uri.protocol}`);
+    }
+
+    if(!Type) {
+      throw new Error(
+        `could not get import resolver type for scheme ${uri.protocol}`); 
+    }
+
+    resolver = new Type(state, href, parent);
+
+    return resolver;
   }
 }
 

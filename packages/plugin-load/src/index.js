@@ -149,12 +149,8 @@ function sources(state, info, files, parent, cb) {
     parent = null;
   }
 
-  const url = require('url');
-
-  // class for the resolver
-  let Type
-    // handler for a scheme
-    , resolver;
+  // handler for a scheme
+  let resolver;
 
   state.each(
     files,
@@ -166,18 +162,13 @@ function sources(state, info, files, parent, cb) {
         info.hierarchy = [];
       }
 
-      let pth
-        , uri = url.parse(file);
+      let pth;
 
-      Type = registry.getResolver(uri.protocol);
-
-      // no resolver for the uri scheme
-      if(uri.protocol && !Type) {
-        return next(
-          new Error(`no resolver registered for scheme ${uri.protocol}`)); 
+      try {
+        resolver = registry.factory(state, file, parent);
+      }catch(e) {
+        return next(e); 
       }
-
-      resolver = new Type(state, file, parent); 
 
       // reference to the current resolver
       info.resolver = resolver;

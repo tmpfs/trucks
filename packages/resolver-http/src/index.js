@@ -136,10 +136,11 @@ class HttpResolver {
    *  resource has already been processed.
    */
   getCanonicalPath() {
+
+    // no scheme with a parent, resolve relative to the parent
     if(!this.uri.protocol && this.parent) {
       const href = this.parent.file; 
-      // TODO: implement this properly
-      return href + '/' + this.href;
+      return url.resolve(href, this.href);
     }
     // should be an absolute HTTP/HTTPS URL
     return this.href;

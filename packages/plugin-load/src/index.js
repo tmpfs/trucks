@@ -164,12 +164,15 @@ function sources(state, info, files, parent, cb) {
       let pth
         , uri = url.parse(file);
 
-      Type = registry.getResolver(uri.scheme);
+      Type = registry.getResolver(uri.protocol);
+
+      //console.log(uri.scheme);
+      //console.log(uri);
 
       // no resolver for the uri scheme
-      if(uri.scheme && !Type) {
+      if(uri.protocol && !Type) {
         return next(
-          new Error(`no resolver registered for scheme ${uri.scheme}`)); 
+          new Error(`no resolver registered for scheme ${uri.protocol}`)); 
       }
 
       resolver = new Type(state, file, uri, parent); 
@@ -235,14 +238,6 @@ function load(state, conf) {
     schemes.unshift(DEFAULT);
   }
 
-  //if(Array.isArray(state.options.before.schemes)) {
-    //schemes = state.options.before.schemes.concat(schemes);
-  //}
-
-  //if(Array.isArray(state.options.after.schemes)) {
-    //schemes = schemes.concat(state.options.after.schemes);
-  //}
-
   const closures = state.middleware(
     {
       phases: schemes,
@@ -251,7 +246,7 @@ function load(state, conf) {
     }
   );
 
-  // call middleware closures in scope of the registry
+  // call middleware closures in scope of the registry synchronously
   closures.forEach((fn) => {
     fn(registry); 
   })

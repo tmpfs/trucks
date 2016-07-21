@@ -56,8 +56,14 @@ function middleware(state, options) {
       let file = phase;
       if(prefix && !path.isAbsolute(phase) && !/^\.*\//.test(phase)) {
         file = prefix + file; 
+
+        if(
+          (process.env.DEBUG
+          || process.env.NODE_ENV === 'test')
+          && !/\/src$/.test(file)) {
+          file = file + '/src';
+        }
       }
-      //closure = require(file)(state, detail.conf);
       fn = require(file);
     }else if(phase && phase === Object(phase)) {
       if(!phase.plugin || !(phase.plugin instanceof Function)) {

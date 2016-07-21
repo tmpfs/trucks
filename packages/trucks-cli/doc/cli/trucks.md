@@ -23,7 +23,7 @@ Compiles web components to separate files for javascript, styles and template ma
 + `-m, --html [file]` Template output file
 + `-s, --css [file]` Stylesheet output file
 + `-j, --js [file]` Javascript output file
-+ `-t, --transforms [name...]` Run transform plugins
++ `-t, --transforms [id...]` Run transform plugins
 + `-c, --rc [file...]` Configuration files to require
 + `-e, --extract [dir]` Extract shadow styles to directory
 + `-i, --inject [dir]` Inject shadow styles from directory

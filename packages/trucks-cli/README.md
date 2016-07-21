@@ -92,7 +92,7 @@ Completion is available for zsh. To install copy [_trucks](https://github.com/tm
 Usage: trucks [-fh] [--force] [--print-imports] [--print-tree]
               [--print-manifest] [--help] [--version] [--out <dir>] [--name
               <val>] [--html <file>] [--css <file>] [--js <file>] [--transforms
-              <name...>] [--rc <file...>] [--extract <dir>] [--inject <dir>]
+              <id...>] [--rc <file...>] [--extract <dir>] [--inject <dir>]
               [--manifest <file>] [files...]
 
   Compiles web components.
@@ -103,7 +103,7 @@ Options
   -m, --html=[file]       Template output file
   -s, --css=[file]        Stylesheet output file
   -j, --js=[file]         Javascript output file
-  -t, --transforms=[name...]   
+  -t, --transforms=[id...] 
                           Run transform plugins
   -c, --rc=[file...]      Configuration files to require
   -e, --extract=[dir]     Extract shadow styles to directory

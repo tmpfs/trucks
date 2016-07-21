@@ -85,7 +85,7 @@
         "--transforms"
       ],
       "type": "option",
-      "extra": " [name...]",
+      "extra": " [id...]",
       "required": false,
       "multiple": true,
       "name": "--transforms"

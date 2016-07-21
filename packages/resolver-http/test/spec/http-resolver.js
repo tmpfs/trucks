@@ -60,6 +60,12 @@ describe('http:', function() {
 
     expect(file).to.eql(href);
 
+    expect(resolver.getDefaultPort(Resolver.HTTP, {}))
+      .to.be.an('object').to.have.property('port').that.equals(80);
+
+    expect(resolver.getDefaultPort(Resolver.HTTPS, {}))
+      .to.be.an('object').to.have.property('port').that.equals(443);
+
     // trigger placeholder fetch function
     resolver.fetch(() => {
       const resolved = resolver.getResolvedPath();
@@ -89,6 +95,22 @@ describe('http:', function() {
       expect(resolver.getResolvedImports([])).to.eql([]);
 
       resolver.getFileContents(done);
+    });
+  });
+
+  it('should error with no scheme in parsed URL', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState()
+        , name = '://localhost:60000/components.html'
+        , href = name
+        , resolver = new Resolver(state, href);
+
+    resolver.getFileContents((err) => {
+      function fn() {
+        throw err; 
+      } 
+      expect(fn).throws(/attempt to load with no protocol/);
+      done();
     });
   });
 

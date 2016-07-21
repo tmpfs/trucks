@@ -26,6 +26,7 @@ class HttpResolver {
     let called = false;
 
     function done(err) {
+      /* istanbul ignore next: guard against multiple events firing */
       if(called) {
         return; 
       }
@@ -53,19 +54,9 @@ class HttpResolver {
             }
           };
 
-    if(!options.port) {
-      if(this.uri.protocol === HTTP) {
-        options.port = 80;
-      }else{
-        options.port = 443;
-      }
-    }
-
-    //console.dir(options);
+    this.getDefaultPort(this.uri.protocol, options);
 
     const req = http.get(options, (res) => {
-      console.log(`Got response: ${res.statusCode}`);
-
       // expecting 200 response
       if(res.statusCode !== 200) {
         return done(
@@ -78,6 +69,7 @@ class HttpResolver {
 
       // handle response error
       res.once('error', (err) => {
+        /* istanbul ignore next: tough to mock repsonse stream error */
         done(err); 
       });
 
@@ -118,6 +110,17 @@ class HttpResolver {
     }
     // should be an absolute HTTP/HTTPS URL
     return this.href;
+  }
+
+  getDefaultPort(protocol, options) {
+    if(!options.port) {
+      if(protocol === HTTP) {
+        options.port = 80;
+      }else{
+        options.port = 443;
+      }
+    }
+    return options;
   }
 }
 

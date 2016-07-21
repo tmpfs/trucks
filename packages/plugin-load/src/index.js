@@ -162,10 +162,15 @@ function sources(state, info, files, parent, cb) {
         info.hierarchy = [];
       }
 
-      let pth;
+      let pth
+        // parent resolver
+        , relative;
 
       try {
-        resolver = registry.factory(state, file, parent);
+        if(parent && parent.resolver) {
+          relative = parent.resolver; 
+        }
+        resolver = registry.factory(state, file, relative);
       }catch(e) {
         return next(e); 
       }
@@ -173,7 +178,7 @@ function sources(state, info, files, parent, cb) {
       // reference to the current resolver
       //info.resolver = resolver;
 
-      pth = resolver.getCanonicalPath();
+      pth = resolver.file = resolver.getCanonicalPath();
 
       if(!parent && ~info.seen.sources.indexOf(pth)) {
         // this could just ignore and move on to the next

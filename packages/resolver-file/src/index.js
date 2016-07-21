@@ -5,9 +5,22 @@ const path = require('path')
 class FileResolver {
   constructor(state, href, parent) {
     this.state = state;
+
+    // raw href
     this.href = href;
     this.parent = parent;
     this.uri = url.parse(href);
+
+    // fully qualified file path
+    this._file = null;
+  }
+
+  set file(val) {
+    this._file = val; 
+  }
+
+  get file() {
+    return this._file;
   }
 
   /**

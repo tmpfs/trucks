@@ -10,6 +10,16 @@ class HttpResolver {
     this.href = href;
     this.parent = parent;
     this.uri = url.parse(href);
+
+    this._file = null;
+  }
+
+  set file(val) {
+    this._file = val; 
+  }
+
+  get file() {
+    return this._file;
   }
 
   /**
@@ -136,12 +146,13 @@ class HttpResolver {
    *  resource has already been processed.
    */
   getCanonicalPath() {
-
     // no scheme with a parent, resolve relative to the parent
-    if(!this.uri.protocol && this.parent) {
-      const href = this.parent.file; 
-      return url.resolve(href, this.href);
+    if(!this.uri.protocol && this.parent && this.parent.file) {
+      return url.resolve(this.parent.file, this.href);
     }
+
+    // TODO: use url.format() ?
+
     // should be an absolute HTTP/HTTPS URL
     return this.href;
   }

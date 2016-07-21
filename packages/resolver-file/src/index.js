@@ -10,6 +10,13 @@ class FileResolver {
   }
 
   /**
+   *  Allows a resolver to modify the list of dependency imports.
+   */
+  getResolvedImports(list) {
+    return list; 
+  }
+
+  /**
    *  Allows resolver implementations to load file content from a remote 
    *  resource.
    */
@@ -64,7 +71,7 @@ function file(/*state, conf*/) {
     registry.setDefault(FileResolver);
 
     // registry class for the `file:` scheme
-    return registry.register(SCHEME, FileResolver);
+    registry.register(SCHEME, FileResolver);
   }
 }
 

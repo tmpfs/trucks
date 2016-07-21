@@ -118,6 +118,9 @@ function read(state, group, parent, info, cb) {
         deps.push(href);
       })
 
+
+      deps = resolver.getResolvedImports(deps);
+
       // resolve relative to the parent file: `group`
       sources(state, info, deps, group, cb);
 

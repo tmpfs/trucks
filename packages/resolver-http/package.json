@@ -1,7 +1,7 @@
 {
-  "name": "trucks-resolver-file",
-  "version": "1.0.1",
-  "description": "HTML import resolver for the file:// scheme",
+  "name": "trucks-resolver-http",
+  "version": "1.0.0",
+  "description": "HTML import resolver for the http:// and https:// schemes",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -28,9 +28,9 @@
     "lint": "jshint src test doc && jscs src test/spec",
     "target": "rm -rf target && mkdir target",
     "pretest": "npm run target",
-    "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",
+    "test": "NODE_ENV=test mocha test/global.js ${SPEC:-test/spec}",
     "precover": "npm run pretest",
-    "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}",
+    "cover": "NODE_ENV=test istanbul cover _mocha -- test/global.js ${SPEC:-test/spec}",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   }
 }

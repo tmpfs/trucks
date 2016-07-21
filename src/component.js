@@ -133,7 +133,8 @@ class ComponentFile extends ComponentImport {
     this.contents = contents;
     this.parent = parent;
 
-    //this.imports = [];
+    // resolver used to load this file
+    this.resolver = null;
 
     // list of component modules defined with `<dom-module>`
     // propagated during the parse compiler phase
@@ -143,7 +144,7 @@ class ComponentFile extends ComponentImport {
     // by another component definition
     this.duplicates = [];
 
-    // document DOM
+    // document DOM (vdom)
     this._document = null;
   }
 

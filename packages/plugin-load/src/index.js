@@ -58,7 +58,7 @@ function read(state, group, parent, info, cb) {
 
   // file path is now the resolved path
   const file = group.file
-      , resolver = info.resolver;
+      , resolver = group.resolver;
 
   // cyclic dependency: must be tested before the logic to ignore 
   // duplicate components as we want to notify users on circular dependency
@@ -171,7 +171,7 @@ function sources(state, info, files, parent, cb) {
       }
 
       // reference to the current resolver
-      info.resolver = resolver;
+      //info.resolver = resolver;
 
       pth = resolver.getCanonicalPath();
 
@@ -184,6 +184,15 @@ function sources(state, info, files, parent, cb) {
 
       info.seen.sources.push(pth);
 
+      // allow resolver to return new local path
+      //const pth = resolver.getResolvedPath();
+
+      const group = new state.components.File(resolver.getResolvedPath());
+      // raw input string (href)
+      group.href = file;
+      // reference to the resolver
+      group.resolver = resolver;
+
       // allow resolver to fetch remote resources
       resolver.fetch(
         (err) => {
@@ -191,12 +200,7 @@ function sources(state, info, files, parent, cb) {
             return next(err); 
           }
 
-          // allow resolver to return new local path
-          const pth = resolver.getResolvedPath();
-
-          const group = new state.components.File(pth);
-          group.href = file;
-
+          // read in file contents
           read(state, group, parent, info, (err) => {
             if(err) {
               return next(err); 

@@ -1,7 +1,7 @@
 {
-  "name": "trucks-plugin-load",
-  "version": "1.0.3",
-  "description": "Reads HTML imports into the component tree",
+  "name": "trucks-resolver-file",
+  "version": "1.0.0",
+  "description": "HTML import resolver for the file:// scheme",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",
@@ -11,9 +11,6 @@
   },
   "engines": {
     "node": ">=4.0"
-  },
-  "dependencies": {
-    "trucks-resolver-file": "*"
   },
   "devDependencies": {
     "babel-cli": "~6.10.1",

@@ -20,7 +20,8 @@
     "trucks-plugin-parse": "*",
     "trucks-plugin-transform": "*",
     "trucks-plugin-generate": "*",
-    "trucks-plugin-write": "*"
+    "trucks-plugin-write": "*",
+    "trucks-resolver-file": "*"
   },
   "devDependencies": {
     "babel-core": "~6.10.4",

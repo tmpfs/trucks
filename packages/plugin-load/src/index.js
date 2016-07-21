@@ -228,8 +228,12 @@ function load(state, conf) {
     throw new Error(`load schemes array expected`); 
   }
 
+  const DEFAULT = 'file';
+
   // prepend default resolver plugin
-  schemes.unshift(__dirname + '/file');
+  if(!~schemes.indexOf(DEFAULT)) {
+    schemes.unshift(DEFAULT);
+  }
 
   //if(Array.isArray(state.options.before.schemes)) {
     //schemes = state.options.before.schemes.concat(schemes);

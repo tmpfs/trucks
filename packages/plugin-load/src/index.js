@@ -1,3 +1,8 @@
+const PREFIX = 'trucks-resolver-'
+    // scheme registry singleton
+    , registry = require('./registry');
+
+
 /**
  *  Encapsulates the load state information.
  *
@@ -142,12 +147,11 @@ function sources(state, info, files, parent, cb) {
     parent = null;
   }
 
-  const url = require('url')
-      , FileResolver = require('./file').Resolver;
- 
-  // default file resolver handler
-  let handler
-    // handler for a protocol
+  const url = require('url');
+
+  // class for the resolver
+  let Type
+    // handler for a scheme
     , resolver;
 
   state.each(
@@ -163,12 +167,15 @@ function sources(state, info, files, parent, cb) {
       let pth
         , uri = url.parse(file);
 
-      handler = new FileResolver(state, file, uri, parent); 
+      Type = registry.getResolver(uri.scheme);
 
-      // no scheme or file:// use the default handler
-      if(!uri.scheme || uri.scheme === FileResolver.SCHEME) {
-        resolver = handler;
+      // no resolver for the uri scheme
+      if(uri.scheme && !Type) {
+        return next(
+          new Error(`no resolver registered for scheme ${uri.scheme}`)); 
       }
+
+      resolver = new Type(state, file, uri, parent); 
 
       // reference to the current resolver
       info.resolver = resolver;
@@ -216,12 +223,37 @@ function sources(state, info, files, parent, cb) {
   );
 }
 
-function load(/*state, conf*/) {
+function load(state, conf) {
 
-  // plugin registry for resolvers
-  //const registry = conf.registry || [];
+  let schemes = conf.schemes || [];
 
-  //console.log(registry);
+  if(!Array.isArray(schemes)) {
+    throw new Error(`load schemes array expected`); 
+  }
+
+  // prepend default resolver plugin
+  schemes.unshift(__dirname + '/file');
+
+  //if(Array.isArray(state.options.before.schemes)) {
+    //schemes = state.options.before.schemes.concat(schemes);
+  //}
+
+  //if(Array.isArray(state.options.after.schemes)) {
+    //schemes = schemes.concat(state.options.after.schemes);
+  //}
+
+  const closures = state.middleware(
+    {
+      phases: schemes,
+      prefix: PREFIX,
+      lookup: state.options.conf.schemes
+    }
+  );
+
+  // call middleware closures in scope of the registry
+  closures.forEach((fn) => {
+    fn(registry); 
+  })
 
   return function load(state, cb) {
     if(!state.files || !state.files.length) {

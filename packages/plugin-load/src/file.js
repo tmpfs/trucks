@@ -16,7 +16,6 @@ class FileResolver {
   getFileContents(cb) {
     const fs = require('fs')
         , file = this.getResolvedPath();
-
     fs.readFile(file, (err, contents) => {
       if(err) {
         return cb(err); 
@@ -59,9 +58,13 @@ FileResolver.SCHEME = SCHEME;
 /**
  *  Resolver for the default file:// protocol.
  */
-function file(state/*, conf*/) {
-  return function(info) {
-    return this.register(SCHEME, new FileResolver(state, info));
+function file(/*state, conf*/) {
+  return function(registry) {
+    // set as registry default resolver when no scheme is specified
+    registry.setDefault(FileResolver);
+
+    // registry class for the `file:` scheme
+    return registry.register(SCHEME, FileResolver);
   }
 }
 

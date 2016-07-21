@@ -70,7 +70,7 @@ function runVisitor(state, visitors, node, cb) {
 }
 
 function transform(state, conf) {
-  let visitors = conf.visitors || []
+  let visitors = conf.visitors || [];
 
   if(!Array.isArray(visitors)) {
     throw new Error(`transform visitors array expected`); 

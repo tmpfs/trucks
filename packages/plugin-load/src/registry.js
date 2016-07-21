@@ -3,7 +3,7 @@
  */
 class Registry {
   constructor() {
-    this.protocols = {}; 
+    this._schemes = {}; 
     // a default resolver to use when there is no scheme
     this._default = null;
   }
@@ -20,7 +20,7 @@ class Registry {
     if(!scheme) {
       return this._default; 
     }
-    return this.protocols[scheme];
+    return this._schemes[scheme];
   }
 
   register(scheme, type) {
@@ -28,7 +28,7 @@ class Registry {
       throw new Error(
         'constructor function expected when registering scheme'); 
     }
-    this.protocols[scheme] = type;
+    this._schemes[scheme] = type;
   }
 }
 

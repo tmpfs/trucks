@@ -57,10 +57,11 @@ function middleware(state, options) {
       if(prefix && !path.isAbsolute(phase) && !/^\.*\//.test(phase)) {
         file = prefix + file; 
 
-        if(
-          (process.env.DEBUG
-          || process.env.NODE_ENV === 'test')
-          && !/\/src$/.test(file)) {
+        // during tests or debugging try to avoid loading
+        // from `lib` for prefixed plugins, prefer `/src`
+        if((process.env.DEBUG
+            || process.env.NODE_ENV === 'test')
+            && !/\/src$/.test(file)) {
           file = file + '/src';
         }
       }

@@ -91,6 +91,7 @@ module.exports = {
   conf: {
     transforms: {
       csp: {
+        sha: 'sha256',
         statics: true 
       },
       skate: {
@@ -108,35 +109,29 @@ Compiled javascript:
 ```javascript
 const templates = {
   "x-panel": function render(elem) {
-    skate.vdom.element("style", {
-      "statics": [`nonce`],
-      "nonce": `9ed22a2142b674ad1c41cf796554f822721d6055`
-    }, () => {
-      skate.vdom.text(`
-      /*
-        Inline styles for the shadow DOM.
-      */
-      * {
-        font-family: sans-serif;
-        color: white;
-      }
+    skate.vdom.element("style", () => {
+      skate.vdom.text(`/*
+  Inline styles for the shadow DOM.
+*/
+* {
+  font-family: sans-serif;
+  color: white;
+}
 
-      p, ::content p {
-        margin: 0; 
-        padding: 1em;
-      }
+p, ::content p {
+  margin: 0; 
+  padding: 1em;
+}
 
-      .title {
-        background: black;
-        cursor: pointer;
-      }
+.title {
+  background: black;
+  cursor: pointer;
+}
 
-      .content {
-        min-height: 10em;
-        background: gray;
-      }
-
-    `);
+.content {
+  min-height: 10em;
+  background: gray;
+}`);
     });
     skate.vdom.element("div", {
       "class": `container`
@@ -198,7 +193,7 @@ Compiled stylesheet:
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 20, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -227,6 +222,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 20, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
@@ -235,6 +231,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 20, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

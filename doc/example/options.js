@@ -6,6 +6,7 @@ module.exports = {
   conf: {
     transforms: {
       csp: {
+        sha: 'sha256',
         statics: true 
       },
       skate: {

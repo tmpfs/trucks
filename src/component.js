@@ -293,7 +293,7 @@ class ComponentTrait extends ComponentNode {
   constructor(element, contents, parent, href, file) {
     super(...arguments);
     this.element = element;
-    this.contents = contents; 
+    this._contents = contents; 
     this.parent = parent;
     this.href = href;
     this._file = file;
@@ -311,6 +311,14 @@ class ComponentTrait extends ComponentNode {
       this.element.attribs = name;
     }
     return this.element.attribs;
+  }
+
+  set contents(val) {
+    this._contents = val; 
+  }
+
+  get contents() {
+    return this._contents;
   }
 
   get vdom() {
@@ -379,6 +387,15 @@ class ScopedTrait extends ComponentTrait {
   constructor() {
     super(...arguments);
     this._scope = DOCUMENT_SCOPE;
+  }
+
+  set contents(val) {
+    this.vdom(this.element).text(val);
+    super.contents = val; 
+  }
+
+  get contents() {
+    return super.contents;
   }
 
   set scope(val) {

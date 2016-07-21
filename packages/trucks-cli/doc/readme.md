@@ -1,7 +1,5 @@
 # Trucks (CLI) 
 
-<? @include readme/badges.md ?>
-
 > Web component compiler command line interface
 
 Command line interface for the [trucks][] libary.

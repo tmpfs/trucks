@@ -4,6 +4,8 @@ Install [mkdoc][] `npm i -g mkdoc` and then install dependencies for all package
 
 You should now be able to use the scripts and tasks, list tasks with `mk --tasks`.
 
+It is a good idea to run the `build` task before tests; it is recommended that before pushing code the command `mk build test` is run.
+
 ***
 <!-- @toc -->
 ***

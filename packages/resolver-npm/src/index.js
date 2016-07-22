@@ -21,8 +21,8 @@ class NpmResolver extends Resolver {
   }
 
   install(cb) {
-    const exec = require('child_process').exec;
-    const cmd = `npm i ${this.file}`;
+    const exec = require('child_process').exec
+        , cmd = `npm i ${this.file}`;
     exec(cmd, cb);
   }
 
@@ -98,6 +98,7 @@ class NpmResolver extends Resolver {
 
         // see if an install is needed
         version = descriptor.version;
+
         if(version && pkg.spec && semver.valid(pkg.spec)) {
           // bypass installation if the installed version 
           // satisfies the semver spec
@@ -132,8 +133,7 @@ class NpmResolver extends Resolver {
    */
   parsePackage() {
     const npa = require('npm-package-arg');
-    let href = this.href
-    href = href.replace(RE, ''); 
+    let href = this.href.replace(RE, ''); 
     return npa(href);
   }
 

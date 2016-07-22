@@ -9,8 +9,12 @@ const options = {
   transforms: undefined,
   // map of plugin configuration objects
   conf: {
+    // configuration for main compiler plugins
     plugins: {},
-    transforms: {}
+    // configuration for compiler transform plugins
+    transforms: {},
+    // configuration for scheme protocol resolvers
+    protocols: {}
   },
   before: {
     // array list to run before plugins or transforms

@@ -240,7 +240,7 @@ function load(state, conf) {
     {
       phases: schemes,
       prefix: PREFIX,
-      lookup: state.options.conf.schemes
+      lookup: state.options.conf.protocols
     }
   );
 

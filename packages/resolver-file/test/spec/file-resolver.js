@@ -66,6 +66,21 @@ describe('file:', function() {
     resolver.resolve(done);
   });
 
+  it('should create resolver with explicit file:// scheme', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState()
+        , name = 'file://' + process.cwd() + '/test/fixtures/components.html'
+        , href = name
+        , resolver = new Resolver(state, href);
+
+    expect(resolver).to.be.an('object');
+    // protocol has been removed
+    expect(resolver.file).to.eql(
+      process.cwd() + '/test/fixtures/components.html');
+    resolver.resolve(done);
+  });
+
+
   it('should create resolver with parent', function(done) {
     const Resolver = plugin.Resolver
         , state = getState()

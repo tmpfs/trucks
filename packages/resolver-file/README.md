@@ -1,8 +1,8 @@
 # File Resolver
 
-> HTML import resolver for the file:// scheme
+> HTML import resolver for the file: scheme
 
-Resolves HTML imports using the `file://` scheme.
+Resolves HTML imports using the `file:` scheme.
 
 Default resolver for the load plugin.
 
@@ -19,6 +19,7 @@ For the command line interface see [trucks-cli][].
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
+  - [FileResolver](#fileresolver)
 - [License](#license)
 
 ---
@@ -31,13 +32,67 @@ For command line usage see [trucks-cli][].
 
 ## API
 
+### FileResolver
+
+Resolve `file:` protocols.
+
+#### FileResolver
+
+```javascript
+public FileResolver()
+```
+
+Create a file resolver.
+
+#### resolve
+
+```javascript
+public resolve(cb)
+```
+
+Resolves file contents on the local file system using the canonical
+path assigned to the `file` property.
+
+* `cb` Function callback function.
+
+#### getCanonicalPath
+
+```javascript
+public getCanonicalPath()
+```
+
+Compute the canonical path for the file.
+
+When the file path is not absolute if this resolver has a parent file
+then the file is resolved relative to the `dirname()` of the parent file.
+
+If no parent resolver exists and the path is absolute it is resolved
+relative to the current working directory.
+
+If the `href` begins with an explicit `file://` scheme it is stripped.
+
+Returns an absolute file system path.
+
+#### file
+
+```javascript
+public file(state, conf)
+```
+
+Plugin for the file resolver.
+
+Registers the resolver class for the `file:` protocol.
+
+* `state` Object compiler state.
+* `conf` Object plugin configuration object.
+
 ## License
 
 MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 22, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -75,6 +130,9 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

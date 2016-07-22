@@ -1,8 +1,8 @@
 # HTTP Resolver
 
-> HTML import resolver for the http:// and https:// schemes.
+> HTML import resolver for the http: and https: schemes.
 
-Resolves HTML imports using the `http://` and `https://` schemes.
+Resolves HTML imports using the `http:` and `https:` schemes.
 
 ## Install
 
@@ -17,6 +17,7 @@ For the command line interface see [trucks-cli][].
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
+  - [HttpResolver](#httpresolver)
 - [License](#license)
 
 ---
@@ -26,6 +27,51 @@ For the command line interface see [trucks-cli][].
 For command line usage see [trucks-cli][].
 
 ## API
+
+### HttpResolver
+
+Resolve `http:` and `https:` protocols.
+
+#### HttpResolver
+
+```javascript
+public HttpResolver()
+```
+
+Create an HTTP resolver.
+
+#### resolve
+
+```javascript
+public resolve(cb)
+```
+
+Loads a remote HTTP resource from the network and invokes
+callback with the response body.
+
+If the response has a `Content-Encoding` containing gzip it is deflated.
+
+* `cb` Function callback function.
+
+#### http
+
+```javascript
+public http(state, conf)
+```
+
+Plugin for the http resolver.
+
+Registers the resolver class for the `http:` and `https:` protocols unless
+the `secure` option is given in which case the `http:` protocol is not
+registered and attempts to use `http:` URLs in HTML imports will generate
+errors.
+
+* `state` Object compiler state.
+* `conf` Object plugin configuration object.
+
+##### Options
+
+* `secure` Boolean=false only use `https:`.
 
 ## License
 
@@ -71,6 +117,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 22, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
 [resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [less-css]: http://lesscss.org/

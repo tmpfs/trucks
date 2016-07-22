@@ -86,6 +86,20 @@ Implementors should invoke callback with an error and `Buffer` contents:
 
 * `cb` Function callback function.
 
+#### getCanonicalPath
+
+```javascript
+public getCanonicalPath()
+```
+
+Get a canonical path for the URL, used to determine if the
+resource has already been processed.
+
+Typically implementors would convert this to an absolute path or
+absolute URL to ensure that duplicates can be resolved.
+
+Returns the canonical file path to resolve.
+
 ## License
 
 MIT
@@ -130,6 +144,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 22, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
 [resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [less-css]: http://lesscss.org/

@@ -1,44 +1,72 @@
 const path = require('path')
     , Resolver = require('trucks-resolver-core')
-    , SCHEME = 'file:';
+    , SCHEME = 'file:'
+    , RE = new RegExp(SCHEME + "/?/?");
 
+/**
+ *  Resolve `file:` protocols.
+ *
+ *  @public {class} FileResolver
+ */
 class FileResolver extends Resolver {
+
+  /**
+   *  Create a file resolver.
+   *
+   *  @public {constructor} FileResolver
+   */
   constructor() {
     super(...arguments);
   }
 
   /**
-   *  Allows resolver implementations to load file content from a remote 
-   *  resource.
+   *  Resolves file contents on the local file system using the canonical 
+   *  path assigned to the `file` property.
+   *
+   *  @public {function} resolve
+   *  @param {Function} cb callback function.
    */
   resolve(cb) {
-    const fs = require('fs')
-        //, file = this.getResolvedPath();
-    fs.readFile(this.file, (err, contents) => {
-      if(err) {
-        return cb(err); 
-      }
-      return cb(null, contents);
-    });
+    const fs = require('fs');
+    fs.readFile(this.file, cb);
   }
 
   /**
-   *  Get a canonical path for the URL reference, used to determine if the 
-   *  resource has already been processed.
+   *  Compute the canonical path for the file.
+   *
+   *  When the file path is not absolute if this resolver has a parent file 
+   *  then the file is resolved relative to the `dirname()` of the parent file.
+   *
+   *  If no parent resolver exists and the path is absolute it is resolved 
+   *  relative to the current working directory.
+   *
+   *  If the `href` begins with an explicit `file://` scheme it is stripped.
+   *
+   *  @public {function} getCanonicalPath
+   *
+   *  @returns an absolute file system path.
    */
   getCanonicalPath() {
-    let base;
+    let base
+      , href = this.href;
     if(this.parent && this.parent.file) {
       base = path.dirname(this.parent.file); 
     }
-    return  this.state.absolute(this.href, base);
+    href = href.replace(RE, ''); 
+    return this.state.absolute(href, base);
   }
 }
 
 FileResolver.SCHEME = SCHEME;
 
 /**
- *  Resolver for the default file:// protocol.
+ *  Plugin for the file resolver.
+ *
+ *  Registers the resolver class for the `file:` protocol.
+ *
+ *  @public {function} file
+ *  @param {Object} state compiler state.
+ *  @param {Object} conf plugin configuration object.
  */
 function file(/*state, conf*/) {
   return function(registry) {

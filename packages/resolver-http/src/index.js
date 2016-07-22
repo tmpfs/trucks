@@ -8,11 +8,33 @@ const HTTP = 'http:'
         'text/css'
       ];
 
+/**
+ *  Resolve `http:` and `https:` protocols.
+ *
+ *  @public {class} HttpResolver
+ */
 class HttpResolver extends Resolver {
+
+  /**
+   *  Create an HTTP resolver.
+   *
+   *  @public {constructor} HttpResolver
+   */
   constructor() {
     super(...arguments);
+
+    // include default port when getting canonical path
+    this.getDefaultPort(this.uri.protocol, this.uri);
   }
 
+  /**
+   *  Determine if a response content type can be processed.
+   *
+   *  @private {function} isValidContentType
+   *  @param {String} type the response content type.
+   *
+   *  @returns Boolean indicating whether the content type is acceptable.
+   */
   isValidContentType(type) {
     let i = 0;
     for(;i < types.length;i++) {
@@ -24,8 +46,13 @@ class HttpResolver extends Resolver {
   }
 
   /**
-   *  Allows resolver implementations to load file content from a remote 
-   *  resource.
+   *  Loads a remote HTTP resource from the network and invokes 
+   *  callback with the response body.
+   *
+   *  If the response has a `Content-Encoding` containing gzip it is deflated.
+   *
+   *  @public {function} resolve
+   *  @param {Function} cb callback function.
    */
   resolve(cb) {
     const zlib = require('zlib')
@@ -47,7 +74,7 @@ class HttpResolver extends Resolver {
 
     if(!this.uri.protocol) {
       return cb(
-        new Error('https resolver attempt to load with no protocol')); 
+        new Error('resolver attempt to load with no protocol')); 
     }
 
     let pth = this.uri.pathname;
@@ -58,7 +85,7 @@ class HttpResolver extends Resolver {
             port: this.uri.port,
             path: pth,
             headers: {
-              'Accept': 'text/html'
+              'Accept': types.join(', ')
             }
           };
 
@@ -132,21 +159,30 @@ class HttpResolver extends Resolver {
       return url.resolve(this.parent.file, this.href);
     }
 
-    // TODO: use url.format() ?
-
     // should be an absolute HTTP/HTTPS URL
-    return this.href;
+    return url.format(this.uri);
   }
 
-  getDefaultPort(protocol, options) {
-    if(!options.port) {
+  /**
+   *  Injects a default port for the `http:` and `https:` protocols.
+   *
+   *  Used for requests and generating canonical URLs.
+   *
+   *  @private {function} getDefaultPort
+   *  @param {String} protocol parsed protocol.
+   *  @param {Object} target the object to receive the `port` property.
+   *
+   *  @returns the input target object.
+   */
+  getDefaultPort(protocol, target) {
+    if(!target.port) {
       if(protocol === HTTP) {
-        options.port = 80;
+        target.port = 80;
       }else{
-        options.port = 443;
+        target.port = 443;
       }
     }
-    return options;
+    return target;
   }
 }
 
@@ -154,11 +190,23 @@ HttpResolver.HTTP = HTTP;
 HttpResolver.HTTPS = HTTPS;
 
 /**
- *  Resolver for the default http:// and https:// protocols.
+ *  Plugin for the http resolver.
+ *
+ *  Registers the resolver class for the `http:` and `https:` protocols unless 
+ *  the `secure` option is given in which case the `http:` protocol is not 
+ *  registered and attempts to use `http:` URLs in HTML imports will generate 
+ *  errors.
+ *
+ *  @public {function} http
+ *  @param {Object} state compiler state.
+ *  @param {Object} conf plugin configuration object.
+ *  @option {Boolean=false} secure only use `https:`.
  */
-function http(/*state, conf*/) {
+function http(state, conf) {
   return function(registry) {
-    registry.register(HTTP, HttpResolver);
+    if(!conf.secure) {
+      registry.register(HTTP, HttpResolver);
+    }
     registry.register(HTTPS, HttpResolver);
   }
 }

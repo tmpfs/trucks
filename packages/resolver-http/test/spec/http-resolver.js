@@ -24,13 +24,13 @@ describe('http:', function() {
 
   it('should run plugin function', function(done) {
     const state = {}
-      , conf = {};
+      , conf = {secure: true};
 
     let closure = plugin(state, conf);
     expect(closure).to.be.a('function').to.have.length(1);
+    closure(getRegistry({}));
     done();
   });
-
 
   it('should run plugin closure function', function(done) {
     const state = {}

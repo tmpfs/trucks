@@ -1,8 +1,8 @@
 # File Resolver
 
-> HTML import resolver for the file:// scheme
+> HTML import resolver for the file: scheme
 
-Resolves HTML imports using the `file://` scheme.
+Resolves HTML imports using the `file:` scheme.
 
 Default resolver for the load plugin.
 

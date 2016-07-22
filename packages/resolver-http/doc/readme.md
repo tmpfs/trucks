@@ -1,8 +1,8 @@
 # HTTP Resolver
 
-> HTML import resolver for the http:// and https:// schemes.
+> HTML import resolver for the http: and https: schemes.
 
-Resolves HTML imports using the `http://` and `https://` schemes.
+Resolves HTML imports using the `http:` and `https:` schemes.
 
 <? @include {=readme} install.md ?>
 

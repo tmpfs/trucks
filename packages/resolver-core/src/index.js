@@ -90,6 +90,10 @@ class Resolver {
    *
    *  Typically implementors would convert this to an absolute path or 
    *  absolute URL to ensure that duplicates can be resolved.
+   *
+   *  @public {function} getCanonicalPath
+   *
+   *  @returns the canonical file path to resolve.
    */
   getCanonicalPath() {
     return this.href;

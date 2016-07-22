@@ -1,11 +1,26 @@
 const HTTP = 'http:'
     , HTTPS = 'https:'
     , Resolver = require('trucks-resolver-core')
-    , url = require('url');
+    , url = require('url')
+    , types = [
+        'text/html',
+        'application/javascript',
+        'text/css'
+      ];
 
 class HttpResolver extends Resolver {
   constructor() {
     super(...arguments);
+  }
+
+  isValidContentType(type) {
+    let i = 0;
+    for(;i < types.length;i++) {
+      if(~type.indexOf(types[i])) {
+        return true; 
+      } 
+    } 
+    return false;
   }
 
   /**
@@ -62,7 +77,7 @@ class HttpResolver extends Resolver {
 
       let gzip = false;
 
-      if(!/text\/html/.test(contentType)) {
+      if(!this.isValidContentType(contentType)) {
         return done(
           new Error(`unexpected content type ${contentType}`)) ;
       }

@@ -517,6 +517,7 @@ Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blo
 * [core][resolver-core] Abstract resolver class for resolver plugins.
 * [file][resolver-file] Default resolver for the `file:` protocol.
 * [http][resolver-http] Resolver for the `http:` and `https:` protocols.
+* [npm][resolver-npm] Resolver for the `npm:` protocol.
 
 ### Preprocessors
 
@@ -592,6 +593,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 22, 2016
 [resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
 [resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

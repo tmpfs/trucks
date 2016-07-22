@@ -40,6 +40,7 @@
 [resolver-core]: /packages/resolver-core
 [resolver-file]: /packages/resolver-file
 [resolver-http]: /packages/resolver-http
+[resolver-npm]: /packages/resolver-npm
 
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/

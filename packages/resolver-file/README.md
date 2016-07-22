@@ -66,7 +66,7 @@ Compute the canonical path for the file.
 When the file path is not absolute if this resolver has a parent file
 then the file is resolved relative to the `dirname()` of the parent file.
 
-If no parent resolver exists and the path is absolute it is resolved
+If no parent resolver exists and the path is not absolute it is resolved
 relative to the current working directory.
 
 If the `href` begins with an explicit `file://` scheme it is stripped.

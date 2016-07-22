@@ -26,7 +26,7 @@ describe('load:', function() {
         conf: {
           plugins: {
             load: {
-              schemes: [
+              protocols: [
                 function plugin() {
                   return function(registry) {
                     registry.register('http:', MockResolver); 

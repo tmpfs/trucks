@@ -3,19 +3,19 @@ var expect = require('chai').expect
 
 describe('load:', function() {
 
-  it('should error with bad schemes array', function(done) {
+  it('should error with bad protocols array', function(done) {
     const src = '../../test/fixtures/simple-inline/components.html';
   
     trucks(
       {
         files: [src],
         out: 'target',
-        name: 'load-plugin-bad-schemes-array',
+        name: 'load-plugin-bad-protocols-array',
         plugins: [require('../../../src')],
         conf: {
           plugins: {
             load: {
-              schemes: 'foo'
+              protocols: 'foo'
             }
           }
         }
@@ -24,7 +24,7 @@ describe('load:', function() {
         function fn() {
           throw err;
         }
-        expect(fn).throws(/schemes array expected/);
+        expect(fn).throws(/protocols array expected/);
         done();
       }
     );

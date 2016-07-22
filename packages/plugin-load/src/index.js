@@ -161,13 +161,13 @@ function sources(state, info, files, parent, cb) {
 
       let pth
         // parent resolver
-        , relative;
+        //, relative;
 
       try {
-        if(parent && parent.resolver) {
-          relative = parent.resolver; 
-        }
-        resolver = state.getResolver(file, relative);
+        //if(parent && parent.resolver) {
+          //relative = parent.resolver; 
+        //}
+        resolver = state.getResolver(file, parent ? parent.resolver : null);
       }catch(e) {
         return next(e); 
       }
@@ -223,22 +223,22 @@ function sources(state, info, files, parent, cb) {
 
 function load(state, conf) {
 
-  let schemes = conf.schemes || [];
+  let protocols = conf.protocols || [];
 
-  if(!Array.isArray(schemes)) {
-    throw new Error(`load schemes array expected`); 
+  if(!Array.isArray(protocols)) {
+    throw new Error(`protocols array expected`); 
   }
 
   const DEFAULT = 'file';
 
   // prepend default resolver plugin
-  if(!~schemes.indexOf(DEFAULT)) {
-    schemes.unshift(DEFAULT);
+  if(!~protocols.indexOf(DEFAULT)) {
+    protocols.unshift(DEFAULT);
   }
 
   const closures = state.middleware(
     {
-      phases: schemes,
+      phases: protocols,
       prefix: PREFIX,
       lookup: state.options.conf.protocols
     }

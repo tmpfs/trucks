@@ -60,6 +60,7 @@ class FileResolver {
    */
   getCanonicalPath() {
     let base;
+
     if(this.parent && this.parent.file) {
       base = path.dirname(this.parent.file); 
     }

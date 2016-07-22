@@ -53,6 +53,7 @@ class Registry {
    *  @returns a resolver class for the scheme.
    */
   getResolver(scheme) {
+    //console.log('get resolver %s', scheme);
     if(!scheme) {
       return this.getDefault(); 
     }
@@ -90,7 +91,13 @@ class Registry {
       , url = require('url')
       , uri = url.parse(href);
 
-    Type = this.getResolver(uri.protocol);
+    // inherit type from parent resolver
+    if(parent && parent.uri && parent.uri.protocol && !uri.protocol) {
+      Type = this.getResolver(parent.uri.protocol);
+    // otherwise try to find for the protocol
+    }else{
+      Type = this.getResolver(uri.protocol);
+    }
 
     // no resolver for the uri scheme
     if(uri.protocol && !Type) {

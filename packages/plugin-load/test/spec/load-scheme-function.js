@@ -20,7 +20,7 @@ describe('load:', function() {
         conf: {
           plugins: {
             load: {
-              schemes: [
+              protocols: [
                 function scheme(state, conf) {
                   expect(state).to.be.an('object');
                   expect(conf).to.be.an('object');

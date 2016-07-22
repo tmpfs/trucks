@@ -14,7 +14,7 @@ describe('load:', function() {
         conf: {
           plugins: {
             load: {
-              schemes: ['file']
+              protocols: ['file']
             }
           }
         }

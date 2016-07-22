@@ -140,6 +140,7 @@ class HttpResolver {
    *  resource has already been processed.
    */
   getCanonicalPath() {
+
     // no scheme with a parent, resolve relative to the parent
     if(!this.uri.protocol && this.parent && this.parent.file) {
       return url.resolve(this.parent.file, this.href);
@@ -171,6 +172,7 @@ HttpResolver.HTTPS = HTTPS;
  */
 function http(/*state, conf*/) {
   return function(registry) {
+    //console.log('registering resolvers %s', HTTP);
     registry.register(HTTP, HttpResolver);
     registry.register(HTTPS, HttpResolver);
   }

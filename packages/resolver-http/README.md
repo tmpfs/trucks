@@ -4,6 +4,10 @@
 
 Resolves HTML imports using the `http:` and `https:` schemes.
 
+```html
+<link rel="import" href="https://example.com/components.html">
+```
+
 ## Install
 
 ```

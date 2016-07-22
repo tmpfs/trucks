@@ -4,6 +4,10 @@
 
 Resolves HTML imports using the `npm:` scheme.
 
+```html
+<link rel="import" href="npm://@ui/components@1.0.0">
+```
+
 <? @include {=readme} install.md ?>
 
 ***

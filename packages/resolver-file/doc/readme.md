@@ -4,6 +4,10 @@
 
 Resolves HTML imports using the `file:` scheme.
 
+```html
+<link rel="import" href="file://components.html">
+```
+
 Default resolver for the load plugin.
 
 <? @include {=readme} install.md ?>

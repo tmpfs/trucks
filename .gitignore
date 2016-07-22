@@ -3,6 +3,7 @@ node_modules
 coverage
 target
 lib
+npm-debug.log.*
 /components.*
 *.bak
 *.zip

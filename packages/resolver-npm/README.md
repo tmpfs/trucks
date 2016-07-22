@@ -1,15 +1,17 @@
-# File Resolver
+# NPM Resolver
 
-> HTML import resolver for the file: scheme
+> HTML import resolver for the npm: scheme
 
-Resolves HTML imports using the `file:` scheme.
+Resolves HTML imports using the `npm:` scheme.
 
-Default resolver for the load plugin.
+```html
+<link rel="import" href="npm://@ui/components@1.0.0">
+```
 
 ## Install
 
 ```
-npm i trucks-resolver-file --save-dev
+npm i trucks-resolver-npm --save-dev
 ```
 
 For the command line interface see [trucks-cli][].
@@ -19,30 +21,28 @@ For the command line interface see [trucks-cli][].
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
-  - [FileResolver](#fileresolver)
+  - [NpmResolver](#npmresolver)
 - [License](#license)
 
 ---
 
 ## Usage
 
-This plugin is bundled with the core library.
-
 For command line usage see [trucks-cli][].
 
 ## API
 
-### FileResolver
+### NpmResolver
 
-Resolve `file:` protocols.
+Resolve `npm:` protocols.
 
-#### FileResolver
+#### NpmResolver
 
 ```javascript
-public FileResolver()
+public NpmResolver()
 ```
 
-Create a file resolver.
+Create an npm resolver.
 
 #### resolve
 
@@ -50,8 +50,7 @@ Create a file resolver.
 public resolve(cb)
 ```
 
-Resolves file contents on the local file system using the canonical
-path assigned to the `file` property.
+Resolve web component HTML imports from npm packages.
 
 * `cb` Function callback function.
 
@@ -63,25 +62,17 @@ public getCanonicalPath()
 
 Compute the canonical path for the file.
 
-When the file path is not absolute if this resolver has a parent file
-then the file is resolved relative to the `dirname()` of the parent file.
-
-If no parent resolver exists and the path is not absolute it is resolved
-relative to the current working directory.
-
-If the `href` begins with an explicit `file://` scheme it is stripped.
-
 Returns an absolute file system path.
 
-#### file
+#### npm
 
 ```javascript
-public file(state, conf)
+public npm(state, conf)
 ```
 
-Plugin for the file resolver.
+Plugin for the npm resolver.
 
-Registers the resolver class for the `file:` protocol.
+Registers the resolver class for the `npm:` protocol.
 
 * `state` Object compiler state.
 * `conf` Object plugin configuration object.

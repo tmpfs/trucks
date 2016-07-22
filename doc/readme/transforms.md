@@ -85,7 +85,7 @@ Existing transform plugins are in [packages](/packages).
 
 ### Resolvers
 
-* [core][resolver-core] Abstract resolver class for resolver plugins.
+* [core][resolver-core] Abstract class for resolver plugins.
 * [file][resolver-file] Default resolver for the `file:` protocol.
 * [http][resolver-http] Resolver for the `http:` and `https:` protocols.
 * [npm][resolver-npm] Resolver for the `npm:` protocol.

@@ -33,6 +33,7 @@ class NpmResolver extends Resolver {
     const type = pkg.type; 
     if(type === 'local') {
       return this.state.absolute(pkg.raw); 
+    /* istanbul ignore next: not going to mock hosted packages right now */
     }else if(type === 'hosted') {
       return pkg.hosted.https;
     }else{

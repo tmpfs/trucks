@@ -71,16 +71,10 @@ describe('http:', function() {
     expect(resolver.getDefaultPort(Resolver.HTTPS, {}))
       .to.be.an('object').to.have.property('port').that.equals(443);
 
-    // trigger placeholder fetch function
-    resolver.fetch(() => {
-      const resolved = resolver.getResolvedPath();
-      expect(resolved).to.equal(file);
-
-      resolver.getFileContents((err, contents) => {
-        expect(contents).to.be.instanceof(Buffer);
-        expect(contents.toString()).to.eql(expected);
-        done();
-      });
+    resolver.resolve((err, contents) => {
+      expect(contents).to.be.instanceof(Buffer);
+      expect(contents.toString()).to.eql(expected);
+      done();
     });
   });
 
@@ -96,13 +90,7 @@ describe('http:', function() {
     const file = resolver.getCanonicalPath();
     expect(file).to.eql(parent.file + '/' + href);
 
-    // trigger placeholder fetch function
-    resolver.fetch(() => {
-      const resolved = resolver.getResolvedPath();
-      expect(resolved).to.equal(file);
-
-      resolver.getFileContents(done);
-    });
+    resolver.resolve(done);
   });
 
   it('should handle file with gzip compresion', function(done) {
@@ -113,9 +101,8 @@ describe('http:', function() {
         , resolver = new Resolver(state, href);
 
     expect(resolver).to.be.an('object');
-    //const file = resolver.getCanonicalPath();
 
-    resolver.getFileContents((err, contents) => {
+    resolver.resolve((err, contents) => {
       expect(contents).to.be.instanceof(Buffer);
       expect(contents.toString()).to.eql(expected);
       done();
@@ -129,7 +116,7 @@ describe('http:', function() {
         , href = name
         , resolver = new Resolver(state, href);
 
-    resolver.getFileContents((err) => {
+    resolver.resolve((err) => {
       function fn() {
         throw err; 
       } 
@@ -145,7 +132,7 @@ describe('http:', function() {
         , href = name
         , resolver = new Resolver(state, href);
 
-    resolver.getFileContents((err) => {
+    resolver.resolve((err) => {
       function fn() {
         throw err; 
       } 
@@ -161,7 +148,7 @@ describe('http:', function() {
         , href = name
         , resolver = new Resolver(state, href);
 
-    resolver.getFileContents((err) => {
+    resolver.resolve((err) => {
       function fn() {
         throw err; 
       } 
@@ -177,7 +164,7 @@ describe('http:', function() {
         , href = name
         , resolver = new Resolver(state, href);
 
-    resolver.getFileContents((err) => {
+    resolver.resolve((err) => {
       function fn() {
         throw err; 
       } 

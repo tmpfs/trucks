@@ -62,16 +62,8 @@ describe('file:', function() {
     // check acccessor
     resolver.file = file;
     expect(resolver.file).to.eql(file);
-
     expect(file).to.eql(path.join(process.cwd(), name));
-
-    // trigger placeholder fetch function
-    resolver.fetch(() => {
-      const resolved = resolver.getResolvedPath();
-      expect(resolved).to.equal(file);
-
-      resolver.getFileContents(done);
-    });
+    resolver.resolve(done);
   });
 
   it('should create resolver with parent', function(done) {
@@ -86,16 +78,8 @@ describe('file:', function() {
     const file = resolver.getCanonicalPath();
     expect(file).to.eql(
       path.join(path.dirname(parent.file), name));
-
-    // trigger placeholder fetch function
-    resolver.fetch(() => {
-      const resolved = resolver.getResolvedPath();
-      expect(resolved).to.equal(file);
-
-      resolver.getFileContents(done);
-    });
+    resolver.resolve(done);
   });
-
 
   it('should error with missing file', function(done) {
     const Resolver = plugin.Resolver
@@ -104,7 +88,7 @@ describe('file:', function() {
         , href = name
         , resolver = new Resolver(state, href);
 
-    resolver.getFileContents((err) => {
+    resolver.resolve((err) => {
       function fn() {
         throw err; 
       } 

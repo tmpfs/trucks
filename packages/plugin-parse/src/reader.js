@@ -61,9 +61,7 @@ class TraitReader {
       const href = this.getExternalHref(el)
           , resolver = state.getResolver(href, this.resolver);
 
-      resolver.file = resolver.getCanonicalPath();
-
-      resolver.getFileContents((err, contents) => {
+      resolver.resolve((err, contents) => {
         if(err) {
           return cb(err); 
         }

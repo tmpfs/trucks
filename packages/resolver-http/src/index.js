@@ -1,37 +1,18 @@
 const HTTP = 'http:'
     , HTTPS = 'https:'
+    , Resolver = require('trucks-resolver-core')
     , url = require('url');
 
-class HttpResolver {
-  constructor(state, href, parent) {
-    this.state = state;
-    this.href = href;
-    this.parent = parent;
-    this.uri = url.parse(href);
-
-    this._file = null;
-  }
-
-  get protocol() {
-    if(!this.uri.protocol && this.parent) {
-      return this.parent.protocol; 
-    }
-    return this.uri.protocol;
-  }
-
-  set file(val) {
-    this._file = val; 
-  }
-
-  get file() {
-    return this._file;
+class HttpResolver extends Resolver {
+  constructor() {
+    super(...arguments);
   }
 
   /**
    *  Allows resolver implementations to load file content from a remote 
    *  resource.
    */
-  getFileContents(cb) {
+  resolve(cb) {
     const zlib = require('zlib')
         , http = require('http');
 
@@ -127,27 +108,10 @@ class HttpResolver {
   }
 
   /**
-   *  Allows resolvers for remote protocols to fetch resources from 
-   *  the network.
-   */
-  fetch(cb) {
-    cb(); 
-  }
-
-  /**
-   *  Called after fetch has been invoked so that the resolver may return 
-   *  a new filesystem path for downloaded content.
-   */
-  getResolvedPath() {
-    return this.getCanonicalPath(); 
-  }
-
-  /**
    *  Get a canonical path for the URL reference, used to determine if the 
    *  resource has already been processed.
    */
   getCanonicalPath() {
-
     // no scheme with a parent, resolve relative to the parent
     if(!this.uri.protocol && this.parent && this.parent.file) {
       return url.resolve(this.parent.file, this.href);
@@ -179,7 +143,6 @@ HttpResolver.HTTPS = HTTPS;
  */
 function http(/*state, conf*/) {
   return function(registry) {
-    //console.log('registering resolvers %s', HTTP);
     registry.register(HTTP, HttpResolver);
     registry.register(HTTPS, HttpResolver);
   }

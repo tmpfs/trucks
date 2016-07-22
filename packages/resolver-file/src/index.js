@@ -1,43 +1,20 @@
 const path = require('path')
-    , url = require('url')
+    , Resolver = require('trucks-resolver-core')
     , SCHEME = 'file:';
 
-class FileResolver {
-  constructor(state, href, parent) {
-    this.state = state;
-
-    // raw href
-    this.href = href;
-    this.parent = parent;
-    this.uri = url.parse(href);
-
-    // fully qualified file path
-    this._file = null;
-  }
-
-  get protocol() {
-    if(!this.uri.protocol && this.parent) {
-      return this.parent.protocol; 
-    }
-    return this.uri.protocol;
-  }
-
-  set file(val) {
-    this._file = val; 
-  }
-
-  get file() {
-    return this._file;
+class FileResolver extends Resolver {
+  constructor() {
+    super(...arguments);
   }
 
   /**
    *  Allows resolver implementations to load file content from a remote 
    *  resource.
    */
-  getFileContents(cb) {
+  resolve(cb) {
     const fs = require('fs')
-        , file = this.getResolvedPath();
-    fs.readFile(file, (err, contents) => {
+        //, file = this.getResolvedPath();
+    fs.readFile(this.file, (err, contents) => {
       if(err) {
         return cb(err); 
       }
@@ -46,28 +23,11 @@ class FileResolver {
   }
 
   /**
-   *  Allows resolvers for remote protocols to fetch resources from 
-   *  the network.
-   */
-  fetch(cb) {
-    cb(); 
-  }
-
-  /**
-   *  Called after fetch has been invoked so that the resolver may return 
-   *  a new filesystem path for downloaded content.
-   */
-  getResolvedPath() {
-    return this.getCanonicalPath(); 
-  }
-
-  /**
    *  Get a canonical path for the URL reference, used to determine if the 
    *  resource has already been processed.
    */
   getCanonicalPath() {
     let base;
-
     if(this.parent && this.parent.file) {
       base = path.dirname(this.parent.file); 
     }

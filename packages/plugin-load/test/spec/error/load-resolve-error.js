@@ -7,14 +7,14 @@ class MockResolver extends Resolver {
     super(...arguments);
   }
 
-  fetch(cb) {
+  resolve(cb) {
     return cb(new Error('mock error')); 
   }
 }
 
 describe('load:', function() {
 
-  it('should proxy resolver fetch error', function(done) {
+  it('should proxy resolver resolve error', function(done) {
     const src = 'test/fixtures/http-scheme.html';
   
     trucks(

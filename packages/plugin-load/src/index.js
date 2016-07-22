@@ -7,9 +7,6 @@ const PREFIX = 'trucks-resolver-';
  */
 function LoadInfo() {
 
-  // current import resolver
-  this.resolver = null;
-
   // keep track of processed files during load phase
   this.seen  = {
     imports: [],
@@ -78,7 +75,7 @@ function read(state, group, parent, info, cb) {
   info.seen.imports.push(file);
 
   //fs.readFile(file, (err, contents) => {
-  resolver.getFileContents((err, contents) => {
+  resolver.resolve((err, contents) => {
     if(err) {
       return cb(err); 
     }
@@ -159,9 +156,7 @@ function sources(state, info, files, parent, cb) {
         info.hierarchy = [];
       }
 
-      let pth
-        // parent resolver
-        //, relative;
+      let pth;
 
       try {
         //if(parent && parent.resolver) {
@@ -171,9 +166,6 @@ function sources(state, info, files, parent, cb) {
       }catch(e) {
         return next(e); 
       }
-
-      // reference to the current resolver
-      //info.resolver = resolver;
 
       pth = resolver.file = resolver.getCanonicalPath();
 
@@ -187,35 +179,26 @@ function sources(state, info, files, parent, cb) {
       info.seen.sources.push(pth);
 
       // allow resolver to return new local path: getResolvedPath()
-      const group = new state.components.File(resolver.getResolvedPath());
+      const group = new state.components.File(resolver.file);
 
       // raw input string (href)
       group.href = file;
       // reference to the resolver
       group.resolver = resolver;
 
-      // allow resolver to fetch remote resources
-      resolver.fetch(
-        (err) => {
-          if(err) {
-            return next(err); 
-          }
+      // read in file contents
+      read(state, group, parent, info, (err) => {
+        if(err) {
+          return next(err); 
+        } 
 
-          // read in file contents
-          read(state, group, parent, info, (err) => {
-            if(err) {
-              return next(err); 
-            } 
-
-            // add to root of tree hierarchy
-            if(!parent) {
-              state.tree.imports.push(group);
-            }
-
-            next();
-          });
+        // add to root of tree hierarchy
+        if(!parent) {
+          state.tree.imports.push(group);
         }
-      );
+
+        next();
+      });
     },
     cb
   );

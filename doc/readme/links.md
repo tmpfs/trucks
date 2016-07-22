@@ -37,7 +37,9 @@
 [style-extract]: /packages/transform-style-extract
 [style-inject]: /packages/transform-style-inject
 
+[resolver-core]: /packages/resolver-core
 [resolver-file]: /packages/resolver-file
+[resolver-http]: /packages/resolver-http
 
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/

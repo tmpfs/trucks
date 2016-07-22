@@ -1,31 +1,90 @@
-# HTTP Resolver
+# Resolver
 
-> HTML import resolver for the http:// and https:// schemes.
+> Abstract HTML import resolver
 
-Resolves HTML imports using the `http://` and `https://` schemes.
+Implementation contract for protocol resolver plugins.
 
 ## Install
 
 ```
-npm i trucks-resolver-http --save-dev
+npm i trucks-resolver-core --save
 ```
-
-For the command line interface see [trucks-cli][].
 
 ---
 
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
+  - [Resolver](#resolver)
 - [License](#license)
 
 ---
 
 ## Usage
 
-For command line usage see [trucks-cli][].
+Resolver plugin implementations should extend this class, see the [file][resolver-file] and [http][resolver-http] plugins for example implementations.
 
 ## API
+
+### Resolver
+
+Abstract protocol resolver.
+
+Resolver plugin implementations should create a subclass of this class and
+invoke `registry.register()` with a protocol and the derived class.
+
+#### Resolver
+
+```javascript
+public Resolver(state, href[, parent])
+```
+
+Create a resolver.
+
+The `file` property is initialized to the canonical path for
+the `href` argument.
+
+* `state` Object compiler state.
+* `href` String source URL to resolve.
+* `parent` Object a parent resolver.
+
+##### Throws
+
+* `TypeError` attempting to parse a bad href argument.
+
+#### protocol
+
+```javascript
+String protocol
+```
+
+Get the protocol from the `href` assigned to this
+resolver, if no protocol is found lookup is performed
+in a parent hierarchy.
+
+#### file
+
+```javascript
+String file
+```
+
+Absolute computed path for the URL.
+
+This is initialized to the canonical path for the `href` argument
+passed to the constructor but implementations may overwrite this.
+
+#### resolve
+
+```javascript
+public resolve(cb)
+```
+
+Resolve the contents for the URL.
+
+Implementors should invoke callback with an error and `Buffer` contents:
+`(err, contents) => {}`.
+
+* `cb` Function callback function.
 
 ## License
 

@@ -396,7 +396,7 @@ Resolver plugins are mapped to URL protocols and allow the file load mechanism t
 
 By default a protocol handler for the `file:` scheme is registered by the [load][] plugin so HTML imports can be loaded from the local file system.
 
-To enable a resolver first install the resolver (`npm i trucks-resolver-http --save-dev`) and then enable the plugin in the `protocols` list:
+To enable a resolver first install the package (`npm i trucks-resolver-http --save-dev`) and then enable the plugin in the `protocols` list:
 
 ```javascript
 const options = {

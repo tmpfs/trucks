@@ -28,7 +28,14 @@ For the command line interface see [trucks-cli][].
 
 ## Usage
 
-For command line usage see [trucks-cli][].
+Register the `npm` protocol plugin:
+
+```javascript
+const options {
+  files: ['npm://@ui/components@1.0.0'],
+  protocols: ['npm']
+}
+```
 
 ## API
 

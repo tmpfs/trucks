@@ -8,13 +8,28 @@ Resolves HTML imports using the `http:` and `https:` schemes.
 <link rel="import" href="https://example.com/components.html">
 ```
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-resolver-http --save-dev
+```
+
+For the command line interface see [trucks-cli][].
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+Register the `http` protocol plugin:
+
+```javascript
+const options {
+  files: ['https://example.com/components.html'],
+  protocols: ['http']
+}
+```
 
 ## API
 

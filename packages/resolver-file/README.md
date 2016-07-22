@@ -30,7 +30,14 @@ For the command line interface see [trucks-cli][].
 
 ## Usage
 
-This plugin is bundled with the core library.
+This plugin is bundled with the core library so there is no need to add it however the configuration is:
+
+```javascript
+const options {
+  files: ['file://components.html'],
+  protocols: ['file']
+}
+```
 
 For command line usage see [trucks-cli][].
 

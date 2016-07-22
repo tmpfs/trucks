@@ -8,13 +8,28 @@ Resolves HTML imports using the `npm:` scheme.
 <link rel="import" href="npm://@ui/components@1.0.0">
 ```
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-resolver-npm --save-dev
+```
+
+For the command line interface see [trucks-cli][].
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+Register the `npm` protocol plugin:
+
+```javascript
+const options {
+  files: ['npm://@ui/components@1.0.0'],
+  protocols: ['npm']
+}
+```
 
 ## API
 

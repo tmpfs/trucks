@@ -10,13 +10,31 @@ Resolves HTML imports using the `file:` scheme.
 
 Default resolver for the load plugin.
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-resolver-file --save-dev
+```
+
+For the command line interface see [trucks-cli][].
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+This plugin is bundled with the core library, to explicitly configure:
+
+```javascript
+const options {
+  files: ['file://components.html'],
+  protocols: ['file']
+}
+```
+
+For command line usage see [trucks-cli][].
+
 
 ## API
 

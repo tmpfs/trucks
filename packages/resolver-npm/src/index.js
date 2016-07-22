@@ -1,6 +1,5 @@
 const path = require('path')
     , Resolver = require('trucks-resolver-core')
-    , npa = require('npm-package-arg')
     , SCHEME = 'npm:'
     , INDEX = 'components.html'
     , RE = new RegExp('^' + SCHEME + '/?/?');
@@ -35,7 +34,14 @@ class NpmResolver extends Resolver {
     if(type === 'local') {
       return this.state.absolute(pkg.raw); 
     }else if(pkg.name) {
-      return this.state.absolute(path.join('node_modules', pkg.name)); 
+      // we will only be able to resolve if the package is installed
+      try {
+        // NOTE: by requiring `package.json` the module does not need
+        // NOTE: an `index.js` or other main file
+        return path.dirname(require.resolve(pkg.name + '/package.json'));
+      }catch(e) {}
+
+      return pkg.name;
     }
   }
 
@@ -54,9 +60,8 @@ class NpmResolver extends Resolver {
   getPackageIndex(descriptor) {
     let index = INDEX;
     if(descriptor
-      && descriptor.webcomponent
-      && descriptor.webcomponents.main) {
-      index = descriptor.webcomponents.main; 
+      && descriptor.main) {
+      index = descriptor.main; 
     }
     return index;
   }
@@ -75,40 +80,45 @@ class NpmResolver extends Resolver {
    */
   resolve(cb) {
     const semver = require('semver')
-        , pkg = this.parsePackage()
-        , localPath = this.getLocalPath(pkg);
+        , pkg = this.parsePackage();
 
     let descriptor
+      , localPath = this.getLocalPath(pkg)
       , version
       // resolved component index file
-      , file
+      , file = this.file
       , needsInstall = true;
 
     // try to determine an already installed version
     if(localPath) {
-      //console.log('reading from local path %s', localPath);
-
       try {
-        descriptor = this.getPackageDescriptor(localPath);
+        // try to get the component index file to read
         file = this.getPackageMain(localPath);
+        descriptor = this.getPackageDescriptor(localPath);
 
+        // see if an install is needed
         version = descriptor.version;
         if(version && pkg.spec && semver.valid(pkg.spec)) {
+          // bypass installation if the installed version 
+          // satisfies the semver spec
           if(semver.satisfies(version, pkg.spec)) {
-            console.log('by pass install on satisfied semver');
             needsInstall = false; 
           } 
         }
 
-      // it's ok it this fails, we'll try to install the dependeny
+      // it's ok it this fails, we'll try to install
       }catch(e) {}
     }
 
     if(needsInstall) {
-      return this.install((err) => {
+      return this.install((err/*, stdout, stderr*/) => {
         if(err) {
           return cb(err);
         }
+
+        // re-evaluate after install
+        localPath = this.getLocalPath(pkg);
+        file = this.getPackageMain(localPath);
 
         this.readFile(file, cb);
       });
@@ -121,6 +131,7 @@ class NpmResolver extends Resolver {
    *  @private
    */
   parsePackage() {
+    const npa = require('npm-package-arg');
     let href = this.href
     href = href.replace(RE, ''); 
     return npa(href);

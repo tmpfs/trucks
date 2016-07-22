@@ -1,7 +1,7 @@
 {
   "name": "trucks-resolver-http",
   "version": "1.0.5",
-  "description": "HTML import resolver for the http:// and https:// schemes",
+  "description": "HTML import resolver for the http: and https: protocols",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",

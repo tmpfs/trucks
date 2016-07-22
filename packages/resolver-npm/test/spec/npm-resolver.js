@@ -23,6 +23,16 @@ function getState(options) {
 
 describe('npm:', function() {
 
+  before((done) => {
+    process.env.PATH = 'test/bin:' + process.env.PATH; 
+    done();
+  });
+
+  afterEach((done) => {
+    const exec = require('child_process').exec;
+    exec('rm -rf node_modules/mock-npm-package', done); 
+  })
+
   // give packages time to install
   this.timeout(30000);
 
@@ -52,7 +62,7 @@ describe('npm:', function() {
   it('should resolve npm:// protocol with local path', function(done) {
     const Resolver = plugin.Resolver
         , state = getState()
-        , name = 'test/fixtures/components'
+        , name = 'test/fixtures/mock-npm-package'
         , href = name
         , resolver = new Resolver(state, 'npm://' + href);
 
@@ -65,6 +75,29 @@ describe('npm:', function() {
     expect(file).to.eql(path.join(process.cwd(), name));
     resolver.resolve((err, contents) => {
       expect(err).to.eql(null); 
+      expect(contents.toString()).to.eql(expected);
+      done();
+    });
+  });
+
+  it('should resolve npm:// with version', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState()
+        , href = 'mock-npm-package@1.0.0'
+        , resolver = new Resolver(state, 'npm://' + href);
+
+    expect(resolver).to.be.an('object');
+    const file = resolver.getCanonicalPath();
+
+    // check acccessor
+    resolver.file = file;
+    expect(resolver.file).to.eql(file);
+    expect(file).to.eql(href);
+
+    resolver.resolve((err, contents) => {
+      expect(err).to.eql(null); 
+
+      console.log('resolve complete');
       expect(contents.toString()).to.eql(expected);
       done();
     });

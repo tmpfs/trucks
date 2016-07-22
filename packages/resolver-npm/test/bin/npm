@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+// mocking a local npm registry or requiring a connection
+// to run test specs is not desirable so fake the npm executable
+
+let pkg = process.argv[3]
+    , exec = require('child_process').execSync;
+
+pkg = pkg.replace(/^(@?[^@]+)@.*/, '$1');
+
+//console.dir(pkg);
+
+if(pkg === 'mock-npm-package') {
+  pkg = 'test/fixtures/mock-npm-package';
+}
+
+exec(`cp -rf ${pkg} node_modules`);

@@ -1,7 +1,7 @@
 {
-  "name": "trucks-resolver-file",
+  "name": "trucks-resolver-npm",
   "version": "1.0.5",
-  "description": "HTML import resolver for the file:// scheme",
+  "description": "HTML import resolver for the npm: protocol",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "main": "lib/index.js",

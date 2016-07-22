@@ -205,8 +205,7 @@ function sources(state, info, files, parent, cb) {
 }
 
 function load(state, conf) {
-
-  let protocols = conf.protocols || [];
+  let protocols = state.options.protocols || conf.protocols || [];
 
   if(!Array.isArray(protocols)) {
     throw new Error(`protocols array expected`); 

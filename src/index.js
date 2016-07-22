@@ -99,15 +99,6 @@ function options(state, cb) {
     options.js = js;
   }
 
-  options.conf.plugins = options.conf.plugins || {};
-
-  // respect `transforms` shortcut option
-  if(Array.isArray(options.transforms)) {
-    options.conf.plugins.transform = 
-      options.conf.plugins.transform || {};
-    options.conf.plugins.transform.visitors = options.transforms.slice();
-  }
-
   // re-assign modified options
   state.options = options;
 

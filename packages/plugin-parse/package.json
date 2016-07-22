@@ -1,6 +1,6 @@
 {
   "name": "trucks-plugin-parse",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Parse web component modules into the component tree",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

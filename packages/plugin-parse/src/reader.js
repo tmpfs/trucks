@@ -1,13 +1,16 @@
-const fs = require('fs')
-    , path = require('path')
-    //, TEMPLATE = 'template'
-    , ID = 'id'
+const ID = 'id'
     , HREF = 'href'
     , SRC = 'src';
 
 class TraitReader {
   constructor(module, type, selector, components) {
     this.parent = module; 
+
+    // file owner
+    this.owner = module.parent;
+
+    // file resolver
+    this.resolver = this.owner.resolver;
 
     // type of trait to instantiate
     this.Type = type;
@@ -17,7 +20,6 @@ class TraitReader {
 
     // reference to the components classes
     this.components = components;
-
   }
 
   get vdom() {
@@ -28,39 +30,21 @@ class TraitReader {
     return new this.Type(el, null, this.parent);
   }
 
-  getInlineContents(el, $) {
-    $ = $ || this.vdom;
-    return $(el).text();
+  getInlineContents(el) {
+    return this.vdom(el).text();
   }
 
-  isInline(el, $) {
-    $ = $ || this.vdom;
-    return $(el).attr(HREF) === undefined && $(el).attr(SRC) === undefined;
+  isInline(el) {
+    return this.vdom(el).attr(HREF) === undefined
+      && this.vdom(el).attr(SRC) === undefined;
   }
 
-  getExternalHref(el, $) {
-    $ = $ || this.vdom;
-    return $(el).attr(HREF) 
+  getExternalHref(el) {
+    return this.vdom(el).attr(HREF) 
   }
 
-  getElements(context, selector, $) {
-    $ = $ || this.vdom;
-    return $(selector || this.selector, context).toArray()
-  }
-
-  readContents(trait, href, cb) {
-    const file = trait.parent.parent.file
-        , base = path.dirname(file)
-        , pth = path.normalize(path.join(base, href));
-
-    fs.readFile(pth, (err, contents) => {
-      if(err) {
-        return cb(err); 
-      } 
-      cb(null,
-        contents.toString(),
-        {file: file, base: base, path: pth, href: href});
-    })
+  getElements(context, selector) {
+    return this.vdom(selector || this.selector, context).toArray()
   }
 
   getContents(state, trait, el, cb) {
@@ -73,25 +57,23 @@ class TraitReader {
     if(this.isInline(el)) {
       return done(this.getInlineContents(el)); 
     }else{
-      this.readContents(
-        trait,
-        this.getExternalHref(el),
-        (err, contents, result) => {
-          if(err) {
-            return cb(err); 
-          }
 
-          trait.href = result.href;
-          trait.file = result.path;
+      const href = this.getExternalHref(el)
+          , resolver = state.getResolver(href, this.resolver);
 
-          //if(this instanceof TemplateReader) {
+      resolver.file = resolver.getCanonicalPath();
 
-            //trait.vdom(trait.element).replaceWith(contents);
-          //}
-
-          done(contents, result);
+      resolver.getFileContents((err, contents) => {
+        if(err) {
+          return cb(err); 
         }
-      );
+
+        trait.href = href;
+        trait.file = resolver.file;
+
+        done(contents.toString(), {file: resolver.file, href: href});
+      })
+
     }
   }
 }
@@ -101,9 +83,8 @@ class TemplateReader extends TraitReader {
     super(...arguments);
   }
 
-  getInlineContents(el, $) {
-    $ = $ || this.vdom;
-    return $.html(el);
+  getInlineContents(el) {
+    return this.vdom.html(el);
   }
 
   onTrait(state, trait, cb) {
@@ -208,9 +189,8 @@ class ScriptReader extends TraitReader {
     super(...arguments);
   }
 
-  getExternalHref(el, $) {
-    $ = $ || this.vdom;
-    return $(el).attr(SRC);
+  getExternalHref(el) {
+    return this.vdom(el).attr(SRC);
   }
 
   onTrait(state, trait, cb) {

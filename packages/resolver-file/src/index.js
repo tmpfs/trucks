@@ -1,7 +1,7 @@
 const path = require('path')
     , Resolver = require('trucks-resolver-core')
     , SCHEME = 'file:'
-    , RE = new RegExp(SCHEME + "/?/?");
+    , RE = new RegExp('^' + SCHEME + '/?/?');
 
 /**
  *  Resolve `file:` protocols.

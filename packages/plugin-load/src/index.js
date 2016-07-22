@@ -159,9 +159,6 @@ function sources(state, info, files, parent, cb) {
       let pth;
 
       try {
-        //if(parent && parent.resolver) {
-          //relative = parent.resolver; 
-        //}
         resolver = state.getResolver(file, parent ? parent.resolver : null);
       }catch(e) {
         return next(e); 

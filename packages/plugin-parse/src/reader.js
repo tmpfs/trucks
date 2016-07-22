@@ -58,8 +58,15 @@ class TraitReader {
       return done(this.getInlineContents(el)); 
     }else{
 
-      const href = this.getExternalHref(el)
-          , resolver = state.getResolver(href, this.resolver);
+      const href = this.getExternalHref(el);
+
+      let resolver;
+
+      try {
+        resolver = state.getResolver(href, this.resolver);
+      }catch(e) {
+        return cb(e); 
+      }
 
       resolver.resolve((err, contents) => {
         if(err) {

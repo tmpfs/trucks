@@ -1,0 +1,6 @@
+{
+  "name": "mock-npm-package",
+  "version": "1.0.0",
+  "main": "main.html",
+  "private": true
+}

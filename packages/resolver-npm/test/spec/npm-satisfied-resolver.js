@@ -37,4 +37,22 @@ describe('npm:', function() {
     });
   });
 
+  // trigger a re-install of the package as existing install package
+  // does not satisfy the semver spec
+  it('should re-install dependency with existing package', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState()
+        , name = 'mock-npm-package@2.0.0'
+        , href = name
+        , resolver = new Resolver(state, 'npm://' + href);
+
+    expect(resolver).to.be.an('object');
+
+    resolver.resolve((err, contents) => {
+      expect(err).to.eql(null); 
+      expect(contents.toString()).to.eql(expected);
+      done();
+    });
+  });
+
 });

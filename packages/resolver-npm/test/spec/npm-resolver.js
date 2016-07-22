@@ -96,8 +96,6 @@ describe('npm:', function() {
 
     resolver.resolve((err, contents) => {
       expect(err).to.eql(null); 
-
-      console.log('resolve complete');
       expect(contents.toString()).to.eql(expected);
       done();
     });

@@ -33,16 +33,21 @@ class NpmResolver extends Resolver {
     const type = pkg.type; 
     if(type === 'local') {
       return this.state.absolute(pkg.raw); 
-    }else if(pkg.name) {
+    }else if(type === 'hosted') {
+      return pkg.hosted.https;
+    }else{
       // we will only be able to resolve if the package is installed
       try {
         // NOTE: by requiring `package.json` the module does not need
         // NOTE: an `index.js` or other main file
         return path.dirname(require.resolve(pkg.name + '/package.json'));
-      }catch(e) {}
-
-      return pkg.name;
+      }catch(e) {
+        // it's ok if the package is not already installed
+      }
     }
+
+    // remote or git or package not already installed
+    return pkg.raw;
   }
 
   /**
@@ -63,6 +68,7 @@ class NpmResolver extends Resolver {
       && descriptor.main) {
       index = descriptor.main; 
     }
+
     return index;
   }
 
@@ -90,26 +96,24 @@ class NpmResolver extends Resolver {
       , needsInstall = true;
 
     // try to determine an already installed version
-    if(localPath) {
-      try {
-        // try to get the component index file to read
-        file = this.getPackageMain(localPath);
-        descriptor = this.getPackageDescriptor(localPath);
+    try {
+      // try to get the component index file to read
+      file = this.getPackageMain(localPath);
+      descriptor = this.getPackageDescriptor(localPath);
 
-        // see if an install is needed
-        version = descriptor.version;
+      // see if an install is needed
+      version = descriptor.version;
 
-        if(version && pkg.spec && semver.valid(pkg.spec)) {
-          // bypass installation if the installed version 
-          // satisfies the semver spec
-          if(semver.satisfies(version, pkg.spec)) {
-            needsInstall = false; 
-          } 
-        }
+      if(version && pkg.spec && semver.valid(pkg.spec)) {
+        // bypass installation if the installed version 
+        // satisfies the semver spec
+        if(semver.satisfies(version, pkg.spec)) {
+          needsInstall = false; 
+        } 
+      }
 
-      // it's ok it this fails, we'll try to install
-      }catch(e) {}
-    }
+    // it's ok it this fails, we'll try to install
+    }catch(e) {}
 
     if(needsInstall) {
       return this.install((err/*, stdout, stderr*/) => {
@@ -123,7 +127,7 @@ class NpmResolver extends Resolver {
 
         this.readFile(file, cb);
       });
-    }else if(file) {
+    }else{
       this.readFile(file, cb);
     }
   }
@@ -145,25 +149,7 @@ class NpmResolver extends Resolver {
    *  @returns an absolute file system path.
    */
   getCanonicalPath() {
-    let href = this.href
-      , spec;
-    href = href.replace(RE, ''); 
-
-    const pkg = this.parsePackage()
-        , type = pkg.type;
-
-    if(type === 'hosted') {
-      return pkg.hosted.https;
-    }else if(type === 'local') {
-      return this.state.absolute(href);
-    // tag / version / range
-    }else if(!pkg.hosted && pkg.name) {
-      spec = pkg.rawSpec || 'latest';
-      return pkg.name + '@' + spec;
-    }
-
-    // likely remote spec for 'git' type
-    return pkg.raw;
+    return this.getLocalPath(this.parsePackage());
   }
 }
 

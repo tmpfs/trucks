@@ -4,14 +4,20 @@
 // to run test specs is not desirable so fake the npm executable
 
 let pkg = process.argv[3]
-    , exec = require('child_process').execSync;
+  , npa = require('npm-package-arg')
+  , path = require('path')
+  , fs = require('fs')
+  , info = npa(pkg)
+  , exec = require('child_process').execSync;
 
 pkg = pkg.replace(/^(@?[^@]+)@.*/, '$1');
 
-//console.dir(pkg);
-
-if(pkg === 'mock-npm-package') {
-  pkg = 'test/fixtures/mock-npm-package';
+if(info.name) {
+  pkg =  'test/fixtures/' + info.name;
+}else{
+  pkg = info.raw;
 }
 
-exec(`cp -rf ${pkg} node_modules`);
+if(!fs.existsSync('node_modules/' + path.basename(pkg))) {
+  exec(`cp -rf ${pkg} node_modules`);
+}

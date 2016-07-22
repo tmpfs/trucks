@@ -58,6 +58,11 @@ describe('file:', function() {
 
     expect(resolver).to.be.an('object');
     const file = resolver.getCanonicalPath();
+
+    // check acccessor
+    resolver.file = file;
+    expect(resolver.file).to.eql(file);
+
     expect(file).to.eql(path.join(process.cwd(), name));
 
     // trigger placeholder fetch function

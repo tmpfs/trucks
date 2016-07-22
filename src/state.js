@@ -38,6 +38,21 @@ class CompilerState {
 
     // @private map of output files for write phase
     this._output = {};
+
+    // @private map of protocol schems to resolver classes
+    this._registry = null;
+  }
+
+  get registry() {
+    if(!this._registry) {
+      const Registry = require('./registry'); 
+      this._registry = new Registry();
+    }
+    return this._registry;
+  }
+
+  getResolver(href, parent) {
+    return this.registry.factory(this, href, parent); 
   }
 
   get output() {

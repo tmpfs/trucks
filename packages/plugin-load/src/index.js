@@ -1,7 +1,4 @@
-const PREFIX = 'trucks-resolver-'
-    // scheme registry singleton
-    , registry = require('./registry');
-
+const PREFIX = 'trucks-resolver-';
 
 /**
  *  Encapsulates the load state information.
@@ -170,7 +167,7 @@ function sources(state, info, files, parent, cb) {
         if(parent && parent.resolver) {
           relative = parent.resolver; 
         }
-        resolver = registry.factory(state, file, relative);
+        resolver = state.getResolver(file, relative);
       }catch(e) {
         return next(e); 
       }
@@ -189,10 +186,9 @@ function sources(state, info, files, parent, cb) {
 
       info.seen.sources.push(pth);
 
-      // allow resolver to return new local path
-      //const pth = resolver.getResolvedPath();
-
+      // allow resolver to return new local path: getResolvedPath()
       const group = new state.components.File(resolver.getResolvedPath());
+
       // raw input string (href)
       group.href = file;
       // reference to the resolver
@@ -250,7 +246,7 @@ function load(state, conf) {
 
   // call middleware closures in scope of the registry synchronously
   closures.forEach((fn) => {
-    fn(registry); 
+    fn(state.registry); 
   })
 
   return function load(state, cb) {

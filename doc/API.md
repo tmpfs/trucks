@@ -181,7 +181,7 @@ Creates a component node.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 22, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -210,6 +210,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
@@ -218,6 +219,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 19, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

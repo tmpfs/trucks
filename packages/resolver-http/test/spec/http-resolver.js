@@ -59,6 +59,10 @@ describe('http:', function() {
     expect(resolver).to.be.an('object');
     const file = resolver.getCanonicalPath();
 
+    // check acccessor
+    resolver.file = file;
+    expect(resolver.file).to.eql(file);
+
     expect(file).to.eql(href);
 
     expect(resolver.getDefaultPort(Resolver.HTTP, {}))

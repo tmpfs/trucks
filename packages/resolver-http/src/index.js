@@ -1,8 +1,6 @@
 const HTTP = 'http:'
     , HTTPS = 'https:'
-    , url = require('url')
-    , zlib = require('zlib')
-    , http = require('http');
+    , url = require('url');
 
 class HttpResolver {
   constructor(state, href, parent) {
@@ -27,6 +25,9 @@ class HttpResolver {
    *  resource.
    */
   getFileContents(cb) {
+    const zlib = require('zlib')
+        , http = require('http');
+
     let called = false;
 
     function done(err, buf) {
@@ -168,13 +169,13 @@ HttpResolver.HTTPS = HTTPS;
 /**
  *  Resolver for the default http:// and https:// protocols.
  */
-function file(/*state, conf*/) {
+function http(/*state, conf*/) {
   return function(registry) {
     registry.register(HTTP, HttpResolver);
     registry.register(HTTPS, HttpResolver);
   }
 }
 
-file.Resolver = HttpResolver;
+http.Resolver = HttpResolver;
 
-module.exports = file;
+module.exports = http;

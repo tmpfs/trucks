@@ -12,6 +12,13 @@ class HttpResolver {
     this._file = null;
   }
 
+  get protocol() {
+    if(!this.uri.protocol && this.parent) {
+      return this.parent.protocol; 
+    }
+    return this.uri.protocol;
+  }
+
   set file(val) {
     this._file = val; 
   }

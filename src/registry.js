@@ -92,8 +92,8 @@ class Registry {
       , uri = url.parse(href);
 
     // inherit type from parent resolver
-    if(parent && parent.uri && parent.uri.protocol && !uri.protocol) {
-      Type = this.getResolver(parent.uri.protocol);
+    if(parent && parent.protocol) {
+      Type = this.getResolver(parent.protocol);
     // otherwise try to find for the protocol
     }else{
       Type = this.getResolver(uri.protocol);

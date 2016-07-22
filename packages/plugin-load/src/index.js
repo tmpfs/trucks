@@ -118,7 +118,7 @@ function read(state, group, parent, info, cb) {
       })
 
 
-      deps = resolver.getResolvedImports(deps);
+      deps = deps;
 
       // resolve relative to the parent file: `group`
       sources(state, info, deps, group, cb);

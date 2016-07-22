@@ -70,8 +70,6 @@ describe('file:', function() {
       const resolved = resolver.getResolvedPath();
       expect(resolved).to.equal(file);
 
-      expect(resolver.getResolvedImports([])).to.eql([]);
-
       resolver.getFileContents(done);
     });
   });

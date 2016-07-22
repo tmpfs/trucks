@@ -24,13 +24,6 @@ class FileResolver {
   }
 
   /**
-   *  Allows a resolver to modify the list of dependency imports.
-   */
-  getResolvedImports(list) {
-    return list; 
-  }
-
-  /**
    *  Allows resolver implementations to load file content from a remote 
    *  resource.
    */

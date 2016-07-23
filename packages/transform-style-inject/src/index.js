@@ -4,20 +4,37 @@ const fs = require('fs')
 /**
  *  Inject component styles from files.
  *
+ *  When no `dir` option is given the default output directory is used.
+ *
+ *  When the stylesheets option is given it can be used to map component 
+ *  identifiers to files.
+ *
+ *  ```javascript
+ *  const options = {
+ *    stylesheets: {
+ *      'x-video': 'x-video-stylesheet.css'
+ *    }
+ *  }
+ *  ```
+ *
+ *  When relative paths are used in the `stylesheets` map they are resolved 
+ *  relative to the output directory.
+ *
  *  @public {function} inject
  *  @param {Object} state compiler state.
  *  @param {Object} conf transform plugin configuration.
  *  @option {String} [dir] input directory.
+ *  @option {Object} [stylesheets] map of components to files.
  *
  *  @returns map of visitor functions.
  */
 function inject(state, conf) {
   const dir = conf.dir || state.options.out
+      , map = state.options.stylesheets || conf.stylesheets
       , components = state.components
       , Style = components.Style;
 
   let file
-    , filename
     , href;
 
   function component(node, cb) {
@@ -27,8 +44,14 @@ function inject(state, conf) {
     }
 
     // component module id becomes the name of the file
-    filename = `${node.id}.css`;
-    file = state.absolute(filename, dir);
+    const filename = `${node.id}.css`;
+
+    if(map && map[node.id]) {
+      file = state.absolute(map[node.id], dir);
+    }else{
+      file = state.absolute(filename, dir);
+    }
+
     href = path.join(dir, filename);
 
     fs.readFile(file, (err, contents) => {

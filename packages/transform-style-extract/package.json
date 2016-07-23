@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-style-extract",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Write component styles to files",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

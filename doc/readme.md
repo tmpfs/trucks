@@ -18,6 +18,7 @@ Uses ES6 code transpiled for `node@4.x` compatibility.
 
 <? @include {=readme}
       usage.md 
+      plugin-list.md
       components.md
       plugins.md
       resolvers.md

@@ -24,23 +24,23 @@ For the command line interface see [trucks-cli][].
 
 - [Install](#install)
 - [Usage](#usage)
+- [Plugin List](#plugin-list)
+  - [Compilers](#compilers)
+  - [Resolvers](#resolvers)
+  - [Preprocessors](#preprocessors)
+  - [Styles](#styles)
+  - [Miscellaneous](#miscellaneous)
 - [Components](#components)
   - [Templates](#templates)
   - [Style Scopes](#style-scopes)
   - [Dependencies](#dependencies)
   - [Private Dependencies](#private-dependencies)
 - [Plugins](#plugins)
-- [Resolvers](#resolvers)
+- [Resolvers](#resolvers-1)
 - [Transforms](#transforms)
   - [Lifecycle](#lifecycle)
   - [Visitors](#visitors)
   - [Configuration](#configuration)
-- [Transform Plugins](#transform-plugins)
-  - [Compilers](#compilers)
-  - [Resolvers](#resolvers-1)
-  - [Preprocessors](#preprocessors)
-  - [Styles](#styles)
-  - [Miscellaneous](#miscellaneous)
 - [Documents](#documents)
 - [License](#license)
 
@@ -70,6 +70,38 @@ trucks(
 ```
 
 For command line usage see [trucks-cli][].
+
+## Plugin List
+
+Plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
+
+### Compilers
+
+* [skate][] Compiles HTML templates to render functions.
+
+### Resolvers
+
+* [core][resolver-core] Abstract class for resolver plugins.
+* [file][resolver-file] Default resolver for the `file:` protocol.
+* [http][resolver-http] Resolver for the `http:` and `https:` protocols.
+* [npm][resolver-npm] Resolver for the `npm:` protocol.
+
+### Preprocessors
+
+* [less][] Preprocess less sources.
+* [sass][] Preprocess sass sources.
+* [stylus][] Preprocess stylus sources.
+* [trim][] Trim whitespace from inline styles and scripts.
+
+### Styles
+
+* [csp][transform-csp] Content security policy transformations.
+* [style-extract][] Write stylesheets for each component.
+* [style-inject][] Read and overwrite stylesheets for each component.
+
+### Miscellaneous
+
+* [tree][] Humanize the component tree using [archy][].
 
 ## Components
 
@@ -465,38 +497,6 @@ const options = {
   }
 };
 ```
-
-## Transform Plugins
-
-Existing transform plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
-
-### Compilers
-
-* [skate][] Compiles HTML templates to render functions.
-
-### Resolvers
-
-* [core][resolver-core] Abstract class for resolver plugins.
-* [file][resolver-file] Default resolver for the `file:` protocol.
-* [http][resolver-http] Resolver for the `http:` and `https:` protocols.
-* [npm][resolver-npm] Resolver for the `npm:` protocol.
-
-### Preprocessors
-
-* [less][] Preprocess less sources.
-* [sass][] Preprocess sass sources.
-* [stylus][] Preprocess stylus sources.
-* [trim][] Trim whitespace from inline styles and scripts.
-
-### Styles
-
-* [csp][transform-csp] Content security policy transformations.
-* [style-extract][] Write stylesheets for each component.
-* [style-inject][] Read and overwrite stylesheets for each component.
-
-### Miscellaneous
-
-* [tree][] Humanize the component tree using [archy][].
 
 ## Documents
 

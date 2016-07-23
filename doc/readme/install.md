@@ -4,4 +4,8 @@
 npm i trucks --save-dev
 ```
 
-For the command line interface see [trucks-cli][].
+For the command line interface install [trucks-cli][]:
+
+```
+npm i -g trucks-cli
+```

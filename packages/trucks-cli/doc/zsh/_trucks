@@ -11,6 +11,7 @@ _trucks(){
     "(-s --css)"{-s=,--css=}"[Stylesheet output file]:file:_files" 
     "(-j --js)"{-j=,--js=}"[Javascript output file]:file:_files" 
     "*"{-t=,--transforms=}"[Run transform plugins]" 
+    "*"{-p=,--protocols=}"[Enable protocol resolver plugins]" 
     "*"{-c=,--rc=}"[Configuration files to require]:file:_files" 
     "(-e --extract)"{-e=,--extract=}"[Extract shadow styles to directory]:directory:_directories" 
     "(-i --inject)"{-i=,--inject=}"[Inject shadow styles from directory]:directory:_directories" 

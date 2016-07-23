@@ -90,6 +90,19 @@
       "multiple": true,
       "name": "--transforms"
     },
+    "protocols": {
+      "key": "protocols",
+      "description": "Enable protocol resolver plugins",
+      "names": [
+        "-p",
+        "--protocols"
+      ],
+      "type": "option",
+      "extra": " [id...]",
+      "required": false,
+      "multiple": true,
+      "name": "--protocols"
+    },
     "rc": {
       "key": "rc",
       "description": "Configuration files to require",

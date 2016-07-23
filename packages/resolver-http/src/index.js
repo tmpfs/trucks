@@ -3,6 +3,8 @@ const HTTP = 'http:'
     , Resolver = require('trucks-resolver-core')
     , url = require('url')
     , types = [
+        // github raw sends HTML as text/plain :(
+        'text/plain',
         'text/html',
         'application/javascript',
         'text/css'
@@ -55,8 +57,8 @@ class HttpResolver extends Resolver {
    *  @param {Function} cb callback function.
    */
   resolve(cb) {
-    const zlib = require('zlib')
-        , http = require('http');
+    const zlib = require('zlib');
+        //, http = require('http');
 
     let called = false;
 
@@ -85,13 +87,23 @@ class HttpResolver extends Resolver {
             port: this.uri.port,
             path: pth,
             headers: {
-              'Accept': types.join(', ')
+              'Accept': 'text/*, application/*'
             }
           };
 
     this.getDefaultPort(this.uri.protocol, options);
+    //console.dir(options);
 
-    const req = http.get(options, (res) => {
+    const transport = this.uri.protocol === HTTPS
+      ? require('https') : require('http');
+
+    const req = transport.get(options, (res) => {
+
+      // TODO: handle redirects
+      //if(res.statusCode === 301) {
+        //console.log(res.headers); 
+      //}
+
       // expecting 200 response
       if(res.statusCode !== 200) {
         return done(

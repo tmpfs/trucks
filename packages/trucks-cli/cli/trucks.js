@@ -69,6 +69,9 @@ function main(argv, conf, cb) {
     this.conf.plugins = this.conf.plugins || {};
     this.conf.transforms = this.conf.transforms || {};
 
+    // add the protocols we depend upon
+    this.protocols.unshift('http', 'npm');
+
     /* istanbul ignore next: don't want to write to cwd in test env */
     if(!this.out) {
       this.out = process.cwd();

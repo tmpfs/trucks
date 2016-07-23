@@ -15,6 +15,8 @@
   "dependencies": {
     "mkcli": "~1.0.32",
     "trucks": "*",
+    "trucks-resolver-http": "*",
+    "trucks-resolver-npm": "*",
     "trucks-transform-style-extract": "*",
     "trucks-transform-style-inject": "*",
     "trucks-transform-tree": "*"

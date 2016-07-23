@@ -49,10 +49,14 @@ describe('http:', function() {
     done();
   });
 
+// https://raw.githubusercontent.com/tmpfs/trucks/master/test/fixtures \
+// /simple-inline/components.html
+
   it('should create resolver without parent', function(done) {
     const Resolver = plugin.Resolver
         , state = getState()
         , name = 'http://localhost:3001/components.html'
+        //, name = 'https://raw.githubusercontent.com/tmpfs/trucks/master/test/fixtures/simple-inline/components.html'
         , href = name
         , resolver = new Resolver(state, href);
 
@@ -72,6 +76,7 @@ describe('http:', function() {
       .to.be.an('object').to.have.property('port').that.equals(443);
 
     resolver.resolve((err, contents) => {
+      expect(err).to.eql(null);
       expect(contents).to.be.instanceof(Buffer);
       expect(contents.toString()).to.eql(expected);
       done();
@@ -103,6 +108,7 @@ describe('http:', function() {
     expect(resolver).to.be.an('object');
 
     resolver.resolve((err, contents) => {
+      expect(err).to.eql(null);
       expect(contents).to.be.instanceof(Buffer);
       expect(contents.toString()).to.eql(expected);
       done();

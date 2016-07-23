@@ -62,9 +62,11 @@ trucks [\-fh] [\-\-force] [\-\-print\-imports] [\-\-print\-tree] [\-\-print\-man
 .br
        [\-\-help] [\-\-version] [\-\-out <dir>] [\-\-name <val>] [\-\-html <file>] [\-\-css
 .br
-       <file>] [\-\-js <file>] [\-\-transforms <id...>] [\-\-rc <file...>] [\-\-extract
+       <file>] [\-\-js <file>] [\-\-transforms <id...>] [\-\-protocols <id...>] [\-\-rc
 .br
-       <dir>] [\-\-inject <dir>] [\-\-manifest <file>] [files...]
+       <file...>] [\-\-extract <dir>] [\-\-inject <dir>] [\-\-manifest <file>]
+.br
+       [files...]
 .nl
 .h1 "DESCRIPTION"
 .P
@@ -94,6 +96,10 @@ Compiles web components to separate files for javascript, styles and template ma
 .TP
 \fB\-t, \-\-transforms\fR [\fIid\fR...]
  Run transform plugins
+.nl
+.TP
+\fB\-p, \-\-protocols\fR [\fIid\fR...]
+ Enable protocol resolver plugins
 .nl
 .TP
 \fB\-c, \-\-rc\fR [\fIfile\fR...]

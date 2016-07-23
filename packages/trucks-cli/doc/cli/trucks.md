@@ -24,6 +24,7 @@ Compiles web components to separate files for javascript, styles and template ma
 + `-s, --css [file]` Stylesheet output file
 + `-j, --js [file]` Javascript output file
 + `-t, --transforms [id...]` Run transform plugins
++ `-p, --protocols [id...]` Enable protocol resolver plugins
 + `-c, --rc [file...]` Configuration files to require
 + `-e, --extract [dir]` Extract shadow styles to directory
 + `-i, --inject [dir]` Inject shadow styles from directory

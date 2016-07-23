@@ -1,8 +1,8 @@
 Usage: trucks [-fh] [--force] [--print-imports] [--print-tree]
               [--print-manifest] [--help] [--version] [--out <dir>] [--name
               <val>] [--html <file>] [--css <file>] [--js <file>] [--transforms
-              <id...>] [--rc <file...>] [--extract <dir>] [--inject <dir>]
-              [--manifest <file>] [files...]
+              <id...>] [--protocols <id...>] [--rc <file...>] [--extract <dir>]
+              [--inject <dir>] [--manifest <file>] [files...]
 
   Compiles web components.
 
@@ -14,6 +14,7 @@ Options
   -j, --js=[file]         Javascript output file
   -t, --transforms=[id...] 
                           Run transform plugins
+  -p, --protocols=[id...] Enable protocol resolver plugins
   -c, --rc=[file...]      Configuration files to require
   -e, --extract=[dir]     Extract shadow styles to directory
   -i, --inject=[dir]      Inject shadow styles from directory

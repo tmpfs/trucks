@@ -165,6 +165,15 @@
       "type": "flag",
       "name": "--force"
     },
+    "secure": {
+      "key": "secure",
+      "description": "Disable the http: protocol",
+      "names": [
+        "--secure"
+      ],
+      "type": "flag",
+      "name": "--secure"
+    },
     "printImports": {
       "key": "printImports",
       "description": "Print the file hierarchy",

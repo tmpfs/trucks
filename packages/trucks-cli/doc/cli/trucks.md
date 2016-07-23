@@ -30,6 +30,7 @@ Compiles web components to separate files for javascript, styles and template ma
 + `-i, --inject [dir]` Inject shadow styles from directory
 + `-a, --manifest [file]` Write manifest to file
 + `-f, --force` Force overwrite existing files
++ `--secure` Disable the http: protocol
 + `--print-imports` Print the file hierarchy
 + `--print-tree` Print the component tree hierarchy
 + `--print-manifest` Print the generated files manifest

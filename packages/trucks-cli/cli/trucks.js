@@ -68,6 +68,11 @@ function main(argv, conf, cb) {
     this.conf = this.conf || {};
     this.conf.plugins = this.conf.plugins || {};
     this.conf.transforms = this.conf.transforms || {};
+    this.conf.protocols = this.conf.protocols || {};
+
+    this.conf.protocols.http = {
+      secure: this.secure
+    }
 
     // add the protocols we depend upon
     this.protocols.unshift('http', 'npm');

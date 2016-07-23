@@ -1,4 +1,4 @@
-Usage: trucks [-fh] [--force] [--print-imports] [--print-tree]
+Usage: trucks [-fh] [--force] [--secure] [--print-imports] [--print-tree]
               [--print-manifest] [--help] [--version] [--out <dir>] [--name
               <val>] [--html <file>] [--css <file>] [--js <file>] [--transforms
               <id...>] [--protocols <id...>] [--rc <file...>] [--extract <dir>]
@@ -20,10 +20,11 @@ Options
   -i, --inject=[dir]      Inject shadow styles from directory
   -a, --manifest=[file]   Write manifest to file
   -f, --force             Force overwrite existing files
+  --secure                Disable the http: protocol
   --print-imports         Print the file hierarchy
   --print-tree            Print the component tree hierarchy
   --print-manifest        Print the generated files manifest
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks-cli@1.0.7
+trucks-cli@1.0.8

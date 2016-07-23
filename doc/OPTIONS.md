@@ -18,10 +18,16 @@ const options = {
   plugins: undefined,
   // array list of transform plugins to run
   transforms: undefined,
+  // array list of protocol resolvers
+  protocols: undefined,
   // map of plugin configuration objects
   conf: {
+    // configuration for main compiler plugins
     plugins: {},
-    transforms: {}
+    // configuration for compiler transform plugins
+    transforms: {},
+    // configuration for scheme protocol resolvers
+    protocols: {}
   },
   before: {
     // array list to run before plugins or transforms
@@ -56,7 +62,7 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 23, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -85,9 +91,22 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 18, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
-[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

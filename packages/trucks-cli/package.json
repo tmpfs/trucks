@@ -1,6 +1,6 @@
 {
   "name": "trucks-cli",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Web component compiler and package manager (cli)",
   "bin": {
     "trucks": "./bin/trucks"

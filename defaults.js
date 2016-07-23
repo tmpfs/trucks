@@ -7,6 +7,8 @@ const options = {
   plugins: undefined,
   // array list of transform plugins to run
   transforms: undefined,
+  // array list of protocol resolvers
+  protocols: undefined,
   // map of plugin configuration objects
   conf: {
     // configuration for main compiler plugins

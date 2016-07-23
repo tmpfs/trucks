@@ -145,6 +145,13 @@ function doc(src, dest, opts, cb) {
     .on('finish', cb);
 }
 
+// @task intro build the intro docs.
+function intro(cb) {
+  doc(
+    'doc/intro/intro.md', 'doc/INTRO.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
 // @task api build the api docs.
 function api(cb) {
   // build intermediary file
@@ -210,6 +217,7 @@ mk.task(build);
 mk.task(test);
 mk.task(cover);
 
+mk.task(intro);
 mk.task(api);
 mk.task(roadmap);
 mk.task(options);
@@ -217,4 +225,14 @@ mk.task(developer);
 mk.task(compiler);
 mk.task(example);
 mk.task(readme);
-mk.task([api, roadmap, options, developer, compiler, example, readme], docs)
+
+mk.task([
+  intro,
+  api,
+  roadmap,
+  options,
+  developer, 
+  compiler,
+  example, 
+  readme
+], docs);

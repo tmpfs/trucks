@@ -37,6 +37,7 @@ ComponentFile {
        file: '/home/muji/git/trucks/doc/compiler/x-button.html',
        contents: '<link rel="import" href="x-icon.html">\n\n<dom-module id="x-button">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define(\'{{id}}\', {});\n  </script>\n</dom-module>\n',
        parent: [Circular],
+       resolver: [Object],
        modules: [],
        duplicates: [],
        _document: [Object],
@@ -44,6 +45,34 @@ ComponentFile {
   file: '/home/muji/git/trucks/doc/compiler/components.html',
   contents: '<link rel="import" href="x-button.html">\n',
   parent: null,
+  resolver: 
+   FileResolver {
+     state: 
+      CompilerState {
+        files: [Object],
+        options: [Object],
+        tree: [Object],
+        result: [Object],
+        manifest: undefined,
+        _output: {},
+        _registry: [Object] },
+     href: 'doc/compiler/components.html',
+     parent: null,
+     uri: 
+      Url {
+        protocol: null,
+        slashes: null,
+        auth: null,
+        host: null,
+        port: null,
+        hostname: null,
+        hash: null,
+        search: null,
+        query: null,
+        pathname: 'doc/compiler/components.html',
+        path: 'doc/compiler/components.html',
+        href: 'doc/compiler/components.html' },
+     _file: '/home/muji/git/trucks/doc/compiler/components.html' },
   modules: [],
   duplicates: [],
   _document: 
@@ -92,10 +121,18 @@ ComponentModule {
         file: '/home/muji/git/trucks/doc/compiler/components.html',
         contents: '<link rel="import" href="x-button.html">\n',
         parent: null,
+        resolver: [Object],
         modules: [],
         duplicates: [],
         _document: [Object],
         href: 'doc/compiler/components.html' },
+     resolver: 
+      FileResolver {
+        state: [Object],
+        href: 'x-button.html',
+        parent: [Object],
+        uri: [Object],
+        _file: '/home/muji/git/trucks/doc/compiler/x-button.html' },
      modules: [ [Circular] ],
      duplicates: [],
      _document: 
@@ -116,7 +153,7 @@ ComponentModule {
      template: 
       ComponentTemplate {
         element: [Object],
-        contents: '<template id="x-button"></template>',
+        _contents: '<template id="x-button"></template>',
         parent: [Circular],
         href: undefined,
         _file: '/home/muji/git/trucks/doc/compiler/x-button.html',
@@ -128,7 +165,7 @@ ComponentModule {
   templates: 
    [ ComponentTemplate {
        element: [Object],
-       contents: '<template id="x-button"></template>',
+       _contents: '<template id="x-button"></template>',
        parent: [Circular],
        href: undefined,
        _file: '/home/muji/git/trucks/doc/compiler/x-button.html',
@@ -136,7 +173,7 @@ ComponentModule {
   stylesheets: 
    [ ComponentStyle {
        element: [Object],
-       contents: '\n    x-button {\n      /* component styles */\n    }\n  ',
+       _contents: '\n    x-button {\n      /* component styles */\n    }\n  ',
        parent: [Circular],
        href: undefined,
        _file: undefined,
@@ -145,7 +182,7 @@ ComponentModule {
   javascript: 
    [ ComponentScript {
        element: [Object],
-       contents: '\n    skate.define(\'{{id}}\', {});\n  ',
+       _contents: '\n    skate.define(\'{{id}}\', {});\n  ',
        parent: [Circular],
        href: undefined,
        _file: undefined,
@@ -154,7 +191,7 @@ ComponentModule {
   styles: 
    [ ComponentStyle {
        element: [Object],
-       contents: '\n    x-button {\n      /* component styles */\n    }\n  ',
+       _contents: '\n    x-button {\n      /* component styles */\n    }\n  ',
        parent: [Circular],
        href: undefined,
        _file: undefined,
@@ -163,7 +200,7 @@ ComponentModule {
   scripts: 
    [ ComponentScript {
        element: [Object],
-       contents: '\n    skate.define(\'{{id}}\', {});\n  ',
+       _contents: '\n    skate.define(\'{{id}}\', {});\n  ',
        parent: [Circular],
        href: undefined,
        _file: undefined,
@@ -231,7 +268,7 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 23, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -269,6 +306,10 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

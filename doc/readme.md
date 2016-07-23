@@ -10,9 +10,7 @@ Designed primarily for [skatejs][] with support for [polymer][] coming soon.
 
 Uses ES6 code transpiled for `node@4.x` compatibility.
 
-<? @include {=readme}
-      install.md 
-      abstract.md ?>
+<? @include {=readme} install.md ?>
 
 ***
 <!-- @toc -->
@@ -25,7 +23,9 @@ Uses ES6 code transpiled for `node@4.x` compatibility.
       resolvers.md
       transforms.md ?>
 
-## Documentation
+## Documents
+
+Some background on motivation and rationale is in the [INTRO](/doc/INTRO.md).
 
 An example for [skatejs][] is shown in [EXAMPLE](/doc/EXAMPLE.md), source files are in [doc/example](/doc/example). 
 

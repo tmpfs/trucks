@@ -193,7 +193,7 @@ Compiled stylesheet:
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 23, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -231,7 +231,10 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
 [resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

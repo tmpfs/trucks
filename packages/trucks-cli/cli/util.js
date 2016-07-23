@@ -8,9 +8,12 @@ function error(msg) {
   }
 }
 
-function finish(err) {
+function finish(err, state, program) {
   if(err) {
-    //console.error(err.stack);
+    const stack = err.stack;
+    if(stack && program.printStack) {
+      console.error(err.stack);
+    }
     /* istanbul ignore next: an error with no message can happen */
     error(err.message || err.stack); 
   }

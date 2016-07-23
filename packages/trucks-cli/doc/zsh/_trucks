@@ -21,6 +21,7 @@ _trucks(){
     "--print-imports[Print the file hierarchy]" 
     "--print-tree[Print the component tree hierarchy]" 
     "--print-manifest[Print the generated files manifest]" 
+    "--print-stack[Print stack trace on error]" 
     "(-h --help)"{-h,--help}"[Display help and exit]" 
     "--version[Print the version and exit]"
   )

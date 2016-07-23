@@ -60,7 +60,7 @@ function main(argv, conf, cb) {
 
   cli.run(prg, argv, runtime, function parsed(err, req) {
     if(err || req.aborted) {
-      return cb(err); 
+      return cb(err, null, this); 
     }
 
     let plugins = [];
@@ -113,7 +113,10 @@ function main(argv, conf, cb) {
     if((this.printImports || this.printTree) && this.printManifest) {
       return cb(
         new Error(
-          'incompatible printers for tree and manifest, check arguments')); 
+          'incompatible printers for tree and manifest, check arguments'),
+        null,
+        this
+      ); 
     }
 
     if(this.printImports || this.printTree) {
@@ -141,7 +144,7 @@ function main(argv, conf, cb) {
 
     trucks(this, (err, state) => {
       if(err) {
-        return cb(err); 
+        return cb(err, state, this); 
       }
 
       if(this.printImports || this.printTree) {
@@ -158,16 +161,16 @@ function main(argv, conf, cb) {
           var filepath = state.absolute(this.manifest, this.out);
           fs.writeFile(filepath, contents, function(err) {
             if(err) {
-              return cb(err); 
+              return cb(err, state, this); 
             }
 
-            cb(null, state);
+            cb(null, state, this);
           });
         }else{
-          cb(null, state);
+          cb(null, state, this);
         }
       }else{
-        cb(null, state);
+        cb(null, state, this);
       }
 
     });

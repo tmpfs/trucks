@@ -1,8 +1,9 @@
 Usage: trucks [-fh] [--force] [--secure] [--print-imports] [--print-tree]
-              [--print-manifest] [--help] [--version] [--out <dir>] [--name
-              <val>] [--html <file>] [--css <file>] [--js <file>] [--transforms
-              <id...>] [--protocols <id...>] [--rc <file...>] [--extract <dir>]
-              [--inject <dir>] [--manifest <file>] [files...]
+              [--print-manifest] [--print-stack] [--help] [--version] [--out
+              <dir>] [--name <val>] [--html <file>] [--css <file>] [--js
+              <file>] [--transforms <id...>] [--protocols <id...>] [--rc
+              <file...>] [--extract <dir>] [--inject <dir>] [--manifest <file>]
+              [files...]
 
   Compiles web components.
 
@@ -24,7 +25,8 @@ Options
   --print-imports         Print the file hierarchy
   --print-tree            Print the component tree hierarchy
   --print-manifest        Print the generated files manifest
+  --print-stack           Print stack trace on error
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks-cli@1.0.8
+trucks-cli@1.0.9

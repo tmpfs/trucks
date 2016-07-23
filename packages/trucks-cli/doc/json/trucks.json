@@ -201,6 +201,15 @@
       "type": "flag",
       "name": "--print-manifest"
     },
+    "printStack": {
+      "key": "printStack",
+      "description": "Print stack trace on error",
+      "names": [
+        "--print-stack"
+      ],
+      "type": "flag",
+      "name": "--print-stack"
+    },
     "help": {
       "key": "help",
       "description": "Display help and exit",

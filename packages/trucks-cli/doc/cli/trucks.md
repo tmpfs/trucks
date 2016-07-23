@@ -34,6 +34,7 @@ Compiles web components to separate files for javascript, styles and template ma
 + `--print-imports` Print the file hierarchy
 + `--print-tree` Print the component tree hierarchy
 + `--print-manifest` Print the generated files manifest
++ `--print-stack` Print stack trace on error
 + `-h, --help` Display help and exit
 + `--version` Print the version and exit
 
@@ -41,7 +42,23 @@ Compiles web components to separate files for javascript, styles and template ma
 
 By default files are written to the current working directory. The `--out` option can be used to write files to a different directory and the names of the files can be changed using the `--name` option. Do not specify a file extension when using the `--name` option.
 
-The `--html`, `--css` and `--js` option allows setting specific paths for each output file type, in this case they override any paths generated using the `--out` and `--name` options and the file extension should be specified.
+The `--html`, `--css` and `--js` options allow setting specific paths for each output file type, in this case they override any paths generated using the `--out` and `--name` options and the file extension should be specified.
+
+# Protocols
+
+The `file:` protocol is enabled by the core library and this program adds support for the `http:`, `https:` and `npm:` protocols so you can compile and import using those protocols:
+
+```
+trucks components.html                          # file: protocol (default)
+trucks https://example.com/components.html      # https: protocol
+trucks npm://@ui/components@1.0.0               # npm: protocol
+```
+
+You can use these protocols in HTML import declarations:
+
+```
+<link rel="import" href="npm://@ui/components@1.0.0">
+```
 
 # Transforms
 
@@ -54,7 +71,7 @@ trucks -t trim,skate components.html
 
 # Shadow Styles
 
-When using third-party component you may wish to override the component styles.
+When using third-party components you may wish to override the component styles.
 
 Use the `--extract` option to write individual stylesheet files per component, you can then modify these stylesheets and inject them later using the `--inject` option.
 

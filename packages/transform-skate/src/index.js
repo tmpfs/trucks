@@ -11,6 +11,8 @@ function skate(state, conf) {
     pattern: /\{\{id\}\}/gm
   }
 
+  conf.babel = conf.babel || {};
+
   const options = state.options
       , compiler = require('./compiler')
       // configuration for id attribute replacement
@@ -20,7 +22,8 @@ function skate(state, conf) {
       , replace = (id && id.pattern instanceof RegExp);
 
   // setup the output file
-  let file = state.getFile(options.js);
+  let file = state.getFile(options.js)
+    , filename;
 
   // list of components processed
   let components = []
@@ -49,6 +52,10 @@ function skate(state, conf) {
 
       cb();
     },
+    File: (node, cb) => {
+      filename = node.file;
+      cb();
+    },
     Script: (node, cb) => {
 
       // perform {{id}} replacement
@@ -61,6 +68,9 @@ function skate(state, conf) {
     },
     leave: (node, cb) => {
       if(node instanceof state.components.Component) {
+
+        conf.babel.filename = filename;
+
         // pass in query selector for the compiler
         conf.vdom = node.template.vdom;
 

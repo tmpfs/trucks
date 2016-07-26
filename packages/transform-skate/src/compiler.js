@@ -44,6 +44,7 @@ function isEmpty(obj) {
  *  @option {String=text} [text] name of the text function.
  *  @option {String=templates} [templates] name of the templates map.
  *  @option {String=template} [main] name of the main function.
+ *  @option {Boolean=true} [scripts] parse template script elements.
  *  @option {Boolean=true} [normalize] normalize whitespace in templates.
  *  @option {Object|Boolean} [literals] flags for template literal support.
  *  @option {Object} [dom] options to use when parsing the DOM.
@@ -65,12 +66,17 @@ function options(opts) {
     opts.dom.normalizeWhitespace = true; 
   }
 
+
+  opts.scripts = opts.scripts !== undefined ? opts.scripts : true;
+
   if(opts.literals === undefined) {
     opts.literals = {}; 
   // truthy enable all template literals
   }else if(opts.literals && opts.literals !== Object(opts.literals)) {
     opts.literals = {text: true, attribute: true}; 
   }
+
+  opts.babel = opts.babel || {};
 
   opts.attr = opts.attr || ID;
 
@@ -82,6 +88,7 @@ function options(opts) {
   opts.name = opts.name || RENDER;
   opts.arg = opts.arg || ELEM;
 
+  opts.main = opts.main || MAIN;
   opts.templates = opts.templates || TEMPLATES;
 
   return opts;
@@ -113,9 +120,10 @@ function options(opts) {
 function html(html, opts) {
   opts = options(opts);
 
-  const cheerio = require('cheerio');
-  opts.vdom = 
-    opts.vdom || cheerio.load(html, opts.dom);
+  if(!opts.vdom) {
+    const cheerio = require('cheerio');
+    opts.vdom = cheerio.load(html, opts.dom);
+  }
 
   const templates = []
     , elements = opts.vdom('template');
@@ -138,11 +146,7 @@ function html(html, opts) {
  */
 function main(opts) {
   const t = require('babel-core').types;
-
-  opts = opts || {};
-  opts.main = opts.main || MAIN;
-  opts.templates = opts.templates || TEMPLATES;
-
+  opts = options(opts);
 
   // main function declaration
   let expr = t.functionDeclaration(
@@ -406,21 +410,29 @@ function render(el, opts) {
     }
   }
 
+  function inlineScript(expr) {
+    body.push(expr); 
+  }
+
   function convert(childNodes, body) {
     let i
       , args = []
-      , expr;
+      , expr
+      , child
+      , el;
 
     for(i = 0;i < childNodes.length;i++) {
-      const child = childNodes[i];
-      const el = $(child);
+      child = childNodes[i];
+      el = $(child);
 
       // TODO: implement the logic to parse template scripts
-
+      //
+      //console.log(child.type);
+     
       if(child.type === TAG
         || child.type === STYLE
         // run time script
-        || child.type === SCRIPT) {
+        || (child.type === SCRIPT && !opts.scripts)) {
         args = [t.stringLiteral(child.name)];
 
         // push attributes into function call when not empty
@@ -457,28 +469,45 @@ function render(el, opts) {
           getCallExpression(t, ELEMENT, args));
       // child text node
       }else{
+
         const text = el.text();
-        let arg;
+        let arg
+          , script;
 
         // skip text nodes that are just whitespace
         if(opts.normalize && /^\s*$/.test(text)) {
           continue; 
         }
 
-        // draft support for template literals in text nodes
-        if(opts.literals.text) {
-          arg = babel.transform(
-            '`' + text + '`', opts.babel).ast.program.body[0].expression;
+        // parsing as inline template script to be compiled
+        if(opts.scripts
+          && child.tagName
+          && child.tagName.toLowerCase() === SCRIPT
+          && el.attr('type') === undefined) {
+
+          opts.babel.plugins = [
+            require('./html-plugin')(module.exports, opts)];
+          script = babel.transform(text, opts.babel);
+          script.ast.program.body.forEach(inlineScript)
         }else{
-          arg = t.stringLiteral(text);
+          // draft support for template literals in text nodes
+          if(opts.literals.text) {
+            arg = babel.transform(
+              '`' + text + '`', opts.babel).ast.program.body[0].expression;
+          }else{
+            arg = t.stringLiteral(text);
+          }
+
+          // call skate.vdom.text();
+          args = [arg];
+          expr = t.expressionStatement(
+            getCallExpression(t, TEXT, args));
         }
-        // call skate.vdom.text();
-        args = [arg];
-        expr = t.expressionStatement(
-          getCallExpression(t, TEXT, args));
       }
 
-      body.push(expr);
+      if(expr) {
+        body.push(expr);
+      }
     }
   }
 

@@ -488,7 +488,9 @@ function render(el, opts) {
 
           opts.babel.plugins = [
             require('./html-plugin')(module.exports, opts)];
+
           script = babel.transform(text, opts.babel);
+
           script.ast.program.body.forEach(inlineScript)
         }else{
           // draft support for template literals in text nodes

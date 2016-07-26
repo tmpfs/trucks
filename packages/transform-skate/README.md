@@ -137,32 +137,8 @@ Compiles HTML `<template>` elements to render functions.
 html(html, opts)
 ```
 
-Compile an HTML string to babel AST programs representing each `<template>`
+Compile an HTML string to AST programs representing each `<template>`
 element in the input HTML.
-
-The return object contains a `map` object which is an AST program
-representing a map of component identifiers (extracted from the template
-`id` attribute by default) to render functions.
-
-To generate the string code for the template map:
-
-```javascript
-const trucks = require('trucks')
-  , babel = require('babel-core')
-  , tpl = '<template id="x-component"></template>'
-  , info = trucks.compile(tpl)
-  , {code} = babel.transformFromAst(info.map);
-console.log(code);
-```
-
-The main function is exposed on the return object as a `main` property, it
-is an AST program.
-
-The return object also contains a `list` array with information about each
-compiled `<template>` element including the compiled function `body` and
-a `render` function as an AST program. Typically there is no need for
-consumers to use this property as the `map` and `main` fields are enough
-to generate the compiled code.
 
 Template literal support is not enabled by default. You can pass the
 `literals` option as `true` to enable template literals for attributes and

@@ -71,17 +71,17 @@ Will result in the compiled function:
 
 ```javascript
 function render(elem) {
-  var _this = this;
-
-  if (this.title) {
-    skate.vdom.element("h3", () => {
-      skate.vdom.text(`${ _this.title }`);
-    });
-  }
-
   skate.vdom.element("div", {
     "class": "post"
   }, () => {
+    var _this = this;
+
+    if (this.title) {
+      skate.vdom.element("h3", () => {
+        skate.vdom.text(`${ _this.title }`);
+      });
+    }
+
     skate.vdom.element("p", () => {
       skate.vdom.text(`Article content`);
     });
@@ -96,17 +96,17 @@ The compiler then creates a map of component identifiers to template render func
 ```javascript
 const templates = {
   "x-blog-post": function render(elem) {
-    var _this = this;
-
-    if (this.title) {
-      skate.vdom.element("h3", () => {
-        skate.vdom.text(`${ _this.title }`);
-      });
-    }
-
     skate.vdom.element("div", {
       "class": "post"
     }, () => {
+      var _this = this;
+
+      if (this.title) {
+        skate.vdom.element("h3", () => {
+          skate.vdom.text(`${ _this.title }`);
+        });
+      }
+
       skate.vdom.element("p", () => {
         skate.vdom.text(`Article content`);
       });

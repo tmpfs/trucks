@@ -68,6 +68,7 @@ function options(opts) {
 
 
   opts.scripts = opts.scripts !== undefined ? opts.scripts : true;
+  //opts.literals = opts.literals || {text: true, attribute: true};
 
   if(opts.literals === undefined) {
     opts.literals = {}; 
@@ -410,10 +411,6 @@ function render(el, opts) {
     }
   }
 
-  function inlineScript(expr) {
-    body.push(expr); 
-  }
-
   function convert(childNodes, body) {
     let i
       , args = []
@@ -421,13 +418,18 @@ function render(el, opts) {
       , child
       , el;
 
+    function inlineScript(expr) {
+      body.push(expr); 
+    }
+
     for(i = 0;i < childNodes.length;i++) {
       child = childNodes[i];
       el = $(child);
 
       // TODO: implement the logic to parse template scripts
       //
-      //console.log(child.type);
+      //console.log('[%s] %s', child.type, child.tagName);
+      //console.log(child.tagName);
      
       if(child.type === TAG
         || child.type === STYLE

@@ -371,7 +371,7 @@ function attributes(attrs) {
  *  Wraps the function body in a function declaration with a single `elem` 
  *  arguments.
  *
- *  @private {function} render
+ *  @private {function} getFunctionDeclaration
  *  @param {Object} t the babel types object.
  *  @param {Array} body list of function body expressions.
  *  @param {String=render} name the function name.
@@ -379,7 +379,7 @@ function attributes(attrs) {
  *
  *  @returns a function declaration.
  */
-function render(t, body, opts) {
+function getFunctionDeclaration(t, body, opts) {
   return t.functionDeclaration(
     t.identifier(opts.name), [t.identifier(opts.arg)], t.blockStatement(body));
 }
@@ -512,7 +512,7 @@ function template(el, opts) {
     id: id,
     name: tpl.get(0).tagName,
     body: t.program(body),
-    render: t.program([render(t, body, opts)])
+    render: t.program([getFunctionDeclaration(t, body, opts)])
   }
 }
 

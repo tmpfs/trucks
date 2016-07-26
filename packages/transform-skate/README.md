@@ -20,6 +20,7 @@ For the command line interface see [trucks-cli][].
   - [html](#html)
   - [main](#main)
   - [map](#map)
+  - [render](#render)
 - [License](#license)
 
 ---
@@ -136,12 +137,6 @@ Compiles HTML `<template>` elements to render functions.
 html(html, opts)
 ```
 
-```javascript
-const trucks = require('trucks')
-  , tpl = '<template id="x-component"></template>'
-  , {map, main, list} = trucks.compile(tpl);
-```
-
 Compile an HTML string to babel AST programs representing each `<template>`
 element in the input HTML.
 
@@ -227,6 +222,20 @@ identifiers to render functions.
 Returns AST program mapping components to render functions.
 
 * `templates` Array list of compiled template programs.
+* `opts` Object processing options.
+
+### render
+
+```javascript
+public render(el, opts)
+```
+
+Convert a single DOM `<template>` element to an AST program representing
+the contents for a render function body.
+
+Returns function body AST.
+
+* `el` Object the element DOM.
 * `opts` Object processing options.
 
 ## License

@@ -132,11 +132,10 @@ function html(html, opts) {
     opts.querySelectorAll || cheerio.load(html, opts.dom);
 
   const templates = []
-    , $ = opts.querySelectorAll
-    , elements = $('template');
+    , elements = opts.querySelectorAll('template');
 
   elements.each((i, el) => {
-    templates.push(template(el, opts));
+    templates.push(render(el, opts));
   })
 
   return templates;
@@ -385,15 +384,16 @@ function getFunctionDeclaration(t, body, opts) {
 }
 
 /**
- *  Convert a single DOM `<template>` element to an AST object.
+ *  Convert a single DOM `<template>` element to an AST program representing 
+ *  the contents for a render function body.
  *
- *  @private {function} template
+ *  @public {function} render
  *  @param {Object} el the element DOM.
  *  @param {Object} opts processing options.
  *
  *  @returns {Object} function body AST.
  */
-function template(el, opts) {
+function render(el, opts) {
 
   opts = options(opts);
 
@@ -517,7 +517,7 @@ function template(el, opts) {
 }
 
 module.exports = {
-  render: template,
+  render: render,
   html: html,
   map: map,
   main: main

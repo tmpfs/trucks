@@ -29,6 +29,27 @@ function isEmpty(obj) {
   return true;
 }
 
+/**
+ *  Get computed compiler options.
+ *
+ *  Merges input compiler options with the default option configuration.
+ *
+ *  @function options
+ *  @param {Object} opts processing options.
+ *
+ *  @option {String=id} [attr] attribute name used for the component id.
+ *  @option {String=skate} [skate] name of the skatejs variable.
+ *  @option {String=vdom} [idom] name of the vdom property.
+ *  @option {String=element} [element] name of the element function.
+ *  @option {String=text} [text] name of the text function.
+ *  @option {String=templates} [templates] name of the templates map.
+ *  @option {String=template} [main] name of the main function.
+ *  @option {Boolean=true} [normalize] normalize whitespace in templates.
+ *  @option {Object|Boolean} [literals] flags for template literal support.
+ *  @option {Object} [dom] options to use when parsing the DOM.
+ *
+ *  @returns computed processing options.
+ */
 function options(opts) {
   opts = opts || {};
 
@@ -84,17 +105,6 @@ function options(opts) {
  *  @function html
  *  @param {String} html an HTML string.
  *  @param {Object} opts processing options.
- *
- *  @option {String=id} [attr] attribute name used for the component id.
- *  @option {String=skate} [skate] name of the skatejs variable.
- *  @option {String=vdom} [idom] name of the vdom property.
- *  @option {String=element} [element] name of the element function.
- *  @option {String=text} [text] name of the text function.
- *  @option {String=templates} [templates] name of the templates map.
- *  @option {String=template} [main] name of the main function.
- *  @option {Boolean=true} [normalize] normalize whitespace in templates.
- *  @option {Object|Boolean} [literals] flags for template literal support.
- *  @option {Object} [dom] options to use when parsing the DOM.
  *
  *  @throws Error if a template element does not define an identifier.
  *
@@ -493,6 +503,7 @@ function render(el, opts) {
 }
 
 module.exports = {
+  options: options,
   render: render,
   html: html,
   map: map,

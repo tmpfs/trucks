@@ -17,6 +17,7 @@ For the command line interface see [trucks-cli][].
 - [Overview](#overview)
 - [API](#api)
   - [skate](#skate)
+  - [options](#options)
   - [html](#html)
   - [main](#main)
   - [map](#map)
@@ -131,6 +132,33 @@ Compiles HTML `<template>` elements to render functions.
 * `state` Object compiler state.
 * `conf` Object plugin configuration object.
 
+### options
+
+```javascript
+options(opts)
+```
+
+Get computed compiler options.
+
+Merges input compiler options with the default option configuration.
+
+Returns computed processing options.
+
+* `opts` Object processing options.
+
+#### Options
+
+* `attr` String=id attribute name used for the component id.
+* `skate` String=skate name of the skatejs variable.
+* `idom` String=vdom name of the vdom property.
+* `element` String=element name of the element function.
+* `text` String=text name of the text function.
+* `templates` String=templates name of the templates map.
+* `main` String=template name of the main function.
+* `normalize` Boolean=true normalize whitespace in templates.
+* `literals` Object|Boolean flags for template literal support.
+* `dom` Object options to use when parsing the DOM.
+
 ### html
 
 ```javascript
@@ -155,19 +183,6 @@ Returns a list of compiled templates.
 
 * `html` String an HTML string.
 * `opts` Object processing options.
-
-#### Options
-
-* `attr` String=id attribute name used for the component id.
-* `skate` String=skate name of the skatejs variable.
-* `vdom` String=vdom name of the vdom property.
-* `element` String=element name of the element function.
-* `text` String=text name of the text function.
-* `templates` String=templates name of the templates map.
-* `main` String=template name of the main function.
-* `normalize` Boolean=true normalize whitespace in templates.
-* `literals` Object|Boolean flags for template literal support.
-* `dom` Object options to use when parsing the DOM.
 
 #### Throws
 

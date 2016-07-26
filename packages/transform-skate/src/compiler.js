@@ -106,7 +106,7 @@ function options(opts) {
  *  trucks.compile(tpl, {literals: {text: true, attribute: true});
  *  ```
  *
- *  @function trucks.compile
+ *  @function compile
  *  @param {String} html an HTML string.
  *  @param {Object} opts processing options.
  *
@@ -150,7 +150,7 @@ function compile(html, opts) {
  *  Build a main function that accepts an `elem` argument and performs a 
  *  lookup in the templates map to execute the template function.
  *
- *  @private {function} main
+ *  @public {function} main
  *  @param {Object} opts processing options.
  *
  *  @returns program representing the main function.
@@ -202,7 +202,7 @@ function main(opts) {
  *  Converts the output of a compile pass to an object map of component 
  *  identifiers to render functions.
  *
- *  @private {function} trucks.map
+ *  @public {function} map
  *  @param {Array} templates list of compiled template programs.
  *  @param {Object} opts processing options.
  *

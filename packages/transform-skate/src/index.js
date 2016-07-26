@@ -1,10 +1,11 @@
 /**
- *  Iterate all javascript strings parsing to an AST and extracting 
- *  components definitions `skate.define()`.
+ *  Compiles HTML `<template>` elements to render functions.
  *
- *  @private
+ *  @public {function} skate
+ *  @param {Object} state compiler state.
+ *  @param {Object} conf plugin configuration object.
  */
-module.exports = function skate(state, conf) {
+function skate(state, conf) {
 
   conf.id = conf.id || {
     pattern: /\{\{id\}\}/gm
@@ -73,4 +74,4 @@ module.exports = function skate(state, conf) {
   }
 }
 
-module.exports.compiler = require('./compiler');
+module.exports = skate;

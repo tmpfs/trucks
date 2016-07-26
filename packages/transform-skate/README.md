@@ -118,7 +118,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 26, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -141,4 +141,28 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
+[load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
+[parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
+[transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
+[generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
+[write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

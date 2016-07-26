@@ -106,7 +106,7 @@ function options(opts) {
  *  trucks.compile(tpl, {literals: {text: true, attribute: true});
  *  ```
  *
- *  @function compile
+ *  @function html
  *  @param {String} html an HTML string.
  *  @param {Object} opts processing options.
  *
@@ -131,14 +131,20 @@ function options(opts) {
  *    , tpl = '<template id="x-component"></template>'
  *    , {map, main, list} = trucks.compile(tpl);
  */
-function compile(html, opts) {
+function html(html, opts) {
   opts = options(opts);
 
   const cheerio = require('cheerio');
   opts.querySelectorAll = 
     opts.querySelectorAll || cheerio.load(html, opts.dom);
 
-  const templates = transform(opts);
+  const templates = []
+    , $ = opts.querySelectorAll
+    , elements = $('template');
+
+  elements.each((i, el) => {
+    templates.push(template(el, opts));
+  })
 
   return {
     list: templates,
@@ -518,30 +524,9 @@ function template(el, opts) {
   }
 }
 
-/**
- *  Transform a DOM representation of HTML templates to an array of 
- *  function bodies for each `<template>` element.
- *
- *  @private {function} transform
- *  @param {Object} opts processing options.
- *
- *  @returns {Array} of function bodies.
- */
-function transform(opts) {
-  const out = []
-    , $ = opts.querySelectorAll
-    , templates = $('template');
-
-  templates.each((i, el) => {
-    out.push(template(el, opts));
-  })
-
-  return out;
-}
-
 module.exports = {
   render: template,
-  html: compile,
+  html: html,
   map: map,
   main: main
 }

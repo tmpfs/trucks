@@ -13,5 +13,9 @@
       usage.md 
       overview.md ?>
 
+## API
+
+<? @exec mkapi src/index.js src/compiler.js --level=3 ?>
+
 <? @include ../../../doc/readme/license.md ?>
 <? @include ../../../doc/readme/links.md ?>

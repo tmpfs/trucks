@@ -51,7 +51,6 @@ function options(opts) {
     opts.literals = {text: true, attribute: true}; 
   }
 
-
   opts.attr = opts.attr || ID;
 
   opts.skate = opts.skate || SKATE;
@@ -123,13 +122,7 @@ function options(opts) {
  *
  *  @throws Error if a template element does not define an identifier.
  *
- *  @returns an object representing the templates as AST programs.
- *
- *  @usage
- *
- *  const trucks = require('trucks')
- *    , tpl = '<template id="x-component"></template>'
- *    , {map, main, list} = trucks.compile(tpl);
+ *  @returns a list of compiled templates.
  */
 function html(html, opts) {
   opts = options(opts);
@@ -146,10 +139,7 @@ function html(html, opts) {
     templates.push(template(el, opts));
   })
 
-  return {
-    list: templates,
-    map: map(templates, opts)
-  };
+  return templates;
 }
 
 /**
@@ -215,6 +205,8 @@ function main(opts) {
  *  @returns {Object} AST program mapping components to render functions.
  */
 function map(templates, opts) {
+  opts = options(opts);
+
   let out = [];
 
   const t = require('babel-core').types;
@@ -376,7 +368,7 @@ function attributes(attrs) {
 }
 
 /**
- *  Wraps the function body in a function declaration with as single `elem` 
+ *  Wraps the function body in a function declaration with a single `elem` 
  *  arguments.
  *
  *  @private {function} render

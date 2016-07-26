@@ -15,6 +15,11 @@ For the command line interface see [trucks-cli][].
 - [Install](#install)
 - [Usage](#usage)
 - [Overview](#overview)
+- [API](#api)
+  - [skate](#skate)
+  - [html](#html)
+  - [main](#main)
+  - [map](#map)
 - [License](#license)
 
 ---
@@ -111,6 +116,118 @@ skate.define('x-blog-post', {
 ```
 
 This compile phase is not required for [polymer][] components as they already use HTML templates.
+
+## API
+
+### skate
+
+```javascript
+public skate(state, conf)
+```
+
+Compiles HTML `<template>` elements to render functions.
+
+* `state` Object compiler state.
+* `conf` Object plugin configuration object.
+
+### html
+
+```javascript
+html(html, opts)
+```
+
+```javascript
+const trucks = require('trucks')
+  , tpl = '<template id="x-component"></template>'
+  , {map, main, list} = trucks.compile(tpl);
+```
+
+Compile an HTML string to babel AST programs representing each `<template>`
+element in the input HTML.
+
+The return object contains a `map` object which is an AST program
+representing a map of component identifiers (extracted from the template
+`id` attribute by default) to render functions.
+
+To generate the string code for the template map:
+
+```javascript
+const trucks = require('trucks')
+  , babel = require('babel-core')
+  , tpl = '<template id="x-component"></template>'
+  , info = trucks.compile(tpl)
+  , {code} = babel.transformFromAst(info.map);
+console.log(code);
+```
+
+The main function is exposed on the return object as a `main` property, it
+is an AST program.
+
+The return object also contains a `list` array with information about each
+compiled `<template>` element including the compiled function `body` and
+a `render` function as an AST program. Typically there is no need for
+consumers to use this property as the `map` and `main` fields are enough
+to generate the compiled code.
+
+Template literal support is not enabled by default. You can pass the
+`literals` option as `true` to enable template literals for attributes and
+text nodes or an object that configures the `text` and `attribute` flags.
+
+The following examples are equivalent:
+
+```javascript
+trucks.compile(tpl, {literals: true});
+trucks.compile(tpl, {literals: {text: true, attribute: true});
+```
+
+Returns a list of compiled templates.
+
+* `html` String an HTML string.
+* `opts` Object processing options.
+
+#### Options
+
+* `attr` String=id attribute name used for the component id.
+* `skate` String=skate name of the skatejs variable.
+* `vdom` String=vdom name of the vdom property.
+* `element` String=element name of the element function.
+* `text` String=text name of the text function.
+* `templates` String=templates name of the templates map.
+* `main` String=template name of the main function.
+* `normalize` Boolean=true normalize whitespace in templates.
+* `literals` Object|Boolean flags for template literal support.
+* `dom` Object options to use when parsing the DOM.
+
+#### Throws
+
+* `Error` if a template element does not define an identifier.
+
+### main
+
+```javascript
+public main(opts)
+```
+
+Build a main function that accepts an `elem` argument and performs a
+lookup in the templates map to execute the template function.
+
+Returns program representing the main function.
+
+* `opts` Object processing options.
+
+### map
+
+```javascript
+public map(templates, opts)
+```
+
+Converts the output of a compile pass to an object map of component
+identifiers to render functions.
+
+Returns AST program mapping components to render functions.
+
+* `templates` Array list of compiled template programs.
+* `opts` Object processing options.
 
 ## License
 

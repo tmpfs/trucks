@@ -4,4 +4,4 @@ const fs = require('fs')
   , compiler = require('../../src/compiler');
 
 const compiled = compiler.html(contents, {literals: {text: true}});
-console.log(babel.transformFromAst(compiled.map).code);
+console.log(babel.transformFromAst(compiler.map(compiled)).code);

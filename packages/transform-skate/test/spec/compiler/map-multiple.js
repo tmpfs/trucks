@@ -8,9 +8,9 @@ describe('compiler:', function() {
     const tpl = '<template id="x-foo"><span></span></template>'
       + '<template id="x-bar"><span></span></template>';
 
-    const res = compiler.html(tpl);
+    const templates = compiler.html(tpl);
 
-    const result = babel.transformFromAst(res.map);
+    const result = babel.transformFromAst(compiler.map(templates));
     expect(result.code).to.eql(
       'const templates = {\n'
         + '  "x-foo": function render(elem) {\n'

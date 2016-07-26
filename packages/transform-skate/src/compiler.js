@@ -54,7 +54,7 @@ function options(opts) {
   opts.attr = opts.attr || ID;
 
   opts.skate = opts.skate || SKATE;
-  opts.vdom = opts.vdom || VDOM;
+  opts.idom = opts.idom || VDOM;
   opts.element = opts.element || ELEMENT;
   opts.text = opts.text || TEXT;
 
@@ -87,7 +87,7 @@ function options(opts) {
  *
  *  @option {String=id} [attr] attribute name used for the component id.
  *  @option {String=skate} [skate] name of the skatejs variable.
- *  @option {String=vdom} [vdom] name of the vdom property.
+ *  @option {String=vdom} [idom] name of the vdom property.
  *  @option {String=element} [element] name of the element function.
  *  @option {String=text} [text] name of the text function.
  *  @option {String=templates} [templates] name of the templates map.
@@ -104,11 +104,11 @@ function html(html, opts) {
   opts = options(opts);
 
   const cheerio = require('cheerio');
-  opts.querySelectorAll = 
-    opts.querySelectorAll || cheerio.load(html, opts.dom);
+  opts.vdom = 
+    opts.vdom || cheerio.load(html, opts.dom);
 
   const templates = []
-    , elements = opts.querySelectorAll('template');
+    , elements = opts.vdom('template');
 
   elements.each((i, el) => {
     templates.push(render(el, opts));
@@ -373,7 +373,7 @@ function render(el, opts) {
 
   opts = options(opts);
 
-  const $ = opts.querySelectorAll
+  const $ = opts.vdom
     , babel = require('babel-core')
     , t = babel.types
     , body = [];

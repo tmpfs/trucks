@@ -62,7 +62,7 @@ function skate(state, conf) {
     leave: (node, cb) => {
       if(node instanceof state.components.Component) {
         // pass in query selector for the compiler
-        conf.querySelectorAll = node.template.vdom;
+        conf.vdom = node.template.vdom;
 
         let res = compiler.render(node.template.element, conf);
         templates.push(res);

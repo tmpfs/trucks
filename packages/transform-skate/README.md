@@ -57,7 +57,11 @@ An HTML template such as:
 ```html
 <template id="x-blog-post">
   <div class="post">
-    <h3>${this.title}</h3>
+    <script>
+      if(this.title) {
+        html('<h3>${this.title}</h3>'); 
+      }
+    </script>
     <p>Article content</p>
   </div>
 </template>
@@ -67,12 +71,17 @@ Will result in the compiled function:
 
 ```javascript
 function render(elem) {
+  var _this = this;
+
+  if (this.title) {
+    skate.vdom.element("h3", () => {
+      skate.vdom.text(`${ _this.title }`);
+    });
+  }
+
   skate.vdom.element("div", {
     "class": "post"
   }, () => {
-    skate.vdom.element("h3", () => {
-      skate.vdom.text(`${ this.title }`);
-    });
     skate.vdom.element("p", () => {
       skate.vdom.text(`Article content`);
     });
@@ -87,12 +96,17 @@ The compiler then creates a map of component identifiers to template render func
 ```javascript
 const templates = {
   "x-blog-post": function render(elem) {
+    var _this = this;
+
+    if (this.title) {
+      skate.vdom.element("h3", () => {
+        skate.vdom.text(`${ _this.title }`);
+      });
+    }
+
     skate.vdom.element("div", {
       "class": "post"
     }, () => {
-      skate.vdom.element("h3", () => {
-        skate.vdom.text(`${ this.title }`);
-      });
       skate.vdom.element("p", () => {
         skate.vdom.text(`Article content`);
       });
@@ -155,6 +169,7 @@ Returns computed processing options.
 * `text` String=text name of the text function.
 * `templates` String=templates name of the templates map.
 * `main` String=template name of the main function.
+* `scripts` Boolean=true parse template script elements.
 * `normalize` Boolean=true normalize whitespace in templates.
 * `literals` Object|Boolean flags for template literal support.
 * `dom` Object options to use when parsing the DOM.

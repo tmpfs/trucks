@@ -1,6 +1,10 @@
 <template id="x-blog-post">
   <div class="post">
-    <h3>${this.title}</h3>
+    <script>
+      if(this.title) {
+        html('<h3>${this.title}</h3>'); 
+      }
+    </script>
     <p>Article content</p>
   </div>
 </template>

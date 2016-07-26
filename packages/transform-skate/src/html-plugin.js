@@ -19,15 +19,11 @@ function plugin(compiler, options) {
               return;
             }
 
-            //console.dir(code);
-
+            // NOTE: have to override so that new DOM is created
             options.vdom = null;
 
             const markup = '<template id="inline-html">' + code + '</template>'
                 , inline = compiler.html(markup, options);
-
-            //console.dir(markup);
-            //console.dir(inline);
 
             path.replaceWithMultiple(inline[0].body.body);
           }

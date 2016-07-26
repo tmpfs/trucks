@@ -469,7 +469,6 @@ function render(el, opts) {
           getCallExpression(t, ELEMENT, args));
       // child text node
       }else{
-
         const text = el.text();
         let arg
           , script;

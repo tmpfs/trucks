@@ -194,5 +194,4 @@ class OutputFile {
   }
 }
 
-
 module.exports = CompilerState;

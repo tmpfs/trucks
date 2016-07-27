@@ -77,7 +77,7 @@ function skate(state, conf) {
 
         // compile templates and prefix with the component identifier
         if(node.partials.length) {
-          prefix = /-$/.test(node.id) ? node.id : node.id + '-';
+          prefix = node.id + '-';
           node.partials.forEach((partial) => {
             res = compiler.render(partial.element, conf, prefix);
             templates.push(res);

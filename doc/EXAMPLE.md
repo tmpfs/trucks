@@ -74,6 +74,9 @@ Component definition file [components.html](https://github.com/tmpfs/trucks/blob
   <script>
     skate.define('{{id}}', {
       props: {
+        lang: {
+          attribute: true 
+        },
         values: {
           attribute: true,
           deserialize (val) {
@@ -193,6 +196,9 @@ function template(elem) {
 
 skate.define('x-panel', {
   props: {
+    lang: {
+      attribute: true 
+    },
     values: {
       attribute: true,
       deserialize (val) {

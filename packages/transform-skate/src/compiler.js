@@ -389,10 +389,11 @@ function getFunctionDeclaration(t, body, opts) {
  *  @public {function} render
  *  @param {Object} el the element DOM.
  *  @param {Object} opts processing options.
+ *  @param {String} prefix identifier prefix.
  *
  *  @returns {Object} function body AST.
  */
-function render(el, opts) {
+function render(el, opts, prefix) {
 
   opts = options(opts);
 
@@ -538,12 +539,17 @@ function render(el, opts) {
 
   convert(el.childNodes, body);
 
-  const tpl = $(el)
-      , id = tpl.attr(opts.attr);
+  const tpl = $(el);
+  
+  let id = tpl.attr(opts.attr);
 
   if(!id) {
     throw new Error(
       `template declared with no identifier (${opts.attr} attribute)`);
+  }
+
+  if(prefix) {
+    id = prefix + id; 
   }
 
   return {

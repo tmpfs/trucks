@@ -14,6 +14,7 @@ function skate(state, conf) {
   conf.babel = conf.babel || {};
 
   const options = state.options
+      , Component = state.components.Component
       , compiler = require('./compiler')
       // configuration for id attribute replacement
       // which enables {{id}} to be replaced with the
@@ -25,11 +26,9 @@ function skate(state, conf) {
   let file = state.getFile(options.js)
     , filename;
 
-  // list of components processed
-  let components = []
-    // list of compiled template render functions
-    // used for the final map
-    , templates = [];
+  // list of compiled template render functions
+  // used for the final map
+  let templates = [];
 
   return {
     end: (tree, cb) => {
@@ -67,16 +66,26 @@ function skate(state, conf) {
       cb();
     },
     leave: (node, cb) => {
-      if(node instanceof state.components.Component) {
+      if(node instanceof Component) {
+        let res
+          , prefix;
 
         conf.babel.filename = filename;
 
         // pass in query selector for the compiler
         conf.vdom = node.template.vdom;
 
-        let res = compiler.render(node.template.element, conf);
+        // compile templates and prefix with the component identifier
+        if(node.partials.length) {
+          prefix = /-$/.test(node.id) ? node.id : node.id + '-';
+          node.partials.forEach((partial) => {
+            res = compiler.render(partial.element, conf, prefix);
+            templates.push(res);
+          })
+        }
+
+        res = compiler.render(node.template.element, conf);
         templates.push(res);
-        components.push(node); 
       }
 
       cb();

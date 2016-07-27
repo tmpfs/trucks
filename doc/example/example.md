@@ -24,12 +24,6 @@ Compiled javascript:
 
 <? @source {javascript} build/components.js ?>
 
-### Stylesheet
-
-Compiled stylesheet:
-
-<? @source {css} build/components.css ?>
-
 ### Markup
 
 <? @source {html} index.html ?>

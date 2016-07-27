@@ -8,7 +8,6 @@ This document demonstrates the compiler output. Developers that have configured 
   - [Source Files](#source-files)
   - [Compiler Options](#compiler-options)
   - [Javascript](#javascript)
-  - [Stylesheet](#stylesheet)
   - [Markup](#markup)
 
 ---
@@ -48,7 +47,6 @@ Component definition file [components.html](https://github.com/tmpfs/trucks/blob
 
     </style>
 
-
     <div class="container">
       <p class="title">${this.title}</p>
       <div class="content">
@@ -63,7 +61,6 @@ Component definition file [components.html](https://github.com/tmpfs/trucks/blob
       </div>
     </div>
   </template>
-
 
   <script>
     skate.define('{{id}}', {
@@ -174,14 +171,6 @@ skate.define('x-panel', {
 });
 ```
 
-### Stylesheet
-
-Compiled stylesheet:
-
-```css
-
-```
-
 ### Markup
 
 ```html
@@ -192,8 +181,8 @@ Compiled stylesheet:
     <script src="build/components.js"></script>
   </head>
   <body>
-    <x-panel title="Panel Title" values="Apple,Oranges,Pears">
-      <p slot="content">Lorem ipsum</p> 
+    <x-panel title="Languages" values="English, French, Spanish">
+      <p slot="content">Choose your language preference</p> 
     </x-panel>
   </body>
 </html>

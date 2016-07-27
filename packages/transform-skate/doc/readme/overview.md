@@ -27,5 +27,3 @@ skate.define('x-blog-post', {
   render: template
 });
 ```
-
-This compile phase is not required for [polymer][] components as they already use HTML templates.

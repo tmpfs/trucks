@@ -54,7 +54,7 @@ Component definition file [components.html](https://github.com/tmpfs/trucks/blob
         <ul class="items">
           <script>
             this.values.forEach((item) => {
-              html("<li>${item}</li>"); 
+              html(`<li>${item}</li>`); 
             })
           </script>
         </ul>

@@ -447,7 +447,8 @@ function render(el, opts, prefix) {
       , args = []
       , expr
       , child
-      , el;
+      , el
+      , text;
 
     function inlineScript(expr) {
       body.push(expr); 
@@ -460,10 +461,11 @@ function render(el, opts, prefix) {
       //console.log('[%s] %s (%s)', child.type, child.tagName, el.text());
     
       if(opts.scripts && child.type === SCRIPT) {
+        text = el.text();
         //console.error('inline script %s', el.text());
         opts.babel.plugins = [
-          require('./html-plugin')(module.exports, opts)];
-        let script = babel.transform(el.text(), opts.babel);
+          require('./html-plugin')(module.exports, opts, text)];
+        let script = babel.transform(text, opts.babel);
         script.ast.program.body.forEach(inlineScript)
         continue;
       }else if(child.type === TAG
@@ -507,7 +509,7 @@ function render(el, opts, prefix) {
 
       // child text node
       }else{
-        const text = el.text();
+        text = el.text();
 
         //console.log('text: %s', text);
 

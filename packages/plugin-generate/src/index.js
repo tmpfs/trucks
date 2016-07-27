@@ -6,33 +6,29 @@ function generate(/*state, conf*/) {
     let file;
 
     if(opts.html && !state.hasFile(opts.html)) {
-      // concatenate all templates
-      const templates = state.tree.getTemplates().map((tpl) => {
-        return tpl.contents;
-      })
       file = state.getFile(opts.html); 
-      file.contents = templates;
+      // concatenate all templates
+      state.tree.getTemplates().forEach((tpl) => {
+        file.append(tpl.contents);
+      })
     }
 
     if(opts.css && !state.hasFile(opts.css)) {
+      file = state.getFile(opts.css); 
       // concatenate all style contents
-      const styles = state.tree.getStyles().map((style) => {
+      state.tree.getStyles().forEach((style) => {
         if(style.isDocumentScope()) {
-          return style.contents;
+          file.append(style.contents);
         }
       })
-      file = state.getFile(opts.css); 
-      file.contents = styles;
     }
 
     if(opts.js && !state.hasFile(opts.js)) {
-      // concatenate all javascript contents
-      const scripts = state.tree.getScripts().map((script) => {
-        return script.contents;
-      })
-
       file = state.getFile(opts.js); 
-      file.contents = scripts;
+      // concatenate all javascript contents
+      state.tree.getScripts().forEach((script) => {
+        file.append(script.contents);
+      })
     }
 
     cb(null, state);

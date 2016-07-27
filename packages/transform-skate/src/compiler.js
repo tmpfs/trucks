@@ -401,6 +401,11 @@ function render(el, opts) {
     , t = babel.types
     , body = [];
 
+  function getTemplateLiteralExpression(val) {
+    return babel.transform(
+      '`' + val  + '`', opts.babel).ast.program.body[0].expression;
+  }
+
   function propertyString(val) {
     if(val === true || val === false) {
       return t.booleanLiteral(val);
@@ -413,8 +418,9 @@ function render(el, opts) {
   function propertyTemplate(val) {
     if(val === String(val)) {
       if(PATTERN.test(val)) {
-        return babel.transform(
-          '`' + val  + '`').ast.program.body[0].expression;
+        return getTemplateLiteralExpression(val);
+        //return babel.transform(
+          //'`' + val  + '`').ast.program.body[0].expression;
       }else{
         return propertyString(val);
       }
@@ -440,8 +446,6 @@ function render(el, opts) {
       child = childNodes[i];
       el = $(child);
 
-      // TODO: implement the logic to parse template scripts
-      //
       //console.log('[%s] %s', child.type, child.tagName);
       //console.log(child.tagName);
      
@@ -483,13 +487,16 @@ function render(el, opts) {
         // call skate.vdom.element();
         expr = t.expressionStatement(
           getCallExpression(t, ELEMENT, args));
+
       // child text node
       }else{
         const text = el.text();
+
         let arg
           , script;
 
         // skip text nodes that are just whitespace
+        // this prevents lots of calls with `vdom.text(" ");`
         if(opts.normalize && /^\s*$/.test(text)) {
           continue; 
         }
@@ -507,10 +514,11 @@ function render(el, opts) {
 
           script.ast.program.body.forEach(inlineScript)
         }else{
-          // draft support for template literals in text nodes
+
+          // support for template literals in text nodes
           if(opts.literals.text && PATTERN.test(text)) {
-            arg = babel.transform(
-              '`' + text + '`', opts.babel).ast.program.body[0].expression;
+            arg = getTemplateLiteralExpression(text);
+          // treat as a string
           }else{
             arg = t.stringLiteral(text);
           }
@@ -531,7 +539,7 @@ function render(el, opts) {
   convert(el.childNodes, body);
 
   const tpl = $(el)
-    , id = tpl.attr(opts.attr);
+      , id = tpl.attr(opts.attr);
 
   if(!id) {
     throw new Error(

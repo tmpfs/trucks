@@ -48,7 +48,7 @@ Component definition file [components.html](https://github.com/tmpfs/trucks/blob
     </style>
 
     <div class="container">
-      <p class="title">${this.title}</p>
+      <p onclick="titleClick" class="title">${this.title}</p>
       <div class="content">
         <slot name="content"></slot>
         <ul class="items">
@@ -72,6 +72,11 @@ Component definition file [components.html](https://github.com/tmpfs/trucks/blob
   </template>
 
   <script>
+
+    function titleClick(e) {
+      console.log('click: ' + e.currentTarget.tagName.toLowerCase());
+    }
+
     skate.define('{{id}}', {
       props: {
         lang: {
@@ -85,11 +90,6 @@ Component definition file [components.html](https://github.com/tmpfs/trucks/blob
           serialize (val) {
             return val.join(',');
           }
-        }
-      },
-      events: {
-        'click .container > .title' (elem/*, e*/) {
-          console.log('clicked: ' + elem.tagName.toLowerCase());
         }
       },
       render: template
@@ -162,6 +162,7 @@ const templates = {
       "class": "container"
     }, () => {
       skate.vdom.element("p", {
+        "onclick": titleClick,
         "class": "title"
       }, () => {
         skate.vdom.text(`${ this.title }`);
@@ -194,6 +195,10 @@ function template(elem) {
   return templates[elem.tagName.toLowerCase()].call(elem, elem);
 }
 
+function titleClick(e) {
+  console.log('click: ' + e.currentTarget.tagName.toLowerCase());
+}
+
 skate.define('x-panel', {
   props: {
     lang: {
@@ -207,11 +212,6 @@ skate.define('x-panel', {
       serialize (val) {
         return val.join(',');
       }
-    }
-  },
-  events: {
-    'click .container > .title' (elem/*, e*/) {
-      console.log('clicked: ' + elem.tagName.toLowerCase());
     }
   },
   render: template

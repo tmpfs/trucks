@@ -259,7 +259,7 @@ function getObjectExpression(t, map, it) {
   let val;
 
   if(map === String(map)) {
-    return it(map); 
+    return it(null, map); 
   }
 
   function onArray(item) {
@@ -270,10 +270,9 @@ function getObjectExpression(t, map, it) {
     if(Array.isArray(map[k])) {
       val = [];
       map[k].forEach(onArray);
-
       val = t.arrayExpression(val);
     }else{
-      val = it(map[k]);
+      val = it(k, map[k]);
     }
     out.push(
       t.objectProperty(t.stringLiteral(k), val)
@@ -367,10 +366,14 @@ function statics(prop, value, attrs) {
 function attributes(attrs) {
   let o = {}, k;
   for(k in attrs) {
-    o[k] = attrs[k];
-    key(k, attrs[k], o); 
-    skip(k, attrs[k], o); 
-    statics(k, attrs[k], o); 
+    //if(/^on/.test(k)) {
+      //console.error('got on attr');
+    //}else{
+      o[k] = attrs[k];
+      key(k, attrs[k], o); 
+      skip(k, attrs[k], o); 
+      statics(k, attrs[k], o); 
+    //}
   }
   return o;
 }
@@ -417,29 +420,21 @@ function render(el, opts, prefix) {
       '`' + val  + '`', opts.babel).ast.program.body[0].expression;
   }
 
-  function propertyString(val) {
-    if(val === true || val === false) {
+  function attributeIterator(key, val) {
+    if(key && /^on/.test(key)) {
+      const ast = babel.transform(val, opts.babel).ast;
+      t.assertExpressionStatement(ast.program.body[0]);
+      return ast.program.body[0].expression;
+    }else if(val === true || val === false) {
       return t.booleanLiteral(val);
-    //}else if(val && val === Object(val)) {
-      //return getObjectExpression(t, val, propertyString); 
+    }else if(val === String(val)) {
+      if(opts.literals.attribute && PATTERN.test(val)) {
+        return getTemplateLiteralExpression(val);
+      }else{
+        return t.stringLiteral(val);
+      }
     }
     return t.stringLiteral(val);
-  }
-
-  function propertyTemplate(val) {
-    if(val === String(val)) {
-      if(PATTERN.test(val)) {
-        return getTemplateLiteralExpression(val);
-        //return babel.transform(
-          //'`' + val  + '`').ast.program.body[0].expression;
-      }else{
-        return propertyString(val);
-      }
-    //}else if(val && val === Object(val)) {
-      //return getObjectExpression(t, val, propertyTemplate); 
-    }
-
-    return propertyString(val);
   }
 
   function convert(childNodes, body) {
@@ -477,16 +472,16 @@ function render(el, opts, prefix) {
         // push attributes into function call when not empty
         let attrs = child.attribs;
         if(!isEmpty(attrs)) {
-          let it = propertyString;
+          //let it = propertyString;
 
           // parse attribute value as template literal
-          if(opts.literals.attribute) {
-            it = propertyTemplate;
-          }
+          //if(opts.literals.attribute) {
+            //it = propertyTemplate;
+          //}
 
           attrs = attributes(attrs);
 
-          args.push(getObjectExpression(t, attrs, it));
+          args.push(getObjectExpression(t, attrs, attributeIterator));
         }
 
         // got some child nodes to process

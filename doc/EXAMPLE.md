@@ -6,9 +6,9 @@ This document demonstrates the compiler output. Developers that have configured 
 
 - [Example](#example)
   - [Source Files](#source-files)
+  - [Markup](#markup)
   - [Compiler Options](#compiler-options)
   - [Javascript](#javascript)
-  - [Markup](#markup)
 
 ---
 
@@ -86,6 +86,25 @@ Component definition file [components.html](https://github.com/tmpfs/trucks/blob
 </dom-module>
 ```
 
+### Markup
+
+Example usage in [index.html](https://github.com/tmpfs/trucks/blob/master/doc/example/index.html):
+
+```html
+<!doctype html>
+<html>
+  <head>
+    <script src="skate-1.0.0-beta.7.js"></script>
+    <script src="build/components.js"></script>
+  </head>
+  <body>
+    <x-panel title="Languages" values="English, French, Spanish">
+      <p slot="content">Choose your language preference</p> 
+    </x-panel>
+  </body>
+</html>
+```
+
 ### Compiler Options
 
 ```javascript
@@ -99,9 +118,6 @@ module.exports = {
       csp: {
         sha: 'sha256',
         statics: true 
-      },
-      skate: {
-        literals: true
       }
     }
   }
@@ -169,23 +185,6 @@ skate.define('x-panel', {
   },
   render: template
 });
-```
-
-### Markup
-
-```html
-<!doctype html>
-<html>
-  <head>
-    <script src="skate-1.0.0-beta.7.js"></script>
-    <script src="build/components.js"></script>
-  </head>
-  <body>
-    <x-panel title="Languages" values="English, French, Spanish">
-      <p slot="content">Choose your language preference</p> 
-    </x-panel>
-  </body>
-</html>
 ```
 
 ---

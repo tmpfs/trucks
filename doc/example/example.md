@@ -12,6 +12,12 @@ Component definition file [components.html](/doc/example/components.html):
 
 <? @source {html} components.html ?>
 
+### Markup
+
+Example usage in [index.html](/doc/example/index.html):
+
+<? @source {html} index.html ?>
+
 ### Compiler Options
 
 <? @source {javascript} options.js ?>
@@ -23,10 +29,6 @@ Component definition file [components.html](/doc/example/components.html):
 Compiled javascript:
 
 <? @source {javascript} build/components.js ?>
-
-### Markup
-
-<? @source {html} index.html ?>
 
 <? @include ../readme/links.md ?>
 

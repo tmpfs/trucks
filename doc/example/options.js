@@ -8,9 +8,6 @@ module.exports = {
       csp: {
         sha: 'sha256',
         statics: true 
-      },
-      skate: {
-        literals: true
       }
     }
   }

@@ -170,6 +170,7 @@ Returns computed processing options.
 * `templates` String=templates name of the templates map.
 * `main` String=template name of the main function.
 * `scripts` Boolean=true parse template script elements.
+* `html` String=html name of the `html` function for inline scripts.
 * `normalize` Boolean=true normalize whitespace in templates.
 * `literals` Object|Boolean=true flags for template literal support.
 * `dom` Object options to use when parsing the DOM.

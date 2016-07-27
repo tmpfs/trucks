@@ -48,6 +48,7 @@ function isEmpty(obj) {
  *  @option {String=templates} [templates] name of the templates map.
  *  @option {String=template} [main] name of the main function.
  *  @option {Boolean=true} [scripts] parse template script elements.
+ *  @option {String=html} [html] name of the `html` function for inline scripts.
  *  @option {Boolean=true} [normalize] normalize whitespace in templates.
  *  @option {Object|Boolean=true} [literals] flags for template literal support.
  *  @option {Object} [dom] options to use when parsing the DOM.

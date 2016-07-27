@@ -1,4 +1,6 @@
 const PATTERN = /\$\{([^}]+)\}/
+    // name of the compile time html function for inline scripts
+    , HTML = 'html'
     , TAG = 'tag'
     , STYLE = 'style'
     , SCRIPT = 'script'
@@ -94,6 +96,8 @@ function options(opts) {
 
   opts.main = opts.main || MAIN;
   opts.templates = opts.templates || TEMPLATES;
+
+  opts.html = opts.html || HTML;
 
   return opts;
 }

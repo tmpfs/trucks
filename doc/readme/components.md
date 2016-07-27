@@ -55,12 +55,12 @@ The parser differentiates between a primary template and template partials. The 
 <dom-module id="x-button">
   <!-- primary template -->
   <template></template>
-  <!-- template partial, fully qualified id: x-button-icon -->
+  <!-- template partial -->
   <template id="icon"></template>
 </dom-module>
 ```
 
-There may only be one primary template in a module and template partial `id` attributes are prefixed with the component identifier.
+There may only be one primary template in a module.
 
 #### Template Styles
 

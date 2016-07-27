@@ -121,13 +121,13 @@ class TemplateReader extends TraitReader {
       state.each(
         elements,
         (elem, next) => {
-          let tpl = this.getTrait(elem);
+          const el = $(elem);
+          
+          let tpl = this.getTrait(elem)
+            , id = el.attr(ID);
+
           tpl.href = trait.href;
           tpl.file = trait.file;
-
-          const el = $(elem); 
-          const prefix = /-$/.test(mod.id) ? mod.id : mod.id + '-'
-            , id = el.attr(ID);
 
           // inherit template from module
           if(!id || id === mod.id) {
@@ -139,18 +139,15 @@ class TemplateReader extends TraitReader {
 
             // set id attribute in case it were undefined
             // thereby inherit from the module id
-            el.attr(ID, mod.id);
+            id = mod.id;
+            el.attr(ID, id);
 
             // assign as primary component template
             mod.component = new this.components.Component(tpl, mod);
-          }else{
-            // prefix module id to template with existing
-            // identifier and treat as a partial template
-            el.attr(ID, prefix + id); 
           }
 
           // assign id to trait
-          tpl.id = el.attr(ID);
+          tpl.id = id;
 
           // update trait contents and query
           // as we have written the dom with id attributes

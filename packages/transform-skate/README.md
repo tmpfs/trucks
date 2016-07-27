@@ -83,13 +83,13 @@ function render(elem) {
     }
 
     skate.vdom.element("p", () => {
-      skate.vdom.text(`Article content`);
+      skate.vdom.text("Article content");
     });
   });
 }
 ```
 
-Note that whitespace in the source template is normalized by default and that support for template literals needs to be enabled when compiling.
+Note that whitespace in the source template is normalized by default.
 
 The compiler then creates a map of component identifiers to template render functions:
 
@@ -108,7 +108,7 @@ const templates = {
       }
 
       skate.vdom.element("p", () => {
-        skate.vdom.text(`Article content`);
+        skate.vdom.text("Article content");
       });
     });
   }
@@ -171,7 +171,7 @@ Returns computed processing options.
 * `main` String=template name of the main function.
 * `scripts` Boolean=true parse template script elements.
 * `normalize` Boolean=true normalize whitespace in templates.
-* `literals` Object|Boolean flags for template literal support.
+* `literals` Object|Boolean=true flags for template literal support.
 * `dom` Object options to use when parsing the DOM.
 
 ### html
@@ -190,8 +190,8 @@ text nodes or an object that configures the `text` and `attribute` flags.
 The following examples are equivalent:
 
 ```javascript
-trucks.compile(tpl, {literals: true});
-trucks.compile(tpl, {literals: {text: true, attribute: true});
+html(tpl, {literals: true});
+html(tpl, {literals: {text: true, attribute: true});
 ```
 
 Returns a list of compiled templates.
@@ -250,7 +250,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 26, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 27, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

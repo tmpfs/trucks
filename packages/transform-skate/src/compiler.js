@@ -1,4 +1,5 @@
-const TAG = 'tag'
+const PATTERN = /\$\{([^}]+)\}/
+    , TAG = 'tag'
     , STYLE = 'style'
     , SCRIPT = 'script'
     , ID = 'id'
@@ -46,7 +47,7 @@ function isEmpty(obj) {
  *  @option {String=template} [main] name of the main function.
  *  @option {Boolean=true} [scripts] parse template script elements.
  *  @option {Boolean=true} [normalize] normalize whitespace in templates.
- *  @option {Object|Boolean} [literals] flags for template literal support.
+ *  @option {Object|Boolean=true} [literals] flags for template literal support.
  *  @option {Object} [dom] options to use when parsing the DOM.
  *
  *  @returns computed processing options.
@@ -66,15 +67,17 @@ function options(opts) {
     opts.dom.normalizeWhitespace = true; 
   }
 
-
   opts.scripts = opts.scripts !== undefined ? opts.scripts : true;
-  //opts.literals = opts.literals || {text: true, attribute: true};
+  opts.literals = opts.literals !== undefined ? opts.literals : true;
 
-  if(opts.literals === undefined) {
-    opts.literals = {}; 
   // truthy enable all template literals
-  }else if(opts.literals && opts.literals !== Object(opts.literals)) {
+  if(opts.literals && opts.literals !== Object(opts.literals)) {
     opts.literals = {text: true, attribute: true}; 
+  }
+
+  // must have an object for dot property access
+  if(opts.literals !== Object(opts.literals)) {
+    opts.literals = {}; 
   }
 
   opts.babel = opts.babel || {};
@@ -106,8 +109,8 @@ function options(opts) {
  *  The following examples are equivalent:
  *
  *  ```javascript
- *  trucks.compile(tpl, {literals: true});
- *  trucks.compile(tpl, {literals: {text: true, attribute: true});
+ *  html(tpl, {literals: true});
+ *  html(tpl, {literals: {text: true, attribute: true});
  *  ```
  *
  *  @function html
@@ -404,11 +407,17 @@ function render(el, opts) {
 
   function propertyTemplate(val) {
     if(val === String(val)) {
-      return babel.transform(
-        '`' + val  + '`').ast.program.body[0].expression;
+      if(PATTERN.test(val)) {
+        return babel.transform(
+          '`' + val  + '`').ast.program.body[0].expression;
+      }else{
+        return propertyString(val);
+      }
     }else if(val && val === Object(val)) {
       return getObjectExpression(t, val, propertyTemplate); 
     }
+
+    return propertyString(val);
   }
 
   function convert(childNodes, body) {
@@ -494,7 +503,7 @@ function render(el, opts) {
           script.ast.program.body.forEach(inlineScript)
         }else{
           // draft support for template literals in text nodes
-          if(opts.literals.text) {
+          if(opts.literals.text && PATTERN.test(text)) {
             arg = babel.transform(
               '`' + text + '`', opts.babel).ast.program.body[0].expression;
           }else{

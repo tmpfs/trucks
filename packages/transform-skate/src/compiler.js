@@ -102,15 +102,15 @@ function options(opts) {
  *  Compile an HTML string to AST programs representing each `<template>` 
  *  element in the input HTML.
  *
- *  Template literal support is not enabled by default. You can pass the 
- *  `literals` option as `true` to enable template literals for attributes and 
+ *  Template literal support is enabled by default. You can pass the 
+ *  `literals` option as `false` to disable template literals for attributes and 
  *  text nodes or an object that configures the `text` and `attribute` flags.
  *
  *  The following examples are equivalent:
  *
  *  ```javascript
- *  html(tpl, {literals: true});
- *  html(tpl, {literals: {text: true, attribute: true});
+ *  html(tpl, {literals: false});
+ *  html(tpl, {literals: {text: false, attribute: false});
  *  ```
  *
  *  @function html

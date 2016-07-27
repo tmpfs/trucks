@@ -15,13 +15,7 @@ This document demonstrates the compiler output. Developers that have configured 
 
 ### Source Files
 
-Source component collection [components.html](https://github.com/tmpfs/trucks/blob/master/doc/example/components.html):
-
-```html
-<link rel="import" href="x-panel.html">
-```
-
-Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/master/doc/example/x-panel.html):
+Component definition file [components.html](https://github.com/tmpfs/trucks/blob/master/doc/example/components.html):
 
 ```html
 <dom-module id="x-panel">
@@ -58,17 +52,32 @@ Component definition file [x-panel.html](https://github.com/tmpfs/trucks/blob/ma
     <div class="container">
       <p class="title">${this.title}</p>
       <div class="content">
-        <slot name="content" />
+        <slot name="content"></slot>
+        <ul class="items">
+          <script>
+            this.values.forEach((item) => {
+              html("<li>${item}</li>"); 
+            })
+          </script>
+        </ul>
       </div>
     </div>
   </template>
 
 
-  <!--<template id="content">-->
-  <!--</template>-->
-
   <script>
     skate.define('{{id}}', {
+      props: {
+        values: {
+          attribute: true,
+          deserialize (val) {
+            return val.split(/\s*,\s*/);
+          },
+          serialize (val) {
+            return val.join(',');
+          }
+        }
+      },
       events: {
         'click .container > .title' (elem/*, e*/) {
           console.log('clicked: ' + elem.tagName.toLowerCase());
@@ -110,43 +119,31 @@ Compiled javascript:
 const templates = {
   "x-panel": function render(elem) {
     skate.vdom.element("style", () => {
-      skate.vdom.text(`/*
-  Inline styles for the shadow DOM.
-*/
-* {
-  font-family: sans-serif;
-  color: white;
-}
-
-p, ::content p {
-  margin: 0; 
-  padding: 1em;
-}
-
-.title {
-  background: black;
-  cursor: pointer;
-}
-
-.content {
-  min-height: 10em;
-  background: gray;
-}`);
+      skate.vdom.text("/*\n  Inline styles for the shadow DOM.\n*/\n* {\n  font-family: sans-serif;\n  color: white;\n}\n\np, ::content p {\n  margin: 0; \n  padding: 1em;\n}\n\n.title {\n  background: black;\n  cursor: pointer;\n}\n\n.content {\n  min-height: 10em;\n  background: gray;\n}");
     });
     skate.vdom.element("div", {
-      "class": `container`
+      "class": "container"
     }, () => {
       skate.vdom.element("p", {
-        "class": `title`
+        "class": "title"
       }, () => {
         skate.vdom.text(`${ this.title }`);
       });
       skate.vdom.element("div", {
-        "class": `content`
+        "class": "content"
       }, () => {
         skate.vdom.element("slot", {
-          "name": `content`
-        }, () => {});
+          "name": "content"
+        });
+        skate.vdom.element("ul", {
+          "class": "items"
+        }, () => {
+          this.values.forEach(item => {
+            skate.vdom.element("li", () => {
+              skate.vdom.text(`${ item }`);
+            });
+          });
+        });
       });
     });
   }
@@ -157,6 +154,17 @@ function template(elem) {
 }
 
 skate.define('x-panel', {
+  props: {
+    values: {
+      attribute: true,
+      deserialize (val) {
+        return val.split(/\s*,\s*/);
+      },
+      serialize (val) {
+        return val.join(',');
+      }
+    }
+  },
   events: {
     'click .container > .title' (elem/*, e*/) {
       console.log('clicked: ' + elem.tagName.toLowerCase());
@@ -184,7 +192,7 @@ Compiled stylesheet:
     <script src="build/components.js"></script>
   </head>
   <body>
-    <x-panel title="Panel Title">
+    <x-panel title="Panel Title" values="Apple,Oranges,Pears">
       <p slot="content">Lorem ipsum</p> 
     </x-panel>
   </body>
@@ -193,7 +201,7 @@ Compiled stylesheet:
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 23, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 27, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

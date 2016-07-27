@@ -8,13 +8,9 @@ This document demonstrates the compiler output. Developers that have configured 
 
 ### Source Files
 
-Source component collection [components.html](/doc/example/components.html):
+Component definition file [components.html](/doc/example/components.html):
 
 <? @source {html} components.html ?>
-
-Component definition file [x-panel.html](/doc/example/x-panel.html):
-
-<? @source {html} x-panel.html ?>
 
 ### Compiler Options
 

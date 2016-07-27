@@ -1,6 +1,6 @@
 module.exports = {
   files: ['doc/example/components.html'],
-  transforms: ['trim', 'csp', 'skate'],
+  transforms: ['trim', 'csp', 'skate/src'],
   out: 'doc/example/build',
   force: true,
   conf: {

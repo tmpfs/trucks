@@ -148,7 +148,7 @@ function partial(opts) {
   opts = options(opts);
   const template =
       `function partial(id) {
-        return templates[elem.tagName.toLowerCase() + '-' + id].call(elem);
+        return templates[elem.tagName.toLowerCase() + '-' + id].call(elem, elem);
       }`
       , babel = require('babel-core');
   return babel.transform(template, opts.babel);
@@ -457,10 +457,16 @@ function render(el, opts, prefix) {
       child = childNodes[i];
       el = $(child);
 
-      //console.log('[%s] %s', child.type, child.tagName);
-      //console.log(child.tagName);
-     
-      if(child.type === TAG
+      //console.log('[%s] %s (%s)', child.type, child.tagName, el.text());
+    
+      if(opts.scripts && child.type === SCRIPT) {
+        //console.error('inline script %s', el.text());
+        opts.babel.plugins = [
+          require('./html-plugin')(module.exports, opts)];
+        let script = babel.transform(el.text(), opts.babel);
+        script.ast.program.body.forEach(inlineScript)
+        continue;
+      }else if(child.type === TAG
         || child.type === STYLE
         // run time script
         || (child.type === SCRIPT && !opts.scripts)) {
@@ -503,8 +509,10 @@ function render(el, opts, prefix) {
       }else{
         const text = el.text();
 
+        //console.log('text: %s', text);
+
         let arg
-          , script;
+          //, script;
 
         // skip text nodes that are just whitespace
         // this prevents lots of calls with `vdom.text(" ");`
@@ -517,17 +525,12 @@ function render(el, opts, prefix) {
           && child.tagName
           && child.tagName.toLowerCase() === SCRIPT
           && el.attr('type') === undefined) {
-
-          opts.babel.plugins = [
-            require('./html-plugin')(module.exports, opts)];
-
-          script = babel.transform(text, opts.babel);
-
-          script.ast.program.body.forEach(inlineScript)
+          continue;
         }else{
 
           // support for template literals in text nodes
           if(opts.literals.text && PATTERN.test(text)) {
+            //console.log('get literal %s', text);
             arg = getTemplateLiteralExpression(text);
           // treat as a string
           }else{

@@ -58,8 +58,17 @@ Component definition file [components.html](https://github.com/tmpfs/trucks/blob
             })
           </script>
         </ul>
+        <script>
+          if(this.lang) {
+            partial('current');
+          }
+        </script>
       </div>
     </div>
+  </template>
+
+  <template id="current">
+    <p>Current language: <em>${this.lang.toLowerCase()}</em></p> 
   </template>
 
   <script>
@@ -98,7 +107,7 @@ Example usage in [index.html](https://github.com/tmpfs/trucks/blob/master/doc/ex
     <script src="build/components.js"></script>
   </head>
   <body>
-    <x-panel title="Languages" values="English, French, Spanish">
+    <x-panel title="Languages" lang="English" values="English, French, Spanish">
       <p slot="content">Choose your language preference</p> 
     </x-panel>
   </body>
@@ -110,7 +119,7 @@ Example usage in [index.html](https://github.com/tmpfs/trucks/blob/master/doc/ex
 ```javascript
 module.exports = {
   files: ['doc/example/components.html'],
-  transforms: ['trim', 'csp', 'skate'],
+  transforms: ['trim', 'csp', 'skate/src'],
   out: 'doc/example/build',
   force: true,
   conf: {
@@ -130,7 +139,19 @@ Compiled javascript:
 
 ```javascript
 const templates = {
+  "x-panel-current": function render(elem) {
+    skate.vdom.element("p", () => {
+      skate.vdom.text("Current language: ");
+      skate.vdom.element("em", () => {
+        skate.vdom.text(`${ this.lang.toLowerCase() }`);
+      });
+    });
+  },
   "x-panel": function render(elem) {
+    function partial(id) {
+      return templates[elem.tagName.toLowerCase() + '-' + id].call(elem, elem);
+    }
+
     skate.vdom.element("style", () => {
       skate.vdom.text("/*\n  Inline styles for the shadow DOM.\n*/\n* {\n  font-family: sans-serif;\n  color: white;\n}\n\np, ::content p {\n  margin: 0; \n  padding: 1em;\n}\n\n.title {\n  background: black;\n  cursor: pointer;\n}\n\n.content {\n  min-height: 10em;\n  background: gray;\n}");
     });
@@ -157,6 +178,10 @@ const templates = {
             });
           });
         });
+
+        if (this.lang) {
+          partial('current');
+        }
       });
     });
   }

@@ -39,8 +39,17 @@
             })
           </script>
         </ul>
+        <script>
+          if(this.lang) {
+            partial('current');
+          }
+        </script>
       </div>
     </div>
+  </template>
+
+  <template id="current">
+    <p>Current language: <em>${this.lang.toLowerCase()}</em></p> 
   </template>
 
   <script>

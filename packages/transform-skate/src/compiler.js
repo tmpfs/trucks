@@ -144,6 +144,16 @@ function html(html, opts) {
   return templates;
 }
 
+function partial(opts) {
+  opts = options(opts);
+  const template =
+      `function partial(id) {
+        return templates[elem.tagName.toLowerCase() + '-' + id].call(elem);
+      }`
+      , babel = require('babel-core');
+  return babel.transform(template, opts.babel);
+}
+
 /**
  *  Build a main function that accepts an `elem` argument and performs a 
  *  lookup in the templates map to execute the template function.
@@ -567,5 +577,6 @@ module.exports = {
   render: render,
   html: html,
   map: map,
-  main: main
+  main: main,
+  partial: partial
 }

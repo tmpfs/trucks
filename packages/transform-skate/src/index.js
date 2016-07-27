@@ -85,6 +85,14 @@ function skate(state, conf) {
         }
 
         res = compiler.render(node.template.element, conf);
+
+        if(node.partials.length) {
+          // prepend inner partial function
+          const fn = compiler.partial(conf); 
+          fn.ast.program.body = fn.ast.program.body.concat(res.body.body);
+          res.body = fn.ast.program;
+        }
+
         templates.push(res);
       }
 

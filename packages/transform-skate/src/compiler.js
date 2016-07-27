@@ -399,8 +399,8 @@ function render(el, opts) {
   function propertyString(val) {
     if(val === true || val === false) {
       return t.booleanLiteral(val);
-    }else if(val && val === Object(val)) {
-      return getObjectExpression(t, val, propertyString); 
+    //}else if(val && val === Object(val)) {
+      //return getObjectExpression(t, val, propertyString); 
     }
     return t.stringLiteral(val);
   }
@@ -413,8 +413,8 @@ function render(el, opts) {
       }else{
         return propertyString(val);
       }
-    }else if(val && val === Object(val)) {
-      return getObjectExpression(t, val, propertyTemplate); 
+    //}else if(val && val === Object(val)) {
+      //return getObjectExpression(t, val, propertyTemplate); 
     }
 
     return propertyString(val);

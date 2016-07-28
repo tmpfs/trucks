@@ -2,6 +2,7 @@
 node_modules
 coverage
 target
+build
 lib
 npm-debug.log.*
 /components.*

@@ -1,6 +1,6 @@
 function generate(/*state, conf*/) {
 
-  return function generate(state, cb) {
+  return function generator(state, cb) {
     const opts = state.options;
 
     let file;

@@ -1,6 +1,6 @@
 module.exports = {
   files: ['doc/example/components.html'],
-  transforms: ['trim', 'csp', 'skate/src'],
+  transforms: ['trim', 'csp', 'skate/src', 'bundle'],
   out: 'doc/example/build',
   force: true,
   conf: {
@@ -8,6 +8,9 @@ module.exports = {
       csp: {
         sha: 'sha256',
         statics: true 
+      },
+      bundle: {
+        js: ['node_modules/skatejs/dist/index-with-deps.js']
       }
     }
   }

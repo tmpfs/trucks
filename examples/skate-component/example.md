@@ -1,10 +1,14 @@
 # Skate Example
 
-This document demonstrates the [skate][] compiler output.
+This document demonstrates using the [skate][] compiler transform.
 
 ***
 <!-- @toc -->
 ***
+
+### Compiler Options
+
+<? @source {javascript} options.js ?>
 
 ### Source Files
 
@@ -17,10 +21,6 @@ Component definition file:
 Example component usage:
 
 <? @source {html} index.html ?>
-
-### Compiler Options
-
-<? @source {javascript} options.js ?>
 
 <? @exec mkdir -p build && node example.js ?>
 

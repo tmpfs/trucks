@@ -1,15 +1,39 @@
 # Skate Example
 
-This document demonstrates the [skate][] compiler output.
+This document demonstrates using the [skate][] compiler transform.
 
 ---
 
 
+  - [Compiler Options](#compiler-options)
   - [Source Files](#source-files)
-  - [Markup](#markup)
-  - [Compiler Options](#compiler-options)- [Developer](#developer)
+  - [Markup](#markup)- [Developer](#developer)
 
 ---
+
+### Compiler Options
+
+```javascript
+module.exports = {
+  files: [__dirname + '/components.html'],
+  transforms: ['trim', 'csp', 'skate', 'bundle'],
+  out: 'build',
+  force: true,
+  css: false,
+  html: false,
+  conf: {
+    transforms: {
+      csp: {
+        sha: 'sha256',
+        statics: true 
+      },
+      bundle: {
+        js: ['../../node_modules/skatejs/dist/index-with-deps.js']
+      }
+    }
+  }
+}
+```
 
 ### Source Files
 
@@ -112,30 +136,6 @@ Example component usage:
     </x-panel>
   </body>
 </html>
-```
-
-### Compiler Options
-
-```javascript
-module.exports = {
-  files: [__dirname + '/components.html'],
-  transforms: ['trim', 'csp', 'skate', 'bundle'],
-  out: 'build',
-  force: true,
-  css: false,
-  html: false,
-  conf: {
-    transforms: {
-      csp: {
-        sha: 'sha256',
-        statics: true 
-      },
-      bundle: {
-        js: ['../../node_modules/skatejs/dist/index-with-deps.js']
-      }
-    }
-  }
-}
 ```
 
 ## Developer

@@ -16,7 +16,6 @@ function doc(src, dest, opts, cb) {
 
 // @task readme build the readme file
 function readme(cb) {
-
   doc(
     'example.md', 'README.md',
     {toc: {depth: 2, max: 3}}, cb);

@@ -89,13 +89,13 @@ function options(state, cb) {
   }
 
   // specific overrides for each output type
-  if(html && !options.html) {
+  if(html && !options.html && (options.html !== false)) {
     options.html = html;
   }
-  if(css && !options.css) {
+  if(css && !options.css && (options.css !== false)) {
     options.css = css;
   }
-  if(js && !options.js) {
+  if(js && !options.js && (options.js !== false)) {
     options.js = js;
   }
 

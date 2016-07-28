@@ -3,6 +3,8 @@ module.exports = {
   transforms: ['trim', 'csp', 'skate', 'bundle'],
   out: 'build',
   force: true,
+  css: false,
+  html: false,
   conf: {
     transforms: {
       csp: {

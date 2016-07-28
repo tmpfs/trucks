@@ -4,14 +4,14 @@ This document demonstrates using the [skate][] compiler transform.
 
 ---
 
-
-  - [Compiler Options](#compiler-options)
-  - [Source Files](#source-files)
-  - [Markup](#markup)- [Developer](#developer)
+- [Compiler Options](#compiler-options)
+- [Source Files](#source-files)
+- [Markup](#markup)
+- [Developer](#developer)
 
 ---
 
-### Compiler Options
+## Compiler Options
 
 ```javascript
 module.exports = {
@@ -35,7 +35,7 @@ module.exports = {
 }
 ```
 
-### Source Files
+## Source Files
 
 Component definition file:
 
@@ -120,7 +120,7 @@ Component definition file:
 </dom-module>
 ```
 
-### Markup
+## Markup
 
 Example component usage:
 
@@ -140,7 +140,7 @@ Example component usage:
 
 ## Developer
 
-Developers that have configured the project can run `mk` and open `index.html` to see the rendered component, run `node server.js` and visit `http://localhost:3000` to serve over HTTP.
+Developers that have configured the project can run `mk build` and open `index.html` to see the rendered component, run `node server.js` and visit `http://localhost:3000` to serve over HTTP.
 
 ---
 

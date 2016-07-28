@@ -14,6 +14,13 @@ function doc(src, dest, opts, cb) {
     .on('finish', cb);
 }
 
+// @task build compile the component
+function build(cb) {
+  const exec = require('child_process').exec
+      , cmd = 'mkdir -p build && node example.js';
+  exec(cmd, cb);
+}
+
 // @task readme build the readme file
 function readme(cb) {
   doc(
@@ -21,4 +28,5 @@ function readme(cb) {
     {toc: {depth: 2, max: 3}}, cb);
 }
 
+mk.task(build);
 mk.task(readme);

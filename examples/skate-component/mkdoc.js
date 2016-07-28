@@ -16,9 +16,7 @@ function doc(src, dest, opts, cb) {
 
 // @task build compile the component
 function build(cb) {
-  const exec = require('child_process').exec
-      , cmd = 'mkdir -p build && node example.js';
-  exec(cmd, cb);
+  mk.exec('npm run build', cb);
 }
 
 // @task readme build the readme file

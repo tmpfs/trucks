@@ -1,4 +1,4 @@
-var trucks = require('../../src');
+var trucks = require('trucks');
 
 trucks(
   require('./options'),

@@ -1,0 +1,28 @@
+{
+  "name": "trucks-example-skate-component",
+  "version": "1.0.0",
+  "description": "Skate compiler transform example",
+  "author": "muji <noop@xpm.io>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmpfs/trucks"
+  },
+  "engines": {
+    "node": ">=4.0"
+  },
+  "devDependencies": {
+    "express": "~4.14.0",
+    "trucks": "*",
+    "trucks-transform-bundle": "*",
+    "trucks-transform-csp": "*",
+    "trucks-transform-skate": "*",
+    "trucks-transform-trim": "*"
+  },
+  "scripts": {
+    "clean": "rm -rf build",
+    "prebuild": "npm run clean && mkdir -p build",
+    "build": "node example.js",
+    "prepublish": "npm run build"
+  }
+}

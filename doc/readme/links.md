@@ -28,6 +28,7 @@
 [write]: /packages/plugin-write
 
 [transform-csp]: /packages/transform-csp
+[bundle]: /packages/transform-bundle
 [skate]: /packages/transform-skate
 [stylus]: /packages/transform-stylus
 [less]: /packages/transform-less

@@ -1,14 +1,13 @@
-## Skate Example
+# Skate Example
 
 This document demonstrates the [skate][] compiler output.
 
 ---
 
-- [Skate Example](#skate-example)
+
   - [Source Files](#source-files)
   - [Markup](#markup)
-  - [Compiler Options](#compiler-options)
-- [Build](#build)
+  - [Compiler Options](#compiler-options)- [Developer](#developer)
 
 ---
 
@@ -20,7 +19,6 @@ Component definition file:
 <dom-module id="x-panel">
 
   <template>
-
     <style>
       /*
         Inline styles for the shadow DOM.
@@ -138,7 +136,7 @@ module.exports = {
 }
 ```
 
-## Build
+## Developer
 
 Developers that have configured the project can run `mk` and open `index.html` to see the rendered component, run `node server.js` and visit `http://localhost:3000` to serve over HTTP.
 

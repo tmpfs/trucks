@@ -1,4 +1,4 @@
-## Skate Example
+# Skate Example
 
 This document demonstrates the [skate][] compiler output.
 
@@ -24,7 +24,7 @@ Example component usage:
 
 <? @exec mkdir -p build && node example.js ?>
 
-## Build
+## Developer
 
 Developers that have configured the project can run `mk` and open `index.html` to see the rendered component, run `node server.js` and visit `http://localhost:3000` to serve over HTTP.
 

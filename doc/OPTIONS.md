@@ -12,35 +12,6 @@ This document shows the default options used when none are provided.
 const options = {
   // array list of component source files
   files: null,
-  // array list of configuration files to load and merge
-  rc: undefined,
-  // array list of plugins to execute
-  plugins: undefined,
-  // array list of transform plugins to run
-  transforms: undefined,
-  // array list of protocol resolvers
-  protocols: undefined,
-  // map of plugin configuration objects
-  conf: {
-    // configuration for main compiler plugins
-    plugins: {},
-    // configuration for compiler transform plugins
-    transforms: {},
-    // configuration for scheme protocol resolvers
-    protocols: {}
-  },
-  before: {
-    // array list to run before plugins or transforms
-    plugins: undefined, 
-    transforms: undefined
-  },
-  after: {
-    // array list to run after plugins or transforms
-    plugins: undefined, 
-    transforms: undefined
-  },
-  // options to pass to babel
-  babel: {},
   // output directory
   out: undefined,
   // name of output files (does not include a file extension)
@@ -53,8 +24,41 @@ const options = {
   js: undefined,
   // force overwrite files if they already exist
   force: false,
+  // options to pass to babel
+  babel: {},
   // override the default operating system EOL for file concatenation
-  eol: undefined
+  eol: undefined,
+  // array list of configuration files to load and merge
+  rc: undefined,
+  // array list of plugins to execute
+  plugins: undefined,
+  // array list of transform plugins to run
+  transforms: undefined,
+  // array list of protocol resolvers
+  protocols: undefined,
+  // map of plugin configuration objects
+  conf: {
+    // configuration for compiler plugins
+    plugins: {},
+    // configuration for transform plugins
+    transforms: {},
+    // configuration for protocol resolvers
+    protocols: {}
+  },
+  before: {
+    // array list to run before plugins or transforms
+    plugins: undefined, 
+    transforms: undefined
+  },
+  after: {
+    // array list to run after plugins or transforms
+    plugins: undefined, 
+    transforms: undefined
+  },
+  // map of component identifiers to stylesheets
+  // used by the `style-extract` and `style-inject` transforms
+  // non-absolute paths are resolved relative to the output directory
+  stylesheets: undefined
 }
 
 module.exports = options;
@@ -62,7 +66,7 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 23, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 29, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -92,6 +96,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 23, 2016
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less

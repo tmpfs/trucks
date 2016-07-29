@@ -1,4 +1,4 @@
-## Abstract
+## Introduction
 
 [Web components][webcomponents] are a collection of emerging standards that allow developers to create re-usable custom user interface elements.
 
@@ -33,9 +33,9 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 23, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 29, 2016
 
-- [Abstract](#abstract)
+- [Introduction](#introduction)
   - [Polymer](#polymer)
   - [Skate](#skate)
   - [React](#react)

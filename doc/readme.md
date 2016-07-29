@@ -28,7 +28,7 @@ Uses ES6 code transpiled for `node@4.x` compatibility.
 
 Some background on motivation and rationale is in the [INTRO](/doc/INTRO.md).
 
-An example for [skatejs][] is shown in [EXAMPLE](/doc/EXAMPLE.md), source files are in [doc/example](/doc/example). 
+An example for [skatejs][] is in [skate-component](/examples/skate-component).
 
 For the API docs see [API](/doc/API.md), an overview of the available options is in [OPTIONS](/doc/OPTIONS.md). For insights into the compiler phases and data structures see [COMPILER](/doc/COMPILER.md).
 

@@ -507,7 +507,7 @@ const options = {
 
 Some background on motivation and rationale is in the [INTRO](https://github.com/tmpfs/trucks/blob/master/doc/INTRO.md).
 
-An example for [skatejs][] is shown in [EXAMPLE](https://github.com/tmpfs/trucks/blob/master/doc/EXAMPLE.md), source files are in [doc/example](https://github.com/tmpfs/trucks/blob/master/doc/example).
+An example for [skatejs][] is in [skate-component](https://github.com/tmpfs/trucks/blob/master/examples/skate-component).
 
 For the API docs see [API](https://github.com/tmpfs/trucks/blob/master/doc/API.md), an overview of the available options is in [OPTIONS](https://github.com/tmpfs/trucks/blob/master/doc/OPTIONS.md). For insights into the compiler phases and data structures see [COMPILER](https://github.com/tmpfs/trucks/blob/master/doc/COMPILER.md).
 
@@ -521,7 +521,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 28, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 29, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

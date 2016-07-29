@@ -49,7 +49,6 @@ ComponentFile {
    FileResolver {
      state: 
       CompilerState {
-        files: [Object],
         options: [Object],
         tree: [Object],
         result: [Object],
@@ -268,7 +267,7 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 23, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 29, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -298,6 +297,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 23, 2016
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less

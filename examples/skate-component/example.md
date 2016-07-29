@@ -2,6 +2,12 @@
 
 This document demonstrates using the [skate][] compiler transform.
 
+## Install
+
+```
+npm i trucks-example-skate-component
+```
+
 To build this example install the command line interface `npm i -g trucks` and dependencies `npm i` then run:
 
 ```shell

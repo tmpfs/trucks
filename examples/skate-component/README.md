@@ -52,7 +52,7 @@ module.exports = {
 
 ## Source Files
 
-Component definition file:
+Component definition file [components.html](components.html):
 
 ```html
 <dom-module id="x-panel">
@@ -137,7 +137,7 @@ Component definition file:
 
 ## Markup
 
-Example component usage:
+Example component usage in [index.html](index.html):
 
 ```html
 <!doctype html>

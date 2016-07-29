@@ -26,13 +26,13 @@ Open `index.html` to see the rendered component or serve over HTTP with `node se
 
 ## Source Files
 
-Component definition file:
+Component definition file [components.html](components.html):
 
 <? @source {html} components.html ?>
 
 ## Markup
 
-Example component usage:
+Example component usage in [index.html](index.html):
 
 <? @source {html} index.html ?>
 

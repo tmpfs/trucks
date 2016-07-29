@@ -1,6 +1,6 @@
 {
   "name": "trucks-example-skate-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Skate compiler transform example",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
@@ -22,8 +22,8 @@
   },
   "scripts": {
     "clean": "rm components.js csp.*",
-    "prebuild": "npm run clean && mkdir -p build",
-    "build": "node example.js",
+    "prebuild": "npm run clean",
+    "build": "trucks",
     "prepublish": "npm run build"
   }
 }

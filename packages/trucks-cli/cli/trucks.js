@@ -3,7 +3,8 @@ const path = require('path')
     , cli = require('mkcli')
     , pkg = require('../package.json')
     , prg = cli.load(require('../doc/json/trucks.json'))
-    , trucks = require('trucks');
+    , trucks = require('trucks')
+    , TRUCKS_AUTOCONF = process.env.TRUCKS_AUTOCONF || 'trucks.js'
 
 // override package name
 pkg.name = 'trucks';
@@ -58,6 +59,8 @@ function main(argv, conf, cb) {
         ]
       };
 
+  const autoconf = path.join(process.cwd(), TRUCKS_AUTOCONF);
+
   cli.run(prg, argv, runtime, function parsed(err, req) {
     if(err || req.aborted) {
       return cb(err, null, this); 
@@ -65,14 +68,26 @@ function main(argv, conf, cb) {
 
     let plugins = [];
 
-    this.conf = this.conf || {};
-    this.conf.plugins = this.conf.plugins || {};
-    this.conf.transforms = this.conf.transforms || {};
-    this.conf.protocols = this.conf.protocols || {};
+    //this.conf = this.conf || {};
+    //this.conf.plugins = this.conf.plugins || {};
+    //this.conf.transforms = this.conf.transforms || {};
+    //this.conf.protocols = this.conf.protocols || {};
 
-    this.conf.protocols.http = {
-      secure: this.secure
+    if(this.secure !== undefined) {
+      this.conf = this.conf || {};
+      this.conf.protocols = this.conf.protocols || {};
+      this.conf.protocols.http = {
+        secure: this.secure
+      }
     }
+
+    // check autoconf in cwd
+    try {
+      let stat = fs.statSync(autoconf);
+      if(stat && stat.isFile()) {
+        this.rc.unshift(autoconf); 
+      }
+    }catch(e) {}
 
     // add the protocols we depend upon
     this.protocols.unshift('http', 'npm');
@@ -82,13 +97,13 @@ function main(argv, conf, cb) {
       this.out = process.cwd();
     }
 
-    this.after = {
-      transforms: []
-    }
+    //this.after = {
+      //transforms: []
+    //}
 
-    this.before = {
-      transforms: []
-    }
+    //this.before = {
+      //transforms: []
+    //}
 
     if(this.extract !== undefined) {
       // allows --extract= to defer to default output
@@ -137,6 +152,13 @@ function main(argv, conf, cb) {
       }
       return prev.concat(next); 
     }, [])
+
+
+    // reset transforms when empty so config file merge
+    // will pick up transforms
+    if(!this.transforms.length) {
+      delete this.transforms; 
+    }
 
     if(this.printManifest && !this.manifest) {
       this.manifest = true; 

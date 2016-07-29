@@ -53,6 +53,8 @@ function options(state, cb) {
     opts.rc = [opts.rc];
   }
 
+  let files = Array.isArray(opts.files) ? opts.files : [];
+
   // list of configuration files to require and merge
   if(Array.isArray(opts.rc)) {
     rc = opts.rc;
@@ -64,6 +66,10 @@ function options(state, cb) {
       file = abs(file);
       try {
         config = require(file);
+        // add files from loaded configs
+        if(Array.isArray(config.files)) {
+          files = files.concat(config.files); 
+        }
         options = merge(true, options, config);
       }catch(e) {
         return cb(e); 
@@ -73,6 +79,9 @@ function options(state, cb) {
 
   // merge in passed options after loading config files
   options = merge(true, options, opts);
+
+  // re-assign file list
+  options.files = files;
 
   let html
     , css

@@ -65,7 +65,22 @@ function middleware(state, options) {
           file = file + '/src';
         }
       }
-      fn = require(file);
+
+      try {
+        fn = require(file);
+      }catch(e) {
+        // try to require relative to cwd
+        const Module = require('module')
+        const req = Module._resolveFilename(file, {
+          id: process.cwd(),
+          filename: process.cwd() + '/noop.js',
+          paths: Module._nodeModulePaths(process.cwd())
+        });
+
+        // this will throw
+        fn = require(req);
+      }
+
     }else if(phase && phase === Object(phase)) {
       if(!phase.plugin || !(phase.plugin instanceof Function)) {
         throw new Error(

@@ -20,7 +20,7 @@ class CompilerState {
     options = options || {};
 
     // list of input files
-    this.files = options.files || [];
+    //this.files = options.files || [];
 
     // computed processing options
     this.options = options;
@@ -41,6 +41,10 @@ class CompilerState {
 
     // @private map of protocol schems to resolver classes
     this._registry = null;
+  }
+
+  get files() {
+    return this.options.files;
   }
 
   get registry() {

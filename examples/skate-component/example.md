@@ -2,13 +2,21 @@
 
 This document demonstrates using the [skate][] compiler transform.
 
+To build this example install the command line interface `npm i -g trucks` and dependencies `npm i` then run:
+
+```shell
+trucks
+```
+
+Open `index.html` to see the rendered component or serve over HTTP with `node server.js` and visit `http://localhost:3000`.
+
 ***
 <!-- @toc -->
 ***
 
 ## Compiler Options
 
-<? @source {javascript} options.js ?>
+<? @source {javascript} trucks.js ?>
 
 ## Source Files
 
@@ -25,10 +33,6 @@ Example component usage:
 ## Compiler Output
 
 See [components.js](components.js) for the compiled output.
-
-## Developer
-
-Developers that have configured the project can run `mk build` and open `index.html` to see the rendered component, run `node server.js` and visit `http://localhost:3000` to serve over HTTP.
 
 <? @include ../../doc/readme/links.md ?>
 

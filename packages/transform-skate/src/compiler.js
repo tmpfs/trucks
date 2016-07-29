@@ -1,6 +1,7 @@
 const PATTERN = /\$\{([^}]+)\}/
     // pattern for `on*` event listener attributes
-    , ON_PATTERN = /^on[A-Z\-]/
+    //, ON_PATTERN = /^on[A-Z\-]/
+    , ON_PATTERN = /^on/
     // name of the compile time html function for inline scripts
     , HTML = 'html'
     , TAG = 'tag'
@@ -67,6 +68,8 @@ function options(opts) {
   }else{
     opts.normalize = Boolean(opts.normalize);
   }
+
+  //opts.dom.lowerCaseAttributeNames = false;
 
   opts.scripts = opts.scripts !== undefined ? opts.scripts : true;
   opts.literals = opts.literals !== undefined ? opts.literals : true;
@@ -364,14 +367,10 @@ function statics(prop, value, attrs) {
 function attributes(attrs) {
   let o = {}, k;
   for(k in attrs) {
-    //if(/^on/.test(k)) {
-      //console.error('got on attr');
-    //}else{
-      o[k] = attrs[k];
-      key(k, attrs[k], o); 
-      skip(k, attrs[k], o); 
-      statics(k, attrs[k], o); 
-    //}
+    o[k] = attrs[k];
+    key(k, attrs[k], o); 
+    skip(k, attrs[k], o); 
+    statics(k, attrs[k], o); 
   }
   return o;
 }
@@ -419,6 +418,7 @@ function render(el, opts, prefix) {
   }
 
   function attributeIterator(key, val) {
+    console.dir(key);
     if(key && ON_PATTERN.test(key)) {
       const ast = babel.transform(val, opts.babel).ast;
       t.assertExpressionStatement(ast.program.body[0]);
@@ -469,16 +469,11 @@ function render(el, opts, prefix) {
 
         // push attributes into function call when not empty
         let attrs = child.attribs;
+
+        console.dir(attrs);
+
         if(!isEmpty(attrs)) {
-          //let it = propertyString;
-
-          // parse attribute value as template literal
-          //if(opts.literals.attribute) {
-            //it = propertyTemplate;
-          //}
-
           attrs = attributes(attrs);
-
           args.push(getObjectExpression(t, attrs, attributeIterator));
         }
 

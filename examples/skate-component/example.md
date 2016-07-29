@@ -22,6 +22,10 @@ Example component usage:
 
 <? @source {html} index.html ?>
 
+## Compiler Output
+
+See [components.js](components.js) for the compiled output.
+
 ## Developer
 
 Developers that have configured the project can run `mk build` and open `index.html` to see the rendered component, run `node server.js` and visit `http://localhost:3000` to serve over HTTP.

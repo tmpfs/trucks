@@ -85,7 +85,7 @@ Component definition file [components.html](components.html):
     </style>
 
     <div class="container">
-      <p onClick="titleClick" class="title">${this.title}</p>
+      <p onclick="elem.titleClick" class="title">${this.title}</p>
       <div class="content">
         <slot name="content"></slot>
         <ul class="items">
@@ -110,10 +110,6 @@ Component definition file [components.html](components.html):
 
   <script>
 
-    function titleClick(e) {
-      console.log('click: ' + e.currentTarget.tagName.toLowerCase());
-    }
-
     skate.define('{{id}}', {
       props: {
         lang: {
@@ -127,6 +123,12 @@ Component definition file [components.html](components.html):
           serialize (val) {
             return val.join(',');
           }
+        }
+      },
+      prototype: {
+        titleClick(e) {
+          console.log('click: ' + e.currentTarget.tagName.toLowerCase());
+          console.log(this);
         }
       },
       render: template

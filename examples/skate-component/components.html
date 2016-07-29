@@ -28,7 +28,7 @@
     </style>
 
     <div class="container">
-      <p onClick="elem.titleClick" class="title">${this.title}</p>
+      <p onclick="elem.titleClick" class="title">${this.title}</p>
       <div class="content">
         <slot name="content"></slot>
         <ul class="items">
@@ -71,6 +71,7 @@
       prototype: {
         titleClick(e) {
           console.log('click: ' + e.currentTarget.tagName.toLowerCase());
+          console.log(this);
         }
       },
       render: template

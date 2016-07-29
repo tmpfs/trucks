@@ -1,7 +1,6 @@
 const PATTERN = /\$\{([^}]+)\}/
     // pattern for `on*` event listener attributes
-    //, ON_PATTERN = /^on[A-Z\-]/
-    , ON_PATTERN = /^on/
+    , ON_PATTERN = /^on[A-Z\-]/
     // name of the compile time html function for inline scripts
     , HTML = 'html'
     , TAG = 'tag'
@@ -70,6 +69,7 @@ function options(opts) {
   }
 
   //opts.dom.lowerCaseAttributeNames = false;
+  //opts.dom.xmlMode = false;
 
   opts.scripts = opts.scripts !== undefined ? opts.scripts : true;
   opts.literals = opts.literals !== undefined ? opts.literals : true;
@@ -418,7 +418,6 @@ function render(el, opts, prefix) {
   }
 
   function attributeIterator(key, val) {
-    console.dir(key);
     if(key && ON_PATTERN.test(key)) {
       const ast = babel.transform(val, opts.babel).ast;
       t.assertExpressionStatement(ast.program.body[0]);
@@ -455,7 +454,6 @@ function render(el, opts, prefix) {
     
       if(opts.scripts && child.type === SCRIPT) {
         text = el.text();
-        //console.error('inline script %s', el.text());
         opts.babel.plugins = [
           require('./html-plugin')(module.exports, opts, text)];
         let script = babel.transform(text, opts.babel);
@@ -468,9 +466,24 @@ function render(el, opts, prefix) {
         args = [t.stringLiteral(child.name)];
 
         // push attributes into function call when not empty
-        let attrs = child.attribs;
+        let attrs = child.attribs
+          , k
+          , v;
 
-        console.dir(attrs);
+        for(k in attrs) {
+          v = attrs[k];
+          // hyphenate onclick etc so they are picked up by skate
+          // works around an issue with cheerio/htmlparser2 always converting
+          // attribute names to lowercase
+          if(/^on[a-z]/.test(k)) {
+            delete attrs[k];
+            k = 'on-' + k.substr(2); 
+            attrs[k] = v;
+          }
+        }
+
+        //console.dir(attrs);
+        //console.dir(el.attr());
 
         if(!isEmpty(attrs)) {
           attrs = attributes(attrs);

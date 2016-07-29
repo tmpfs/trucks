@@ -2640,8 +2640,8 @@ const templates = {
       "class": "container"
     }, () => {
       skate.vdom.element("p", {
-        "onclick": elem.titleClick,
-        "class": "title"
+        "class": "title",
+        "on-click": elem.titleClick
       }, () => {
         skate.vdom.text(`${ this.title }`);
       });
@@ -2691,6 +2691,7 @@ skate.define('x-panel', {
   prototype: {
     titleClick(e) {
       console.log('click: ' + e.currentTarget.tagName.toLowerCase());
+      console.log(this);
     }
   },
   render: template

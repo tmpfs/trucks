@@ -192,13 +192,6 @@ function compiler(cb) {
     {toc: {depth: 2, max: 3}}, cb);
 }
 
-// @task exmaple build the example file
-//function example(cb) {
-  //doc(
-    //'doc/example/example.md', 'doc/EXAMPLE.md',
-    //{toc: {depth: 2, max: 3}}, cb);
-//}
-
 // @task readme build the readme file
 function readme(cb) {
   doc(
@@ -223,7 +216,6 @@ mk.task(roadmap);
 mk.task(options);
 mk.task(developer);
 mk.task(compiler);
-//mk.task(example);
 mk.task(readme);
 
 mk.task([
@@ -233,6 +225,5 @@ mk.task([
   options,
   developer, 
   compiler,
-  //example, 
   readme
 ], docs);

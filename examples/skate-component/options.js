@@ -1,7 +1,7 @@
 module.exports = {
   files: [__dirname + '/components.html'],
   transforms: ['trim', 'csp', 'skate/src', 'bundle'],
-  out: 'build',
+  out: '.',
   force: true,
   css: false,
   html: false,
@@ -12,7 +12,7 @@ module.exports = {
         statics: true 
       },
       bundle: {
-        js: ['../../node_modules/skatejs/dist/index-with-deps.js']
+        js: ['node_modules/skatejs/dist/index-with-deps.js']
       }
     }
   }

@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "express": "~4.14.0",
+    "skatejs": "~1.0.0-beta.19",
     "trucks": "*",
     "trucks-transform-bundle": "*",
     "trucks-transform-csp": "*",
@@ -20,7 +21,7 @@
     "trucks-transform-trim": "*"
   },
   "scripts": {
-    "clean": "rm -rf build",
+    "clean": "rm components.js csp.*",
     "prebuild": "npm run clean && mkdir -p build",
     "build": "node example.js",
     "prepublish": "npm run build"

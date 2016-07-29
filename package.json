@@ -32,7 +32,6 @@
     "express": "~4.14.0",
     "istanbul": "~0.4.4",
     "mocha": "~2.5.3",
-    "skatejs": "~1.0.0-beta.19",
     "trucks-resolver-core": "*",
     "trucks-transform-csp": "*",
     "trucks-transform-skate": "*",

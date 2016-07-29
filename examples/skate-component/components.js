@@ -2640,7 +2640,7 @@ const templates = {
       "class": "container"
     }, () => {
       skate.vdom.element("p", {
-        "onclick": "titleClick",
+        "onclick": "elem.titleClick",
         "class": "title"
       }, () => {
         skate.vdom.text(`${ this.title }`);
@@ -2673,10 +2673,6 @@ function template(elem) {
   return templates[elem.tagName.toLowerCase()].call(elem, elem);
 }
 
-function titleClick(e) {
-  console.log('click: ' + e.currentTarget.tagName.toLowerCase());
-}
-
 skate.define('x-panel', {
   props: {
     lang: {
@@ -2690,6 +2686,11 @@ skate.define('x-panel', {
       serialize (val) {
         return val.join(',');
       }
+    }
+  },
+  prototype: {
+    titleClick(e) {
+      console.log('click: ' + e.currentTarget.tagName.toLowerCase());
     }
   },
   render: template

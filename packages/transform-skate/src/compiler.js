@@ -68,10 +68,6 @@ function options(opts) {
     opts.normalize = Boolean(opts.normalize);
   }
 
-  if(opts.normalize) {
-    opts.dom.normalizeWhitespace = true; 
-  }
-
   opts.scripts = opts.scripts !== undefined ? opts.scripts : true;
   opts.literals = opts.literals !== undefined ? opts.literals : true;
 

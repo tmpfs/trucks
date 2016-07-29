@@ -28,7 +28,7 @@ function plugin(compiler, options, text) {
                     len = (arg.loc.end.column - arg.loc.start.column) - 2; 
                   }
                   // NOTE: add one to skip start backtick
-                  code = lines[i].substr(arg.loc.start.column + 1, len); 
+                  code = lines[i].substr(arg.loc.start.column + 1, len);
                 }
 
                 if(i !== start && i !== end) {

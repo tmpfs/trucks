@@ -1,4 +1,6 @@
 const PATTERN = /\$\{([^}]+)\}/
+    // pattern for `on*` event listener attributes
+    , ON_PATTERN = /^on[A-Z\-]/
     // name of the compile time html function for inline scripts
     , HTML = 'html'
     , TAG = 'tag'
@@ -421,7 +423,7 @@ function render(el, opts, prefix) {
   }
 
   function attributeIterator(key, val) {
-    if(key && /^on/.test(key)) {
+    if(key && ON_PATTERN.test(key)) {
       const ast = babel.transform(val, opts.babel).ast;
       t.assertExpressionStatement(ast.program.body[0]);
       return ast.program.body[0].expression;

@@ -31,7 +31,7 @@ Open `index.html` to see the rendered component or serve over HTTP with `node se
 ```javascript
 module.exports = {
   files: [__dirname + '/components.html'],
-  transforms: ['trim', 'csp', 'skate/src', 'bundle'],
+  transforms: ['trim', 'csp', 'skate', 'bundle'],
   out: '.',
   force: true,
   css: false,

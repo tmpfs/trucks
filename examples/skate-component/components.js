@@ -2640,8 +2640,8 @@ const templates = {
       "class": "container"
     }, () => {
       skate.vdom.element("p", {
-        "onClick": this.titleClick,
-        "class": "title"
+        "class": "title",
+        "on-click": this.titleClick
       }, () => {
         skate.vdom.text(`${ this.title }`);
       });

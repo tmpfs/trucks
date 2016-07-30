@@ -46,6 +46,8 @@ function plugin(compiler, options, text) {
               // NOTE: have to override so that new DOM is created
               options.vdom = null;
 
+              //console.dir(options);
+
               const markup = `<template id="inline-html">${code}</template>`
                   , inline = compiler.html(markup, options);
 

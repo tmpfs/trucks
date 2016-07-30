@@ -68,7 +68,7 @@ function options(opts) {
     opts.normalize = Boolean(opts.normalize);
   }
 
-  //opts.dom.lowerCaseAttributeNames = false;
+  opts.dom.lowerCaseAttributeNames = false;
   //opts.dom.xmlMode = false;
 
   opts.scripts = opts.scripts !== undefined ? opts.scripts : true;
@@ -482,9 +482,6 @@ function render(el, opts, prefix) {
           }
         }
 
-        //console.dir(attrs);
-        //console.dir(el.attr());
-
         if(!isEmpty(attrs)) {
           attrs = attributes(attrs);
           args.push(getObjectExpression(t, attrs, attributeIterator));
@@ -512,10 +509,7 @@ function render(el, opts, prefix) {
       }else{
         text = el.text();
 
-        //console.log('text: %s', text);
-
-        let arg
-          //, script;
+        let arg;
 
         // skip text nodes that are just whitespace
         // this prevents lots of calls with `vdom.text(" ");`
@@ -533,7 +527,6 @@ function render(el, opts, prefix) {
 
           // support for template literals in text nodes
           if(opts.literals.text && PATTERN.test(text)) {
-            //console.log('get literal %s', text);
             arg = getTemplateLiteralExpression(text);
           // treat as a string
           }else{

@@ -117,6 +117,12 @@ class CompilerState {
 
   parse(contents, options) {
     const cheerio = require('cheerio');
+
+    options = options || {};
+    if(options.lowerCaseAttributeNames === undefined) {
+      options.lowerCaseAttributeNames = false; 
+    }
+
     return cheerio.load(contents, options);
   }
 

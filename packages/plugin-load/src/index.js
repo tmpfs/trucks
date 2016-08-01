@@ -92,7 +92,7 @@ function read(state, group, parent, info, cb) {
       parent.imports.unshift(group); 
     }
 
-    // new api
+    // reference to the virtual dom for the file
     group.vdom = state.parse(group.contents);
 
     const vdom = group.vdom
@@ -111,7 +111,6 @@ function read(state, group, parent, info, cb) {
         const href = vdom(elem).attr('href'); 
         deps.push(href);
       })
-
 
       deps = deps;
 
@@ -213,6 +212,7 @@ function load(state, conf) {
     protocols.unshift(DEFAULT);
   }
 
+  // protocol resolver plugins
   const closures = state.middleware(
     {
       phases: protocols,

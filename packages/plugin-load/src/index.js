@@ -64,7 +64,6 @@ function read(state, group, parent, info, cb) {
 
   // duplicate component: do no not re-read components that have already 
   // been loaded
-  //let pth = info.resolver.getCanonicalPath(parent);
 
   // TODO: ensure the file gets a reference to the existing parsed component
   if(~info.seen.imports.indexOf(file)) {
@@ -74,7 +73,6 @@ function read(state, group, parent, info, cb) {
 
   info.seen.imports.push(file);
 
-  //fs.readFile(file, (err, contents) => {
   resolver.resolve((err, contents) => {
     if(err) {
       return cb(err); 

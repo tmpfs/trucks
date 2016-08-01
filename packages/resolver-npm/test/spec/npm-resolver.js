@@ -30,7 +30,7 @@ describe('npm:', function() {
 
   afterEach((done) => {
     const exec = require('child_process').exec;
-    exec('rm -rf node_modules/mock-npm-package', done); 
+    exec('rm -rf node_modules/mock-*', done); 
   })
 
   // give packages time to install

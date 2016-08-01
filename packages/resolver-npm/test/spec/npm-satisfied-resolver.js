@@ -18,7 +18,7 @@ describe('npm:', function() {
 
   after((done) => {
     const exec = require('child_process').exec;
-    exec('rm -rf node_modules/mock-npm-package', done); 
+    exec('rm -rf node_modules/mock-*', done); 
   })
 
   it('should satisfy dependency with existing package', function(done) {

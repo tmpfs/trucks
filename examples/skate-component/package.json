@@ -11,18 +11,19 @@
   "engines": {
     "node": ">=4.0"
   },
-  "devDependencies": {
-    "express": "~4.14.0",
+  "dependencies": {
     "skatejs": "~1.0.0-beta.19",
     "trucks-transform-bundle": "*",
     "trucks-transform-csp": "*",
     "trucks-transform-skate": "*",
     "trucks-transform-trim": "*"
   },
+  "devDependencies": {
+    "express": "~4.14.0"
+  },
   "scripts": {
     "clean": "rm components.js csp.*",
     "prebuild": "npm run clean",
-    "build": "trucks",
-    "prepublish": "npm run build"
+    "build": "trucks"
   }
 }

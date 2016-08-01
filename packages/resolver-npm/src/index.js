@@ -55,9 +55,10 @@ class NpmResolver extends Resolver {
   /**
    *  @private
    */
-  readFile(file, cb) {
-    if(!this.parent) {
-      const config = this.getOptions(this.parsePackage()); 
+  readFile(file, descriptor, cb) {
+
+    if(descriptor && !this.parent) {
+      const config = this.getOptions(descriptor); 
       // defer to a separate compile pass with
       // the given options configuration
       if(config) {
@@ -135,11 +136,12 @@ class NpmResolver extends Resolver {
         // re-evaluate after install
         localPath = this.getLocalPath(pkg);
         file = this.getPackageMain(localPath);
+        descriptor = this.getPackageDescriptor(localPath);
 
-        this.readFile(file, cb);
+        this.readFile(file, descriptor, cb);
       });
     }else{
-      this.readFile(file, cb);
+      this.readFile(file, descriptor, cb);
     }
   }
 

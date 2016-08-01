@@ -138,7 +138,7 @@ function options(state, cb) {
  *  @returns compiler state.
  */
 function trucks(opts, cb) {
-  const state = new State(opts);
+  const state = new State(opts, trucks);
 
   options(state, (err) => {
     if(err) {

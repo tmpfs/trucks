@@ -69,13 +69,17 @@ function middleware(state, options) {
       try {
         fn = require(file);
       }catch(e) {
+        const base = state.options.base || process.cwd();
+        console.dir(base);
         // try to require relative to cwd
         const Module = require('module')
         const req = Module._resolveFilename(file, {
-          id: process.cwd(),
-          filename: process.cwd() + '/noop.js',
-          paths: Module._nodeModulePaths(process.cwd())
+          id: base,
+          filename: base + '/noop.js',
+          paths: Module._nodeModulePaths(base)
         });
+
+        console.dir(req);
 
         // this will throw
         fn = require(req);

@@ -69,7 +69,9 @@ function bundle(state, conf) {
             state.each(
               all,
               (href, next) => {
-                const filepath = state.absolute(href);
+                let filepath = state.absolute(href, state.options.base);
+                //let filepath = require.resolve(href);
+                console.dir(filepath);
                 fs.readFile(filepath, (err, contents) => {
                   if(err) {
                     return next(err); 

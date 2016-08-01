@@ -12,7 +12,7 @@ module.exports = {
         statics: true 
       },
       bundle: {
-        js: ['node_modules/skatejs/dist/index-with-deps.js']
+        js: [require.resolve('skatejs/dist/index-with-deps.js')]
       }
     }
   }

@@ -17,7 +17,7 @@ describe('npm:', function() {
 
   after((done) => {
     const exec = require('child_process').exec;
-    exec('rm -rf node_modules/mock-main-npm-package', done); 
+    exec('rm -rf node_modules/mock-*', done); 
   })
 
   it('should read path from main field in package.json', function(done) {

@@ -78,9 +78,43 @@ function read(state, group, parent, info, cb) {
       return cb(err); 
     }
 
-    if(!Buffer.isBuffer(contents)) {
-      console.dir('got compiler options from resolve...'); 
-      return cb();
+    // resolver returned compiler options
+    if(contents
+      && !Buffer.isBuffer(contents)
+      && contents === Object(contents)) {
+
+      // TODO: compile in a sandbox 
+      //console.log('got compiler options from resolve %s', file); 
+      //console.dir(contents);
+      
+      // nested compiler pass
+      return state.run(contents, (err, result) => {
+        //console.dir('nested compile completed'); 
+        //console.dir(result.tree);
+        //
+        if(err) {
+          return cb(err); 
+        }
+
+        //result.tree.imports.forEach((item) => {
+          //const target = parent || state.tree;
+          //target.imports.push(item);
+        //})
+
+        // merge output states
+        let k
+          , res;
+        for(k in result.output) {
+          res = state.getFile(k);
+          res.contents = result.getFile(k).getContents().concat(
+            res.getContents());
+        }
+
+        //console.dir(state.output);
+
+        // move on to next file
+        cb(null, false);
+      });
     }
 
     contents = contents.toString();
@@ -116,8 +150,6 @@ function read(state, group, parent, info, cb) {
         const href = vdom(elem).attr('href'); 
         deps.push(href);
       })
-
-      deps = deps;
 
       // resolve relative to the parent file: `group`
       sources(state, info, deps, group, cb);
@@ -186,10 +218,15 @@ function sources(state, info, files, parent, cb) {
       group.resolver = resolver;
 
       // read in file contents
-      read(state, group, parent, info, (err) => {
+      read(state, group, parent, info, (err, result) => {
         if(err) {
           return next(err); 
         } 
+
+        // nested compile pass
+        if(result === false) {
+          return next(); 
+        }
 
         // add to root of tree hierarchy
         if(!parent) {

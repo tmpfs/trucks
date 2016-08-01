@@ -20,7 +20,7 @@ describe('npm:', function() {
   after((done) => {
     process.env.PATH = PATH;
     const exec = require('child_process').exec;
-    exec('rm -rf node_modules/mock-main-npm-package', done); 
+    exec('rm -rf node_modules/mock-*', done); 
   })
 
   it('should error on command not found', function(done) {

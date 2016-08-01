@@ -16,7 +16,7 @@ describe('npm:', function() {
 
   after((done) => {
     const exec = require('child_process').exec;
-    exec('rm -rf node_modules/mock-options-npm-package', done); 
+    exec('rm -rf node_modules/mock-*', done); 
   })
 
   it('should read compiler config from trucks.js', function(done) {

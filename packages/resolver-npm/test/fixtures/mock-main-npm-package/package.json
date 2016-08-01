@@ -1,5 +1,5 @@
 {
-  "name": "mock-npm-package",
+  "name": "mock-main-npm-package",
   "version": "1.0.0",
   "main": "main.html",
   "private": true

@@ -12,18 +12,18 @@ class CompilerState {
    *
    *  @public {constructor} CompilerState
    *  @param {Object} options computed options.
+   *  @param {Function} compiler reference to the main compiler entry point.
    */
-  constructor(options) {
+  constructor(options, compiler) {
     const Tree = this.components.Tree;
 
     // computed processing options
     options = options || {};
 
-    // list of input files
-    //this.files = options.files || [];
-
     // computed processing options
     this.options = options;
+
+    this.compiler = compiler;
 
     // the component tree stucture
     this.tree = new Tree();
@@ -41,6 +41,27 @@ class CompilerState {
 
     // @private map of protocol schems to resolver classes
     this._registry = null;
+  }
+
+  run(options, cb) {
+    //console.log('nested compile run');
+    //console.dir(options);
+
+    options = options || {};
+    options.plugins = [
+      this.compiler.LOAD,
+      this.compiler.PARSE,
+      this.compiler.TRANSFORM,
+      this.compiler.GENERATE
+    ];
+
+    // inherit output options
+    options.out = this.options.out;
+    options.html = this.options.html;
+    options.css = this.options.css;
+    options.js = this.options.js;
+
+    return this.compiler(options, cb); 
   }
 
   get files() {
@@ -190,6 +211,10 @@ class OutputFile {
    */
   append(buf) {
     this._contents.push(buf); 
+  }
+
+  getContents() {
+    return this._contents;
   }
 
   /**

@@ -1,6 +1,8 @@
 const options = {
   // array list of component source files
   files: null,
+  // base path for relative paths (default: cwd)
+  base: undefined,
   // output directory
   out: undefined,
   // name of output files (does not include a file extension)

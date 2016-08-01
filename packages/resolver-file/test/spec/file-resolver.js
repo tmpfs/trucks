@@ -80,7 +80,6 @@ describe('file:', function() {
     resolver.resolve(done);
   });
 
-
   it('should create resolver with parent', function(done) {
     const Resolver = plugin.Resolver
         , state = getState()
@@ -95,6 +94,24 @@ describe('file:', function() {
       path.join(path.dirname(parent.file), name));
     resolver.resolve(done);
   });
+
+  it('should create resolver with base option', function(done) {
+    const Resolver = plugin.Resolver
+        , state = getState({base: process.cwd()})
+        , name = 'test/fixtures/components.html'
+        , href = name
+        , resolver = new Resolver(state, href);
+
+    expect(resolver).to.be.an('object');
+    const file = resolver.getCanonicalPath();
+
+    // check acccessor
+    resolver.file = file;
+    expect(resolver.file).to.eql(file);
+    expect(file).to.eql(path.join(process.cwd(), name));
+    resolver.resolve(done);
+  });
+
 
   it('should error with missing file', function(done) {
     const Resolver = plugin.Resolver

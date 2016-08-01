@@ -78,6 +78,11 @@ function read(state, group, parent, info, cb) {
       return cb(err); 
     }
 
+    if(!Buffer.isBuffer(contents)) {
+      console.dir('got compiler options from resolve...'); 
+      return cb();
+    }
+
     contents = contents.toString();
 
     group.parent = parent;

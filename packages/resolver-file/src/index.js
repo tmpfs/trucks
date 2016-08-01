@@ -47,10 +47,16 @@ class FileResolver extends Resolver {
    *  @returns an absolute file system path.
    */
   getCanonicalPath() {
+    const options = this.state.options;
+
     let base
       , href = this.href;
     if(this.parent && this.parent.file) {
       base = path.dirname(this.parent.file); 
+    }else if(options
+      && options.base
+      && options.base === String(options.base)) {
+      base = options.base; 
     }
     href = href.replace(RE, ''); 
     return this.state.absolute(href, base);

@@ -61,6 +61,10 @@ class CompilerState {
     options.css = this.options.css;
     options.js = this.options.js;
 
+    if(!path.isAbsolute(options.out)) {
+      options.out = path.join(process.cwd(), options.out);
+    }
+
     return this.compiler(options, cb); 
   }
 

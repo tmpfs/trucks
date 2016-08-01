@@ -2,6 +2,7 @@ const path = require('path')
     , Resolver = require('trucks-resolver-core')
     , SCHEME = 'npm:'
     , INDEX = 'components.html'
+    , CONFIG = 'trucks.js'
     , RE = new RegExp('^' + SCHEME + '/?/?');
 
 /**
@@ -55,6 +56,15 @@ class NpmResolver extends Resolver {
    *  @private
    */
   readFile(file, cb) {
+    if(!this.parent) {
+      const config = this.getOptions(this.parsePackage()); 
+      // defer to a separate compile pass with
+      // the given options configuration
+      if(config) {
+        return cb(null, config); 
+      }
+    }
+
     const fs = require('fs');
     fs.readFile(file, cb);
   }
@@ -133,13 +143,26 @@ class NpmResolver extends Resolver {
     }
   }
 
+  getOptions(pkg) {
+    try {
+      let conf = require(pkg.name + '/' + CONFIG);
+      // resolve paths relative to module base
+      conf.base = path.dirname(require.resolve(pkg.name + '/' + CONFIG)); 
+      return conf;
+    // if no compiler options are found it's ok
+    }catch(e) {}
+  }
+
   /**
    *  @private
    */
   parsePackage() {
-    const npa = require('npm-package-arg');
-    let href = this.href.replace(RE, ''); 
-    return npa(href);
+    if(!this._package) {
+      const npa = require('npm-package-arg')
+      let href = this.href.replace(RE, ''); 
+      this._package = npa(href);
+    }
+    return this._package;
   }
 
   /**

@@ -83,23 +83,16 @@ function read(state, group, parent, info, cb) {
       && !Buffer.isBuffer(contents)
       && contents === Object(contents)) {
 
-      // TODO: compile in a sandbox 
+      // nested compile phase using resolved options
+      
       //console.log('got compiler options from resolve %s', file); 
       //console.dir(contents);
       
       // nested compiler pass
       return state.run(contents, (err, result) => {
-        //console.dir('nested compile completed'); 
-        //console.dir(result.tree);
-        //
         if(err) {
           return cb(err); 
         }
-
-        //result.tree.imports.forEach((item) => {
-          //const target = parent || state.tree;
-          //target.imports.push(item);
-        //})
 
         // merge output states
         let k
@@ -109,8 +102,6 @@ function read(state, group, parent, info, cb) {
           res.contents = result.getFile(k).getContents().concat(
             res.getContents());
         }
-
-        //console.dir(state.output);
 
         // move on to next file
         cb(null, false);

@@ -70,7 +70,7 @@ function middleware(state, options) {
         fn = require(file);
       }catch(e) {
         const base = state.options.base || process.cwd();
-        console.dir(base);
+        //console.log('base %s', base);
         // try to require relative to cwd
         const Module = require('module')
         const req = Module._resolveFilename(file, {
@@ -79,7 +79,7 @@ function middleware(state, options) {
           paths: Module._nodeModulePaths(base)
         });
 
-        console.dir(req);
+        //console.dir(req);
 
         // this will throw
         fn = require(req);

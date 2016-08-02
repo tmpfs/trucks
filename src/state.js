@@ -44,9 +44,6 @@ class CompilerState {
   }
 
   run(options, cb) {
-    //console.log('nested compile run');
-    //console.dir(options);
-
     options = options || {};
     options.plugins = [
       this.compiler.LOAD,

@@ -66,6 +66,8 @@ function middleware(state, options) {
         }
       }
 
+      state.log.info('file %s', file);
+
       try {
         fn = require(file);
       }catch(e) {
@@ -78,8 +80,6 @@ function middleware(state, options) {
           filename: base + '/noop.js',
           paths: Module._nodeModulePaths(base)
         });
-
-        //console.dir(req);
 
         // this will throw
         fn = require(req);

@@ -1,4 +1,5 @@
 const path = require('path')
+    , Logger = require('./logger');
 
 /**
  *  Encapsulates the state of the compiler plugin execution.
@@ -27,6 +28,8 @@ class CompilerState {
 
     // the component tree stucture
     this.tree = new Tree();
+
+    this.log = new Logger(options.log);
 
     this.result = {
       // optional transformed tree result

@@ -4,13 +4,17 @@ const path = require('path')
 /**
  *  Copy input files to the output directory.
  *
+ *  If an input file is a folder all files within the folder are copied 
+ *  recursively.
+ *
  *  Files are defined using an input mapping:
  *
  *  ```javascript
  *  {
  *    copy: {
  *      files: {
- *        'src/index.html': 'index.html'
+ *        'src/index.html': 'index.html',
+ *        'src/assets'    : 'assets'
  *      }
  *    }
  *  }
@@ -33,16 +37,54 @@ function copy(state, conf) {
       , files = opts.files || {}
       , keys = Object.keys(files);
 
+  function readFile(input, output, cb) {
+
+    fs.stat(input, (err, stat) => {
+      if(err) {
+        return cb(err); 
+      }
+
+      if(stat.isFile()) {
+        // create output file
+        const file = state.getFile(output, options.out);
+
+        fs.readFile(input, (err, contents) => {
+          if(err) {
+            return cb(err); 
+          } 
+          file.contents = [contents.toString()];
+          cb();
+        })
+      }else{
+        readDir(input, output, cb);
+      }
+    });
+  }
+
+  function readDir(input, output, cb) {
+    fs.readdir(input, (err, files) => {
+      if(err) {
+        return cb(err); 
+      } 
+
+      state.each(
+        files,
+        (file, next) => {
+          let source = path.join(input, file)
+            , dest = path.join(output, file);
+          readFile(source, dest, next);
+        },
+        cb
+      )
+    })
+  }
+
   function end(node, cb) {
     state.each(
       keys,
-      (input, next) => {
-        let output = files[input];
-       
-        input = state.absolute(input, opts.base || options.base);
-
-        //console.dir(input);
-        //console.dir(output);
+      (key, next) => {
+        let output = files[key];
+        let input = state.absolute(key, opts.base || options.base);
 
         // noop: source and destination are the same
         if(input === state.absolute(output, state.absolute(options.out))) {
@@ -53,16 +95,7 @@ function copy(state, conf) {
           output = path.basename(output); 
         }
 
-        // create output file
-        const file = state.getFile(output, options.out);
-
-        fs.readFile(input, (err, contents) => {
-          if(err) {
-            return next(err); 
-          } 
-          file.contents = [contents.toString()];
-          next();
-        })
+        readFile(input, output, next)
       },
       cb
     );

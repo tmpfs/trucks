@@ -187,7 +187,7 @@ function sources(state, info, files, parent, cb) {
 
       try {
         resolver = state.getResolver(
-          file, parent ? parent.resolver : {});
+          file, parent ? parent.resolver : null);
       }catch(e) {
         return next(e); 
       }

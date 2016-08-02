@@ -120,6 +120,7 @@ Plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
 ### Miscellaneous
 
 * [bundle][] Bundle input files with the generated output files.
+* [copy][] Copy input files to the output directory.
 * [tree][] Humanize the component tree using [archy][].
 
 ## Components
@@ -566,6 +567,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less

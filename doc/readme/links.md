@@ -29,6 +29,7 @@
 
 [transform-csp]: /packages/transform-csp
 [bundle]: /packages/transform-bundle
+[copy]: /packages/transform-copy
 [skate]: /packages/transform-skate
 [stylus]: /packages/transform-stylus
 [less]: /packages/transform-less

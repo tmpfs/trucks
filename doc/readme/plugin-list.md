@@ -29,5 +29,6 @@ Plugins are in [packages](/packages).
 ### Miscellaneous
 
 * [bundle][] Bundle input files with the generated output files.
+* [copy][] Copy input files to the output directory.
 * [tree][] Humanize the component tree using [archy][].
 

@@ -33,6 +33,12 @@ mkdir build
 trucks npm://trucks-example-skate-component -o build
 ```
 
+Or from the file system:
+
+```shell
+trucks examples/skate-component/components.html -o build
+```
+
 ---
 
 - [Install](#install)

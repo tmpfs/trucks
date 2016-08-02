@@ -37,15 +37,24 @@ function copy(state, conf) {
     state.each(
       keys,
       (input, next) => {
-        let output = files[input]
+        let output = files[input];
        
+        input = state.absolute(input, opts.base);
+
+        //console.dir(input);
+        //console.dir(output);
+
+        // noop: source and destination are the same
+        if(input === state.absolute(output, state.absolute(options.out))) {
+          return next(); 
+        }
+
         if(path.isAbsolute(output)) {
           output = path.basename(output); 
         }
-        
-        const file = state.getFile(output, options.out);
 
-        input = state.absolute(input, opts.base);
+        // create output file
+        const file = state.getFile(output, options.out);
 
         fs.readFile(input, (err, contents) => {
           if(err) {

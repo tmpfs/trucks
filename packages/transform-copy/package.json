@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-copy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Copy files into the output directory",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

@@ -14,6 +14,7 @@
   "dependencies": {
     "skatejs": "~1.0.0-beta.19",
     "trucks-transform-bundle": "*",
+    "trucks-transform-copy": "*",
     "trucks-transform-csp": "*",
     "trucks-transform-skate": "*",
     "trucks-transform-trim": "*"

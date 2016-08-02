@@ -1,10 +1,15 @@
 module.exports = {
   files: [__dirname + '/components.html'],
-  transforms: ['trim', 'csp', 'skate', 'bundle'],
+  transforms: ['trim', 'csp', 'skate', 'bundle', 'copy'],
   out: '.',
   force: true,
   css: false,
   html: false,
+  copy: {
+    files: {
+      'index.html': 'index.html'
+    } 
+  },
   conf: {
     transforms: {
       csp: {

@@ -33,7 +33,7 @@ class Logger {
         ? options.level
         //: BITWISE.all;
         : (process.env.DEBUG 
-          ? BITWISE.ALL
+          ? BITWISE.all
           : (BITWISE.info | BITWISE.warn | BITWISE.error | BITWISE.fatal));
 
     LEVELS.forEach((lvl) => {

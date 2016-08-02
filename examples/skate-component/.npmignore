@@ -1,2 +1,5 @@
 /example.*
 /mkdoc.js
+/components.*
+/csp.*
+/server.js

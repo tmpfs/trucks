@@ -61,12 +61,13 @@ Encapsulates the state of the compiler plugin execution.
 #### CompilerState
 
 ```javascript
-public CompilerState(options)
+public CompilerState(options, compiler)
 ```
 
 Creates a compiler state.
 
 * `options` Object computed options.
+* `compiler` Function reference to the main compiler entry point.
 
 ### OutputFile
 
@@ -181,7 +182,7 @@ Creates a component node.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 29, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

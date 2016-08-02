@@ -34,12 +34,13 @@ Encapsulates the state of the compiler plugin execution.
 #### CompilerState
 
 ```javascript
-public CompilerState(options)
+public CompilerState(options, compiler)
 ```
 
 Creates a compiler state.
 
 * `options` Object computed options.
+* `compiler` Function reference to the main compiler entry point.
 
 ### OutputFile
 

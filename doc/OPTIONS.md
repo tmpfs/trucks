@@ -12,6 +12,8 @@ This document shows the default options used when none are provided.
 const options = {
   // array list of component source files
   files: null,
+  // base path for relative paths (default: cwd)
+  base: undefined,
   // output directory
   out: undefined,
   // name of output files (does not include a file extension)
@@ -66,7 +68,7 @@ module.exports = options;
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 29, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

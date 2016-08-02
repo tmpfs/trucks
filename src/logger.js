@@ -31,7 +31,8 @@ class Logger {
       ? options.format : this.format;
     this._level = options.level === parseInt(options.level)
         ? options.level
-        : (BITWISE.info | BITWISE.warn | BITWISE.error | BITWISE.fatal);
+        : BITWISE.all;
+        //: (BITWISE.info | BITWISE.warn | BITWISE.error | BITWISE.fatal);
 
     LEVELS.forEach((lvl) => {
       this[lvl] = (msg, ...params) => {
@@ -69,10 +70,26 @@ class Logger {
     this._stream = val;
   }
 
+  getLevelName(lvl) {
+    if(lvl === Number(lvl)) {
+      for(let k in BITWISE) {
+        if(lvl === BITWISE[k]) {
+          return k; 
+        } 
+      }
+    }
+    return lvl;
+  }
+
   format(lvl, msg, params) {
     const util = require('util')
         , EOL = require('os').EOL;
-    return util.format(msg, ...params) + EOL;
+
+    let s = '';
+    lvl = this.getLevelName(lvl);
+    s+= `${lvl.toUpperCase().substr(0, 3)} | `;
+    s += util.format(msg, ...params) + EOL;
+    return s;
   }
 
   log(lvl, msg, ...params) {

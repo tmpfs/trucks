@@ -66,12 +66,15 @@ function middleware(state, options) {
         }
       }
 
-      //state.log.info('require file %s', file);
+      state.log.debug('require %s', file);
 
       try {
         fn = require(file);
       }catch(e) {
         const base = state.options.base || process.cwd();
+
+        state.log.debug('require %s from base %s', file, base);
+
         //console.log('base %s', base);
         // try to require relative to cwd
         const Module = require('module')
@@ -128,6 +131,9 @@ function middleware(state, options) {
     }
 
     detail = getDetail(phase);
+
+    state.log.debug('configure middleware', detail.name);
+
     closures = closures.concat(getClosure(phase, detail));
   }
 

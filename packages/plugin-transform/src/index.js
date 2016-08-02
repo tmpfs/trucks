@@ -83,6 +83,8 @@ function transform(state, conf) {
   if(Array.isArray(state.options.after.transforms)) {
     visitors = visitors.concat(state.options.after.transforms);
   }
+
+  state.log.debug('transforms %j', visitors);
   
   const list = state.middleware(
     {
@@ -91,7 +93,6 @@ function transform(state, conf) {
       lookup: state.options.conf.transforms
     }
   );
-
 
   // collect lifecycle mappings
   const lifecycle = {

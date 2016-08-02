@@ -73,6 +73,8 @@ function read(state, group, parent, info, cb) {
 
   info.seen.imports.push(file);
 
+  state.log.debug('load resolving file %s', file);
+
   resolver.resolve((err, contents) => {
     if(err) {
       return cb(err); 
@@ -84,6 +86,7 @@ function read(state, group, parent, info, cb) {
       && contents === Object(contents)) {
 
       // nested compile phase using resolved options
+      state.log.debug('compile using options from file %s', file);
       
       //console.log('got compiler options from resolve %s', file); 
       //console.dir(contents);
@@ -174,6 +177,8 @@ function sources(state, info, files, parent, cb) {
   state.each(
     files,
     (file, next) => {
+
+      state.log.debug('load file %s', file);
     
       if(!parent) {
         // for each file without a parent reset so that the hierarchy
@@ -184,7 +189,8 @@ function sources(state, info, files, parent, cb) {
       let pth;
 
       try {
-        resolver = state.getResolver(file, parent ? parent.resolver : null);
+        resolver = state.getResolver(
+          file, parent ? parent.resolver : {});
       }catch(e) {
         return next(e); 
       }

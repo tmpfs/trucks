@@ -58,7 +58,6 @@ function options(state, cb) {
   // list of configuration files to require and merge
   if(Array.isArray(opts.rc)) {
     rc = opts.rc;
-    delete opts.rc;
 
     let i, file;
     for(i = 0;i < rc.length;i++) {

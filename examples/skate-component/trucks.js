@@ -1,7 +1,7 @@
 module.exports = {
   files: [__dirname + '/components.html'],
   transforms: ['trim', 'csp', 'skate', 'bundle', 'copy'],
-  out: '.',
+  out: 'build',
   force: true,
   css: false,
   html: false,

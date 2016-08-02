@@ -3,7 +3,7 @@ const path = require('path')
     , cli = require('mkcli')
     , pkg = require('../package.json')
     , prg = cli.load(require('../doc/json/trucks.json'))
-    , trucks = require('trucks')
+    , trucks = require(process.env.DEBUG ? 'trucks/src' : 'trucks')
     , TRUCKS_AUTOCONF = process.env.TRUCKS_AUTOCONF || 'trucks.js'
 
 // override package name
@@ -122,7 +122,7 @@ function main(argv, conf, cb) {
       }
 
       this.conf.transforms['style-inject'] = {dir: this.inject};
-      this.before.transforms.push('style-inject/src'); 
+      this.before.transforms.push('style-inject'); 
     }
 
     if((this.printImports || this.printTree) && this.printManifest) {

@@ -74,8 +74,14 @@ class Resolver {
   /**
    *  Resolve the contents for the URL.
    *
-   *  Implementors should invoke callback with an error and `Buffer` contents:
+   *  Implementors should invoke callback with an error and `Buffer` contents 
+   *  or an object representing compiler options:
+   *
    *  `(err, contents) => {}`.
+   *
+   *  When the callback is invoked with compiler options it is treated as a 
+   *  nested compile pass using the given options which should have an input 
+   *  `files` array.
    *
    *  @public {function} resolve
    *  @param {Function} cb callback function.

@@ -32,7 +32,9 @@ class Logger {
     this._level = options.level === parseInt(options.level)
         ? options.level
         //: BITWISE.all;
-        : (BITWISE.info | BITWISE.warn | BITWISE.error | BITWISE.fatal);
+        : (process.env.DEBUG 
+          ? BITWISE.ALL
+          : (BITWISE.info | BITWISE.warn | BITWISE.error | BITWISE.fatal));
 
     LEVELS.forEach((lvl) => {
       this[lvl] = (msg, ...params) => {

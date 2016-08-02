@@ -72,7 +72,9 @@ class NpmResolver extends Resolver {
   }
 
   getPackageDescriptor(file) {
-    return require(file + '/package.json');
+    //try {
+      return require(file + '/package.json');
+    //}catch(e){}
   }
 
   getPackageIndex(descriptor) {

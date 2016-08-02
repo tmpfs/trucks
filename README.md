@@ -39,6 +39,15 @@ Or from the file system:
 trucks examples/skate-component/components.html -o build
 ```
 
+In each case the [trucks.js](https://github.com/tmpfs/trucks/blob/master/examples/skate-component/trucks.js) compiler configuration file is used.
+
+If `trucks.js` exists in the current working directory it is prepended to the list of configuration files:
+
+```shell
+cd examples/skate-component
+trucks -o build
+```
+
 ---
 
 - [Install](#install)

@@ -66,7 +66,7 @@ function middleware(state, options) {
         }
       }
 
-      state.log.info('file %s', file);
+      //state.log.info('require file %s', file);
 
       try {
         fn = require(file);

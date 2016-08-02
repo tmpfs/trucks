@@ -27,29 +27,38 @@ class Logger {
   constructor(options) {
     options = options || {};
     this._stream = options.stream || process.stderr;
-    this._formatter = options.formatter || this.format;
-    this._level = options.level || BITWISE.info;
+    this._formatter = (options.format instanceof Function)
+      ? options.format : this.format;
+    this._level = options.level === parseInt(options.level)
+        ? options.level
+        : (BITWISE.info | BITWISE.warn | BITWISE.error | BITWISE.fatal);
 
     LEVELS.forEach((lvl) => {
       this[lvl] = (msg, ...params) => {
-        this.log(lvl, msg, ...params); 
+        return this.log(lvl, msg, ...params); 
       } 
     }) 
   }
 
   enabled(source) {
+    source = this.getInteger(source);
+    return (source&this.level) === source;
+  }
+
+  getInteger(source) {
     if(source === String(source)) {
       source = BITWISE[source];
     }
-    return (source&this.level) === source;
+    return source;
   }
 
   get level() {
     return this._level; 
   }
 
-  set level(val) {
-    this._level = val; 
+  set level(source) {
+    source = this.getInteger(source);
+    this._level = source; 
   }
 
   get stream() {
@@ -67,6 +76,11 @@ class Logger {
   }
 
   log(lvl, msg, ...params) {
+    // mutate as a level enabled getter, eg: log.info() determines
+    // if the INFO level is enabled
+    if(lvl !== undefined && msg === undefined) {
+      return this.enabled(lvl); 
+    }
     if(!this.enabled(lvl)) {
       return false; 
     }

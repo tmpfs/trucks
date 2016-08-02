@@ -24,9 +24,19 @@ For the command line interface install [trucks-cli][]:
 npm i -g trucks-cli
 ```
 
+## Getting Started
+
+The quickest way to get started is to install the command line interface and compile a package:
+
+```shell
+mkdir build
+trucks npm://trucks-example-skate-component -o build
+```
+
 ---
 
 - [Install](#install)
+- [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Plugin List](#plugin-list)
   - [Compilers](#compilers)
@@ -72,8 +82,6 @@ trucks(
   }
 );
 ```
-
-For command line usage see [trucks-cli][].
 
 ## Plugin List
 
@@ -521,7 +529,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 29, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

@@ -12,6 +12,15 @@ Uses ES6 code transpiled for `node@4.x` compatibility.
 
 <? @include {=readme} install.md ?>
 
+## Getting Started
+
+The quickest way to get started is to install the command line interface and compile a package:
+
+```shell
+mkdir build
+trucks npm://trucks-example-skate-component -o build
+```
+
 ***
 <!-- @toc -->
 ***

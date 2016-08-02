@@ -39,7 +39,7 @@ function copy(state, conf) {
       (input, next) => {
         let output = files[input];
        
-        input = state.absolute(input, opts.base);
+        input = state.absolute(input, opts.base || options.base);
 
         //console.dir(input);
         //console.dir(output);

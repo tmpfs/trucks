@@ -24,6 +24,7 @@ class NpmResolver extends Resolver {
   install(cb) {
     const exec = require('child_process').exec
         , cmd = `npm i ${this.file}`;
+    this.state.log.info(cmd);
     exec(cmd, cb);
   }
 

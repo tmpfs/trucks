@@ -1,5 +1,7 @@
 const path = require('path')
-    , Logger = require('./logger');
+    , Logger = require('./logger')
+    , CONFIG = 'trucks.js'
+    , resolved = {};
 
 /**
  *  Encapsulates the state of the compiler plugin execution.
@@ -157,6 +159,38 @@ class CompilerState {
       return path.normalize(path.join(base, file)); 
     }
     return file;
+  }
+
+  addConfigFile(file) {
+    resolved[this.getConfigFile(file)] = file;
+  }
+
+  getConfigFile(file) {
+    const base = path.dirname(file)
+        , config = path.join(base, CONFIG);
+    return config;
+  }
+
+  hasConfigFile(file) {
+    return resolved[this.getConfigFile(file)];
+  }
+
+  loadConfigFile(file) {
+    const config = this.getConfigFile(file);
+    let conf;
+
+    // NOTE: prevent an infinite loop when the input file
+    // NOTE: matches a file in the options `files` array
+    if(!resolved[config]) {
+      resolved[config] = this.file;
+      try {
+        conf = require(config);
+        conf.base = path.dirname(file);
+      // it's ok if there aren't compiler options available
+      }catch(e){}
+    }
+
+    return conf;
   }
 }
 

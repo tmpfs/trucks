@@ -36,6 +36,10 @@ class Logger {
           ? BITWISE.all
           : (BITWISE.info | BITWISE.warn | BITWISE.error | BITWISE.fatal));
 
+    if(!process.env.DEBUG && process.env.NODE_ENV === 'test') {
+      this._level = BITWISE.none; 
+    }
+
     LEVELS.forEach((lvl) => {
       this[lvl] = (msg, ...params) => {
         return this.log(lvl, msg, ...params); 

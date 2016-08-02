@@ -1,6 +1,6 @@
 {
   "name": "trucks-resolver-npm",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "HTML import resolver for the npm: protocol",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

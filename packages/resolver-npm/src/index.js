@@ -151,8 +151,10 @@ class NpmResolver extends Resolver {
   getOptions(pkg) {
     try {
       let conf = require(pkg.name + '/' + CONFIG);
+      let file = require.resolve(pkg.name + '/' + CONFIG);
+      this.state.addConfigFile(file);
       // resolve paths relative to module base
-      conf.base = path.dirname(require.resolve(pkg.name + '/' + CONFIG)); 
+      conf.base = path.dirname(file); 
       return conf;
     // if no compiler options are found it's ok
     }catch(e) {}

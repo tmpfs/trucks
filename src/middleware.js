@@ -75,7 +75,6 @@ function middleware(state, options) {
 
         state.log.debug('require %s from base %s', file, base);
 
-        //console.log('base %s', base);
         // try to require relative to cwd
         const Module = require('module')
         const req = Module._resolveFilename(file, {

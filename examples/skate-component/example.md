@@ -36,9 +36,5 @@ Example component usage in [index.html](index.html):
 
 <? @source {html} index.html ?>
 
-## Compiler Output
-
-See [components.js](components.js) for the compiled output.
-
 <? @include ../../doc/readme/links.md ?>
 

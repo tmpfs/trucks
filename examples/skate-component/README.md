@@ -22,7 +22,6 @@ Open `index.html` to see the rendered component or serve over HTTP with `node se
 - [Compiler Options](#compiler-options)
 - [Source Files](#source-files)
 - [Markup](#markup)
-- [Compiler Output](#compiler-output)
 
 ---
 
@@ -31,11 +30,16 @@ Open `index.html` to see the rendered component or serve over HTTP with `node se
 ```javascript
 module.exports = {
   files: [__dirname + '/components.html'],
-  transforms: ['trim', 'csp', 'skate', 'bundle'],
-  out: '.',
+  transforms: ['trim', 'csp', 'skate', 'bundle', 'copy'],
+  out: 'build',
   force: true,
   css: false,
   html: false,
+  copy: {
+    files: {
+      'index.html': 'index.html'
+    } 
+  },
   conf: {
     transforms: {
       csp: {
@@ -43,7 +47,7 @@ module.exports = {
         statics: true 
       },
       bundle: {
-        js: ['node_modules/skatejs/dist/index-with-deps.js']
+        js: [require.resolve('skatejs/dist/index-with-deps.js')]
       }
     }
   }
@@ -81,7 +85,6 @@ Component definition file [components.html](components.html):
         min-height: 10em;
         background: gray;
       }
-
     </style>
 
     <div class="container">
@@ -109,7 +112,6 @@ Component definition file [components.html](components.html):
   </template>
 
   <script>
-
     skate.define('{{id}}', {
       props: {
         lang: {
@@ -155,13 +157,9 @@ Example component usage in [index.html](index.html):
 </html>
 ```
 
-## Compiler Output
-
-See [components.js](components.js) for the compiled output.
-
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 29, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -192,6 +190,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 29, 2016
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less

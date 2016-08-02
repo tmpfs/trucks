@@ -43,9 +43,7 @@ class FileResolver extends Resolver {
     // NOTE: prevent an infinite loop when the input file
     // NOTE: matches a file in the options `files` array
     if(!resolved[config]) {
-      console.dir('resolving compiler options config...');
       resolved[config] = this.file;
-      this.state.log.debug('resolve %s', config);
       let conf;
       try {
         conf = require(config);

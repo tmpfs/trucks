@@ -1,6 +1,6 @@
 {
   "name": "trucks-plugin-write",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Write output files to disc",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
@@ -11,6 +11,9 @@
   },
   "engines": {
     "node": ">=4.0"
+  },
+  "dependencies": {
+    "mkdirp": "~0.5.1"
   },
   "devDependencies": {
     "babel-cli": "~6.10.1",

@@ -26,10 +26,9 @@ npm i -g trucks-cli
 
 ## Getting Started
 
-The quickest way to get started is to install the command line interface and compile a package:
+The quickest way to get started is to install the command line interface, compile a package and open `build/index.html` in a recent version of chrome.
 
 ```shell
-mkdir build
 trucks npm://trucks-example-skate-component -o build
 ```
 
@@ -45,7 +44,7 @@ If `trucks.js` exists in the current working directory it is prepended to the li
 
 ```shell
 cd examples/skate-component
-trucks -o build
+trucks
 ```
 
 ---

@@ -20,7 +20,10 @@ describe('write:', function() {
           require('../../../src')
         ],
         css: css,
-        js: js
+        js: js,
+        write: {
+          mkdirs: false
+        }
       }, (err) => {
         function fn() {
           throw err;

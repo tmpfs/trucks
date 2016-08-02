@@ -13,7 +13,10 @@ describe('write:', function() {
           trucks.GENERATE,
           require('../../../src')
         ],
-        css: 'non-existent/error.css'
+        css: 'non-existent/error.css',
+        write: {
+          mkdirs: false
+        }
       },
       (err) => {
         function fn() {

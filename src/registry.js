@@ -53,7 +53,6 @@ class Registry {
    *  @returns a resolver class for the scheme.
    */
   getResolver(scheme) {
-    //console.log('get resolver %s', scheme);
     if(!scheme) {
       return this.getDefault(); 
     }

@@ -97,14 +97,6 @@ function main(argv, conf, cb) {
       this.out = process.cwd();
     }
 
-    //this.after = {
-      //transforms: []
-    //}
-
-    //this.before = {
-      //transforms: []
-    //}
-
     if(this.extract !== undefined) {
       // allows --extract= to defer to default output
       if(!this.extract) {

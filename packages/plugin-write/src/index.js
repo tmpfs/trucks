@@ -1,6 +1,19 @@
 function write(state, conf) {
   const fs = require('fs')
+      , path = require('path')
       , crypto = require('crypto');
+
+  conf = state.options.write || conf;
+
+  conf.mkdirs = conf.mkdirs !== undefined ? conf.mkdirs : true;
+
+  let mkdir;
+
+  if(!conf.mkdirs) {
+    mkdir = (path, cb) => cb();
+  }else{
+    mkdir = require('mkdirp')
+  }
 
   let manifest
     , options = conf.manifest || state.options.manifest;
@@ -20,36 +33,44 @@ function write(state, conf) {
     const opts = state.options
         , output = state.output;
 
-    function writer(path, file) {
-      const contents = file.contents;
+    function writer(file, output) {
+      const contents = output.contents;
 
       return function write(cb) {
-        fs.stat(path, (err, stat) => {
-          // NOTE: if path is a directory we'll let if fall through to 
+        fs.stat(file, (err, stat) => {
+          // NOTE: if file is a directory we'll let if fall through to 
           // NOTE: an EISDIR error on attempt to write
           if(stat && stat.isFile() && !opts.force) {
-            return cb(new Error(`cannot overwrite ${path}`)); 
+            return cb(new Error(`cannot overwrite ${file}`)); 
           }
-          fs.writeFile(path, contents, (err) => {
+
+          const owner = path.dirname(file);
+          mkdir(owner, (err) => {
             if(err) {
               return cb(err); 
             } 
+            fs.writeFile(file, contents, (err) => {
+              if(err) {
+                return cb(err); 
+              } 
 
-            let item;
+              let item;
 
-            if(manifest) {
-              const hash = crypto.createHash(options.hash);
-              hash.update(contents);
+              if(manifest) {
+                const hash = crypto.createHash(options.hash);
+                hash.update(contents);
 
-              item = {
-                size: Buffer.byteLength(contents),
-                checksum: hash.digest(options.digest)
+                item = {
+                  size: Buffer.byteLength(contents),
+                  checksum: hash.digest(options.digest)
+                }
+
+                manifest[file] = item;
               }
 
-              manifest[path] = item;
-            }
+              cb();
+            });
 
-            cb();
           });
         });
       } 

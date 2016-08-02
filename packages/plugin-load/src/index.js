@@ -88,9 +88,6 @@ function read(state, group, parent, info, cb) {
       // nested compile phase using resolved options
       state.log.debug('compile using options from file %s', file);
       
-      //console.log('got compiler options from resolve %s', file); 
-      //console.dir(contents);
-      
       // nested compiler pass
       return state.run(contents, (err, result) => {
         if(err) {

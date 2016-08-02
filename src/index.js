@@ -77,6 +77,10 @@ function options(state, cb) {
   }
 
   // merge in passed options after loading config files
+  // prefer output directory in configuration file
+  if(options.out && opts.out && opts.out === process.cwd()) {
+    delete opts.out; 
+  }
   options = merge(true, options, opts);
 
   // re-assign file list
@@ -143,6 +147,8 @@ function trucks(opts, cb) {
     if(err) {
       return cb(err); 
     }
+
+    state.log.debug('%j', state.options);
 
     let phases = Array.isArray(state.options.plugins)
           ? state.options.plugins : DEFAULTS;

@@ -20,7 +20,10 @@ describe('write:', function() {
           trucks.GENERATE,
           require('../../../src')
         ],
-        css: css
+        css: css,
+        write: {
+          mkdirs: false
+        }
       }, (err) => {
         function fn() {
           throw err;

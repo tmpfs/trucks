@@ -1,16 +1,13 @@
-const fs = require('fs')
-    , path = require('path')
+const path = require('path')
     , EOL = require('os').EOL
     , mkparse = require('mkparse')
     , pi = require('mkparse/lang/pi');
 
 function file(state, tag, instr, cb) {
   const pth = path.join(state.absolute(state.options.out), tag.name);
-
   if(state.hasFile(pth)) {
     return cb(null, state.getFile(pth).getFileContents());
   }
-
   cb(null, instr.comment.source);
 }
 
@@ -42,17 +39,16 @@ class Instruction {
       for(i = 0;i < this.comment.tags.length;i++) {
         tag = this.comment.tags[i];
         if(tag.id === k) {
-          return this.grammar[k](state, tag, this, cb);
+          try {
+            return this.grammar[k](state, tag, this, cb);
+          }catch(e) {
+            return cb(e); 
+          }
         } 
       }
     }
 
-    //
     cb(null, result);
-  }
-
-  toString() {
-    return this.comment.source;
   }
 }
 
@@ -121,41 +117,39 @@ function page(state, conf) {
         let filepath = state.absolute(key, state.options.base)
           , dest = files[key];
 
-        fs.readFile(filepath, (err, contents) => {
-          if(err) {
-            return next(err); 
-          } 
+        let parts = [];
 
-          let parts = [];
-          contents = contents.toString();
+        const stream = mkparse.load(filepath, {rules: pi});
 
-          const stream = mkparse.parse(contents, {rules: pi});
+        // pass through content chunks
+        stream.on('content', function(source) {
+          let s = '';
+          if(Array.isArray(source)) {
+            s += source.join(EOL) + EOL;
+          }else{
+            s += source;
+          }
+          parts.push(s);
+        });
 
-          // pass through content chunks
-          stream.on('content', function(source) {
-            let s = '';
-            if(Array.isArray(source)) {
-              s += source.join(EOL) + EOL;
-            }else{
-              s += source;
-            }
-            parts.push(s);
-          });
+        // handle comment chunks (processing instructions)
+        stream.on('comment', function(comment) {
+          let instr = new Instruction(grammar, comment);
+          parts.push(instr);
+          if(comment.newline) {
+            parts.push(EOL);
+          }
+        });
 
-          // handle comment chunks (processing instructions)
-          stream.on('comment', function(comment) {
-            let instr = new Instruction(grammar, comment);
-            parts.push(instr);
-            if(comment.newline) {
-              parts.push(EOL);
-            }
-          });
-
-          stream.on('finish', () => {
-            // execute instructions
-            execute(parts, dest, next);
-          })
+        stream.once('error', (err) => {
+          next(err);
         })
+
+        stream.on('finish', () => {
+          // execute instructions
+          execute(parts, dest, next);
+        })
+
       },
       cb
     );

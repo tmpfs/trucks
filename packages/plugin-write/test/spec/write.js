@@ -15,8 +15,7 @@ describe('write:', function() {
           trucks.TRANSFORM,
           trucks.GENERATE, 
           require('../../src')
-        ],
-        transforms: ['skate/src']
+        ]
       }, (err, result) => {
         expect(err).to.eql(null);
         expect(result).to.be.an('object');

@@ -34,7 +34,7 @@ function write(state, conf) {
         , output = state.output;
 
     function writer(file, output) {
-      const contents = output.contents;
+      const contents = output.getFileContents();
 
       return function write(cb) {
         fs.stat(file, (err, stat) => {

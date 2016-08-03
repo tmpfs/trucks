@@ -265,6 +265,10 @@ class OutputFile {
   get contents() {
     return this._contents.join(this.eol);
   }
+
+  getFileContents() {
+    return this._contents.join(this.eol);
+  }
 }
 
 module.exports = CompilerState;

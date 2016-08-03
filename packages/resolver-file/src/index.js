@@ -1,9 +1,7 @@
 const path = require('path')
     , Resolver = require('trucks-resolver-core')
     , SCHEME = 'file:'
-    //, CONFIG = 'trucks.js'
-    , RE = new RegExp('^' + SCHEME + '/?/?')
-    , resolved = {};
+    , RE = new RegExp('^' + SCHEME + '/?/?');
 
 /**
  *  Resolve `file:` protocols.
@@ -19,14 +17,6 @@ class FileResolver extends Resolver {
    */
   constructor() {
     super(...arguments);
-
-    // add rc files as resolved paths
-    if(this.state) {
-      const rc = this.state.options.rc || [];
-      rc.forEach((pth) => {
-        resolved[pth] = pth; 
-      })
-    }
   }
 
   /**
@@ -37,23 +27,14 @@ class FileResolver extends Resolver {
    *  @param {Function} cb callback function.
    */
   resolve(cb) {
-    //const base = path.dirname(this.file)
-        //, config = path.join(base, CONFIG);
-
     // NOTE: prevent an infinite loop when the input file
     // NOTE: matches a file in the options `files` array
     if(!this.state.hasConfigFile(this.file)) {
-      //resolved[config] = this.file;
+      //console.dir('RESOLVING WITH OPTIONS');
       let conf = this.state.loadConfigFile(this.file);
       if(conf) {
         return cb(null, conf);
       }
-      //try {
-        //conf = require(config);
-        //conf.base = base;
-        //return cb(null, conf);
-      //// it's ok if there aren't compiler options available
-      //}catch(e){}
     }
 
     const fs = require('fs');

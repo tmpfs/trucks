@@ -1,6 +1,6 @@
 {
   "name": "trucks-resolver-file",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "HTML import resolver for the file: protocol",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

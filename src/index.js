@@ -65,6 +65,7 @@ function options(state, cb) {
       file = abs(file);
       try {
         config = require(file);
+        state.addConfigFile(file);
         // add files from loaded configs
         if(Array.isArray(config.files)) {
           files = files.concat(config.files); 
@@ -148,7 +149,7 @@ function trucks(opts, cb) {
       return cb(err); 
     }
 
-    state.log.debug('%j', state.options);
+    //state.log.debug('%j', state.options);
 
     let phases = Array.isArray(state.options.plugins)
           ? state.options.plugins : DEFAULTS;

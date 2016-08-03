@@ -3,13 +3,24 @@ const fs = require('fs')
     , mkparse = require('mkparse')
     , pi = require('mkparse/lang/pi');
 
+class Instruction {
+  constructor(comment) {
+    this._comment = comment;
+  }
+
+  exec(cb) {
+    //console.log('exec instr');
+    cb(null, this._comment.source);
+  }
+}
+
 /**
  *  Replace processing instructions in input files with markup.
  *
  *  @public {function} page
  *  @param {Object} state compiler state.
  *  @param {Object} conf transform plugin configuration.
- *  @option {Array} files list of files to process.
+ *  @option {Object} files map of files to process.
  *
  *  @returns map of visitor functions.
  */
@@ -20,46 +31,83 @@ function page(state, conf) {
       , files = opts.files || {}
       , keys = Object.keys(files);
 
+  function process(parts, dest, cb) {
+    const file = state.getFile(dest, options.out)
+        , output = [];
+
+    state.each(
+      parts,
+      (part, next) => {
+        if(part instanceof Instruction) {
+          part.exec((err, content) => {
+            if(err) {
+              return next(err); 
+            } 
+            output.push(content);
+            next();
+          }); 
+        }else if(part === String(part)) {
+          output.push(part);
+          next(); 
+        } 
+
+      },
+      (err) => {
+        if(err) {
+          return cb(err); 
+        }
+
+        // handle double newline at eof
+        const last = output[output.length - 1];
+        if(last === '\n' && /\n/.test(output[output.length - 2])) {
+          output.pop(); 
+        }
+
+        file.append(output.join(''));
+        cb();
+      }
+    );
+  }
+
   function end(node, cb) {
     state.each(
       keys,
       (key, next) => {
         let filepath = state.absolute(key, state.options.base)
           , dest = files[key];
+
         fs.readFile(filepath, (err, contents) => {
           if(err) {
             return next(err); 
           } 
 
-          let buf = '';
+          let parts = [];
           contents = contents.toString();
 
           const stream = mkparse.parse(contents, {rules: pi});
 
           // pass through content chunks
           stream.on('content', function(source) {
-            //console.dir(source);
+            let s = '';
             if(Array.isArray(source)) {
-              buf += source.join(EOL) + EOL;
+              s += source.join(EOL) + EOL;
             }else{
-              buf += source;
+              s += source;
             }
+            parts.push(s);
           });
 
           // handle comment chunks (processing instructions)
           stream.on('comment', function(comment) {
-            //console.dir(comment);
-            buf += comment.source;
+            let instr = new Instruction(comment, contents.length);
+            parts.push(instr);
             if(comment.newline) {
-              buf += EOL; 
+              parts.push(EOL);
             }
           });
 
           stream.on('finish', () => {
-            buf = buf.replace(/\n+$/, '\n');
-            const file = state.getFile(dest, options.out);
-            file.append(buf);
-            next();
+            process(parts, dest, next);
           })
         })
       },

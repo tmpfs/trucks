@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-tree",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Humanize the component tree",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

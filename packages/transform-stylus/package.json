@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-stylus",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Process style elements in web components with stylus",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

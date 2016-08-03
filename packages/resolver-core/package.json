@@ -1,6 +1,6 @@
 {
   "name": "trucks-resolver-core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Abstract import resolver class",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

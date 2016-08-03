@@ -13,6 +13,10 @@ At the time of writing very few browsers support all of these emerging standards
 
 There are several problems with the state of the current frameworks.
 
+***
+<!-- @toc -->
+***
+
 ### Polymer
 
 The [polymer project][polymer] has a large suite of components but these components are all defined using inline scripts and inline styles which is very convenient from an authoring point of view (component encapsulation) but has issues when you need a strict [content security policy][csp] that disables inline styles and scripts.
@@ -30,3 +34,5 @@ The [react framework][react] is [not tracking the webcomponents standards][react
 The [trucks][] library aims to bring component encapsulation to [skatejs][] and allow [polymer][] component definitions to be compiled to bypass the [content security policy][csp] problem.
 
 Another benefit of this library is that it converts [HTML Imports][html-imports] to *compile time only* which is important as [Mozilla will not ship HTML Imports][mozilla-webcomponents], one less polyfill!
+
+<? @include ../readme/links.md ?>

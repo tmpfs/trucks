@@ -1,0 +1,11 @@
+target
+build
+coverage
+package
+test
+doc
+mkdoc.js
+.jscsrc
+.jshintignore
+.jshintrc
+*.tgz

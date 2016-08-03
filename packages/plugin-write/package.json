@@ -1,6 +1,6 @@
 {
   "name": "trucks-plugin-write",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Write output files to disc",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

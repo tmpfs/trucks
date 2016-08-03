@@ -1,6 +1,6 @@
 {
   "name": "trucks-transform-bundle",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Bundle files into the output templates, styles and scripts",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

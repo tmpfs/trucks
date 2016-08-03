@@ -79,7 +79,7 @@ trucks
 Programmatic usage:
 
 ```javascript
-const trucks = require('trucks');
+const trucks = require('trucks-compiler');
 
 trucks(
   {

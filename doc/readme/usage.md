@@ -2,5 +2,5 @@
 
 Programmatic usage:
 
-<? @source {javascript=s/(\.\.\/)+lib\/index/trucks/gm} usage.js ?>
+<? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
 

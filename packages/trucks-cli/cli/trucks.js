@@ -36,7 +36,7 @@ function main(argv, conf, cb) {
   conf.input = conf.input || process.stdin;
 
   var opts = {}
-    , help = require('mkcli/plugin/help')
+    , help = require('mkcli-runtime/plugin/help')
     , runtime = {
         base: path.normalize(path.join(__dirname, '..')),
         target: opts,

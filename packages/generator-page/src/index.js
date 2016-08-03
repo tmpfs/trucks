@@ -3,14 +3,60 @@ const fs = require('fs')
     , mkparse = require('mkparse')
     , pi = require('mkparse/lang/pi');
 
+function file(state, tag, instr, cb) {
+  console.log('got matching tag...'); 
+  console.dir(tag);
+
+  console.dir(state.output);
+
+  if(state.hasFile(tag.name, state.options.out)) {
+    console.dir('has output file...'); 
+  }
+
+  cb(null, instr.comment.source);
+  //
+  //fs.readFile(tag)
+}
+
+const GRAMMAR = {
+  file: file
+}
+
 class Instruction {
-  constructor(comment) {
+  constructor(grammar, comment) {
+    this._grammar = grammar;
     this._comment = comment;
   }
 
-  exec(cb) {
-    //console.log('exec instr');
-    cb(null, this._comment.source);
+  get grammar() {
+    return this._grammar; 
+  }
+
+  get comment() {
+    return this._comment;
+  }
+
+  exec(state, cb) {
+    const result = this.comment.source;
+    
+    let k
+      , i
+      , tag;
+    for(k in this.grammar) {
+      for(i = 0;i < this.comment.tags.length;i++) {
+        tag = this.comment.tags[i];
+        if(tag.id === k) {
+          return this.grammar[k](state, tag, this, cb);
+        } 
+      }
+    }
+
+    //
+    cb(null, result);
+  }
+
+  toString() {
+    return this.comment.source;
   }
 }
 
@@ -29,9 +75,10 @@ function page(state, conf) {
   const options = state.options
       , opts = options.page || conf
       , files = opts.files || {}
-      , keys = Object.keys(files);
+      , keys = Object.keys(files)
+      , grammar = opts.grammar || GRAMMAR;
 
-  function process(parts, dest, cb) {
+  function execute(parts, dest, cb) {
     const file = state.getFile(dest, options.out)
         , output = [];
 
@@ -39,18 +86,18 @@ function page(state, conf) {
       parts,
       (part, next) => {
         if(part instanceof Instruction) {
-          part.exec((err, content) => {
+          part.exec(state, (err, content) => {
             if(err) {
               return next(err); 
             } 
             output.push(content);
             next();
           }); 
-        }else if(part === String(part)) {
+        // will be a string part, nothing to execute
+        }else{
           output.push(part);
           next(); 
         } 
-
       },
       (err) => {
         if(err) {
@@ -63,7 +110,9 @@ function page(state, conf) {
           output.pop(); 
         }
 
+        // add processed contents to the output file buffer
         file.append(output.join(''));
+
         cb();
       }
     );
@@ -99,7 +148,7 @@ function page(state, conf) {
 
           // handle comment chunks (processing instructions)
           stream.on('comment', function(comment) {
-            let instr = new Instruction(comment, contents.length);
+            let instr = new Instruction(grammar, comment);
             parts.push(instr);
             if(comment.newline) {
               parts.push(EOL);
@@ -107,7 +156,8 @@ function page(state, conf) {
           });
 
           stream.on('finish', () => {
-            process(parts, dest, next);
+            // execute instructions
+            execute(parts, dest, next);
           })
         })
       },

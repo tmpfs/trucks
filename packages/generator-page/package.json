@@ -1,5 +1,5 @@
 {
-  "name": "trucks-transform-page",
+  "name": "trucks-generator-page",
   "version": "1.0.0",
   "description": "Inject output files into HTML templates",
   "author": "muji <noop@xpm.io>",

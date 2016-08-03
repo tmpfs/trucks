@@ -13,7 +13,7 @@
     "url": "https://github.com/tmpfs/trucks"
   },
   "dependencies": {
-    "mkcli": "~1.0.32",
+    "mkcli-runtime": "~1.0.1",
     "trucks-compiler": "*",
     "trucks-resolver-http": "*",
     "trucks-resolver-npm": "*",
@@ -22,6 +22,7 @@
     "trucks-transform-tree": "*"
   },
   "devDependencies": {
+    "mkcli": "~1.0.32",
     "chai": "~3.5.0",
     "istanbul": "~0.4.4",
     "mocha": "~2.5.3"

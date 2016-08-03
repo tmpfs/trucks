@@ -1,6 +1,6 @@
 const path = require('path')
     , fs = require('fs')
-    , cli = require('mkcli')
+    , cli = require('mkcli-runtime')
     , pkg = require('../package.json')
     , prg = cli.load(require('../doc/json/trucks.json'))
     , trucks = require(
@@ -52,11 +52,11 @@ function main(argv, conf, cb) {
           output: conf.output
         },
         plugins: [
-          require('mkcli/plugin/hints'),
-          require('mkcli/plugin/argv'),
-          require('mkcli/plugin/multiple'),
+          require('mkcli-runtime/plugin/hints'),
+          require('mkcli-runtime/plugin/argv'),
+          require('mkcli-runtime/plugin/multiple'),
           help,
-          require('mkcli/plugin/version')
+          require('mkcli-runtime/plugin/version')
         ]
       };
 

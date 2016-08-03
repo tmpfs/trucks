@@ -12,7 +12,7 @@ describe('csp:', function() {
         out: 'target',
         name: 'csp-combined-spec',
         force: true,
-        transforms: [require('../../src'), 'skate/src'],
+        transforms: [require('../../src')],
         conf: {
           transforms: {
             csp: {

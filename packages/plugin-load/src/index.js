@@ -99,8 +99,7 @@ function read(state, group, parent, info, cb) {
           , res;
         for(k in result.output) {
           res = state.getFile(k);
-          res.contents = result.getFile(k).getContents().concat(
-            res.getContents());
+          res.contents = result.getFile(k).contents.concat(res.contents);
         }
 
         // move on to next file

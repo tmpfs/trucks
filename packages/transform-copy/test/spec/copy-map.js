@@ -22,7 +22,7 @@ describe('copy:', function() {
 
         const file = state.getFile('app.js', 'target');
         expect(file).to.be.an('object');
-        expect(file.getContents()).to.be.an('array').to.have.length(1);
+        expect(file.contents).to.be.an('array').to.have.length(1);
         done();
       }
     );

@@ -251,10 +251,6 @@ class OutputFile {
     this._contents.push(buf); 
   }
 
-  getContents() {
-    return this._contents;
-  }
-
   /**
    *  @property {Array} contents list of file contents.
    */
@@ -263,7 +259,7 @@ class OutputFile {
   }
 
   get contents() {
-    return this._contents.join(this.eol);
+    return this._contents;
   }
 
   getFileContents() {

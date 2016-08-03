@@ -26,7 +26,7 @@ describe('bundle:', function() {
         const output = state.getFile('target/bundle-js.js');
         expect(output).to.be.an('object');
 
-        const contents = output.contents;
+        const contents = output.getFileContents();
         expect(contents).to.be.a('string')
           .to.eql('function Application(){}\n'); 
 

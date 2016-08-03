@@ -22,10 +22,6 @@ describe('copy:', function() {
       }, (err, state) => {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
-
-        //const file = state.getFile('app.js', 'target');
-        //expect(file).to.be.an('object');
-        //expect(file.getContents()).to.be.an('array').to.have.length(1);
         done();
       }
     );

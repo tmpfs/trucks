@@ -23,7 +23,7 @@ describe('generate:', function() {
 
         // should be empty as this test fixture does not declare
         // any document scope styles
-        expect(file.contents).to.eql('');
+        expect(file.getFileContents()).to.eql('');
 
         done();
       }

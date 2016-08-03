@@ -26,7 +26,7 @@ describe('bundle:', function() {
         const output = state.getFile('target/bundle-html.html');
         expect(output).to.be.an('object');
 
-        const contents = output.contents;
+        const contents = output.getFileContents();
         expect(contents).to.be.a('string')
           .to.eql('<template id="bundled-template"></template>\n');
 

@@ -1,12 +1,12 @@
 ## Install
 
 ```
-npm i -g trucks-cli
+npm i -g trucks
 ```
 
 Or just for your project:
 
 ```
-npm i trucks-cli --save-dev
+npm i trucks --save-dev
 ```
 

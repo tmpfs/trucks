@@ -18,4 +18,4 @@ Command line interface for the [trucks][] libary.
       help.md
       developer.md
       license.md
-      links.md ?>
+      ../../../trucks-compiler/doc/readme/links.md ?>

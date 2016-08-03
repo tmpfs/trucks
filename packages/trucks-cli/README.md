@@ -7,13 +7,13 @@ Command line interface for the [trucks][] libary.
 ## Install
 
 ```
-npm i -g trucks-cli
+npm i -g trucks
 ```
 
 Or just for your project:
 
 ```
-npm i trucks-cli --save-dev
+npm i trucks --save-dev
 ```
 
 ---
@@ -85,11 +85,12 @@ Completion is available for zsh. To install copy [_trucks](https://github.com/tm
 ## Help
 
 ```
-Usage: trucks [-fh] [--force] [--print-imports] [--print-tree]
-              [--print-manifest] [--help] [--version] [--out <dir>] [--name
-              <val>] [--html <file>] [--css <file>] [--js <file>] [--transforms
-              <id...>] [--rc <file...>] [--extract <dir>] [--inject <dir>]
-              [--manifest <file>] [files...]
+Usage: trucks [-fh] [--force] [--secure] [--print-imports] [--print-tree]
+              [--print-manifest] [--print-stack] [--help] [--version] [--out
+              <dir>] [--name <val>] [--html <file>] [--css <file>] [--js
+              <file>] [--transforms <id...>] [--protocols <id...>] [--rc
+              <file...>] [--extract <dir>] [--inject <dir>] [--manifest <file>]
+              [files...]
 
   Compiles web components.
 
@@ -101,18 +102,21 @@ Options
   -j, --js=[file]         Javascript output file
   -t, --transforms=[id...] 
                           Run transform plugins
+  -p, --protocols=[id...] Enable protocol resolver plugins
   -c, --rc=[file...]      Configuration files to require
   -e, --extract=[dir]     Extract shadow styles to directory
   -i, --inject=[dir]      Inject shadow styles from directory
   -a, --manifest=[file]   Write manifest to file
   -f, --force             Force overwrite existing files
+  --secure                Disable the http: protocol
   --print-imports         Print the file hierarchy
   --print-tree            Print the component tree hierarchy
   --print-manifest        Print the generated files manifest
+  --print-stack           Print stack trace on error
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks-cli@1.0.7
+trucks-cli@1.0.13
 ```
 
 ## Developer
@@ -177,7 +181,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 3, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -207,6 +211,8 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
@@ -215,7 +221,10 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 21, 2016
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
 [resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

@@ -1,5 +1,5 @@
 {
-  "name": "trucks",
+  "name": "trucks-root",
   "version": "1.0.0",
   "description": "Web component compiler and package manager",
   "private": true,

@@ -83,16 +83,16 @@ const trucks = require('trucks-compiler');
 
 trucks(
   {
-    files: ['doc/example/components.html'],
+    files: ['components.html'],
     transforms: ['skate'],
     out: 'target',
     force: true
   },
-  (err, res) => {
+  (err, state) => {
     if(err) {
       throw err; 
     }
-    console.log(res);
+    console.log(state);
   }
 );
 ```

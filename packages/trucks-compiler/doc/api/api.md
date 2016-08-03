@@ -6,4 +6,4 @@
 
 <? @include api-docs.md ?>
 
-<? @include ../../../../doc/readme/links.md ?>
+<? @include ../readme/links.md ?>

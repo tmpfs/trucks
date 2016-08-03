@@ -26,6 +26,34 @@ function api(cb) {
   doc('doc/api/api.md', 'doc/API.md', {toc: {depth: 2}}, cb);
 }
 
+// @task intro build the intro docs.
+function intro(cb) {
+  doc(
+    'doc/intro/intro.md', 'doc/INTRO.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
+// @task options build the options file
+function options(cb) {
+  doc(
+    'doc/options/options.md', 'doc/OPTIONS.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
+// @task developer build the developer file
+function developer(cb) {
+  doc(
+    'doc/developer/developer.md', 'doc/DEVELOPER.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
+// @task compiler build the compiler file
+function compiler(cb) {
+  doc(
+    'doc/compiler/compiler.md', 'doc/COMPILER.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
 // @task readme build the readme file
 function readme(cb) {
   doc(
@@ -38,10 +66,19 @@ function docs(cb){
   cb();
 }
 
+mk.task(intro);
+mk.task(options);
+mk.task(developer);
+mk.task(compiler);
+
 mk.task(api);
 mk.task(readme);
 
 mk.task([
   api,
+  intro,
+  options,
+  developer, 
+  compiler,
   readme
 ], docs);

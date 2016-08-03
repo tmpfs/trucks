@@ -1,4 +1,4 @@
-var trucks = require('../../packages/trucks-compiler/src/index');
+var trucks = require('../../src/index');
 
 trucks(
   {

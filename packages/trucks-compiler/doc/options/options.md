@@ -6,6 +6,6 @@ This document shows the default options used when none are provided.
 <!-- @toc -->
 ***
 
-<? @source {javascript} ../../packages/trucks-compiler/defaults.js ?>
+<? @source {javascript} ../../defaults.js ?>
 
 <? @include ../readme/links.md ?>

@@ -1,4 +1,4 @@
-# Page Transform
+# Page Generator
 
 > Inject output files into HTML templates 
 

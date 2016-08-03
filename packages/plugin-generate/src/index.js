@@ -1,9 +1,25 @@
-function generate(/*state, conf*/) {
+const PREFIX = 'trucks-generator-';
+
+function generate(state, conf) {
+
+  let generators = state.options.generators || conf.generators || [];
+
+  const closures = state.middleware(
+    {
+      phases: generators,
+      prefix: PREFIX,
+      lookup: state.options.conf.generators
+    }
+  );
+
+  //console.dir(closures);
 
   return function generator(state, cb) {
     const opts = state.options;
 
     let file;
+
+    // configure defaults
 
     if(opts.html && !state.hasFile(opts.html)) {
       file = state.getFile(opts.html); 
@@ -31,7 +47,21 @@ function generate(/*state, conf*/) {
       })
     }
 
-    cb(null, state);
+    // run middleware plugins
+    state.each(
+      closures,
+      (fn, next) => {
+        fn(next); 
+      },
+      (err) => {
+        if(err) {
+          return cb(err); 
+        }
+        cb(null, state); 
+      }
+    );
+
+    //cb(null, state);
   }
 }
 

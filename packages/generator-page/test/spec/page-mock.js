@@ -9,8 +9,8 @@ describe('page:', function() {
       {
         files: [src],
         out: 'target',
-        name: 'page-mock',
-        transforms: [require('../../src')],
+        force: true,
+        generators: [require('../../src')],
         page: {
           files: {
             'test/fixtures/mock-page.html': 'mock-page.html'

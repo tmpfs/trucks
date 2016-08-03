@@ -70,6 +70,7 @@ function runVisitor(state, visitors, node, cb) {
 }
 
 function transform(state, conf) {
+  // TODO: rename visitors -> transforms
   let visitors = state.options.transforms || conf.visitors || [];
 
   if(!Array.isArray(visitors)) {

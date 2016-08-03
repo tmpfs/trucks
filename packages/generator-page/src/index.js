@@ -1,21 +1,17 @@
 const fs = require('fs')
+    , path = require('path')
     , EOL = require('os').EOL
     , mkparse = require('mkparse')
     , pi = require('mkparse/lang/pi');
 
 function file(state, tag, instr, cb) {
-  console.log('got matching tag...'); 
-  console.dir(tag);
+  const pth = path.join(state.absolute(state.options.out), tag.name);
 
-  console.dir(state.output);
-
-  if(state.hasFile(tag.name, state.options.out)) {
-    console.dir('has output file...'); 
+  if(state.hasFile(pth)) {
+    return cb(null, state.getFile(pth).getFileContents());
   }
 
   cb(null, instr.comment.source);
-  //
-  //fs.readFile(tag)
 }
 
 const GRAMMAR = {
@@ -118,7 +114,7 @@ function page(state, conf) {
     );
   }
 
-  function end(node, cb) {
+  return (cb) => {
     state.each(
       keys,
       (key, next) => {
@@ -164,8 +160,6 @@ function page(state, conf) {
       cb
     );
   }
-
-  return {end: end};
 }
 
 module.exports = page;

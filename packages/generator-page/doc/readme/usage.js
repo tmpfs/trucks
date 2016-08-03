@@ -3,7 +3,7 @@ const trucks = require('../../../../lib/index');
 trucks(
   {
     files: ['components.html'],
-    transforms: ['page'],
+    generators: ['page'],
     page: {
       files: {
         'template.html': 'index.html'

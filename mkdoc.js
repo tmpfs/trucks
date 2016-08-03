@@ -30,8 +30,8 @@ function dirs(cb) {
       result.push(item); 
     })
 
-    const pkg = require('./package.json');
-    result.unshift({file: './', package: pkg, name: pkg.name});
+    //const pkg = require('./package.json');
+    //result.unshift({file: './', package: pkg, name: pkg.name});
     cb(null, result);
   })
 }
@@ -152,18 +152,6 @@ function intro(cb) {
     {toc: {depth: 2, max: 3}}, cb);
 }
 
-// @task api build the api docs.
-function api(cb) {
-  // build intermediary file
-  const exec = require('child_process').execSync;
-  exec(
-    'mkapi src/index.js src/state.js src/component.js  --level=3 '
-      + '> doc/api/api-docs.md');
-
-  // build the docs
-  doc('doc/api/api.md', 'doc/API.md', {toc: {depth: 2}}, cb);
-}
-
 // @task options build the options file
 function options(cb) {
   doc(
@@ -204,7 +192,6 @@ mk.task(test);
 mk.task(cover);
 
 mk.task(intro);
-mk.task(api);
 mk.task(options);
 mk.task(developer);
 mk.task(compiler);
@@ -212,7 +199,6 @@ mk.task(readme);
 
 mk.task([
   intro,
-  api,
   options,
   developer, 
   compiler,

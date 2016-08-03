@@ -1,7 +1,7 @@
 var expect = require('chai').expect
   , path = require('path')
   , fs = require('fs')
-  , trucks = require('../../../../src');
+  , trucks = require('trucks-compiler');
 
 describe('write:', function() {
 

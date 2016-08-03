@@ -16,7 +16,7 @@ function getRegistry(result) {
 }
 
 function getState(options) {
-  const State = require('../../../../src/state');
+  const State = require('../../../../packages/trucks-compiler/src/state');
   return new State(options);
 }
 

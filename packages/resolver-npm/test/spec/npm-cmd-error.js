@@ -2,7 +2,7 @@ var expect = require('chai').expect
   , plugin = require('../../src');
 
 function getState(options) {
-  const State = require('../../../../src/state');
+  const State = require('../../../../packages/trucks-compiler/src/state');
   return new State(options);
 }
 

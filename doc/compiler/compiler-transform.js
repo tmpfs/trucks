@@ -1,9 +1,8 @@
-var trucks = require('../../src/index');
+var trucks = require('../../packages/trucks-compiler/src/index');
 
 trucks(
   {
     files: ['doc/compiler/components.html'],
-    selectors: require('../../defaults').selectors,
     plugins: [trucks.LOAD, trucks.PARSE, trucks.TRANSFORM],
     transforms: ['trim', 'skate/src'],
     out: 'target',

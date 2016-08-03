@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-  , trucks = require('../../../../src')
+  , trucks = require('trucks-compiler')
   , expected = '<dom-module id="mock-http-resolver"></dom-module>\n';
 
 describe('http:', function() {

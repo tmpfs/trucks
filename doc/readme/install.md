@@ -1,7 +1,7 @@
 ## Install
 
 ```
-npm i trucks --save-dev
+npm i trucks-compiler --save-dev
 ```
 
 For the command line interface install [trucks-cli][]:

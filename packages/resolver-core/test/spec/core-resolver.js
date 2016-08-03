@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-  , State = require('../../../../src/state')
+  , State = require('../../../../packages/trucks-compiler/src/state')
   , Resolver = require('../../src');
 
 describe('resolver:', function() {

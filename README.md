@@ -534,8 +534,6 @@ An example for [skatejs][] is in [skate-component](https://github.com/tmpfs/truc
 
 For the API docs see [API](https://github.com/tmpfs/trucks/blob/master/doc/API.md), an overview of the available options is in [OPTIONS](https://github.com/tmpfs/trucks/blob/master/doc/OPTIONS.md). For insights into the compiler phases and data structures see [COMPILER](https://github.com/tmpfs/trucks/blob/master/doc/COMPILER.md).
 
-The [ROADMAP](https://github.com/tmpfs/trucks/blob/master/doc/ROADMAP.md) has some ideas for future features.
-
 Information on how to build this project is in [DEVELOPER](https://github.com/tmpfs/trucks/blob/master/doc/DEVELOPER.md).
 
 ## License
@@ -544,7 +542,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 3, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

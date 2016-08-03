@@ -33,7 +33,7 @@ Another benefit of this library is that it converts [HTML Imports][html-imports]
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 3, 2016
 
 - [Introduction](#introduction)
   - [Polymer](#polymer)

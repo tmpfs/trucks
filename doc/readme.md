@@ -55,8 +55,6 @@ An example for [skatejs][] is in [skate-component](/examples/skate-component).
 
 For the API docs see [API](/doc/API.md), an overview of the available options is in [OPTIONS](/doc/OPTIONS.md). For insights into the compiler phases and data structures see [COMPILER](/doc/COMPILER.md).
 
-The [ROADMAP](/doc/ROADMAP.md) has some ideas for future features.
-
 Information on how to build this project is in [DEVELOPER](/doc/DEVELOPER.md).
 
 <? @include {=readme}

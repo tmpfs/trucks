@@ -52,6 +52,7 @@ ComponentFile {
         options: [Object],
         compiler: [Object],
         tree: [Object],
+        log: [Object],
         result: [Object],
         manifest: undefined,
         _output: {},
@@ -269,7 +270,7 @@ The final phase writes the generated files to disc.
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 3, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -300,6 +301,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
 [bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less

@@ -11,8 +11,7 @@ describe('parse:', function() {
         files: [src],
         out: 'target',
         name: 'inline-partial',
-        plugins: [trucks.LOAD, require('../../src'), trucks.TRANSFORM],
-        transforms: ['trim', 'skate/src']
+        plugins: [trucks.LOAD, require('../../src'), trucks.TRANSFORM]
       },
       (err, state) => {
         expect(err).to.eql(null);

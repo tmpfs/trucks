@@ -1,5 +1,5 @@
 var expect = require('chai').expect
-  , trucks = require('../../../../src');
+  , trucks = require('trucks-compiler');
 
 describe('style-inject:', function() {
   const src = '../../test/fixtures/simple-inline/components.html';

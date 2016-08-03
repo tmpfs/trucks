@@ -1,6 +1,7 @@
 const fs = require('fs')
     , EOL = require('os').EOL
-    , mkparse = require('mkparse');
+    , mkparse = require('mkparse')
+    , pi = require('mkparse/lang/pi');
 
 /**
  *  Replace processing instructions in input files with markup.
@@ -33,8 +34,7 @@ function page(state, conf) {
           let buf = '';
           contents = contents.toString();
 
-          const stream = mkparse.parse(
-            contents, {rules: require('mkparse/lang/pi')});
+          const stream = mkparse.parse(contents, {rules: pi});
 
           // pass through content chunks
           stream.on('content', function(source) {
@@ -49,11 +49,14 @@ function page(state, conf) {
           // handle comment chunks (processing instructions)
           stream.on('comment', function(comment) {
             //console.dir(comment);
-            buf += comment.source + EOL;
+            buf += comment.source;
+            if(comment.newline) {
+              buf += EOL; 
+            }
           });
 
           stream.on('finish', () => {
-            buf = buf.replace(/\n{2,2}$/, '\n');
+            buf = buf.replace(/\n+$/, '\n');
             const file = state.getFile(dest, options.out);
             file.append(buf);
             next();

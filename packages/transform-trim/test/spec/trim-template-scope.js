@@ -10,7 +10,7 @@ describe('trim:', function() {
         files: [src],
         out: 'target',
         name: 'trim-template-scope',
-        transforms: [require('../../src'), 'skate/src']
+        transforms: [require('../../src')]
       }, (err, state) => {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');

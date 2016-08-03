@@ -1,6 +1,6 @@
 var expect = require('chai').expect
   , fs = require('fs')
-  , trucks = require('../../../../src');
+  , trucks = require('trucks-compiler');
 
 describe('trim:', function() {
 

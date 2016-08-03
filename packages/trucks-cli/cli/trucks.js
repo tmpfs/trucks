@@ -3,7 +3,8 @@ const path = require('path')
     , cli = require('mkcli')
     , pkg = require('../package.json')
     , prg = cli.load(require('../doc/json/trucks.json'))
-    , trucks = require(process.env.DEBUG ? 'trucks/src' : 'trucks')
+    , trucks = require(
+        process.env.DEBUG ? 'trucks-compiler/src' : 'trucks-compiler')
     , TRUCKS_AUTOCONF = 'trucks.js'
 
 // override package name

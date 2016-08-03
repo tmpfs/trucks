@@ -21,9 +21,9 @@
     "babel-cli": "~6.10.1",
     "babel-preset-es2015": "~6.9.0",
     "chai": "~3.5.0",
-    "express": "~4.14.0",
     "istanbul": "~0.4.4",
-    "mocha": "~2.5.3"
+    "mocha": "~2.5.3",
+    "trucks-compiler": "*"
   },
   "scripts": {
     "clean": "rm -rf coverage target lib",
@@ -34,7 +34,6 @@
     "pretest": "npm run target",
     "test": "NODE_ENV=test mocha ${SPEC:-test/spec}",
     "precover": "npm run pretest",
-    "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "cover": "NODE_ENV=test istanbul cover _mocha -- ${SPEC:-test/spec}"
   }
 }

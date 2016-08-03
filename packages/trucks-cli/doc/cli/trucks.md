@@ -86,10 +86,6 @@ Edit the generated stylesheets then apply the overriden styles:
 trucks components.html -o build --inject src/components/css
 ```
 
-# Autoconf
+# Configuration
 
 If a `trucks.js` file exists in the current working directory it is automatically prepended to the list of configuration files to load.
-
-# Environment
-
-Set the `TRUCKS_AUTOCONF` variable to change the name of the autoconf file, default is `trucks.js`.

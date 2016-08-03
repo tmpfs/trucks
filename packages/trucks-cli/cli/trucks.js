@@ -4,7 +4,7 @@ const path = require('path')
     , pkg = require('../package.json')
     , prg = cli.load(require('../doc/json/trucks.json'))
     , trucks = require(process.env.DEBUG ? 'trucks/src' : 'trucks')
-    , TRUCKS_AUTOCONF = process.env.TRUCKS_AUTOCONF || 'trucks.js'
+    , TRUCKS_AUTOCONF = 'trucks.js'
 
 // override package name
 pkg.name = 'trucks';

@@ -12,7 +12,7 @@ module.exports = {
     } 
   },
   write: {
-    exclude: [/\.?usage.html$/] 
+    exclude: /\.?usage.html$/
   },
   conf: {
     transforms: {

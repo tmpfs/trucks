@@ -49,7 +49,7 @@ Each manifest entry contains `size` and `checksum` fields.
 Returns plugin closure.
 
 * `state` Object compiler state.
-* `conf` Object transform plugin configuration.
+* `conf` Object plugin configuration.
 
 #### Options
 

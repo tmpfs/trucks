@@ -15,7 +15,7 @@
  *
  *  @public {function} write
  *  @param {Object} state compiler state.
- *  @param {Object} conf transform plugin configuration.
+ *  @param {Object} conf plugin configuration.
  *  @option {Boolean=false} [force] force overwrite existing files.
  *  @option {Array} [exclude] list of regexp patterns to exclude.
  *  @option {Boolean=true} [mkdirs] create parent directories.

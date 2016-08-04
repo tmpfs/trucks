@@ -59,13 +59,7 @@ module.exports = {
 Component definition file [components.html](components.html):
 
 ```html
-<!--
-  @component x-panel
--->
-<x-panel title="Languages" lang="English" values="English, French, Spanish">
-  <p slot="content">Choose your language preference</p> 
-</x-panel>
-
+<!-- @component x-panel -->
 <dom-module id="x-panel">
 
   <template>
@@ -144,6 +138,12 @@ Component definition file [components.html](components.html):
     });
   </script>
 </dom-module>
+
+<!-- @usage -->
+<x-panel title="Languages" lang="English" values="English, French, Spanish">
+  <p slot="content">Choose your language preference</p> 
+</x-panel>
+
 ```
 
 ---

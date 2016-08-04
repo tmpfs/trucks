@@ -26,7 +26,7 @@ describe('style-extract:', function() {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 
-        const key = 'target/component-style.css'
+        const key = state.absolute('target/component-style.css')
             , file = state.getFile('component-style.css', 'target');
 
         expect(state.output[key]).to.eql(file);

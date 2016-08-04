@@ -14,7 +14,7 @@ To build this example install the command line interface `npm i -g trucks` and d
 trucks
 ```
 
-Open `index.html` to see the rendered component or serve over HTTP with `node server.js` and visit `http://localhost:3000`.
+Open `build/index.html` to see the rendered component or serve over HTTP with `node server.js` and visit `http://localhost:3000`.
 
 ***
 <!-- @toc -->
@@ -30,11 +30,5 @@ Component definition file [components.html](components.html):
 
 <? @source {html} components.html ?>
 
-## Markup
-
-Example component usage in [index.html](index.html):
-
-<? @source {html} index.html ?>
-
-<? @include ../../doc/readme/links.md ?>
+<? @include ../../documents/links.md ?>
 

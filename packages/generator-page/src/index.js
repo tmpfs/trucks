@@ -5,7 +5,7 @@ const path = require('path')
 
 function file(state, tag, instr, cb) {
   const pth = path.join(state.absolute(state.options.out), tag.name);
-  if(state.hasFile(pth)) {
+  if(state.hasFile(pth) || state.hasFile(tag.name, state.options.out)) {
     return cb(null, state.getFile(pth).getFileContents());
   }
   cb(null, instr.comment.source);

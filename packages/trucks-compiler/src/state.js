@@ -90,13 +90,18 @@ class CompilerState {
     return this._output;
   }
 
+  getFileKey(name, base) {
+    base = this.absolute(base); 
+    return this.absolute(name, base);
+  }
+
   hasFile(name, base) {
-    const pth = this.absolute(name, base);
+    const pth = this.getFileKey(name, base);
     return this._output[pth] !== undefined;
   }
 
   getFile(name, base) {
-    const pth = this.absolute(name, base);
+    const pth = this.getFileKey(name, base);
 
     // lazy instantiation to return cached version of the file
     // for modification if it already exists

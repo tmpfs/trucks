@@ -14,14 +14,13 @@ To build this example install the command line interface `npm i -g trucks` and d
 trucks
 ```
 
-Open `index.html` to see the rendered component or serve over HTTP with `node server.js` and visit `http://localhost:3000`.
+Open `build/index.html` to see the rendered component or serve over HTTP with `node server.js` and visit `http://localhost:3000`.
 
 ---
 
 - [Install](#install)
 - [Compiler Options](#compiler-options)
 - [Source Files](#source-files)
-- [Markup](#markup)
 
 ---
 
@@ -30,14 +29,15 @@ Open `index.html` to see the rendered component or serve over HTTP with `node se
 ```javascript
 module.exports = {
   files: [__dirname + '/components.html'],
-  transforms: ['trim', 'csp', 'skate', 'bundle', 'copy'],
+  transforms: ['trim', 'csp', 'skate', 'bundle', 'usage'],
+  generators: ['page'],
   out: 'build',
   force: true,
   css: false,
   html: false,
-  copy: {
+  page: {
     files: {
-      'index.html': 'index.html'
+      'template.html': 'index.html'
     } 
   },
   conf: {
@@ -59,6 +59,13 @@ module.exports = {
 Component definition file [components.html](components.html):
 
 ```html
+<!--
+  @component x-panel
+-->
+<x-panel title="Languages" lang="English" values="English, French, Spanish">
+  <p slot="content">Choose your language preference</p> 
+</x-panel>
+
 <dom-module id="x-panel">
 
   <template>
@@ -139,27 +146,9 @@ Component definition file [components.html](components.html):
 </dom-module>
 ```
 
-## Markup
-
-Example component usage in [index.html](index.html):
-
-```html
-<!doctype html>
-<html>
-  <head>
-    <script src="components.js"></script>
-  </head>
-  <body>
-    <x-panel title="Languages" lang="English" values="English, French, Spanish">
-      <p slot="content">Choose your language preference</p> 
-    </x-panel>
-  </body>
-</html>
-```
-
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 2, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 4, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

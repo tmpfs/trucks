@@ -20,7 +20,7 @@ describe('style-extract:', function() {
         expect(err).to.eql(null);
         expect(state).to.be.an('object');
 
-        const key = 'target/component-partial-style.css'
+        const key = state.absolute('target/component-partial-style.css')
             , file = state.getFile('component-partial-style.css', 'target');
 
         expect(state.output[key]).to.eql(file);

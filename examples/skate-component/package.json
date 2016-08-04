@@ -13,11 +13,12 @@
   },
   "dependencies": {
     "skatejs": "~1.0.0-beta.19",
+    "trucks-generator-page": "~1.0.1",
     "trucks-transform-bundle": "*",
-    "trucks-transform-copy": "*",
     "trucks-transform-csp": "*",
     "trucks-transform-skate": "*",
-    "trucks-transform-trim": "*"
+    "trucks-transform-trim": "*",
+    "trucks-transform-usage": "*"
   },
   "devDependencies": {
     "express": "~4.14.0"

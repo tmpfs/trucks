@@ -1,13 +1,14 @@
 module.exports = {
   files: [__dirname + '/components.html'],
-  transforms: ['trim', 'csp', 'skate', 'bundle', 'copy'],
+  transforms: ['trim', 'csp', 'skate', 'bundle', 'usage'],
+  generators: ['page'],
   out: 'build',
   force: true,
   css: false,
   html: false,
-  copy: {
+  page: {
     files: {
-      'index.html': 'index.html'
+      'template.html': 'index.html'
     } 
   },
   conf: {

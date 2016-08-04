@@ -1,6 +1,6 @@
 {
   "name": "trucks-compiler",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Web component compiler library",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",

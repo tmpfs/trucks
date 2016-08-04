@@ -1,6 +1,6 @@
 const express = require('express')
   , fs = require('fs')
-  , config = fs.readFileSync(__dirname + '/csp.txt').toString()
+  , config = fs.readFileSync(__dirname + '/build/csp.txt').toString()
   , app = express();
 
 app.get('*', (req, res, next) => {
@@ -9,7 +9,7 @@ app.get('*', (req, res, next) => {
   next();
 });
 
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/build'));
 
 app.listen(process.env.PORT || 3000);
 

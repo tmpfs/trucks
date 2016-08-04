@@ -11,6 +11,9 @@ module.exports = {
       'template.html': 'index.html'
     } 
   },
+  write: {
+    exclude: [/\.?usage.html$/] 
+  },
   conf: {
     transforms: {
       csp: {

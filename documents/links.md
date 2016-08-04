@@ -1,5 +1,3 @@
-[trucks]: https://github.com/tmpfs/trucks
-[trucks-cli]: /packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -19,6 +17,11 @@
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+
+
+[trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: /packages/trucks-cli
+[trucks-compiler]: /packages/trucks-compiler
 
 [sources]: /packages/plugin-sources
 [load]: /packages/plugin-load

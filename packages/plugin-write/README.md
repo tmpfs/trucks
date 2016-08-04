@@ -2,7 +2,7 @@
 
 > Write output files to disc
 
-Writes the output files created by previous plugins to disc.
+Writes the output files created by the compiler plugins to disc.
 
 ## Install
 
@@ -10,21 +10,49 @@ Writes the output files created by previous plugins to disc.
 npm i trucks-plugin-write --save-dev
 ```
 
-For the command line interface see [trucks-cli][].
-
 ---
 
 - [Install](#install)
 - [Usage](#usage)
+- [API](#api)
+  - [write](#write)
 - [License](#license)
 
 ---
 
 ## Usage
 
-This plugin is bundled with the core library.
+This plugin is bundled with the core [trucks-compiler][] library.
 
-For command line usage see [trucks-cli][].
+## API
+
+### write
+
+```javascript
+public write(state, conf)
+```
+
+Write output files to disc.
+
+For each file in the `output` of the compiler state write the file to disc
+creating parent directories as needed unless the `mkdirs` option is
+disabled.
+
+When `exclude` is given it should be a regular expression or array or
+patterns to compare against the absolute file path for each file to be
+written, if a pattern matches the file is not written to disc.
+
+Returns plugin closure.
+
+* `state` Object compiler state.
+* `conf` Object transform plugin configuration.
+
+#### Options
+
+* `exclude` Array list of regexp patterns to exclude.
+* `mkdirs` Boolean=true create parent directories.
+* `manifest` Boolean=true generate manifest checksums.
+* `hash` String=sha256 checksum hash algorithm.
 
 ## License
 
@@ -32,7 +60,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
@@ -61,4 +89,24 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

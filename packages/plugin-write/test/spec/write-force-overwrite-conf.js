@@ -5,7 +5,7 @@ var expect = require('chai').expect
 
 describe('write:', function() {
 
-  it('should force overwrite output files', function(done) {
+  it('should force overwrite output files (conf)', function(done) {
     const src = '../../test/fixtures/simple-inline/components.html'
       , css = 'target/simple-force.css'
       , js = 'target/simple-force.js'

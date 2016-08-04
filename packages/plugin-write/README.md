@@ -42,6 +42,10 @@ When `exclude` is given it should be a regular expression or array or
 patterns to compare against the absolute file path for each file to be
 written, if a pattern matches the file is not written to disc.
 
+If the `manifest` option is enabled a `manifest` object is created on the
+compiler state which maps file paths to checksums for each file written.
+Each manifest entry contains `size` and `checksum` fields.
+
 Returns plugin closure.
 
 * `state` Object compiler state.
@@ -49,6 +53,7 @@ Returns plugin closure.
 
 #### Options
 
+* `force` Boolean=false force overwrite existing files.
 * `exclude` Array list of regexp patterns to exclude.
 * `mkdirs` Boolean=true create parent directories.
 * `manifest` Boolean=true generate manifest checksums.

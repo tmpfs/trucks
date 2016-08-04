@@ -9,9 +9,14 @@
  *  patterns to compare against the absolute file path for each file to be 
  *  written, if a pattern matches the file is not written to disc.
  *
+ *  If the `manifest` option is enabled a `manifest` object is created on the 
+ *  compiler state which maps file paths to checksums for each file written. 
+ *  Each manifest entry contains `size` and `checksum` fields.
+ *
  *  @public {function} write
  *  @param {Object} state compiler state.
  *  @param {Object} conf transform plugin configuration.
+ *  @option {Boolean=false} [force] force overwrite existing files.
  *  @option {Array} [exclude] list of regexp patterns to exclude.
  *  @option {Boolean=true} [mkdirs] create parent directories.
  *  @option {Boolean=true} [manifest] generate manifest checksums.

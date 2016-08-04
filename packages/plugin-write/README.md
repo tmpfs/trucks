@@ -24,6 +24,31 @@ npm i trucks-plugin-write --save-dev
 
 This plugin is bundled with the core [trucks-compiler][] library.
 
+You can configure this plugin using the `write` field:
+
+```javascript
+const options {
+  conf: {
+    plugins: {
+      write: {
+        /* write plugin configuration */
+      }
+    }
+  }
+}
+```
+
+Or as a convenient shortcut use the top-level `write` field:
+
+```javascript
+const options {
+  force: true,
+  write: {
+    manifest: false
+  }
+}
+```
+
 ## API
 
 ### write
@@ -45,6 +70,9 @@ written, if a pattern matches the file is not written to disc.
 If the `manifest` option is enabled a `manifest` object is created on the
 compiler state which maps file paths to checksums for each file written.
 Each manifest entry contains `size` and `checksum` fields.
+
+The `force` option is inherited from the computed options when not defined
+on the plugin configuration.
 
 Returns plugin closure.
 

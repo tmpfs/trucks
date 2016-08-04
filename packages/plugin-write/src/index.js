@@ -13,6 +13,9 @@
  *  compiler state which maps file paths to checksums for each file written. 
  *  Each manifest entry contains `size` and `checksum` fields.
  *
+ *  The `force` option is inherited from the computed options when not defined 
+ *  on the plugin configuration.
+ *
  *  @public {function} write
  *  @param {Object} state compiler state.
  *  @param {Object} conf plugin configuration.
@@ -37,12 +40,10 @@ function write(state, conf) {
 
   conf.mkdirs = conf.mkdirs !== undefined ? conf.mkdirs : true;
 
-  let mkdir;
+  let force = conf.force;
 
-  if(!conf.mkdirs) {
-    mkdir = (path, cb) => cb();
-  }else{
-    mkdir = require('mkdirp')
+  if(force === undefined && state.options.force !== undefined) {
+    force = state.options.force; 
   }
 
   let manifest = conf.manifest !== undefined ? conf.manifest : true;
@@ -51,6 +52,15 @@ function write(state, conf) {
   
   if(manifest) {
     manifest = state.manifest = {};
+  }
+
+  let mkdir;
+
+  // NOTE: noop when `mkdirs` is disabled
+  if(!conf.mkdirs) {
+    mkdir = (path, cb) => cb();
+  }else{
+    mkdir = require('mkdirp')
   }
 
   function excluded(file) {
@@ -66,9 +76,6 @@ function write(state, conf) {
   }
 
   return function write(state, cb) {
-    const opts = state.options
-        , output = state.output;
-
     function writer(file, output) {
       const contents = output.getFileContents();
 
@@ -79,7 +86,7 @@ function write(state, conf) {
         fs.stat(file, (err, stat) => {
           // NOTE: if file is a directory we'll let if fall through to 
           // NOTE: an EISDIR error on attempt to write
-          if(stat && stat.isFile() && !opts.force) {
+          if(stat && stat.isFile() && !force) {
             return cb(new Error(`cannot overwrite ${file}`)); 
           }
 
@@ -94,13 +101,11 @@ function write(state, conf) {
                 return cb(err); 
               } 
 
-              let item;
-
               if(manifest) {
                 const hash = crypto.createHash(algorithm);
                 hash.update(contents);
 
-                item = {
+                let item = {
                   size: Buffer.byteLength(contents),
                   checksum: hash.digest(digest)
                 }
@@ -116,6 +121,7 @@ function write(state, conf) {
       } 
     }
 
+    const output = state.output;
     const files = Object.keys(output)
         , writers = [];
 

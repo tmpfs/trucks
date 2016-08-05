@@ -4,17 +4,23 @@
 
 Implementation contract for protocol resolver plugins.
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-resolver-core --save
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+Resolver plugin implementations should extend this class, see the [file][resolver-file], [http][resolver-http] and [npm][resolver-npm] plugins for example implementations.
 
 ## API
 
 <? @exec mkapi src/index.js --level=3 ?>
 
-<? @include ../../../doc/readme/license.md ?>
-<? @include ../../../doc/readme/links.md ?>
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

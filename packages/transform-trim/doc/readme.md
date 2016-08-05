@@ -20,17 +20,25 @@ skate.define('{{id}}', {});
 
 Using this transform is not typically necessary as you would ordinarily build to a minified file (possibly with source maps) however it is used internally to simplify test assertions.
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-transform-trim --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+Use the `trim` key to configure this transform:
+
+<? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
 
 ## API
 
 <? @exec mkapi src/index.js --level=3 ?>
 
-<? @include ../../../doc/readme/license.md ?>
-<? @include ../../../doc/readme/links.md ?>
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

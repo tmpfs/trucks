@@ -2,15 +2,23 @@
 
 > Generate component usage examples
 
-<? @include {=readme} install.md ?>
-
 For each component module definition scan the input document for elements matching the component tag name and write them to usage HTML files.
+
+## Install
+
+```
+npm i trucks-transform-usage --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+Use the `usage` key to configure this transform:
+
+<? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
 
 ## API
 

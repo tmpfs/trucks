@@ -30,7 +30,7 @@ For the command line interface see [trucks-cli][].
 
 ## Usage
 
-This plugin is bundled with the core library so there is no need to add it however the configuration is:
+This plugin is bundled with the core library, to explicitly configure:
 
 ```javascript
 const options {
@@ -103,10 +103,8 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 22, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
-[trucks]: https://github.com/tmpfs/trucks
-[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -126,6 +124,11 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 22, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[manual]: https://github.com/tmpfs/trucks/blob/master/manual
+[examples]: https://github.com/tmpfs/trucks/blob/master/examples
+[trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
+[trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler
 [sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
 [load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
 [parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
@@ -133,17 +136,22 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 22, 2016
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
 [transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
 [skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
 [stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
 [less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
 [trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[usage]: https://github.com/tmpfs/trucks/blob/master/packages/transform-usage
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
 [resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
 [resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

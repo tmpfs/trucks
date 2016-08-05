@@ -2,20 +2,27 @@
 
 > Compiles web component templates to render functions
 
-<? @include {=readme}
-      install.md  ?>
+## Install
+
+```
+npm i trucks-transform-skate --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme}
-      usage.md 
-      overview.md ?>
+## Usage
+
+Programmatic usage:
+
+<? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
+
+<? @include {=readme} overview.md ?>
 
 ## API
 
 <? @exec mkapi src/index.js src/compiler.js --level=3 ?>
 
-<? @include ../../../doc/readme/license.md ?>
-<? @include ../../../doc/readme/links.md ?>
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

@@ -16,6 +16,7 @@ Command line interface for the [trucks][] libary.
       usage.md
       completion.md
       help.md
-      developer.md
-      license.md
-      ../../../trucks-compiler/doc/readme/links.md ?>
+      developer.md ?>
+
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

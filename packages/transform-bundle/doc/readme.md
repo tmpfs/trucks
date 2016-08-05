@@ -2,17 +2,25 @@
 
 > Bundle files into the output templates, styles and scripts
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-transform-bundle --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+Use the `bundle` key to configure this transform:
+
+<? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
 
 ## API
 
 <? @exec mkapi src/index.js --level=3 ?>
 
-<? @include ../../../doc/readme/license.md ?>
-<? @include ../../../doc/readme/links.md ?>
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

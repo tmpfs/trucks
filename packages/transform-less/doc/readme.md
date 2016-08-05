@@ -11,13 +11,23 @@ Reads `<style>` and `<link>` elements with a MIME type of `text/less` and compil
 
 This transform rewrites the `contents` property of each style node.
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-transform-less --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
 
-<? @include ../../../doc/readme/license.md ?>
-<? @include ../../../doc/readme/links.md ?>
+Use the `less` key to configure this transform:
+
+<? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
+
+The configuration object is passed to `less.render()`, see the [less documentation][less-css].
+
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

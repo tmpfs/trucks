@@ -2,22 +2,20 @@
 
 > Generate component usage examples
 
+For each component module definition scan the input document for elements matching the component tag name and write them to usage HTML files.
+
 ## Install
 
 ```
-npm i trucks-transform-trim --save-dev
+npm i trucks-transform-usage --save-dev
 ```
-
-For the command line interface see [trucks-cli][].
-
-For each component module definition scan the input document for elements matching the component tag name and write them to usage HTML files.
 
 ---
 
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
-  - [trim](#trim)
+  - [usage](#usage-1)
 - [License](#license)
 
 ---
@@ -27,7 +25,7 @@ For each component module definition scan the input document for elements matchi
 Use the `usage` key to configure this transform:
 
 ```javascript
-const trucks = require('trucks');
+const trucks = require('trucks-compiler');
 
 trucks(
   {
@@ -48,16 +46,13 @@ trucks(
 
 ## API
 
-### trim
+### usage
 
 ```javascript
-public trim(state, conf)
+public usage(state, conf)
 ```
 
-Removes leading and trailing whitespace from inline styles and scripts.
-
-When the `lines` option is given each line is stripped of leading
-whitespace that matches the `pattern` regular expression.
+Output HTML files for component usage examples.
 
 Returns map of visitor functions.
 
@@ -66,9 +61,10 @@ Returns map of visitor functions.
 
 #### Options
 
-* `inline` Boolean=true only replace inline elements.
-* `lines` Boolean=true strip each line.
-* `templates` Boolean=false also trim template elements.
+* `name` String=usage.html name of the output file.
+* `main` Boolean=true write all usage examples to a main file.
+* `file` Boolean=true write a file for each component module.
+* `dir` String override the default output directory.
 
 ## License
 
@@ -76,10 +72,8 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 4, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
-[trucks]: https://github.com/tmpfs/trucks
-[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -99,6 +93,11 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 4, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[manual]: https://github.com/tmpfs/trucks/blob/master/manual
+[examples]: https://github.com/tmpfs/trucks/blob/master/examples
+[trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
+[trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler
 [sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
 [load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
 [parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
@@ -114,12 +113,14 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 4, 2016
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
 [trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[usage]: https://github.com/tmpfs/trucks/blob/master/packages/transform-usage
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
 [resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
 [resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

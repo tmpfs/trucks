@@ -16,17 +16,25 @@ The generated HTML file contains a `<meta>` element, for example:
 <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'nonce-9566b05df2a2e6503449f5de138e151f51a17ceb'; script-src 'self' 'nonce-fc76f6ed5eb71e5b9ceeb1298b7458e6d1bced7d'">
 ```
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-transform-csp --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+Use the `csp` key to configure this transform:
+
+<? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
 
 ## API
 
 <? @exec mkapi src/index.js --level=3 ?>
 
-<? @include ../../../doc/readme/license.md ?>
-<? @include ../../../doc/readme/links.md ?>
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

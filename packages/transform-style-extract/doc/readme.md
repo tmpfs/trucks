@@ -10,17 +10,26 @@ Be careful using this transform with the `force` option, if you have already edi
 
 Designed to be used by component consumers to modify the shadow DOM styles per component in conjunction with the [style-inject][] transform; useful when using third-party components.
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-transform-style-extract --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+Use the `style-extract` key to configure this transform:
+
+<? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
+
 
 ## API
 
 <? @exec mkapi src/index.js --level=3 ?>
 
-<? @include ../../../doc/readme/license.md ?>
-<? @include ../../../doc/readme/links.md ?>
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

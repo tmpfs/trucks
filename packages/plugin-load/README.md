@@ -2,7 +2,7 @@
 
 > Reads the web component import tree
 
-Reads HTML imports into the component tree.
+Reads HTML imports into the component tree resolving files using the registered protocol plugins.
 
 ```html
 <link rel="import" href="components.html">
@@ -14,21 +14,79 @@ Reads HTML imports into the component tree.
 npm i trucks-plugin-load --save-dev
 ```
 
-For the command line interface see [trucks-cli][].
-
 ---
 
 - [Install](#install)
 - [Usage](#usage)
+- [API](#api)
+  - [load](#load)
 - [License](#license)
 
 ---
 
 ## Usage
 
-This plugin is bundled with the core library.
+This plugin is bundled with the core [trucks-compiler][] library.
 
-For command line usage see [trucks-cli][].
+If a `protocols` array is declared on the options it is used:
+
+```javascript
+const options = {
+  protocols: ['file']
+}
+```
+
+Configure this plugin using the `load` field:
+
+```javascript
+const options {
+  conf: {
+    plugins: {
+      load: {
+        /* plugin configuration */
+      }
+    }
+  }
+}
+```
+
+Or as a convenient shortcut use the top-level `load` field:
+
+```javascript
+const options {
+  load: {
+    /* plugin configuration */
+  }
+}
+```
+
+## API
+
+### load
+
+```javascript
+public load(state, conf)
+```
+
+Load HTML import files and create entries in the compiler state `tree`.
+
+When a list of protocol plugins is given they are invoked when this plugin
+is initialized passing the compiler state registry so that the resolver
+plugins may register protocol scheme handlers.
+
+If no protocols list is given the default `file:` protocol is enabled.
+
+If a protocols list is given and does not contain the default `file:`
+protocol it is prepended to the list.
+
+Returns plugin closure.
+
+* `state` Object compiler state.
+* `conf` Object plugin configuration.
+
+#### Options
+
+* `protocols` Array list of protocol resolver plugins.
 
 ## License
 
@@ -36,10 +94,8 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
-[trucks]: https://github.com/tmpfs/trucks
-[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -59,4 +115,33 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
+[trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler
+[sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
+[load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
+[parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
+[transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
+[generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
+[write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

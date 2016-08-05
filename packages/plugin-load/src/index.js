@@ -233,6 +233,25 @@ function sources(state, info, files, parent, cb) {
   );
 }
 
+/**
+ *  Load HTML import files and create entries in the compiler state `tree`.
+ *
+ *  When a list of protocol plugins is given they are invoked when this plugin 
+ *  is initialized passing the compiler state registry so that the resolver 
+ *  plugins may register protocol scheme handlers.
+ *
+ *  If no protocols list is given the default `file:` protocol is enabled.
+ *
+ *  If a protocols list is given and does not contain the default `file:` 
+ *  protocol it is prepended to the list.
+ *
+ *  @public {function} load
+ *  @param {Object} state compiler state.
+ *  @param {Object} conf plugin configuration.
+ *  @option {Array} [protocols] list of protocol resolver plugins.
+ *
+ *  @returns plugin closure.
+ */
 function load(state, conf) {
   let protocols = state.options.protocols || conf.protocols || [];
 

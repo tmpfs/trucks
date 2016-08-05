@@ -424,14 +424,13 @@ function render(el, opts, prefix) {
       return ast.program.body[0].expression;
     }else if(val === true || val === false) {
       return t.booleanLiteral(val);
-    }else if(val === String(val)) {
-      if(opts.literals.attribute && PATTERN.test(val)) {
-        return getTemplateLiteralExpression(val);
-      }else{
-        return t.stringLiteral(val);
+    // treat as string
+    }else{
+      if(opts.literals.attribute && PATTERN.test('' + val)) {
+        return getTemplateLiteralExpression('' + val);
       }
     }
-    return t.stringLiteral(val);
+    return t.stringLiteral('' + val);
   }
 
   function convert(childNodes, body) {

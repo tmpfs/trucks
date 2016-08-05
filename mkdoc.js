@@ -173,6 +173,13 @@ function transforms(cb) {
     {toc: {depth: 2, max: 3}}, cb);
 }
 
+// @task compiler build the compiler file
+function compiler(cb) {
+  doc(
+    'documents/compiler/compiler.md', 'manual/compiler.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
 // @task developer build the developer docs
 function developer(cb) {
   doc(
@@ -195,11 +202,13 @@ mk.task(introduction);
 mk.task(components);
 mk.task(plugins);
 mk.task(transforms);
+mk.task(compiler);
 mk.task(developer);
 mk.task(readme);
 mk.task([
-  components,
+  compiler,
   developer,
+  components,
   introduction,
   plugins,
   transforms,

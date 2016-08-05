@@ -21,7 +21,7 @@ The compiler executes the following plugins:
 
 ### Load
 
-Given a components file [components.html](https://github.com/tmpfs/trucks/blob/master/doc/compiler/components.html) such as:
+Given a components file [components.html](https://github.com/tmpfs/trucks/blob/master/documents/compiler/components.html) such as:
 
 ```html
 <link rel="import" href="x-button.html">
@@ -34,7 +34,7 @@ ComponentFile {
   imports: 
    [ ComponentFile {
        imports: [Object],
-       file: '/home/muji/git/trucks/packages/trucks-compiler/doc/compiler/x-button.html',
+       file: '/home/muji/git/trucks/documents/compiler/x-button.html',
        contents: '<link rel="import" href="x-icon.html">\n\n<dom-module id="x-button">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define(\'{{id}}\', {});\n  </script>\n</dom-module>\n',
        parent: [Circular],
        resolver: [Object],
@@ -42,7 +42,7 @@ ComponentFile {
        duplicates: [],
        _document: [Object],
        href: 'x-button.html' } ],
-  file: '/home/muji/git/trucks/packages/trucks-compiler/doc/compiler/components.html',
+  file: '/home/muji/git/trucks/documents/compiler/components.html',
   contents: '<link rel="import" href="x-button.html">\n',
   parent: null,
   resolver: 
@@ -57,7 +57,7 @@ ComponentFile {
         manifest: undefined,
         _output: {},
         _registry: [Object] },
-     href: 'doc/compiler/components.html',
+     href: 'documents/compiler/components.html',
      parent: null,
      uri: 
       Url {
@@ -70,10 +70,10 @@ ComponentFile {
         hash: null,
         search: null,
         query: null,
-        pathname: 'doc/compiler/components.html',
-        path: 'doc/compiler/components.html',
-        href: 'doc/compiler/components.html' },
-     _file: '/home/muji/git/trucks/packages/trucks-compiler/doc/compiler/components.html' },
+        pathname: 'documents/compiler/components.html',
+        path: 'documents/compiler/components.html',
+        href: 'documents/compiler/components.html' },
+     _file: '/home/muji/git/trucks/documents/compiler/components.html' },
   modules: [],
   duplicates: [],
   _document: 
@@ -100,7 +100,7 @@ ComponentFile {
         normalizeWhitespace: false,
         xmlMode: false,
         decodeEntities: true } },
-  href: 'doc/compiler/components.html' }
+  href: 'documents/compiler/components.html' }
 ```
 
 Imported component file paths are resolved relative to the declaring file.
@@ -115,26 +115,26 @@ ComponentModule {
   parent: 
    ComponentFile {
      imports: [ [Object] ],
-     file: '/home/muji/git/trucks/packages/trucks-compiler/doc/compiler/x-button.html',
+     file: '/home/muji/git/trucks/documents/compiler/x-button.html',
      contents: '<link rel="import" href="x-icon.html">\n\n<dom-module id="x-button">\n  <template></template>\n\n  <style>\n    x-button {\n      /* component styles */\n    }\n  </style>\n\n  <script>\n    skate.define(\'{{id}}\', {});\n  </script>\n</dom-module>\n',
      parent: 
       ComponentFile {
         imports: [Object],
-        file: '/home/muji/git/trucks/packages/trucks-compiler/doc/compiler/components.html',
+        file: '/home/muji/git/trucks/documents/compiler/components.html',
         contents: '<link rel="import" href="x-button.html">\n',
         parent: null,
         resolver: [Object],
         modules: [],
         duplicates: [],
         _document: [Object],
-        href: 'doc/compiler/components.html' },
+        href: 'documents/compiler/components.html' },
      resolver: 
       FileResolver {
         state: [Object],
         href: 'x-button.html',
         parent: [Object],
         uri: [Object],
-        _file: '/home/muji/git/trucks/packages/trucks-compiler/doc/compiler/x-button.html' },
+        _file: '/home/muji/git/trucks/documents/compiler/x-button.html' },
      modules: [ [Circular] ],
      duplicates: [],
      _document: 
@@ -158,7 +158,7 @@ ComponentModule {
         _contents: '<template id="x-button"></template>',
         parent: [Circular],
         href: undefined,
-        _file: '/home/muji/git/trucks/packages/trucks-compiler/doc/compiler/x-button.html',
+        _file: '/home/muji/git/trucks/documents/compiler/x-button.html',
         _id: 'x-button' },
      parent: [Circular],
      partials: [],
@@ -170,7 +170,7 @@ ComponentModule {
        _contents: '<template id="x-button"></template>',
        parent: [Circular],
        href: undefined,
-       _file: '/home/muji/git/trucks/packages/trucks-compiler/doc/compiler/x-button.html',
+       _file: '/home/muji/git/trucks/documents/compiler/x-button.html',
        _id: 'x-button' } ],
   stylesheets: 
    [ ComponentStyle {
@@ -215,10 +215,10 @@ ComponentModule {
 The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
 
 ```javascript
-{ '/home/muji/git/trucks/packages/trucks-compiler/target/components.js': 
+{ '/home/muji/git/trucks/target/components.js': 
    OutputFile {
      eol: '\n\n',
-     file: '/home/muji/git/trucks/packages/trucks-compiler/target/components.js',
+     file: '/home/muji/git/trucks/target/components.js',
      name: 'target/components.js',
      base: undefined,
      _contents: 
@@ -233,10 +233,10 @@ The transform phase takes the parsed result and compiles the `<template>` elemen
 After transformation the generate phase will concatenate all the css and transformed javascript code.
 
 ```javascript
-{ '/home/muji/git/trucks/packages/trucks-compiler/target/components.js': 
+{ '/home/muji/git/trucks/target/components.js': 
    OutputFile {
      eol: '\n\n',
-     file: '/home/muji/git/trucks/packages/trucks-compiler/target/components.js',
+     file: '/home/muji/git/trucks/target/components.js',
      name: 'target/components.js',
      base: undefined,
      _contents: 
@@ -244,19 +244,19 @@ After transformation the generate phase will concatenate all the css and transfo
         'function template(elem) {\n  return templates[elem.tagName.toLowerCase()].call(elem, elem);\n}',
         'skate.define(\'x-icon\', {});',
         'skate.define(\'x-button\', {});' ] },
-  '/home/muji/git/trucks/packages/trucks-compiler/target/components.html': 
+  '/home/muji/git/trucks/target/components.html': 
    OutputFile {
      eol: '\n\n',
-     file: '/home/muji/git/trucks/packages/trucks-compiler/target/components.html',
+     file: '/home/muji/git/trucks/target/components.html',
      name: 'target/components.html',
      base: undefined,
      _contents: 
       [ '<template id="x-icon">\n  </template>',
         '<template id="x-button"></template>' ] },
-  '/home/muji/git/trucks/packages/trucks-compiler/target/components.css': 
+  '/home/muji/git/trucks/target/components.css': 
    OutputFile {
      eol: '\n\n',
-     file: '/home/muji/git/trucks/packages/trucks-compiler/target/components.css',
+     file: '/home/muji/git/trucks/target/components.css',
      name: 'target/components.css',
      base: undefined,
      _contents: 

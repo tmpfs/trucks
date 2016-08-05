@@ -14,13 +14,13 @@ The compiler executes the following plugins:
 
 ### Load
 
-Given a components file [components.html](/doc/compiler/components.html) such as:
+Given a components file [components.html](/documents/compiler/components.html) such as:
 
 <? @source {html} components.html ?>
 
 The load phase will build the result object:
 
-<? @exec {javascript} mkdir -p target && node doc/compiler/compiler-load.js ?>
+<? @exec {javascript} mkdir -p target && node documents/compiler/compiler-load.js ?>
 
 Imported component file paths are resolved relative to the declaring file.
 
@@ -28,22 +28,22 @@ Imported component file paths are resolved relative to the declaring file.
 
 The parse phase takes the output from the load phase and extracts the css, javascript and template elements:
 
-<? @exec {javascript} node doc/compiler/compiler-parse.js ?>
+<? @exec {javascript} node documents/compiler/compiler-parse.js ?>
 
 ### Transform
 
 The transform phase takes the parsed result and compiles the `<template>` elements to javascript functions that can be called from the component `render()` function.
 
-<? @exec {javascript} node doc/compiler/compiler-transform.js ?>
+<? @exec {javascript} node documents/compiler/compiler-transform.js ?>
 
 ### Generate
 
 After transformation the generate phase will concatenate all the css and transformed javascript code.
 
-<? @exec {javascript} node doc/compiler/compiler-generate.js ?>
+<? @exec {javascript} node documents/compiler/compiler-generate.js ?>
 
 ### Write
 
 The final phase writes the generated files to disc.
 
-<? @include ../../../../documents/links.md ?>
+<? @include ../links.md ?>

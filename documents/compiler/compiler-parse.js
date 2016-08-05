@@ -1,8 +1,8 @@
-var trucks = require('../../src/index');
+var trucks = require('../../packages/trucks-compiler/src/index');
 
 trucks(
   {
-    files: ['doc/compiler/components.html'],
+    files: ['documents/compiler/components.html'],
     plugins: [trucks.LOAD, trucks.PARSE],
     out: 'target',
     force: true

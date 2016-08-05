@@ -1,17 +1,26 @@
 # Sources
 
-> Reads the component tree
+> Reads the entire component tree
 
-Combines the load and parse plugins to read the full component tree.
+Delegates to the [load][] and [parse][] plugins to read the full component tree.
 
-<? @include {=readme}
-      install.md  ?>
+## Install
+
+```
+npm i trucks-plugin-sources --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
 
-<? @include ../../../doc/readme/license.md ?>
-<? @include ../../../doc/readme/links.md ?>
+This plugin is bundled with the core [trucks-compiler][] library and does not have any configuration options.
+
+## API
+
+<? @exec mkapi src/index.js --level=3 ?>
+
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

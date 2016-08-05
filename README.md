@@ -46,12 +46,9 @@ In each case the [trucks.js](https://github.com/tmpfs/trucks/blob/master/example
 - [Getting Started](#getting-started)
 - [Plugin List](#plugin-list)
   - [Core](#core)
-  - [Compilers](#compilers)
   - [Resolvers](#resolvers)
-  - [Preprocessors](#preprocessors)
-  - [Styles](#styles)
+  - [Transforms](#transforms)
   - [Generators](#generators)
-  - [Miscellaneous](#miscellaneous)
 - [Manual](#manual)
 - [License](#license)
 
@@ -71,10 +68,6 @@ The [trucks-compiler][] library provides the core functionality; it bundles plug
 * [generate][] Create output file contents.
 * [write][] Write output files to disc.
 
-### Compilers
-
-* [skate][] Compiles HTML templates to render functions.
-
 ### Resolvers
 
 * [core][resolver-core] Abstract class for resolver plugins.
@@ -82,29 +75,35 @@ The [trucks-compiler][] library provides the core functionality; it bundles plug
 * [http][resolver-http] Resolver for the `http:` and `https:` protocols.
 * [npm][resolver-npm] Resolver for the `npm:` protocol.
 
-### Preprocessors
+### Transforms
+
+#### Compilers
+
+* [skate][] Compiles HTML templates to render functions.
+
+#### Preprocessors
 
 * [less][] Preprocess less sources.
 * [sass][] Preprocess sass sources.
 * [stylus][] Preprocess stylus sources.
 * [trim][] Trim whitespace from inline styles and scripts.
 
-### Styles
+#### Styles
 
 * [style-extract][] Write stylesheets for each component.
 * [style-inject][] Read and overwrite stylesheets for each component.
 
-### Generators
-
-* [page][generator-page] Inject output files into HTML templates.
-
-### Miscellaneous
+#### Miscellaneous
 
 * [csp][transform-csp] Content security policy transformations.
 * [bundle][] Bundle input files with the generated output files.
 * [copy][] Copy input files to the output directory.
 * [tree][] Humanize the component tree using [archy][].
 * [usage][] Generate component usage examples.
+
+### Generators
+
+* [page][generator-page] Inject output files into HTML templates.
 
 ## Manual
 

@@ -184,13 +184,31 @@ class CompilerState {
     const config = this.getConfigFile(file);
     let conf;
 
+    this.log.debug('load config file %s, exists: %s',
+      config, resolved[config] === undefined);
+
     // NOTE: prevent an infinite loop when the input file
     // NOTE: matches a file in the options `files` array
     if(!resolved[config]) {
-      resolved[config] = this.file;
+      resolved[config] = file;
+
+      this.log.debug('cached resolved config %s', config);
+
       try {
         conf = require(config);
         conf.base = path.dirname(file);
+
+        // if no files are declared inherit the file that 
+        // resolved to a compiler option configuration
+        if(!Array.isArray(conf.files)) {
+          conf.files = [file]; 
+        }
+
+        resolved[config] = {
+          file: file,
+          config: conf
+        }
+
       // it's ok if there aren't compiler options available
       }catch(e){}
     }

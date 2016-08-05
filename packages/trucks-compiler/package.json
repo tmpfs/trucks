@@ -21,8 +21,7 @@
     "trucks-plugin-parse": "*",
     "trucks-plugin-transform": "*",
     "trucks-plugin-generate": "*",
-    "trucks-plugin-write": "*",
-    "trucks-resolver-file": "*"
+    "trucks-plugin-write": "*"
   },
   "devDependencies": {
     "babel-cli": "~6.10.1",
@@ -33,6 +32,7 @@
     "istanbul": "~0.4.4",
     "mocha": "~2.5.3",
     "trucks-resolver-core": "*",
+    "trucks-resolver-file": "*",
     "trucks-transform-csp": "*",
     "trucks-transform-skate": "*",
     "trucks-transform-style-extract": "*",

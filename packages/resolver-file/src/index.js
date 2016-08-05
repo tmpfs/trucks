@@ -30,7 +30,7 @@ class FileResolver extends Resolver {
     // NOTE: prevent an infinite loop when the input file
     // NOTE: matches a file in the options `files` array
     if(!this.state.hasConfigFile(this.file)) {
-      //console.dir('RESOLVING WITH OPTIONS');
+      this.state.log.debug('no config file for %s', this.file);
       let conf = this.state.loadConfigFile(this.file);
       if(conf) {
         return cb(null, conf);

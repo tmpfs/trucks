@@ -253,6 +253,8 @@ function sources(state, info, files, parent, cb) {
  *  @returns plugin closure.
  */
 function load(state, conf) {
+  conf = state.options.load || conf;
+
   let protocols = state.options.protocols || conf.protocols || [];
 
   if(!Array.isArray(protocols)) {

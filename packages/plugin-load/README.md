@@ -8,6 +8,10 @@ Reads HTML imports into the component tree resolving files using the registered 
 <link rel="import" href="components.html">
 ```
 
+When protocol plugins are defined as strings and do not resolve to an absolute path they are deemed to be modules to require and are prefixed with `trucks-resolver-` such that `http` will require the `trucks-resolver-http` package.
+
+See the [core][resolver-core], [file][resolver-file], [http][resolver-http] and [npm][resolver-npm] protocol resolver plugins.
+
 ## Install
 
 ```

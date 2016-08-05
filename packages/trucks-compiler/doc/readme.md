@@ -43,8 +43,7 @@ trucks
       usage.md 
       plugin-list.md
       components.md
-      plugins.md
-      transforms.md ?>
+      plugins.md ?>
 
 ## Documents
 

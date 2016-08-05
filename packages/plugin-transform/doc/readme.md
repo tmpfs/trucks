@@ -52,6 +52,8 @@ const options {
 }
 ```
 
+<? @include transforms.md ?>
+
 ## API
 
 <? @exec mkapi src/index.js --level=3 ?>

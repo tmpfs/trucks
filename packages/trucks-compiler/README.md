@@ -258,7 +258,7 @@ Creates an output file.
 
 * `file` String path to the file.
 * `name` String relative path for the file.
-* `base` STring base path for the file.
+* `base` String base path for the file.
 * `options` Object computed options.
 
 #### prepend
@@ -288,6 +288,18 @@ Array contents
 ```
 
 list of file contents.
+
+#### getFileContents
+
+```javascript
+public getFileContents()
+```
+
+Get the computed contents for the output file.
+
+Should be called once just prior to writing the file to disc.
+
+Returns string file contents.
 
 ### Registry
 

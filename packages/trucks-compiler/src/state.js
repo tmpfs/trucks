@@ -233,7 +233,7 @@ class OutputFile {
    *  @public {constructor} OutputFile 
    *  @param {String} file path to the file.
    *  @param {String} name relative path for the file.
-   *  @param {STring} base base path for the file.
+   *  @param {String} base base path for the file.
    *  @param {Object} options computed options.
    */
   constructor(file, name, base, options) {
@@ -285,6 +285,15 @@ class OutputFile {
     return this._contents;
   }
 
+  /**
+   *  Get the computed contents for the output file.
+   *
+   *  Should be called once just prior to writing the file to disc.
+   *
+   *  @public {function} getFileContents
+   *
+   *  @returns string file contents.
+   */
   getFileContents() {
     return this._contents.join(this.eol);
   }

@@ -24,6 +24,8 @@ To use the compiler library programatically:
 npm i trucks-compiler --save-dev
 ```
 
+See [trucks-compiler][] for usage and more documentation.
+
 ## Getting Started
 
 The quickest way to get started is to install the command line interface, compile a package and open `build/index.html` in a recent version of chrome.

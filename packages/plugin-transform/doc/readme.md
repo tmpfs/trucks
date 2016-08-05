@@ -52,7 +52,9 @@ const options {
 }
 ```
 
-<? @include ../../../documents/transforms.md ?>
+## Transforms
+
+<? @include ../../../documents/include/transforms.md ?>
 
 ## API
 

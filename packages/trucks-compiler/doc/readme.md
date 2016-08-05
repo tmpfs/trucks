@@ -18,7 +18,9 @@ npm i trucks-compiler --save-dev
 
 <? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
 
-<? @include ../../../documents/plugins.md ?>
+## Plugins
+
+<? @include ../../../documents/include/plugins.md ?>
 
 ## Options
 

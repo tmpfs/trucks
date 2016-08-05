@@ -2,16 +2,25 @@
 
 > Parses web component modules
 
-Parses component modules (`<dom-module>`) into the component tree.
+Parses component modules (`<dom-module>` elements) into the component tree.
 
-<? @include {=readme}
-      install.md  ?>
+## Install
+
+```
+npm i trucks-plugin-parse --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
 
-<? @include ../../../doc/readme/license.md ?>
-<? @include ../../../doc/readme/links.md ?>
+This plugin is bundled with the core [trucks-compiler][] library and does not have any configuration options.
+
+## API
+
+<? @exec mkapi src/index.js --level=3 ?>
+
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

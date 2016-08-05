@@ -2,7 +2,7 @@
 
 > Parses web component modules
 
-Reads component modules (`<dom-module>`) into the component tree.
+Parses component modules (`<dom-module>` elements) into the component tree.
 
 ## Install
 
@@ -10,21 +10,36 @@ Reads component modules (`<dom-module>`) into the component tree.
 npm i trucks-plugin-parse --save-dev
 ```
 
-For the command line interface see [trucks-cli][].
-
 ---
 
 - [Install](#install)
 - [Usage](#usage)
+- [API](#api)
+  - [parse](#parse)
 - [License](#license)
 
 ---
 
 ## Usage
 
-This plugin is bundled with the core library.
+This plugin is bundled with the core [trucks-compiler][] library and does not have any configuration options.
 
-For command line usage see [trucks-cli][].
+## API
+
+### parse
+
+```javascript
+public parse(state)
+```
+
+Parse components into the compiler state `tree`.
+
+This plugin should be run after the `load` plugin so that the component
+import tree is available.
+
+Returns plugin closure.
+
+* `state` Object compiler state.
 
 ## License
 
@@ -32,10 +47,8 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
-[trucks]: https://github.com/tmpfs/trucks
-[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -55,4 +68,33 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
+[trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler
+[sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
+[load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
+[parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
+[transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
+[generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
+[write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

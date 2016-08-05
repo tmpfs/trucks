@@ -151,6 +151,17 @@ function component(state, mod, context, cb) {
   );
 }
 
+/**
+ *  Parse components into the compiler state `tree`.
+ *
+ *  This plugin should be run after the `load` plugin so that the component 
+ *  import tree is available.
+ *
+ *  @public {function} parse
+ *  @param {Object} state compiler state.
+ *
+ *  @returns plugin closure.
+ */
 function parse(/*state, conf*/) {
 
   return function parse(state, cb) {

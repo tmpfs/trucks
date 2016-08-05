@@ -159,6 +159,20 @@ function guide(cb) {
     {toc: {depth: 2, max: 3}}, cb);
 }
 
+// @task plugins build the plugins docs
+function plugins(cb) {
+  doc(
+    'documents/plugins.md', 'manual/plugins.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
+// @task transforms build the transforms docs
+function transforms(cb) {
+  doc(
+    'documents/transforms.md', 'manual/transforms.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
 // @task developer build the developer docs
 function developer(cb) {
   doc(
@@ -179,12 +193,16 @@ function docs(cb) {cb();}
 mk.task(manual);
 mk.task(introduction);
 mk.task(guide);
+mk.task(plugins);
+mk.task(transforms);
 mk.task(developer);
 mk.task(readme);
 mk.task([
   guide,
   developer,
   introduction,
+  plugins,
+  transforms,
   manual,
   readme
 ], docs);

@@ -186,3 +186,4 @@ A component file can declare multiple components in a single file which can be u
 </dom-module>
 ```
 
+<? @include links.md ?>

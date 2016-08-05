@@ -1,5 +1,9 @@
 ## Plugins
 
+***
+<!-- @toc -->
+***
+
 Plugins execute the main compiler phases that are bundled with the core libary:
 
 * [load][] Read the HTML import tree
@@ -74,3 +78,4 @@ const options = {
 };
 ```
 
+<? @include links.md ?>

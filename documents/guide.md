@@ -4,6 +4,6 @@
 <!-- @toc -->
 ***
 
-<? @include
-    components.md
-    links.md ?>
+<? @include components.md ?>
+
+<? @include links.md ?>

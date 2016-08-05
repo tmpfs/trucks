@@ -15,7 +15,8 @@
 Components follow the [polymer][] style definition to encourage encapsulating all the aspects of a component into a single file:
 
 ```html
-<dom-module id="x-icon">
+<!-- @component x-component -->
+<dom-module id="x-component">
   <template>
     <style>
       /* component styles (shadow scope) */
@@ -31,6 +32,9 @@ Components follow the [polymer][] style definition to encourage encapsulating al
     /* component definition and logic */
   </script>
 </dom-module>
+
+<!-- @usage -->
+<x-component></x-component>
 ```
 
 To allow related components to be grouped together you may wish to use an index file:

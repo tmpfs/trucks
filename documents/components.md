@@ -2,24 +2,7 @@
 
 Components follow the [polymer][] style definition to encourage encapsulating all the aspects of a component into a single file:
 
-```html
-<dom-module id="x-icon">
-  <template>
-    <style>
-      /* component styles (shadow scope) */
-    </style>
-    <!-- template markup -->
-  </template>
-
-  <style>
-    /* global styles (document scope) */
-  </style>
-
-  <script>
-    /* component definition and logic */
-  </script>
-</dom-module>
-```
+<? @source {html} ../examples/boilerplate/components.html ?>
 
 To allow related components to be grouped together you may wish to use an index file:
 

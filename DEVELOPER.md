@@ -6,9 +6,26 @@ You should now be able to use the scripts and tasks, list tasks with `mk --tasks
 
 It is a good idea to run the `build` task before tests; it is recommended that before pushing code the command `mk build test` is run.
 
+At the top-level you run the following commands for all packages:
+
+* `mk install` Install dependencies.
+* `mk test` Run tests.
+* `mk cover` Run code coverage.
+* `mk build` Compile sources.
+* `mk lint` Lint sources.
+
+Build a coverage report for all packages with:
+
+```
+mk cover && npm run report
+```
+
+Note that tests are not included in the npm packages you should clone the repository to run the test suites.
+
 ---
 
 - [Developer](#developer)
+- [Scripts](#scripts)
   - [Build](#build)
   - [Test](#test)
   - [Cover](#cover)
@@ -16,22 +33,16 @@ It is a good idea to run the `build` task before tests; it is recommended that b
   - [Clean](#clean)
   - [Docs](#docs)
   - [Readme](#readme)
-  - [API](#api)
-  - [Options](#options)
-  - [Developer](#developer-1)
-  - [Compiler](#compiler)
 
 ---
 
+## Scripts
+
+In the scope of a package the following scripts are available.
+
 ### Build
 
-Build all packages:
-
-```
-mk build
-```
-
-Convert the ES6 sources for this package:
+Convert the ES6 sources for a package:
 
 ```
 npm run build
@@ -39,47 +50,21 @@ npm run build
 
 ### Test
 
-To run all test suites:
-
-```
-mk test
-```
-
-To run the test suite for the core library:
+To run the test suite:
 
 ```
 npm test
 ```
 
-Tests are not included in the npm package you should clone the repository to run the test suite.
-
 ### Cover
 
-To generate coverage for all packages:
-
-```
-mk cover
-```
-
-You can also build a coverage report for all packages with:
-
-```
-mk cover && npm run report
-```
-
-To generate code coverage for the core library:
+To generate code coverage:
 
 ```
 npm run cover
 ```
 
 ### Lint
-
-To lint all packages:
-
-```
-mk lint
-```
 
 Run the source tree through [jshint][] and [jscs][]:
 
@@ -109,38 +94,6 @@ To build the readme file:
 
 ```
 mk readme
-```
-
-### API
-
-To build the API doc:
-
-```
-mk api
-```
-
-### Options
-
-To build the options doc:
-
-```
-mk options
-```
-
-### Developer
-
-To build the developer doc:
-
-```
-mk developer
-```
-
-### Compiler
-
-To build the compiler doc:
-
-```
-mk compiler
 ```
 
 ---

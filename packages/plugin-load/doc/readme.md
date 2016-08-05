@@ -58,6 +58,8 @@ const options {
 }
 ```
 
+<? @include resolvers.md ?>
+
 ## API
 
 <? @exec mkapi src/index.js --level=3 ?>

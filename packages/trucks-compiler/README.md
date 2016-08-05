@@ -64,7 +64,6 @@ trucks
   - [Dependencies](#dependencies)
   - [Private Dependencies](#private-dependencies)
 - [Plugins](#plugins)
-- [Resolvers](#resolvers-1)
 - [Transforms](#transforms)
   - [Lifecycle](#lifecycle)
   - [Visitors](#visitors)
@@ -412,43 +411,6 @@ const options = {
 };
 ```
 
-## Resolvers
-
-Resolver plugins are mapped to URL protocols and allow the file load mechanism to be extended so that users can distribute and install web components from remote resources or implement custom protocols.
-
-By default a protocol handler for the `file:` scheme is registered by the [load][] plugin so HTML imports can be loaded from the local file system.
-
-To enable a resolver first install the package (`npm i trucks-resolver-http --save-dev`) and then enable the plugin in the `protocols` list:
-
-```javascript
-const options = {
-  files: ['components.html'],
-  protocols: ['http']
-}
-```
-
-You can now use HTTP and HTTPS imports:
-
-```html
-<link rel="import" href="https://domain.com/components.html">
-```
-
-Plugin functions are invoked synchronously before the [load][] plugin executes; they allow HTML imports to be mapped to different protocols.
-
-The signature for resolver plugins is:
-
-```javascript
-function ftp(state, conf) {
-  return (registry) => {
-    registry.register('ftp:', FtpResolver); 
-  }
-}
-```
-
-Plugins must register a subclass of the [core resolver][resolver-core].
-
-See the [file resolver][resolver-file] and [http resolver][resolver-http] for example classes and plugin functions.
-
 ## Transforms
 
 Transforms are a different type of plugin that are executed when the entire component tree is available.
@@ -540,7 +502,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 3, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli

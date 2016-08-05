@@ -44,7 +44,6 @@ trucks
       plugin-list.md
       components.md
       plugins.md
-      resolvers.md
       transforms.md ?>
 
 ## Documents

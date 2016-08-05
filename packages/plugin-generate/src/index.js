@@ -1,6 +1,18 @@
 const PREFIX = 'trucks-generator-';
 
+/**
+ *  Create default output file contents and run generator plugins.
+ *
+ *  @public {function} generate
+ *  @param {Object} state compiler state.
+ *  @param {Object} conf plugin configuration.
+ *  @option {Array} [generators] list generator plugins to run.
+ *
+ *  @returns plugin closure.
+ */
 function generate(state, conf) {
+
+  conf = state.options.generate || conf;
 
   let generators = state.options.generators || conf.generators || [];
 
@@ -12,15 +24,12 @@ function generate(state, conf) {
     }
   );
 
-  //console.dir(closures);
-
   return function generator(state, cb) {
     const opts = state.options;
 
     let file;
 
     // configure defaults
-
     if(opts.html && !state.hasFile(opts.html)) {
       file = state.getFile(opts.html); 
       // concatenate all templates
@@ -60,8 +69,6 @@ function generate(state, conf) {
         cb(null, state); 
       }
     );
-
-    //cb(null, state);
   }
 }
 

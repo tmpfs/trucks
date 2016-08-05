@@ -2,27 +2,70 @@
 
 > Generate output file contents
 
+For each default output type create an output file. When no transforms are enabled this makes the compiler pass through HTML, javascript and styles declared in the input component files.
+
 ## Install
 
 ```
 npm i trucks-plugin-generate --save-dev
 ```
 
-For the command line interface see [trucks-cli][].
-
 ---
 
 - [Install](#install)
 - [Usage](#usage)
+- [API](#api)
+  - [generate](#generate)
 - [License](#license)
 
 ---
 
 ## Usage
 
-This plugin is bundled with the core library.
+This plugin is bundled with the core [trucks-compiler][] library.
 
-For command line usage see [trucks-cli][].
+You can configure this plugin using the `generate` field:
+
+```javascript
+const options {
+  conf: {
+    plugins: {
+      generate: {
+        /* plugin configuration */
+      }
+    }
+  }
+}
+```
+
+Or as a convenient shortcut use the top-level `generate` field:
+
+```javascript
+const options {
+  generate: {
+    /* plugin configuration */
+  }
+}
+```
+
+## API
+
+### generate
+
+```javascript
+public generate(state, conf)
+```
+
+Create default output file contents and run generator plugins.
+
+Returns plugin closure.
+
+* `state` Object compiler state.
+* `conf` Object plugin configuration.
+
+#### Options
+
+* `generators` Array list generator plugins to run.
 
 ## License
 
@@ -30,10 +73,8 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
-[trucks]: https://github.com/tmpfs/trucks
-[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -53,10 +94,33 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
+[trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler
 [sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
 [load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
 [parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
 [transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
 [generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
 [write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

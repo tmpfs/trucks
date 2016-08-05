@@ -31,7 +31,7 @@ const options {
   conf: {
     plugins: {
       write: {
-        /* write plugin configuration */
+        /* plugin configuration */
       }
     }
   }

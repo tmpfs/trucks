@@ -1,39 +1,10 @@
-# Trucks
-
-<? @include readme/badges.md ?>
+# Trucks Compiler
 
 > Web component compiler and package manager
 
 Compiles web components declared as HTML to separate Javascript, CSS and HTML files.
 
-Designed primarily for [skatejs][] with support for [polymer][] coming soon.
-
-Uses ES6 code transpiled for `node@4.x` compatibility.
-
 <? @include {=readme} install.md ?>
-
-## Getting Started
-
-The quickest way to get started is to install the command line interface, compile a package and open `build/index.html` in a recent version of chrome.
-
-```shell
-trucks npm://trucks-example-skate-component -o build
-```
-
-Or from the file system:
-
-```shell
-trucks examples/skate-component/components.html -o build
-```
-
-In each case the [trucks.js](/examples/skate-component/trucks.js) compiler configuration file is used.
-
-If `trucks.js` exists in the current working directory it is prepended to the list of configuration files:
-
-```shell
-cd examples/skate-component
-trucks
-```
 
 ***
 <!-- @toc -->
@@ -41,8 +12,6 @@ trucks
 
 <? @include {=readme}
       usage.md 
-      plugin-list.md
-      components.md
       plugins.md ?>
 
 ## Documents

@@ -2,6 +2,7 @@ var mk = require('mktask')
   , path = require('path')
   , NPM = 'npm'
   , NPM_RUN = 'npm run'
+  , doc = require('./tasks/doc')(mk)
   , fs = require('fs');
 
 function dirs(cb) {
@@ -136,3 +137,17 @@ mk.task(lint);
 mk.task(build);
 mk.task(test);
 mk.task(cover);
+
+// @task readme build the readme file
+function readme(cb) {
+  doc(
+    'documents/readme.md', 'README.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
+// @task docs build all docs
+//function docs(cb){
+  //cb();
+//}
+
+mk.task(readme);

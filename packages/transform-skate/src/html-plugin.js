@@ -38,15 +38,12 @@ function plugin(compiler, options, text) {
                   code += lines[i].substr(0, arg.loc.end.column - 1);
                 }
               }
-
-              //console.dir(code);
             }
 
+            // no code to parse if the argument passed to html() was invalid
             if(code) {
               // NOTE: have to override so that new DOM is created
               options.vdom = null;
-
-              //console.dir(options);
 
               const markup = `<template id="inline-html">${code}</template>`
                   , inline = compiler.html(markup, options);

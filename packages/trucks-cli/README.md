@@ -2,7 +2,7 @@
 
 > Web component compiler command line interface
 
-Command line interface for the [trucks][] libary.
+Command line interface for the [trucks-compiler][] libary.
 
 ## Install
 
@@ -181,7 +181,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 6, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents

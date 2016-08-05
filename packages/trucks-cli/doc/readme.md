@@ -2,7 +2,7 @@
 
 > Web component compiler command line interface
 
-Command line interface for the [trucks][] libary.
+Command line interface for the [trucks-compiler][] libary.
 
 <? @include {=readme}
       install.md ?>

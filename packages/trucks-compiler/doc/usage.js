@@ -4,7 +4,7 @@ trucks(
   {
     files: ['components.html'],
     transforms: ['skate'],
-    out: 'target',
+    out: 'build',
     force: true
   },
   (err, state) => {

@@ -43,7 +43,7 @@ trucks(
   {
     files: ['components.html'],
     transforms: ['skate'],
-    out: 'target',
+    out: 'build',
     force: true
   },
   (err, state) => {
@@ -467,6 +467,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
 [manual]: https://github.com/tmpfs/trucks/blob/master/manual
+[examples]: https://github.com/tmpfs/trucks/blob/master/examples
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler

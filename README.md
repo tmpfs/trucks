@@ -40,8 +40,6 @@ trucks examples/skate-component/components.html -o build
 
 In each case the [trucks.js](https://github.com/tmpfs/trucks/blob/master/examples/skate-component/trucks.js) compiler configuration file is used.
 
-More documentation is in the [manual][].
-
 ---
 
 - [Install](#install)
@@ -54,6 +52,7 @@ More documentation is in the [manual][].
   - [Styles](#styles)
   - [Generators](#generators)
   - [Miscellaneous](#miscellaneous)
+- [Manual](#manual)
 - [License](#license)
 
 ---
@@ -106,6 +105,10 @@ The [trucks-compiler][] library provides the core functionality; it bundles plug
 * [copy][] Copy input files to the output directory.
 * [tree][] Humanize the component tree using [archy][].
 * [usage][] Generate component usage examples.
+## Manual
+
+More documentation is in the [manual][].
+
 ## License
 
 MIT

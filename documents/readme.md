@@ -38,13 +38,15 @@ trucks examples/skate-component/components.html -o build
 
 In each case the [trucks.js](/examples/skate-component/trucks.js) compiler configuration file is used.
 
-More documentation is in the [manual][].
-
 ***
 <!-- @toc -->
 ***
 
 <? @include plugin-list.md ?>
+
+## Manual
+
+More documentation is in the [manual][].
 
 <? @include
     license.md 

@@ -48,6 +48,10 @@ In each case the [trucks.js](/examples/skate-component/trucks.js) compiler confi
 
 More documentation is in the [manual][].
 
+## Examples
+
+Component projects are in the [examples][] directory.
+
 <? @include plugin-list.md ?>
 
 <? @include

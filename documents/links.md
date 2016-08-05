@@ -19,6 +19,7 @@
 [jscs]: http://jscs.info
 
 [manual]: /manual
+[examples]: /examples
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: /packages/trucks-cli

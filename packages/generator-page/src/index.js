@@ -110,7 +110,7 @@ function page(state, conf) {
     );
   }
 
-  return (cb) => {
+  return (state, cb) => {
     state.each(
       keys,
       (key, next) => {

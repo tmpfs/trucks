@@ -46,15 +46,19 @@ In each case the [trucks.js](https://github.com/tmpfs/trucks/blob/master/example
 
 - [Install](#install)
 - [Getting Started](#getting-started)
+- [Manual](#manual)
 - [Plugin List](#plugin-list)
   - [Core](#core)
   - [Resolvers](#resolvers)
   - [Transforms](#transforms)
   - [Generators](#generators)
-- [Manual](#manual)
 - [License](#license)
 
 ---
+
+## Manual
+
+More documentation is in the [manual][].
 
 ## Plugin List
 
@@ -106,10 +110,6 @@ The [trucks-compiler][] library provides the core functionality; it bundles plug
 ### Generators
 
 * [page][generator-page] Inject output files into HTML templates.
-
-## Manual
-
-More documentation is in the [manual][].
 
 ## License
 

@@ -44,11 +44,11 @@ In each case the [trucks.js](/examples/skate-component/trucks.js) compiler confi
 <!-- @toc -->
 ***
 
-<? @include plugin-list.md ?>
-
 ## Manual
 
 More documentation is in the [manual][].
+
+<? @include plugin-list.md ?>
 
 <? @include
     license.md 

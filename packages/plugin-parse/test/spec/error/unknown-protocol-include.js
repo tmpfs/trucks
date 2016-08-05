@@ -7,7 +7,7 @@ describe('parse:', function() {
     trucks(
       {
         files: [
-          'test/fixtures/unknown-protocol/components.html'
+          '../../test/fixtures/unknown-protocol/components.html'
         ],
         plugins: [trucks.LOAD, require('../../../src')]
       },

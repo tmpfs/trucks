@@ -1,11 +1,11 @@
-# Skate Example
+# Boilerplate Example
 
-This document demonstrates using the [skate][] compiler transform.
+This document demonstrates a simple compiler confguration with a skeleton component.
 
 ## Install
 
 ```
-npm i trucks-example-skate-component
+npm i trucks-example-boilerplate
 ```
 
 To build this example install the command line interface `npm i -g trucks` and the example dependencies (`npm i`) then run:
@@ -13,8 +13,6 @@ To build this example install the command line interface `npm i -g trucks` and t
 ```shell
 trucks
 ```
-
-Open `build/index.html` to see the rendered component or serve over HTTP with `node server.js` and visit `http://localhost:3000`.
 
 ***
 <!-- @toc -->

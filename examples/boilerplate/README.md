@@ -1,11 +1,11 @@
-# Skate Example
+# Boilerplate Example
 
-This document demonstrates using the [skate][] compiler transform.
+This document demonstrates a simple compiler confguration with a skeleton component.
 
 ## Install
 
 ```
-npm i trucks-example-skate-component
+npm i trucks-example-boilerplate
 ```
 
 To build this example install the command line interface `npm i -g trucks` and the example dependencies (`npm i`) then run:
@@ -13,8 +13,6 @@ To build this example install the command line interface `npm i -g trucks` and t
 ```shell
 trucks
 ```
-
-Open `build/index.html` to see the rendered component or serve over HTTP with `node server.js` and visit `http://localhost:3000`.
 
 ---
 
@@ -29,11 +27,10 @@ Open `build/index.html` to see the rendered component or serve over HTTP with `n
 ```javascript
 const options = {
   files: [__dirname + '/components.html'],
-  transforms: ['trim', 'csp', 'skate', 'bundle', 'usage'],
+  transforms: ['trim', 'usage'],
   generators: ['page'],
   out: 'build',
   force: true,
-  css: false,
   html: false,
   page: {
     files: {
@@ -42,17 +39,6 @@ const options = {
   },
   write: {
     exclude: /\.?usage.html$/
-  },
-  conf: {
-    transforms: {
-      csp: {
-        sha: 'sha256',
-        statics: true 
-      },
-      bundle: {
-        js: [require.resolve('skatejs/dist/index-with-deps.js')]
-      }
-    }
   }
 }
 
@@ -64,91 +50,26 @@ module.exports = options;
 Component definition file [components.html](components.html):
 
 ```html
-<!-- @component x-panel -->
-<dom-module id="x-panel">
-
+<!-- @component x-component -->
+<dom-module id="x-component">
   <template>
     <style>
-      /*
-        Inline styles for the shadow DOM.
-      */
-      * {
-        font-family: sans-serif;
-        color: white;
-      }
-
-      p, ::content p {
-        margin: 0; 
-        padding: 1em;
-      }
-
-      .title {
-        background: black;
-        cursor: pointer;
-      }
-
-      .content {
-        min-height: 10em;
-        background: gray;
-      }
+      /* component styles (shadow scope) */
     </style>
-
-    <div class="container">
-      <p onclick="this.titleClick" class="title">${this.title}</p>
-      <div class="content">
-        <slot name="content"></slot>
-        <ul class="items">
-          <script>
-            this.values.forEach((item) => {
-              html(`<li>${item}</li>`); 
-            })
-          </script>
-        </ul>
-        <script>
-          if(this.lang) {
-            partial('current');
-          }
-        </script>
-      </div>
-    </div>
+    <!-- template markup -->
   </template>
 
-  <template id="current">
-    <p>Current language: <em>${this.lang.toLowerCase()}</em></p> 
-  </template>
+  <style>
+    /* global styles (document scope) */
+  </style>
 
   <script>
-    skate.define('{{id}}', {
-      props: {
-        lang: {
-          attribute: true 
-        },
-        values: {
-          attribute: true,
-          deserialize (val) {
-            return val.split(/\s*,\s*/);
-          },
-          serialize (val) {
-            return val.join(',');
-          }
-        }
-      },
-      prototype: {
-        titleClick(e) {
-          console.log('click: ' + e.currentTarget.tagName.toLowerCase());
-          console.log(this);
-        }
-      },
-      render: template
-    });
+    /* component definition and logic */
   </script>
 </dom-module>
 
 <!-- @usage -->
-<x-panel title="Languages" lang="English" values="English, French, Spanish">
-  <p slot="content">Choose your language preference</p> 
-</x-panel>
-
+<x-component></x-component>
 ```
 
 ---

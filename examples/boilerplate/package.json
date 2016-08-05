@@ -1,7 +1,7 @@
 {
-  "name": "trucks-example-skate-component",
-  "version": "1.0.5",
-  "description": "Skate compiler transform example",
+  "name": "trucks-example-boilerplate",
+  "version": "1.0.0",
+  "description": "Skeleton web component",
   "author": "muji <noop@xpm.io>",
   "license": "MIT",
   "repository": {
@@ -12,11 +12,7 @@
     "node": ">=4.0"
   },
   "dependencies": {
-    "skatejs": "~1.0.0-beta.19",
     "trucks-generator-page": "~1.0.1",
-    "trucks-transform-bundle": "*",
-    "trucks-transform-csp": "*",
-    "trucks-transform-skate": "*",
     "trucks-transform-trim": "*",
     "trucks-transform-usage": "*"
   },

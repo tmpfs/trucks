@@ -141,7 +141,7 @@ mk.task(cover);
 // @task manual build the manual docs
 function manual(cb) {
   doc(
-    'documents/manual.md', 'manual/README.md',
+    'documents/manual.md', 'manual/readme.md',
     {toc: {depth: 2, max: 3}}, cb);
 }
 

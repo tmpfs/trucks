@@ -2,7 +2,7 @@
 
 > Parses web component modules
 
-Parses component modules (`<dom-module>` elements) into the component tree.
+Parses `<dom-module>` elements into the component tree.
 
 ## Install
 

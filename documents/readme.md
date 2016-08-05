@@ -40,19 +40,14 @@ trucks examples/skate-component/components.html -o build
 
 In each case the [trucks.js](/examples/skate-component/trucks.js) compiler configuration file is used.
 
-If `trucks.js` exists in the current working directory it is prepended to the list of configuration files:
-
-```shell
-cd examples/skate-component
-trucks
-```
+More documentation is in the [manual][].
 
 ***
 <!-- @toc -->
 ***
 
+<? @include plugin-list.md ?>
+
 <? @include
-      plugin-list.md
-      components.md
-      license.md 
-      links.md ?>
+    license.md 
+    links.md ?>

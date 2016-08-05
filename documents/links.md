@@ -18,6 +18,7 @@
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
 
+[manual]: /manual
 
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: /packages/trucks-cli

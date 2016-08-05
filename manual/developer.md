@@ -119,6 +119,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[manual]: https://github.com/tmpfs/trucks/blob/master/manual
 [trucks]: https://github.com/tmpfs/trucks
 [trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler

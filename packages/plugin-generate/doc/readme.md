@@ -2,9 +2,9 @@
 
 > Run generator plugins
 
-For each default output type create an output file and run generator plugins.
+Run generator plugins defined in the `generators` list.
 
-When no transforms are enabled this makes the compiler pass through HTML, CSS and Javascript declared in the input component files.
+For each default output type create an output file if it does not already exist, which means that when no transforms are enabled this makes the compiler pass through HTML, CSS and Javascript declared in the input component files.
 
 When generator plugins are defined as strings and do not resolve to an absolute path they are deemed to be modules to require and are prefixed with `trucks-generator-` such that `page` will require the `trucks-generator-page` package.
 

@@ -105,6 +105,7 @@ The [trucks-compiler][] library provides the core functionality; it bundles plug
 * [copy][] Copy input files to the output directory.
 * [tree][] Humanize the component tree using [archy][].
 * [usage][] Generate component usage examples.
+
 ## Manual
 
 More documentation is in the [manual][].

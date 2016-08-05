@@ -460,8 +460,8 @@ function render(el, opts, prefix) {
         continue;
       }else if(child.type === TAG
         || child.type === STYLE
-        // run time script
-        || (child.type === SCRIPT && !opts.scripts)) {
+        // run time script - output literally, not compiled
+        || child.type === SCRIPT) {
         args = [t.stringLiteral(child.name)];
 
         // push attributes into function call when not empty
@@ -517,12 +517,12 @@ function render(el, opts, prefix) {
         }
 
         // parsing as inline template script to be compiled
-        if(opts.scripts
-          && child.tagName
-          && child.tagName.toLowerCase() === SCRIPT
-          && el.attr('type') === undefined) {
-          continue;
-        }else{
+        //if(opts.scripts
+          //&& child.tagName
+          //&& child.tagName.toLowerCase() === SCRIPT
+          //&& el.attr('type') === undefined) {
+          //continue;
+        //}else{
 
           // support for template literals in text nodes
           if(opts.literals.text && PATTERN.test(text)) {
@@ -536,12 +536,12 @@ function render(el, opts, prefix) {
           args = [arg];
           expr = t.expressionStatement(
             getCallExpression(t, TEXT, args));
-        }
+        //}
       }
 
-      if(expr) {
+      //if(expr) {
         body.push(expr);
-      }
+      //}
     }
   }
 

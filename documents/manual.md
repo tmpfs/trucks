@@ -1,4 +1,5 @@
 # Manual
 
-* [guide](guide.md) User Guide
-* [developer](developer.md) Developer documentation
+* [Introduction](introduction.md) Motivation & Rationale
+* [Guide](guide.md) User Guide
+* [Developer](developer.md) Developer documentation

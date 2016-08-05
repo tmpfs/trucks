@@ -138,11 +138,17 @@ mk.task(build);
 mk.task(test);
 mk.task(cover);
 
-
 // @task manual build the manual docs
 function manual(cb) {
   doc(
     'documents/manual.md', 'manual/README.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
+// @task introduction build the introduction docs
+function introduction(cb) {
+  doc(
+    'documents/introduction.md', 'manual/introduction.md',
     {toc: {depth: 2, max: 3}}, cb);
 }
 
@@ -168,12 +174,17 @@ function readme(cb) {
 }
 
 // @task docs build all docs
-function docs(cb) {
-  cb();
-}
+function docs(cb) {cb();}
 
 mk.task(manual);
+mk.task(introduction);
 mk.task(guide);
 mk.task(developer);
 mk.task(readme);
-mk.task([guide, developer, manual, readme], docs)
+mk.task([
+  guide,
+  developer,
+  introduction,
+  manual,
+  readme
+], docs);

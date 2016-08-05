@@ -4,7 +4,11 @@
 
 Compiles web components declared as HTML to separate Javascript, CSS and HTML files.
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-compiler --save-dev
+```
 
 ***
 <!-- @toc -->
@@ -26,10 +30,7 @@ This document shows the default options used when none are provided.
 
 ## Documents
 
-Some background on motivation and rationale is in the [INTRO](/packages/trucks-compiler/doc/INTRO.md).
-
 For insights into the compiler phases and data structures see [COMPILER](/packages/trucks-compiler/doc/COMPILER.md).
 
-<? @include {=readme}
-      license.md
-      links.md ?>
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

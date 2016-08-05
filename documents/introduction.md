@@ -35,4 +35,4 @@ The [trucks][] library aims to bring component encapsulation to [skatejs][] and 
 
 Another benefit of this library is that it converts [HTML Imports][html-imports] to *compile time only* which is important as [Mozilla will not ship HTML Imports][mozilla-webcomponents], one less polyfill!
 
-<? @include ../readme/links.md ?>
+<? @include links.md ?>

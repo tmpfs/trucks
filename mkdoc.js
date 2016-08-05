@@ -138,7 +138,14 @@ mk.task(build);
 mk.task(test);
 mk.task(cover);
 
-// @task readme build the readme file
+// @task developer build the developer docs
+function developer(cb) {
+  doc(
+    'documents/developer.md', 'DEVELOPER.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
+// @task readme build the readme docs
 function readme(cb) {
   doc(
     'documents/readme.md', 'README.md',
@@ -146,8 +153,10 @@ function readme(cb) {
 }
 
 // @task docs build all docs
-//function docs(cb){
-  //cb();
-//}
+function docs(cb) {
+  cb();
+}
 
+mk.task(developer);
 mk.task(readme);
+mk.task([developer, readme], docs)

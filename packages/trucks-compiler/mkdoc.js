@@ -27,13 +27,6 @@ function options(cb) {
     {toc: {depth: 2, max: 3}}, cb);
 }
 
-// @task developer build the developer file
-function developer(cb) {
-  doc(
-    'doc/developer/developer.md', 'doc/DEVELOPER.md',
-    {toc: {depth: 2, max: 3}}, cb);
-}
-
 // @task compiler build the compiler file
 function compiler(cb) {
   doc(
@@ -55,7 +48,6 @@ function docs(cb){
 
 mk.task(intro);
 mk.task(options);
-mk.task(developer);
 mk.task(compiler);
 
 mk.task(api);
@@ -65,7 +57,6 @@ mk.task([
   api,
   intro,
   options,
-  developer, 
   compiler,
   readme
 ], docs);

@@ -1,52 +1,152 @@
-## Introduction
+## Developer
 
-[Web components][webcomponents] are a collection of emerging standards that allow developers to create re-usable custom user interface elements.
+Install [mkdoc][] `npm i -g mkdoc` and then install dependencies for all packages with `mk install`.
 
-The web components specifications are:
+You should now be able to use the scripts and tasks, list tasks with `mk --tasks`.
 
-* [Shadow DOM][shadow-dom]
-* [Custom Elements][custom-elements]
-* [HTML Imports][html-imports]
-* [HTML Templates][html-templates]
-
-At the time of writing very few browsers support all of these emerging standards so polyfills are required.
-
-There are several problems with the state of the current frameworks.
+It is a good idea to run the `build` task before tests; it is recommended that before pushing code the command `mk build test` is run.
 
 ---
 
-- [Introduction](#introduction)
-  - [Polymer](#polymer)
-  - [Skate](#skate)
-  - [React](#react)
-  - [Trucks](#trucks)
+- [Developer](#developer)
+  - [Build](#build)
+  - [Test](#test)
+  - [Cover](#cover)
+  - [Lint](#lint)
+  - [Clean](#clean)
+  - [Docs](#docs)
+  - [Readme](#readme)
+  - [API](#api)
+  - [Options](#options)
+  - [Developer](#developer-1)
+  - [Compiler](#compiler)
 
 ---
 
-### Polymer
+### Build
 
-The [polymer project][polymer] has a large suite of components but these components are all defined using inline scripts and inline styles which is very convenient from an authoring point of view (component encapsulation) but has issues when you need a strict [content security policy][csp] that disables inline styles and scripts.
+Build all packages:
 
-### Skate
+```
+mk build
+```
 
-The [skatejs][] project has a very efficient design using a virtual dom that incrementally renders component view changes. It is the smallest of the frameworks and because it does not depend upon [HTML Templates][html-templates] or [HTML Imports][html-imports] a component can be created using javascript and css but this makes it difficult to easily encapsulate a component definition into a single file.
+Convert the ES6 sources for this package:
 
-### React
+```
+npm run build
+```
 
-The [react framework][react] is [not tracking the webcomponents standards][react-webcomponents] and therefore for those that prefer to use web standards it's not really an option. But you can compile [skatejs][] component definitions to react components using the [react integration][react-integration] module.
+### Test
 
-### Trucks
+To run all test suites:
 
-The [trucks][] library aims to bring component encapsulation to [skatejs][] and allow [polymer][] component definitions to be compiled to bypass the [content security policy][csp] problem.
+```
+mk test
+```
 
-Another benefit of this library is that it converts [HTML Imports][html-imports] to *compile time only* which is important as [Mozilla will not ship HTML Imports][mozilla-webcomponents], one less polyfill!
+To run the test suite for the core library:
+
+```
+npm test
+```
+
+Tests are not included in the npm package you should clone the repository to run the test suite.
+
+### Cover
+
+To generate coverage for all packages:
+
+```
+mk cover
+```
+
+You can also build a coverage report for all packages with:
+
+```
+mk cover && npm run report
+```
+
+To generate code coverage for the core library:
+
+```
+npm run cover
+```
+
+### Lint
+
+To lint all packages:
+
+```
+mk lint
+```
+
+Run the source tree through [jshint][] and [jscs][]:
+
+```
+npm run lint
+```
+
+### Clean
+
+Remove generated files:
+
+```
+npm run clean
+```
+
+### Docs
+
+To build all documentation files:
+
+```
+mk docs
+```
+
+### Readme
+
+To build the readme file:
+
+```
+mk readme
+```
+
+### API
+
+To build the API doc:
+
+```
+mk api
+```
+
+### Options
+
+To build the options doc:
+
+```
+mk options
+```
+
+### Developer
+
+To build the developer doc:
+
+```
+mk developer
+```
+
+### Compiler
+
+To build the compiler doc:
+
+```
+mk compiler
+```
 
 ---
 
 Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
-[trucks]: https://github.com/tmpfs/trucks
-[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -66,6 +166,9 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
+[trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler
 [sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
 [load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
 [parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse

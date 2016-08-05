@@ -2,7 +2,7 @@
 
 > Generate output file contents
 
-For each default output type create an output file. When no transforms are enabled this makes the compiler pass through HTML, javascript and styles declared in the input component files.
+For each default output type create an output file. When no transforms are enabled this makes the compiler pass through HTML, CSS and Javascript declared in the input component files.
 
 ## Install
 

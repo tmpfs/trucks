@@ -68,21 +68,32 @@ function runVisitor(state, visitors, node, cb) {
     cb
   );
 }
-
+/**
+ *  Runs transform plugins on the component tree.
+ *
+ *  @public {function} transform
+ *  @param {Object} state compiler state.
+ *  @param {Object} conf plugin configuration.
+ *  @param {Array} [transforms] list of transform plugins.
+ *
+ *  @returns plugin closure.
+ */
 function transform(state, conf) {
-  // TODO: rename visitors -> transforms
-  let visitors = state.options.transforms || conf.visitors || [];
+  const options = state.options;
+  conf = options.transform || conf;
+
+  let visitors = options.transforms || conf.transforms || [];
 
   if(!Array.isArray(visitors)) {
     throw new Error(`transform visitors array expected`); 
   }
 
-  if(Array.isArray(state.options.before.transforms)) {
-    visitors = state.options.before.transforms.concat(visitors);
+  if(Array.isArray(options.before.transforms)) {
+    visitors = options.before.transforms.concat(visitors);
   }
 
-  if(Array.isArray(state.options.after.transforms)) {
-    visitors = visitors.concat(state.options.after.transforms);
+  if(Array.isArray(options.after.transforms)) {
+    visitors = visitors.concat(options.after.transforms);
   }
 
   state.log.debug('transforms %j', visitors);

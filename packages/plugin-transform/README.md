@@ -4,27 +4,75 @@
 
 Runs plugin functions that visit the component tree nodes and perform transformations.
 
+When transform plugins are defined as strings and do not resolve to an absolute path they are deemed to be modules to require and are prefixed with `trucks-transform-` such that `csp` will require the `trucks-transform-csp` package.
+
 ## Install
 
 ```
 npm i trucks-plugin-transform --save-dev
 ```
 
-For the command line interface see [trucks-cli][].
-
 ---
 
 - [Install](#install)
 - [Usage](#usage)
+- [API](#api)
+  - [transform](#transform)
 - [License](#license)
 
 ---
 
 ## Usage
 
-This plugin is bundled with the core library.
+This plugin is bundled with the core [trucks-compiler][] library.
 
-For command line usage see [trucks-cli][].
+If a `transforms` array is declared on the options it is used:
+
+```javascript
+const options = {
+  transforms: ['csp']
+}
+```
+
+Configure this plugin using the `transform` field:
+
+```javascript
+const options {
+  conf: {
+    plugins: {
+      transform: {
+        /* plugin configuration */
+      }
+    }
+  }
+}
+```
+
+Or as a convenient shortcut use the top-level `transform` field:
+
+```javascript
+const options {
+  transform: {
+    /* plugin configuration */
+  }
+}
+```
+
+## API
+
+### transform
+
+```javascript
+public transform(state, conf[, transforms])
+```
+
+Runs transform plugins on the component tree.
+
+Returns plugin closure.
+
+* `state` Object compiler state.
+* `conf` Object plugin configuration.
+* `transforms` Array list of transform plugins.
 
 ## License
 
@@ -32,10 +80,8 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
-[trucks]: https://github.com/tmpfs/trucks
-[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -55,4 +101,33 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on July 17, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
+[trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler
+[sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
+[load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
+[parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse
+[transform]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-transform
+[generate]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-generate
+[write]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-write
+[transform-csp]: https://github.com/tmpfs/trucks/blob/master/packages/transform-csp
+[bundle]: https://github.com/tmpfs/trucks/blob/master/packages/transform-bundle
+[copy]: https://github.com/tmpfs/trucks/blob/master/packages/transform-copy
+[skate]: https://github.com/tmpfs/trucks/blob/master/packages/transform-skate
+[stylus]: https://github.com/tmpfs/trucks/blob/master/packages/transform-stylus
+[less]: https://github.com/tmpfs/trucks/blob/master/packages/transform-less
+[sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
+[trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
+[tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
+[style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
+[resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
+[resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
+[resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
+[resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[less-css]: http://lesscss.org/
+[sass-css]: http://sass-lang.com/
+[stylus-css]: http://stylus-lang.com/
+[node-sass]: https://github.com/sass/node-sass
+[archy]: https://github.com/substack/node-archy
 

@@ -19,7 +19,7 @@ describe('transform:', function() {
         conf: {
           plugins: {
             transform: {
-              visitors: 'foo'
+              transforms: 'foo'
             }
           }
         }

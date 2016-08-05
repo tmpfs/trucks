@@ -4,7 +4,7 @@
 <!-- @toc -->
 ***
 
-Transforms are a different type of plugin that are executed when the entire component tree is available.
+Transforms are plugins executed by the [transform][] plugin when the entire component tree is available.
 
 A transform plugin returns a map of visitor functions and/or lifecycle callbacks:
 

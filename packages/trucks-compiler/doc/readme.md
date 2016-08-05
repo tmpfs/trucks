@@ -14,13 +14,21 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
       usage.md 
       plugins.md ?>
 
+## Options
+
+This document shows the default options used when none are provided.
+
+<? @source {javascript} ../defaults.js ?>
+
+## API
+
+<? @exec mkapi src/** --level=3 ?>
+
 ## Documents
 
 Some background on motivation and rationale is in the [INTRO](/packages/trucks-compiler/doc/INTRO.md).
 
-For the API docs see [API](/doc/API.md), an overview of the available options is in [OPTIONS](/packages/trucks-compiler/doc/OPTIONS.md). For insights into the compiler phases and data structures see [COMPILER](/packages/trucks-compiler/doc/COMPILER.md).
-
-Information on how to build this project is in [DEVELOPER](/packages/trucks-compiler/doc/DEVELOPER.md).
+For insights into the compiler phases and data structures see [COMPILER](/packages/trucks-compiler/doc/COMPILER.md).
 
 <? @include {=readme}
       license.md

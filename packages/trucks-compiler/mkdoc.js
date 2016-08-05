@@ -20,13 +20,6 @@ function intro(cb) {
     {toc: {depth: 2, max: 3}}, cb);
 }
 
-// @task options build the options file
-function options(cb) {
-  doc(
-    'doc/options/options.md', 'doc/OPTIONS.md',
-    {toc: {depth: 2, max: 3}}, cb);
-}
-
 // @task compiler build the compiler file
 function compiler(cb) {
   doc(
@@ -47,7 +40,6 @@ function docs(cb){
 }
 
 mk.task(intro);
-mk.task(options);
 mk.task(compiler);
 
 mk.task(api);
@@ -56,7 +48,6 @@ mk.task(readme);
 mk.task([
   api,
   intro,
-  options,
   compiler,
   readme
 ], docs);

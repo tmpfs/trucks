@@ -562,10 +562,9 @@ function render(el, opts, prefix) {
 
   return {
     element: el,
-    attributes: tpl.attr(),
     id: id,
-    name: tpl.get(0).tagName,
     body: t.program(body),
+    // TODO: do not automatically build entire render function
     render: t.program([getFunctionDeclaration(t, body, opts)])
   }
 }

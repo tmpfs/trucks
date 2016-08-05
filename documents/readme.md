@@ -2,7 +2,7 @@
 
 <? @include badges.md ?>
 
-> Web component compiler and package manager
+> Framework agnostic, extensible web component compiler and package manager
 
 Compiles web components declared as HTML to separate Javascript, CSS and HTML files.
 

@@ -4,7 +4,7 @@
 [![npm version](http://img.shields.io/npm/v/trucks-compiler.svg?v=3)](https://npmjs.org/package/trucks-compiler)
 [![Coverage Status](https://coveralls.io/repos/tmpfs/trucks/badge.svg?branch=master&service=github&v=5)](https://coveralls.io/github/tmpfs/trucks?branch=master)
 
-> Web component compiler and package manager
+> Framework agnostic, extensible web component compiler and package manager
 
 Compiles web components declared as HTML to separate Javascript, CSS and HTML files.
 

@@ -60,7 +60,11 @@ function generate(state, conf) {
     state.each(
       closures,
       (fn, next) => {
-        fn(state, next); 
+        try {
+          fn(state, next); 
+        }catch(e) {
+          next(e); 
+        }
       },
       (err) => {
         if(err) {

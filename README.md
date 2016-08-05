@@ -10,8 +10,6 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
 
 Designed primarily for [skatejs][] with support for [polymer][] coming soon.
 
-Uses ES6 code transpiled for `node@4.x` compatibility.
-
 ## Install
 
 To install the command line interface run:
@@ -49,10 +47,12 @@ More documentation is in the [manual][].
 - [Install](#install)
 - [Getting Started](#getting-started)
 - [Plugin List](#plugin-list)
+- [Core](#core)
   - [Compilers](#compilers)
   - [Resolvers](#resolvers)
   - [Preprocessors](#preprocessors)
   - [Styles](#styles)
+  - [Generators](#generators)
   - [Miscellaneous](#miscellaneous)
 - [License](#license)
 
@@ -61,6 +61,16 @@ More documentation is in the [manual][].
 ## Plugin List
 
 Plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
+
+## Core
+
+The [trucks-compiler][] library provides the core functionality; it bundles plugins for each compiler phase:
+
+* [load][] Read the HTML import tree.
+* [parse][] Parse the `<dom-module>` elements.
+* [transform][] Run tree transformations.
+* [generate][] Create output file contents.
+* [write][] Write output files to disc.
 
 ### Compilers
 
@@ -86,12 +96,16 @@ Plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
 * [style-extract][] Write stylesheets for each component.
 * [style-inject][] Read and overwrite stylesheets for each component.
 
+### Generators
+
+* [page][generator-page] Inject output files into HTML templates.
+
 ### Miscellaneous
 
 * [bundle][] Bundle input files with the generated output files.
 * [copy][] Copy input files to the output directory.
 * [tree][] Humanize the component tree using [archy][].
-
+* [usage][] Generate component usage examples.
 ## License
 
 MIT
@@ -138,12 +152,14 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
 [trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[usage]: https://github.com/tmpfs/trucks/blob/master/packages/transform-usage
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
 [resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
 [resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

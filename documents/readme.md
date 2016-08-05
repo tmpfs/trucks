@@ -8,8 +8,6 @@ Compiles web components declared as HTML to separate Javascript, CSS and HTML fi
 
 Designed primarily for [skatejs][] with support for [polymer][] coming soon.
 
-Uses ES6 code transpiled for `node@4.x` compatibility.
-
 ## Install
 
 To install the command line interface run:

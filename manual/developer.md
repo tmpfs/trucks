@@ -1,5 +1,7 @@
 # Developer
 
+Sources are ES6 code transpiled for `node@4.x` compatibility.
+
 Install [mkdoc][] `npm i -g mkdoc` and then install dependencies for all packages with `mk install`.
 
 You should now be able to use the scripts and tasks, list tasks with `mk --tasks`.
@@ -138,12 +140,14 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 [sass]: https://github.com/tmpfs/trucks/blob/master/packages/transform-sass
 [trim]: https://github.com/tmpfs/trucks/blob/master/packages/transform-trim
 [tree]: https://github.com/tmpfs/trucks/blob/master/packages/transform-tree
+[usage]: https://github.com/tmpfs/trucks/blob/master/packages/transform-usage
 [style-extract]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-extract
 [style-inject]: https://github.com/tmpfs/trucks/blob/master/packages/transform-style-inject
 [resolver-core]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-core
 [resolver-file]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-file
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
+[generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

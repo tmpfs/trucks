@@ -40,6 +40,7 @@
 [sass]: /packages/transform-sass
 [trim]: /packages/transform-trim
 [tree]: /packages/transform-tree
+[usage]: /packages/transform-usage
 [style-extract]: /packages/transform-style-extract
 [style-inject]: /packages/transform-style-inject
 
@@ -47,6 +48,8 @@
 [resolver-file]: /packages/resolver-file
 [resolver-http]: /packages/resolver-http
 [resolver-npm]: /packages/resolver-npm
+
+[generator-page]: /packages/generator-page
 
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/

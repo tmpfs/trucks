@@ -1,18 +1,6 @@
 var mk = require('mktask')
   , doc = require('../../tasks/doc')(mk);
 
-// @task api build the api docs.
-function api(cb) {
-  // build intermediary file
-  const exec = require('child_process').execSync;
-  exec(
-    'mkapi src/index.js src/state.js src/component.js  --level=3 '
-      + '> doc/api/api-docs.md');
-
-  // build the docs
-  doc('doc/api/api.md', 'doc/API.md', {toc: {depth: 2}}, cb);
-}
-
 // @task intro build the intro docs.
 function intro(cb) {
   doc(
@@ -41,12 +29,9 @@ function docs(cb){
 
 mk.task(intro);
 mk.task(compiler);
-
-mk.task(api);
 mk.task(readme);
 
 mk.task([
-  api,
   intro,
   compiler,
   readme

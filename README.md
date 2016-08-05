@@ -91,7 +91,6 @@ The [trucks-compiler][] library provides the core functionality; it bundles plug
 
 ### Styles
 
-* [csp][transform-csp] Content security policy transformations.
 * [style-extract][] Write stylesheets for each component.
 * [style-inject][] Read and overwrite stylesheets for each component.
 
@@ -101,6 +100,7 @@ The [trucks-compiler][] library provides the core functionality; it bundles plug
 
 ### Miscellaneous
 
+* [csp][transform-csp] Content security policy transformations.
 * [bundle][] Bundle input files with the generated output files.
 * [copy][] Copy input files to the output directory.
 * [tree][] Humanize the component tree using [archy][].

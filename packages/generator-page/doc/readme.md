@@ -2,17 +2,25 @@
 
 > Inject output files into HTML templates 
 
-<? @include {=readme} install.md ?>
+## Install
+
+```
+npm i trucks-generator-page --save-dev
+```
 
 ***
 <!-- @toc -->
 ***
 
-<? @include {=readme} usage.md ?>
+## Usage
+
+Use the `page` key to configure this transform:
+
+<? @source {javascript=s/(\.\.\/)+lib\/index/trucks-compiler/gm} usage.js ?>
 
 ## API
 
 <? @exec mkapi src/index.js --level=3 ?>
 
-<? @include ../../../packages/trucks-compiler/doc/readme/license.md ?>
-<? @include ../../../packages/trucks-compiler/doc/readme/links.md ?>
+<? @include ../../../documents/license.md ?>
+<? @include ../../../documents/links.md ?>

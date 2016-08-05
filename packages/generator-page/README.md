@@ -1,14 +1,12 @@
-# Page Transform
+# Page Generator
 
 > Inject output files into HTML templates
 
 ## Install
 
 ```
-npm i trucks-transform-page --save-dev
+npm i trucks-generator-page --save-dev
 ```
-
-For the command line interface see [trucks-cli][].
 
 ---
 
@@ -30,7 +28,7 @@ const trucks = require('trucks-compiler');
 trucks(
   {
     files: ['components.html'],
-    transforms: ['page'],
+    generators: ['page'],
     page: {
       files: {
         'template.html': 'index.html'
@@ -55,6 +53,11 @@ public page(state, conf)
 
 Replace processing instructions in input files with markup.
 
+By default a grammar is used that maps the `@file` tag to a `file` function
+which looks in the compiler state `output` to see if a matching output file
+exists; if the file exists the processing instruction is replaced with the
+file contents.
+
 Returns map of visitor functions.
 
 * `state` Object compiler state.
@@ -62,7 +65,8 @@ Returns map of visitor functions.
 
 #### Options
 
-* `files` Array list of files to process.
+* `files` Object map of files to process.
+* `grammar` Object alternative map of tag functions.
 
 ## License
 
@@ -70,10 +74,8 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 3, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
 
-[trucks]: https://github.com/tmpfs/trucks
-[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
 [shadow-dom]: https://w3c.github.io/webcomponents/spec/shadow/
@@ -93,6 +95,9 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 3, 2016
 [mkparse]: https://github.com/mkdoc/mkparse
 [jshint]: http://jshint.com
 [jscs]: http://jscs.info
+[trucks]: https://github.com/tmpfs/trucks
+[trucks-cli]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-cli
+[trucks-compiler]: https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler
 [sources]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-sources
 [load]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-load
 [parse]: https://github.com/tmpfs/trucks/blob/master/packages/plugin-parse

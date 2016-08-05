@@ -55,10 +55,16 @@ class Instruction {
 /**
  *  Replace processing instructions in input files with markup.
  *
+ *  By default a grammar is used that maps the `@file` tag to a `file` function 
+ *  which looks in the compiler state `output` to see if a matching output file 
+ *  exists; if the file exists the processing instruction is replaced with the 
+ *  file contents.
+ *
  *  @public {function} page
  *  @param {Object} state compiler state.
  *  @param {Object} conf transform plugin configuration.
  *  @option {Object} files map of files to process.
+ *  @option {Object} [grammar] alternative map of tag functions.
  *
  *  @returns map of visitor functions.
  */

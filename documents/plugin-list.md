@@ -2,7 +2,7 @@
 
 Plugins are in [packages](/packages).
 
-## Core
+### Core
 
 The [trucks-compiler][] library provides the core functionality; it bundles plugins for each compiler phase:
 

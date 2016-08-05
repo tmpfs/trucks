@@ -45,7 +45,7 @@ In each case the [trucks.js](https://github.com/tmpfs/trucks/blob/master/example
 - [Install](#install)
 - [Getting Started](#getting-started)
 - [Plugin List](#plugin-list)
-- [Core](#core)
+  - [Core](#core)
   - [Compilers](#compilers)
   - [Resolvers](#resolvers)
   - [Preprocessors](#preprocessors)
@@ -61,7 +61,7 @@ In each case the [trucks.js](https://github.com/tmpfs/trucks/blob/master/example
 
 Plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
 
-## Core
+### Core
 
 The [trucks-compiler][] library provides the core functionality; it bundles plugins for each compiler phase:
 

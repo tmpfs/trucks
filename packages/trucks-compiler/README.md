@@ -17,6 +17,11 @@ npm i trucks-compiler --save-dev
 - [Plugins](#plugins)
 - [Options](#options)
 - [API](#api)
+  - [trucks](#trucks)
+  - [CompilerState](#compilerstate)
+  - [OutputFile](#outputfile)
+  - [Registry](#registry)
+  - [Registry](#registry-1)
   - [ComponentTree < ComponentImport](#componenttree-componentimport)
   - [ComponentFile < ComponentImport](#componentfile-componentimport)
   - [ComponentModule < ComponentNode](#componentmodule-componentnode)
@@ -24,10 +29,6 @@ npm i trucks-compiler --save-dev
   - [ComponentStyle < ComponentTrait](#componentstyle-componenttrait)
   - [ComponentScript < ComponentTrait](#componentscript-componenttrait)
   - [Component < ComponentNode](#component-componentnode)
-  - [Registry](#registry)
-  - [Registry](#registry-1)
-  - [CompilerState](#compilerstate)
-  - [OutputFile](#outputfile)
 - [Documents](#documents)
 - [License](#license)
 
@@ -196,70 +197,7 @@ module.exports = options;
 
 ## API
 
-### ComponentTree < ComponentImport
-
-Represents the root of a component hierarchy.
-
-### ComponentFile < ComponentImport
-
-Represents a file in the component tree.
-
-#### ComponentFile
-
-```javascript
-public ComponentFile(file, contents, parent)
-```
-
-Creates a component file node.
-
-* `file` String path to the file.
-* `contents` String file contents.
-* `parent` Object file owner.
-
-### ComponentModule < ComponentNode
-
-Represents a module defined by a `<dom-module>` element.
-
-#### ComponentModule
-
-```javascript
-public ComponentModule(id, parent)
-```
-
-Creates a component module node.
-
-* `id` String module identifier.
-* `parent` Object module owner.
-
-### ComponentTemplate < ComponentTrait
-
-Represents a template defined by a `<template>` or `<link>` element.
-
-### ComponentStyle < ComponentTrait
-
-Represents a style defined by a `<style>` or `<link>` element.
-
-### ComponentScript < ComponentTrait
-
-Represents a script defined by a `<script>` element.
-
-### Component < ComponentNode
-
-Represents a component node with a main template, list of
-template partials and component local styles.
-
-#### Component
-
-```javascript
-public Component(template, parent)
-```
-
-Creates a component node.
-
-* `template` Object primary template for the component.
-* `parent` Object component owner (module).
-
-#### trucks
+### trucks
 
 ```javascript
 trucks(opts, cb)
@@ -272,7 +210,7 @@ Returns compiler state.
 * `opts` Object processing options.
 * `cb` Function callback function.
 
-##### Options
+#### Options
 
 * `files` Array list of HTML files to compile.
 * `out` String output directory for files.
@@ -287,6 +225,69 @@ Returns compiler state.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
 * `eol` String override the default EOL for concatenation.
+
+### CompilerState
+
+Encapsulates the state of the compiler plugin execution.
+
+#### CompilerState
+
+```javascript
+public CompilerState(options, compiler)
+```
+
+Creates a compiler state.
+
+* `options` Object computed options.
+* `compiler` Function reference to the main compiler entry point.
+
+### OutputFile
+
+Represents an output file that will be written to disc when the
+write plugin is executed.
+
+To get an instance of this class call `state.getFile()`.
+
+#### OutputFile
+
+```javascript
+public OutputFile(file, name, base, options)
+```
+
+Creates an output file.
+
+* `file` String path to the file.
+* `name` String relative path for the file.
+* `base` STring base path for the file.
+* `options` Object computed options.
+
+#### prepend
+
+```javascript
+prepend(buf)
+```
+
+Prepend data to this output file.
+
+* `buf` String contents to prepend to the file.
+
+#### append
+
+```javascript
+append(buf)
+```
+
+Append data to this output file.
+
+* `buf` String contents to append to the file.
+
+#### contents
+
+```javascript
+Array contents
+```
+
+list of file contents.
 
 ### Registry
 
@@ -361,68 +362,68 @@ Create a new resolver for an `href`.
 * `href` String the URL to resolve.
 * `parent` Object a parent resolver instance.
 
-### CompilerState
+### ComponentTree < ComponentImport
 
-Encapsulates the state of the compiler plugin execution.
+Represents the root of a component hierarchy.
 
-#### CompilerState
+### ComponentFile < ComponentImport
 
-```javascript
-public CompilerState(options, compiler)
-```
+Represents a file in the component tree.
 
-Creates a compiler state.
-
-* `options` Object computed options.
-* `compiler` Function reference to the main compiler entry point.
-
-### OutputFile
-
-Represents an output file that will be written to disc when the
-write plugin is executed.
-
-To get an instance of this class call `state.getFile()`.
-
-#### OutputFile
+#### ComponentFile
 
 ```javascript
-public OutputFile(file, name, base, options)
+public ComponentFile(file, contents, parent)
 ```
 
-Creates an output file.
+Creates a component file node.
 
 * `file` String path to the file.
-* `name` String relative path for the file.
-* `base` STring base path for the file.
-* `options` Object computed options.
+* `contents` String file contents.
+* `parent` Object file owner.
 
-#### prepend
+### ComponentModule < ComponentNode
 
-```javascript
-prepend(buf)
-```
+Represents a module defined by a `<dom-module>` element.
 
-Prepend data to this output file.
-
-* `buf` String contents to prepend to the file.
-
-#### append
+#### ComponentModule
 
 ```javascript
-append(buf)
+public ComponentModule(id, parent)
 ```
 
-Append data to this output file.
+Creates a component module node.
 
-* `buf` String contents to append to the file.
+* `id` String module identifier.
+* `parent` Object module owner.
 
-#### contents
+### ComponentTemplate < ComponentTrait
+
+Represents a template defined by a `<template>` or `<link>` element.
+
+### ComponentStyle < ComponentTrait
+
+Represents a style defined by a `<style>` or `<link>` element.
+
+### ComponentScript < ComponentTrait
+
+Represents a script defined by a `<script>` element.
+
+### Component < ComponentNode
+
+Represents a component node with a main template, list of
+template partials and component local styles.
+
+#### Component
 
 ```javascript
-Array contents
+public Component(template, parent)
 ```
 
-list of file contents.
+Creates a component node.
+
+* `template` Object primary template for the component.
+* `parent` Object component owner (module).
 
 ## Documents
 

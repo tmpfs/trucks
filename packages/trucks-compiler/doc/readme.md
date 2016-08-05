@@ -22,7 +22,7 @@ This document shows the default options used when none are provided.
 
 ## API
 
-<? @exec mkapi src/** --level=3 ?>
+<? @exec mkapi src/index.js src/state.js src/registry.js src/component.js src/logger.js src/middleware.js --level=3 ?>
 
 ## Documents
 

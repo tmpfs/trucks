@@ -63,7 +63,7 @@ const options {
 ### transform
 
 ```javascript
-public transform(state, conf[, transforms])
+public transform(state, conf)
 ```
 
 Runs transform plugins on the component tree.
@@ -72,6 +72,9 @@ Returns plugin closure.
 
 * `state` Object compiler state.
 * `conf` Object plugin configuration.
+
+#### Options
+
 * `transforms` Array list of transform plugins.
 
 ## License

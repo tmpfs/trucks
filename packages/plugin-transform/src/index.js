@@ -74,7 +74,7 @@ function runVisitor(state, visitors, node, cb) {
  *  @public {function} transform
  *  @param {Object} state compiler state.
  *  @param {Object} conf plugin configuration.
- *  @param {Array} [transforms] list of transform plugins.
+ *  @option {Array} [transforms] list of transform plugins.
  *
  *  @returns plugin closure.
  */

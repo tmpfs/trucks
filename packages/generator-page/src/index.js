@@ -53,7 +53,7 @@ class Instruction {
 }
 
 /**
- *  Replace processing instructions in input files with markup.
+ *  Replace processing instructions in input files.
  *
  *  By default a grammar is used that maps the `@file` tag to a `file` function 
  *  which looks in the compiler state `output` to see if a matching output file 

@@ -7,6 +7,8 @@
  */
 function skate(state, conf) {
 
+  conf = state.options.skate || conf;
+
   conf.id = conf.id || {
     pattern: /\{\{id\}\}/gm
   }

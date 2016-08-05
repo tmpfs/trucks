@@ -12,14 +12,16 @@ Uses ES6 code transpiled for `node@4.x` compatibility.
 
 ## Install
 
-```
-npm i trucks-compiler --save-dev
-```
-
-For the command line interface run:
+To install the command line interface run:
 
 ```
 npm i -g trucks
+```
+
+To use the compiler library programatically:
+
+```
+npm i trucks-compiler --save-dev
 ```
 
 ## Getting Started

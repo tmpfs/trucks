@@ -1,106 +1,14 @@
-# Trucks
-
-[![Build Status](https://travis-ci.org/tmpfs/trucks.svg?v=3)](https://travis-ci.org/tmpfs/trucks)
-[![npm version](http://img.shields.io/npm/v/trucks-compiler.svg?v=3)](https://npmjs.org/package/trucks-compiler)
-[![Coverage Status](https://coveralls.io/repos/tmpfs/trucks/badge.svg?branch=master&service=github&v=5)](https://coveralls.io/github/tmpfs/trucks?branch=master)
-
-> Framework agnostic, extensible web component compiler and package manager
-
-Compiles web components declared as HTML to separate Javascript, CSS and HTML files.
-
-Designed primarily for [skatejs][] with support for [polymer][] coming soon.
-
-Uses ES6 code transpiled for `node@4.x` compatibility.
-
-## Install
-
-To install the command line interface run:
-
-```
-npm i -g trucks
-```
-
-To use the compiler library programatically:
-
-```
-npm i trucks-compiler --save-dev
-```
-
-## Getting Started
-
-The quickest way to get started is to install the command line interface, compile a package and open `build/index.html` in a recent version of chrome.
-
-```shell
-trucks npm://trucks-example-skate-component -o build
-```
-
-Or from the file system:
-
-```shell
-trucks examples/skate-component/components.html -o build
-```
-
-In each case the [trucks.js](https://github.com/tmpfs/trucks/blob/master/examples/skate-component/trucks.js) compiler configuration file is used.
-
-If `trucks.js` exists in the current working directory it is prepended to the list of configuration files:
-
-```shell
-cd examples/skate-component
-trucks
-```
+# Guide
 
 ---
 
-- [Install](#install)
-- [Getting Started](#getting-started)
-- [Plugin List](#plugin-list)
-  - [Compilers](#compilers)
-  - [Resolvers](#resolvers)
-  - [Preprocessors](#preprocessors)
-  - [Styles](#styles)
-  - [Miscellaneous](#miscellaneous)
 - [Components](#components)
   - [Templates](#templates)
   - [Style Scopes](#style-scopes)
   - [Dependencies](#dependencies)
   - [Private Dependencies](#private-dependencies)
-- [License](#license)
 
 ---
-
-## Plugin List
-
-Plugins are in [packages](https://github.com/tmpfs/trucks/blob/master/packages).
-
-### Compilers
-
-* [skate][] Compiles HTML templates to render functions.
-
-### Resolvers
-
-* [core][resolver-core] Abstract class for resolver plugins.
-* [file][resolver-file] Default resolver for the `file:` protocol.
-* [http][resolver-http] Resolver for the `http:` and `https:` protocols.
-* [npm][resolver-npm] Resolver for the `npm:` protocol.
-
-### Preprocessors
-
-* [less][] Preprocess less sources.
-* [sass][] Preprocess sass sources.
-* [stylus][] Preprocess stylus sources.
-* [trim][] Trim whitespace from inline styles and scripts.
-
-### Styles
-
-* [csp][transform-csp] Content security policy transformations.
-* [style-extract][] Write stylesheets for each component.
-* [style-inject][] Read and overwrite stylesheets for each component.
-
-### Miscellaneous
-
-* [bundle][] Bundle input files with the generated output files.
-* [copy][] Copy input files to the output directory.
-* [tree][] Humanize the component tree using [archy][].
 
 ## Components
 
@@ -306,10 +214,6 @@ A component file can declare multiple components in a single file which can be u
   </script>
 </dom-module>
 ```
-
-## License
-
-MIT
 
 ---
 

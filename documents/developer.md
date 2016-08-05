@@ -1,4 +1,4 @@
-## Developer
+# Developer
 
 Install [mkdoc][] `npm i -g mkdoc` and then install dependencies for all packages with `mk install`.
 
@@ -13,6 +13,7 @@ At the top-level you run the following commands for all packages:
 * `mk cover` Run code coverage.
 * `mk build` Compile sources.
 * `mk lint` Lint sources.
+* `mk docs` Build top-level documentation
 
 Build a coverage report for all packages with:
 

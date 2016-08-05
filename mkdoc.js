@@ -138,10 +138,17 @@ mk.task(build);
 mk.task(test);
 mk.task(cover);
 
+// @task guide build the guide docs
+function guide(cb) {
+  doc(
+    'documents/guide.md', 'manual/GUIDE.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
 // @task developer build the developer docs
 function developer(cb) {
   doc(
-    'documents/developer.md', 'DEVELOPER.md',
+    'documents/developer.md', 'manual/DEVELOPER.md',
     {toc: {depth: 2, max: 3}}, cb);
 }
 
@@ -157,6 +164,7 @@ function docs(cb) {
   cb();
 }
 
+mk.task(guide);
 mk.task(developer);
 mk.task(readme);
-mk.task([developer, readme], docs)
+mk.task([guide, developer, readme], docs)

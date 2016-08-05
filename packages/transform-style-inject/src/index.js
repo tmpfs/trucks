@@ -70,17 +70,17 @@ function inject(state, conf) {
         // remove styles from DOM in the module context
         node.vdom('template > style', node.parent.element).remove();
 
-        if(node.template) {
+        // NOTE: component instances are only created when there is a valid
+        // NOTE: primary template
 
-          // prepend style to primary template
-          // reflected in the vdom
-          node.vdom(node.template.element)
-            .prepend(`<style>${contents}</style>`);
+        // prepend style to primary template
+        // reflected in the vdom
+        node.vdom(node.template.element)
+          .prepend(`<style>${contents}</style>`);
 
-          // update the template contents when writing out templates
-          // as HTML
-          node.template.contents = node.vdom.html(node.template.element);
-        }
+        // update the template contents when writing out templates
+        // as HTML
+        node.template.contents = node.vdom.html(node.template.element);
 
         node.styles.push(
           // mock an element

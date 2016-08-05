@@ -49,6 +49,7 @@ function copy(state, conf) {
         const file = state.getFile(output, options.out);
 
         fs.readFile(input, (err, contents) => {
+          /* istanbul ignore next: tough to mock as stat already called */
           if(err) {
             return cb(err); 
           } 
@@ -63,6 +64,7 @@ function copy(state, conf) {
 
   function readDir(input, output, cb) {
     fs.readdir(input, (err, files) => {
+      /* istanbul ignore next: tough to mock as stat already called */
       if(err) {
         return cb(err); 
       } 

@@ -2,7 +2,7 @@
 
 Sources are ES6 code transpiled for `node@4.x` compatibility.
 
-Install [mkdoc][] `npm i -g mkdoc` and then install dependencies for all packages with `mk install`.
+Install [mkdoc][] `npm i -g mkdoc` and then install dependencies for all packages with `npm i && mk install`.
 
 You should now be able to use the scripts and tasks, list tasks with `mk --tasks`.
 

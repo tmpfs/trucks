@@ -13,10 +13,8 @@
     "node": ">=4.0"
   },
   "devDependencies": {
-    "chai": "~3.5.0",
     "coveralls": "~2.11.9",
-    "istanbul": "~0.4.4",
-    "mocha": "~2.5.3"
+    "istanbul": "~0.4.4"
   },
   "scripts": {
     "clean": "mk clean",

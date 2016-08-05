@@ -92,8 +92,8 @@ class HttpResolver extends Resolver {
           };
 
     this.getDefaultPort(this.uri.protocol, options);
-    //console.dir(options);
 
+    /* istanbul ignore next: not going to mock https: server */
     const transport = this.uri.protocol === HTTPS
       ? require('https') : require('http');
 

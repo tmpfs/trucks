@@ -54,8 +54,7 @@ class CompilerState {
 
     // NOTE: we don't add a write plugin phase
     options.plugins = [
-      this.compiler.LOAD,
-      this.compiler.PARSE,
+      this.compiler.SOURCES,
       this.compiler.TRANSFORM,
       this.compiler.GENERATE
     ];

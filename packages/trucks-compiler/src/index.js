@@ -66,10 +66,12 @@ function options(state, cb) {
       try {
         config = require(file);
         state.addConfigFile(file);
+
         // add files from loaded configs
         if(Array.isArray(config.files)) {
           files = files.concat(config.files); 
         }
+
         options = merge(true, options, config);
       }catch(e) {
         return cb(e); 

@@ -6,8 +6,6 @@ var expect = require('chai').expect
 function assert(state) {
   expect(state).to.be.an('object');
 
-  expect(state.options.name).to.eql('mock-config');
-
   var stat = fs.statSync('target/mock-config.html');
   expect(stat).to.be.an('object');
   expect(stat.isFile()).to.eql(true);
@@ -26,20 +24,53 @@ function assert(state) {
 
 describe('trucks:', function() {
 
-  it('should merge relative config file', function(done) {
+  it('should merge relative config file with files array', function(done) {
     const src = '../../test/fixtures/simple-inline/components.html'
       , out = 'target';
     trucks(
       {
         files: [src],
         out: out,
-        rc: ['test/fixtures/mock-config.js'],
-        transforms: ['skate/src']
+        rc: ['test/fixtures/mock-config.js']
       },
       (err, state) => {
         expect(err).to.eql(null);
         assert(state);
+        done();
+      }
+    );
+  });
 
+  it('should merge relative config file without files array', function(done) {
+    const src = '../../test/fixtures/simple-inline/components.html'
+      , out = 'target';
+    trucks(
+      {
+        files: [src],
+        out: out,
+        rc: ['test/fixtures/mock-config-no-files.js']
+      },
+      (err, state) => {
+        expect(err).to.eql(null);
+        assert(state);
+        done();
+      }
+    );
+  });
+
+  it('should prefer config output when cwd', function(done) {
+    const src = '../../test/fixtures/simple-inline/components.html'
+      , out = process.cwd();
+    trucks(
+      {
+        files: [src],
+        out: out,
+        force: true,
+        rc: ['test/fixtures/mock-config.js']
+      },
+      (err, state) => {
+        expect(err).to.eql(null);
+        assert(state);
         done();
       }
     );
@@ -53,8 +84,7 @@ describe('trucks:', function() {
         files: [src],
         out: out,
         force: true,
-        rc: path.join(process.cwd(), 'test/fixtures/mock-config.js'),
-        transforms: ['skate/src']
+        rc: path.join(process.cwd(), 'test/fixtures/mock-config.js')
       },
       (err, state) => {
         expect(err).to.eql(null);

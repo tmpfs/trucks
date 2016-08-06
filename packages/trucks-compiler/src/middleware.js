@@ -71,6 +71,7 @@ function middleware(state, options) {
       try {
         fn = require(file);
       }catch(e) {
+        /* istanbul ignore next: not going to mock resolve from cwd */
         const base = state.options.base || process.cwd();
 
         state.log.debug('require %s from base %s', file, base);

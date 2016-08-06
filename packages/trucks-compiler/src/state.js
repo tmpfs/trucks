@@ -196,7 +196,12 @@ class CompilerState {
 
       try {
         conf = require(config);
-        conf.base = path.dirname(file);
+
+        if(conf.base === undefined) {
+          conf.base = path.dirname(file);
+        }else{
+          conf.base = this.absolute(String(conf.base));
+        }
 
         // if no files are declared inherit the file that 
         // resolved to a compiler option configuration

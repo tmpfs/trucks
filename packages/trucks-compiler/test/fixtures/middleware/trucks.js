@@ -1,5 +1,5 @@
 const options = {
-  files: ['components.html'],
+  files: [__dirname + '/components.html'],
   transforms: ['copy']
 }
 

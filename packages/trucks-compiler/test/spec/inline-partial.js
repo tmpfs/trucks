@@ -46,15 +46,28 @@ describe('trucks:', function() {
         // primary template trait
         expect(component.template).to.be.an('object');
 
+        // trigger parent id lookup
+        component.template._id = null;
+        expect(component.template.id).to.be.a('string');
+
+        expect(component.template.attr()).to.be.an('object');
+        expect(component.template.attr('data-foo')).to.eql('bar');
+        expect(component.template.attr('data-foo', 'baz')).to.eql('baz');
+        expect(component.template.attr({})).to.be.an('object');
+
         // list of template partials
         expect(component.partials).to.be.an('array')
           .to.have.length(2);
 
         expect(component.id).to.be.a('string');
         expect(component.file).to.be.a('string');
+        expect(component.vdom).to.be.a('function');
 
         expect(component.template).to.equal(mod.templates[0]);
         expect(component.partials[0]).to.equal(mod.templates[1]);
+
+        expect(component.styles[0].scope).to.be.a('string');
+        expect(component.styles[0].isShadowScope()).to.eql(true);
 
         expect(mod.styles[0].inline).to.eql(true);
         expect(mod.styles[0].type).to.eql(undefined);
@@ -63,6 +76,9 @@ describe('trucks:', function() {
         expect(mod.styles[0].type).to.eql('text/css');
 
         expect(component.scripts).to.be.an('array');
+
+        // trigger function code path
+        component.clearStyles();
 
         done();
       }

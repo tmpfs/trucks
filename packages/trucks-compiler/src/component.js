@@ -305,9 +305,8 @@ class ComponentTrait extends ComponentNode {
     if(name === String(name)) {
       if(val !== undefined) {
         this.element.attribs[name] = val; 
-      }else{
-        return this.element.attribs[name];
       }
+      return this.element.attribs[name];
     }else if(name === Object(name)) {
       this.element.attribs = name;
     }
@@ -503,10 +502,7 @@ class Component extends ComponentNode {
 
     // remove styles from parent collection
     this.styles.forEach((style) => {
-      const ind = stylesheets.indexOf(style);
-      if(~ind) {
-        stylesheets.splice(ind, 1); 
-      }
+      stylesheets.splice(stylesheets.indexOf(style), 1); 
     })
 
     this.styles = [];

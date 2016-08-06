@@ -49,7 +49,10 @@ class CompilerState {
   }
 
   run(options, cb) {
+    /* istanbul ignore next: test code paths always pass options */
     options = options || {};
+
+    // NOTE: we don't add a write plugin phase
     options.plugins = [
       this.compiler.LOAD,
       this.compiler.PARSE,
@@ -171,6 +174,7 @@ class CompilerState {
   }
 
   getConfigFile(file) {
+    file = this.absolute(file);
     const base = path.dirname(file)
         , config = path.join(base, CONFIG);
     return config;
@@ -189,6 +193,8 @@ class CompilerState {
 
     // NOTE: prevent an infinite loop when the input file
     // NOTE: matches a file in the options `files` array
+
+    /* istanbul ignore else: tough to mock already resolved config */
     if(!resolved[config]) {
       resolved[config] = file;
 

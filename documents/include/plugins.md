@@ -1,4 +1,15 @@
-Plugins execute the main compiler phases that are bundled with the core libary:
+### Plugin Types
+
+Plugins are grouped into different types:
+
+* Core plugins are executed by the compiler (see the [load][] plugin).
+* Protocol plugins are initialized by the [load][] phase  (see the [file][resolver-file] plugin).
+* Transform plugins are executed by the [transform][] phase (see the [csp][transform-csp] plugin).
+* Generator plugins are executed by the [generator][] phase (see the [page][generator-page] plugin).
+
+### Core Plugins
+
+Core plugins are bundled with the [trucks-compiler][] libary and run the main compiler phases:
 
 * [load][] Read the HTML import tree
 * [parse][] Parse the `<dom-module>` elements
@@ -7,6 +18,8 @@ Plugins execute the main compiler phases that are bundled with the core libary:
 * [write][] Write output files to disc
 
 An additional plugin [sources][] reads the entire component tree by combining the [load][] and [parse][] plugins.
+
+### Writing Plugins
 
 Plugins are named functions that are passed the compiler state object and a configuration for the plugin and return a closure.
 

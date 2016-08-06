@@ -15,6 +15,9 @@ npm i trucks-compiler --save-dev
 - [Install](#install)
 - [Usage](#usage)
 - [Plugins](#plugins)
+  - [Plugin Types](#plugin-types)
+  - [Core Plugins](#core-plugins)
+  - [Writing Plugins](#writing-plugins)
 - [Options](#options)
 - [API](#api)
   - [trucks](#trucks)
@@ -57,7 +60,18 @@ trucks(
 
 ## Plugins
 
-Plugins execute the main compiler phases that are bundled with the core libary:
+### Plugin Types
+
+Plugins are grouped into different types:
+
+* Core plugins are executed by the compiler (see the [load][] plugin).
+* Protocol plugins are initialized by the [load][] phase  (see the [file][resolver-file] plugin).
+* Transform plugins are executed by the [transform][] phase (see the [csp][transform-csp] plugin).
+* Generator plugins are executed by the [generator][] phase (see the [page][generator-page] plugin).
+
+### Core Plugins
+
+Core plugins are bundled with the [trucks-compiler][] libary and run the main compiler phases:
 
 * [load][] Read the HTML import tree
 * [parse][] Parse the `<dom-module>` elements
@@ -66,6 +80,8 @@ Plugins execute the main compiler phases that are bundled with the core libary:
 * [write][] Write output files to disc
 
 An additional plugin [sources][] reads the entire component tree by combining the [load][] and [parse][] plugins.
+
+### Writing Plugins
 
 Plugins are named functions that are passed the compiler state object and a configuration for the plugin and return a closure.
 
@@ -445,7 +461,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents

@@ -2,7 +2,7 @@ var expect = require('chai').expect
   , fs = require('fs')
   , cli = require('../../cli/trucks');
 
-describe('trucks-cli:', function() {
+describe('cli:', function() {
 
   it('should print version', function(done) {
     var argv = ['--version']

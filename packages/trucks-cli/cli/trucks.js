@@ -3,6 +3,7 @@ const path = require('path')
     , cli = require('mkcli-runtime')
     , pkg = require('../package.json')
     , prg = cli.load(require('../doc/json/trucks.json'))
+    /* istanbul ignore if: not going to test DEBUG mode */
     , trucks = require(
         process.env.DEBUG ? 'trucks-compiler/src' : 'trucks-compiler')
     , TRUCKS_AUTOCONF = 'trucks.js'

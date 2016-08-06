@@ -3,13 +3,14 @@ var expect = require('chai').expect
 
 describe('cli:', function() {
 
-  it('should write to output directory', function(done) {
+  it('should use secure option', function(done) {
     const src = '../../test/fixtures/simple-inline/components.html'
       , out = 'target';
 
     cli(
       [
         '--force',
+        '--secure',
         '--out=' + out,
         src
       ],

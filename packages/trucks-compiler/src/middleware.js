@@ -87,7 +87,8 @@ function middleware(state, options) {
         fn = require(req);
       }
 
-    }else if(phase && phase === Object(phase)) {
+    // treat as object plugin declaration
+    }else{
       if(!phase.plugin || !(phase.plugin instanceof Function)) {
         throw new Error(
           'object middleware does not define plugin function'); 
@@ -130,7 +131,6 @@ function middleware(state, options) {
     }
 
     detail = getDetail(phase);
-
     state.log.debug('configure middleware', detail.name);
 
     closures = closures.concat(getClosure(phase, detail));

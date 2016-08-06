@@ -166,6 +166,13 @@ function plugins(cb) {
     {toc: {depth: 2, max: 3}}, cb);
 }
 
+// @task protocols build the protocols docs
+function protocols(cb) {
+  doc(
+    'documents/protocols.md', 'manual/protocols.md',
+    {toc: {depth: 2, max: 3}}, cb);
+}
+
 // @task transforms build the transforms docs
 function transforms(cb) {
   doc(
@@ -201,6 +208,7 @@ mk.task(manual);
 mk.task(introduction);
 mk.task(components);
 mk.task(plugins);
+mk.task(protocols);
 mk.task(transforms);
 mk.task(compiler);
 mk.task(developer);
@@ -211,6 +219,7 @@ mk.task([
   components,
   introduction,
   plugins,
+  protocols,
   transforms,
   manual,
   readme

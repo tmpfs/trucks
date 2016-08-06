@@ -22,7 +22,7 @@ npm i trucks-plugin-load --save-dev
 
 - [Install](#install)
 - [Usage](#usage)
-- [Resolvers](#resolvers)
+- [Protocols](#protocols)
 - [API](#api)
   - [load](#load)
 - [License](#license)
@@ -65,9 +65,9 @@ const options {
 }
 ```
 
-## Resolvers
+## Protocols
 
-Resolver plugins are mapped to URL protocols and allow the file load mechanism to be extended so that users can distribute and install web components from remote resources or implement custom protocols.
+Protocol resolver plugins are mapped to URL protocols and allow the file load mechanism to be extended so that users can distribute and install web components from remote resources or implement custom protocols.
 
 By default a protocol handler for the `file:` scheme is registered by the [load][] plugin so HTML imports can be loaded from the local file system.
 
@@ -100,7 +100,7 @@ function ftp(state, conf) {
 
 Plugins must register a subclass of the [core resolver][resolver-core].
 
-See the [file resolver][resolver-file] and [http resolver][resolver-http] for example classes and plugin functions.
+See the [file][resolver-file], [http][resolver-http] and [npm][resolver-npm] plugins for example implementations.
 
 ## API
 
@@ -136,7 +136,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents

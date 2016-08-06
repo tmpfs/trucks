@@ -58,7 +58,9 @@ const options {
 }
 ```
 
-<? @include resolvers.md ?>
+## Protocols
+
+<? @include ../../../documents/include/protocols.md ?>
 
 ## API
 

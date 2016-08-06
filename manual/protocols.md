@@ -1,84 +1,45 @@
-## Plugins
+## Protocols
 
 ---
 
-- [Plugins](#plugins)
+- [Protocols](#protocols)
 
 ---
 
-Plugins execute the main compiler phases that are bundled with the core libary:
+Protocol resolver plugins are mapped to URL protocols and allow the file load mechanism to be extended so that users can distribute and install web components from remote resources or implement custom protocols.
 
-* [load][] Read the HTML import tree
-* [parse][] Parse the `<dom-module>` elements
-* [transform][] Run tree transformations
-* [generate][] Create output file contents
-* [write][] Write output files to disc
+By default a protocol handler for the `file:` scheme is registered by the [load][] plugin so HTML imports can be loaded from the local file system.
 
-An additional plugin [sources][] reads the entire component tree by combining the [load][] and [parse][] plugins.
-
-Plugins are named functions that are passed the compiler state object and a configuration for the plugin and return a closure.
-
-```javascript
-function plugin(state, conf) {
-  return function(state, cb) {
-    cb(null, state); 
-  }
-}
-```
-
-Closures returned by the plugin functions are executed asynchronously in series and may modify the state object.
-
-The `state` object contains several useful fields but most noteworthy are:
-
-* `options` Reference to the computed options
-* `tree` Component tree populated by the [load][] and [parse][] plugins
-
-You may configure the plugins used for low-level access. For example if you just wanted to print the HTML import tree:
+To enable a resolver first install the package (`npm i trucks-resolver-http --save-dev`) and then enable the plugin in the `protocols` list:
 
 ```javascript
 const options = {
   files: ['components.html'],
-  plugins: [trucks.LOAD /* add custom tree plugin */]
-};
+  protocols: ['http']
+}
 ```
 
-To configure a plugin you can set a configuration object using the plugin id:
+You can now use HTTP and HTTPS imports:
 
-```javascript
-const options = {
-  files: ['components.html'],
-  plugins: [trucks.LOAD],
-  conf: {
-    plugins: {
-      load: {/* plugin configuration goes here */}
-    }
-  }
-};
+```html
+<link rel="import" href="https://domain.com/components.html">
 ```
 
-By default the plugin id is the name of the function but it may be changed by assigning an `id`:
+Plugin functions are invoked synchronously before the [load][] plugin executes; they allow HTML imports to be mapped to different protocols.
+
+The signature for resolver plugins is:
 
 ```javascript
-function plugin(state, conf) {
-  return function(state, cb) {
-    cb(); 
+function ftp(state, conf) {
+  return (registry) => {
+    registry.register('ftp:', FtpResolver); 
   }
 }
-plugin.id = 'custom-plugin';
-module.exports = plugin;
 ```
 
-To configure such a plugin use:
+Plugins must register a subclass of the [core resolver][resolver-core].
 
-```javascript
-const options = {
-  conf: {
-    plugins: {
-      'custom-plugin': {/* plugin configuration goes here */}
-    }
-  }
-};
-```
+See the [file][resolver-file], [http][resolver-http] and [npm][resolver-npm] plugins for example implementations.
 
 ---
 

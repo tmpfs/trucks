@@ -1,6 +1,4 @@
-## Resolvers
-
-Resolver plugins are mapped to URL protocols and allow the file load mechanism to be extended so that users can distribute and install web components from remote resources or implement custom protocols.
+Protocol resolver plugins are mapped to URL protocols and allow the file load mechanism to be extended so that users can distribute and install web components from remote resources or implement custom protocols.
 
 By default a protocol handler for the `file:` scheme is registered by the [load][] plugin so HTML imports can be loaded from the local file system.
 
@@ -33,4 +31,4 @@ function ftp(state, conf) {
 
 Plugins must register a subclass of the [core resolver][resolver-core].
 
-See the [file resolver][resolver-file] and [http resolver][resolver-http] for example classes and plugin functions.
+See the [file][resolver-file], [http][resolver-http] and [npm][resolver-npm] plugins for example implementations.

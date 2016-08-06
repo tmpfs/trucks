@@ -59,12 +59,12 @@ describe('trucks:', function() {
   });
 
   it('should prefer config output when cwd', function(done) {
-    const src = '../../test/fixtures/simple-inline/components.html'
-      , out = process.cwd();
+    const src = '../../test/fixtures/simple-inline/components.html';
+
     trucks(
       {
         files: [src],
-        out: out,
+        out: process.cwd(),
         force: true,
         rc: ['test/fixtures/mock-config.js']
       },

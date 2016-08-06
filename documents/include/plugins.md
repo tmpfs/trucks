@@ -1,13 +1,6 @@
 ### Plugin Types
 
-Plugins are grouped into different types:
-
-* Core plugins are executed by the compiler (see the [load][] plugin).
-* Protocol plugins are initialized by the [load][] phase  (see the [file][resolver-file] plugin).
-* Transform plugins are executed by the [transform][] phase (see the [csp][transform-csp] plugin).
-* Generator plugins are executed by the [generator][] phase (see the [page][generator-page] plugin).
-
-### Core Plugins
+#### Core Plugins
 
 Core plugins are bundled with the [trucks-compiler][] libary and run the main compiler phases:
 
@@ -18,6 +11,18 @@ Core plugins are bundled with the [trucks-compiler][] libary and run the main co
 * [write][] Write output files to disc
 
 An additional plugin [sources][] reads the entire component tree by combining the [load][] and [parse][] plugins.
+
+#### Protocol Plugins
+
+Protocol plugins are initialized by the [load][] phase (see the [file][resolver-file] plugin) they are responsible for registering a protocol (eg: `file:`) with a class that will resolve the URL to component files or an alternative compiler configuration to run.
+
+#### Transform Plugins
+
+Transform plugins are executed by the [transform][] phase (see the [csp][transform-csp] plugin) when the entire component tree is ready. They should perform transformations on the component tree creating output files when needed.
+
+#### Generator Plugins
+
+Generator plugins are executed by the [generator][] phase (see the [page][generator-page] plugin) and may be used to create additional output files or perform additional processing after transformation.
 
 ### Writing Plugins
 

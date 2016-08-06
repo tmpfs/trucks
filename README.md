@@ -1,8 +1,8 @@
 # Trucks
 
-[![Build Status](https://travis-ci.org/tmpfs/trucks.svg?v=3)](https://travis-ci.org/tmpfs/trucks)
-[![npm version](http://img.shields.io/npm/v/trucks.svg?v=3)](https://npmjs.org/package/trucks)
-[![Coverage Status](https://coveralls.io/repos/tmpfs/trucks/badge.svg?branch=master&service=github&v=5)](https://coveralls.io/github/tmpfs/trucks?branch=master)
+[![Build Status](https://travis-ci.org/tmpfs/trucks.svg?v=7)](https://travis-ci.org/tmpfs/trucks)
+[![npm version](http://img.shields.io/npm/v/trucks.svg?v=7)](https://npmjs.org/package/trucks)
+[![Coverage Status](https://coveralls.io/repos/tmpfs/trucks/badge.svg?branch=master&service=github&v=7)](https://coveralls.io/github/tmpfs/trucks?branch=master)
 
 > Framework agnostic, extensible web component compiler and package manager
 
@@ -122,7 +122,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 5, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 6, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents

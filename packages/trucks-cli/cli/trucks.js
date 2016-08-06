@@ -3,10 +3,11 @@ const path = require('path')
     , cli = require('mkcli-runtime')
     , pkg = require('../package.json')
     , prg = cli.load(require('../doc/json/trucks.json'))
-    /* istanbul ignore if: not going to test DEBUG mode */
-    , trucks = require(
-        process.env.DEBUG ? 'trucks-compiler/src' : 'trucks-compiler')
     , TRUCKS_AUTOCONF = 'trucks.js'
+
+/* istanbul ignore next: not going to test DEBUG mode */
+const trucks = require(
+    process.env.DEBUG ? 'trucks-compiler/src' : 'trucks-compiler')
 
 // override package name
 pkg.name = 'trucks';
@@ -70,13 +71,13 @@ function main(argv, conf, cb) {
 
     let plugins = [];
 
-    //this.conf = this.conf || {};
+    this.conf = this.conf || {};
     //this.conf.plugins = this.conf.plugins || {};
     //this.conf.transforms = this.conf.transforms || {};
     //this.conf.protocols = this.conf.protocols || {};
 
     if(this.secure !== undefined) {
-      this.conf = this.conf || {};
+      //this.conf = this.conf || {};
       this.conf.protocols = this.conf.protocols || {};
       this.conf.protocols.http = {
         secure: this.secure
@@ -100,6 +101,10 @@ function main(argv, conf, cb) {
     }
 
     if(this.extract !== undefined) {
+      this.after = this.after || {};
+      this.after.transforms = this.after.transforms || [];
+      this.conf.transforms = this.conf.transforms || {};
+
       // allows --extract= to defer to default output
       if(!this.extract) {
         this.extract = this.out; 
@@ -110,6 +115,10 @@ function main(argv, conf, cb) {
     }
 
     if(this.inject !== undefined) {
+      this.before = this.before || {};
+      this.before.transforms = this.before.transforms || [];
+      this.conf.transforms = this.conf.transforms || {};
+
       // allows --inject= to defer to default output
       if(!this.inject) {
         this.inject = this.out; 

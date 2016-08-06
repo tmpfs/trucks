@@ -183,7 +183,7 @@ function main(argv, conf, cb) {
         }
 
         if(this.manifest === String(this.manifest)) {
-          var filepath = state.absolute(this.manifest, this.out);
+          var filepath = state.absolute(this.manifest);
           fs.writeFile(filepath, contents, function(err) {
             cb(err, state, this);
           });

@@ -7,7 +7,7 @@ describe('cli:', function() {
   it('should write manifest file', function(done) {
     const src = '../../test/fixtures/simple-inline/components.html'
       , out = 'target'
-      , file = 'write-manifest.json';
+      , file = 'target/write-manifest.json';
 
     const stream = fs.createWriteStream(file);
 
@@ -25,7 +25,7 @@ describe('cli:', function() {
         (err, state) => {
           expect(err).to.eql(null);
           expect(state).to.be.an('object');
-          expect(fs.statSync(out + '/' + file).size).to.be.gt(0);
+          expect(fs.statSync(file).size).to.be.gt(0);
           done();
         }
       );

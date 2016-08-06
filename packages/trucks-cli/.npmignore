@@ -1,3 +1,6 @@
-/doc/readme
-/doc/readme.md
+/doc/readme*
+/target
+/coverage
+/build
 /test
+/mkdoc.js

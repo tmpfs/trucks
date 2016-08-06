@@ -29,4 +29,4 @@ function ftp(state, conf) {
 }
 ```
 
-Plugins must register a subclass of the [core resolver][resolver-core], see the [file][resolver-file], [http][resolver-http] and [npm][resolver-npm] plugins for example implementations.
+Plugins must register a subclass of the [core resolver][resolver-core]. See the [file][resolver-file], [http][resolver-http] and [npm][resolver-npm] plugins for example implementations.

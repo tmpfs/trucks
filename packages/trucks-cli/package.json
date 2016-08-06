@@ -1,6 +1,6 @@
 {
   "name": "trucks",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Web component compiler and package manager (cli)",
   "bin": {
     "trucks": "./bin/trucks"

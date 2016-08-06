@@ -29,6 +29,8 @@ class Logger {
     this._stream = options.stream || process.stderr;
     this._formatter = (options.format instanceof Function)
       ? options.format : this.format;
+
+    /* istanbul ignore next: don't want to enable DEBUG in tests */
     this._level = options.level === parseInt(options.level)
         ? options.level
         //: BITWISE.all;
@@ -36,7 +38,9 @@ class Logger {
           ? BITWISE.all
           : (BITWISE.info | BITWISE.warn | BITWISE.error | BITWISE.fatal));
 
-    if(!process.env.DEBUG && process.env.NODE_ENV === 'test') {
+    if(!process.env.DEBUG
+      && process.env.NODE_ENV === 'test'
+      && !process.env.TEST_LOGGER) {
       this._level = BITWISE.none; 
     }
 
@@ -45,6 +49,11 @@ class Logger {
         return this.log(lvl, msg, ...params); 
       } 
     }) 
+
+    // bitwise level constants
+    for(let key in BITWISE) {
+      this[key.toUpperCase()] = BITWISE[key];
+    }
   }
 
   enabled(source) {
@@ -99,17 +108,30 @@ class Logger {
   }
 
   log(lvl, msg, ...params) {
+    let cb;
+
+    if(params[params.length - 1] instanceof Function) {
+      cb = params.pop(); 
+    }
+
     // mutate as a level enabled getter, eg: log.info() determines
     // if the INFO level is enabled
     if(lvl !== undefined && msg === undefined) {
       return this.enabled(lvl); 
     }
+
     if(!this.enabled(lvl)) {
       return false; 
     }
+
     msg = this._formatter(lvl, msg, params);
-    this.stream.write(msg); 
+    this.stream.write(msg, cb);
   }
+}
+
+// bitwise level constants
+for(let key in BITWISE) {
+  Logger[key.toUpperCase()] = BITWISE[key];
 }
 
 module.exports = Logger;

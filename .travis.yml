@@ -9,12 +9,3 @@ node_js:
   - stable
 after_success:
   - npm run coveralls
-deploy:
-  provider: npm
-  email: freeformsystems@gmail.com
-  api_key:
-    secure: z/ixbmCI6khbGEFACu0I3PerH9BHnH28uzT02BxWvPcG3DlI8W4BWI9TBJHPtHNq8Y5xn05wYRKl2xdWZGMlPgIWvGQxRdqQSXJyg12pPXlsOu3Nji5Nskr7Hjy2ALUoHansf+IYk4ZLa5yOl+el3mg+FCMq0NG0fK8hwyBEJOOcf2yAgu4CWsIitF2oNN8HHPXnJuhlowvLHqAEkuayQOLjgJEGWe/4uh+jP6Wf7IIhrUB7gWBRu1JiajwlLagQtZagpo+8adTD2R2ONt5KUU6ZfoF4+D5AWZkmm/wvnAF7ratVBhUlDUNUdSdQZ13HylHe7mJtvf6gZYVdCbh1M9pxvpxAkAevuxhoFdC20lBwTiLxUgz1F//sgh4ubIEJnhRAoFENxDoDldw7yVmx7urHHHP/uNVsEdVVYWiaL3dYqX/CxNQKwwdDTv5yLoP/22RVdHxvl9UgWsjJAtiqcFhytwutYx5G0L4RYrmxncRpCxM4pxBRRMqBbwb+20LcwxKu1BAksrfXlqEPpQnfYKnbOcJ3nFe0t2MEUwgupl0fHHIq4pxJRc0TmAnq2KysBqa5HdT6K7br33Xp+469aliKHapAzWyfB+yn6WbutSCnhG27NwWsVTadtRsSM64WSw95I64JMy0dWmPMijGwjl+r7vp3RqSXjc/n7bDdLXQ=
-  on:
-    tags: true
-    repo: tmpfs/trucks
-    node: '6.1.0'

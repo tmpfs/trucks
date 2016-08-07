@@ -105,10 +105,8 @@ const options = {
 You can now use HTTP and HTTPS imports:
 
 ```html
-<link rel="import" href="https://domain.com/components.html">
+<link rel="import" href="https://example.com/components.html">
 ```
-
-Plugin functions are invoked synchronously before the [load][] plugin executes; they allow HTML imports to be mapped to different protocols.
 
 ### Writing Protocol Plugins
 
@@ -228,6 +226,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
+[standalone-manual]: https://github.com/tmpfs/trucks/blob/master/manual/standalone.md
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

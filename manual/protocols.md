@@ -44,10 +44,8 @@ const options = {
 You can now use HTTP and HTTPS imports:
 
 ```html
-<link rel="import" href="https://domain.com/components.html">
+<link rel="import" href="https://example.com/components.html">
 ```
-
-Plugin functions are invoked synchronously before the [load][] plugin executes; they allow HTML imports to be mapped to different protocols.
 
 ### Writing Protocol Plugins
 

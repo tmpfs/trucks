@@ -12,3 +12,4 @@ View the manual as a [single page][standalone-manual].
 
 * [Developer](developer.md) Developer Documentation
 
+<? @include links.md ?>

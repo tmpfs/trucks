@@ -1,6 +1,6 @@
 # Manual
 
-View the standalone manual as a [single page][standalone-manual].
+View the standalone manual as a [single page][manual-standalone].
 
 * [Introduction](introduction.md) Motivation & Rationale
 * [Components](components.md) Component Guide

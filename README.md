@@ -63,7 +63,7 @@ In each case the [trucks.js](https://github.com/tmpfs/trucks/blob/master/example
 
 ## Manual
 
-More documentation is in the [manual][].
+More documentation is in the [manual][] also available on a [single page][manual-standalone].
 
 ## Examples
 
@@ -175,7 +175,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 8, 2016
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
-[standalone-manual]: https://github.com/tmpfs/trucks/blob/master/manual/standalone.md
+[manual-standalone]: https://github.com/tmpfs/trucks/blob/master/manual/standalone.md
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

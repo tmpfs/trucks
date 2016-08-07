@@ -46,7 +46,7 @@ In each case the [trucks.js](/examples/skate-component/trucks.js) compiler confi
 
 ## Manual
 
-More documentation is in the [manual][].
+More documentation is in the [manual][] also available on a [single page][manual-standalone].
 
 ## Examples
 

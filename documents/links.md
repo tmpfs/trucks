@@ -52,7 +52,7 @@
 
 [generator-page]: /packages/generator-page
 
-[standalone-manual]: /manual/standalone.md
+[manual-standalone]: /manual/standalone.md
 
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/

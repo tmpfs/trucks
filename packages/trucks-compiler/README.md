@@ -89,21 +89,15 @@ Typically you should not need to modify the `plugins` list but it can be useful 
 
 #### Protocol Plugins
 
-Protocol plugins are initialized by the [load][] phase they are responsible for registering a protocol (eg: `file:`) with a class that will resolve the URL to component files or an alternative compiler configuration.
-
-See the [http][resolver-http] plugin.
+Protocol plugins are initialized by the [load][] phase they are responsible for registering a protocol (eg: `file:`) with a class that will resolve the URL to component files or an alternative compiler configuration. See the [http][resolver-http] plugin implementation.
 
 #### Transform Plugins
 
-Transform plugins are executed by the [transform][] phase when the entire component tree is ready. They should perform transformations on the component tree creating output files when needed.
-
-See the [csp][transform-csp] plugin.
+Transform plugins are executed by the [transform][] phase when the entire component tree is ready. They should perform transformations on the component tree creating output files when needed. See the [csp][transform-csp] plugin implementation.
 
 #### Generator Plugins
 
-Generator plugins are executed by the [generator][] phase and may be used to create additional output files or perform extra processing after transformations have been applied.
-
-See the [page][generator-page] plugin.
+Generator plugins are executed by the [generate][] phase and may be used to create additional output files or perform extra processing after transformations have been applied. See the [page][generator-page] plugin implementation.
 
 ### Writing Plugins
 

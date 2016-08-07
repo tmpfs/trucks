@@ -17,6 +17,8 @@
   - [Private Packages](#private-packages)
   - [Package Dependencies](#package-dependencies)
   - [Package Example](#package-example)
+    - [package.json](#packagejson)
+    - [trucks.js](#trucksjs)
 - [Plugins](#plugins)
   - [Plugin Types](#plugin-types)
     - [Core Plugins](#core-plugins)
@@ -309,7 +311,9 @@ If you need to add compiler plugins to your package you should add them to the `
 
 ### Package Example
 
-An example `package.json` and corresponding `trucks.js` compiler configuration:
+An example package descriptor and corresponding compiler configuration is shown below.
+
+#### package.json
 
 ```json
 {
@@ -344,6 +348,8 @@ An example `package.json` and corresponding `trucks.js` compiler configuration:
   }
 }
 ```
+
+#### trucks.js
 
 ```javascript
 const options = {

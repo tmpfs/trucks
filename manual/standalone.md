@@ -285,11 +285,13 @@ A component file can declare multiple components in a single file which can be u
 
 The recommended way to package a component is to create an [npm][] package add a `components.html` entry point and `trucks.js` compiler configuration.
 
-Once the package has been published to the registry it can be installed using the `npm:` protocol:
+Once the package has been published to the registry it can be compiled using the `npm:` protocol:
 
 ```shell
 trucks npm://trucks-example-skate-component
 ```
+
+Or added as a dependency:
 
 ```html
 <link rel="import" href="npm://trucks-example-skate-component@^1.0.0">

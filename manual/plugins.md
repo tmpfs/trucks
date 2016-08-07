@@ -4,6 +4,10 @@
 
 - [Plugins](#plugins)
   - [Plugin Types](#plugin-types)
+    - [Core Plugins](#core-plugins)
+    - [Protocol Plugins](#protocol-plugins)
+    - [Transform Plugins](#transform-plugins)
+    - [Generator Plugins](#generator-plugins)
   - [Writing Plugins](#writing-plugins)
   - [Loading Plugins](#loading-plugins)
   - [Configuring Plugins](#configuring-plugins)

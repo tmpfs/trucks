@@ -52,6 +52,10 @@ In each case the [trucks.js](https://github.com/tmpfs/trucks/blob/master/example
   - [Core](#core)
   - [Resolvers](#resolvers)
   - [Transforms](#transforms)
+    - [Compilers](#compilers)
+    - [Preprocessors](#preprocessors)
+    - [Styles](#styles)
+    - [Miscellaneous](#miscellaneous)
   - [Generators](#generators)
 - [License](#license)
 

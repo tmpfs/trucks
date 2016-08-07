@@ -4,6 +4,7 @@
 
 - [Components](#components)
   - [Templates](#templates)
+    - [Template Styles](#template-styles)
   - [Style Scopes](#style-scopes)
   - [Dependencies](#dependencies)
   - [Private Dependencies](#private-dependencies)

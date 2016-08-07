@@ -1,5 +1,15 @@
 ## Introduction
 
+---
+
+- [Introduction](#introduction)
+  - [Polymer](#polymer)
+  - [Skate](#skate)
+  - [React](#react)
+  - [Trucks](#trucks)
+
+---
+
 [Web components][webcomponents] are a collection of emerging standards that allow developers to create re-usable custom user interface elements.
 
 The web components specifications are:
@@ -12,16 +22,6 @@ The web components specifications are:
 At the time of writing very few browsers support all of these emerging standards so polyfills are required.
 
 There are several problems with the state of the current frameworks.
-
----
-
-- [Introduction](#introduction)
-  - [Polymer](#polymer)
-  - [Skate](#skate)
-  - [React](#react)
-  - [Trucks](#trucks)
-
----
 
 ### Polymer
 

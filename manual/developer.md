@@ -1,4 +1,18 @@
-# Developer
+## Developer
+
+---
+
+- [Developer](#developer)
+  - [Scripts](#scripts)
+    - [Build](#build)
+    - [Test](#test)
+    - [Cover](#cover)
+    - [Lint](#lint)
+    - [Clean](#clean)
+    - [Docs](#docs)
+    - [Readme](#readme)
+
+---
 
 Sources are ES6 code transpiled for `node@4.x` compatibility.
 
@@ -25,24 +39,11 @@ mk cover && npm run report
 
 Note that tests are not included in the npm packages you should clone the repository to run the test suites.
 
----
-
-- [Scripts](#scripts)
-  - [Build](#build)
-  - [Test](#test)
-  - [Cover](#cover)
-  - [Lint](#lint)
-  - [Clean](#clean)
-  - [Docs](#docs)
-  - [Readme](#readme)
-
----
-
-## Scripts
+### Scripts
 
 In the scope of a package the following scripts are available.
 
-### Build
+#### Build
 
 Convert the ES6 sources for a package:
 
@@ -50,7 +51,7 @@ Convert the ES6 sources for a package:
 npm run build
 ```
 
-### Test
+#### Test
 
 To run the test suite:
 
@@ -58,7 +59,7 @@ To run the test suite:
 npm test
 ```
 
-### Cover
+#### Cover
 
 To generate code coverage:
 
@@ -66,7 +67,7 @@ To generate code coverage:
 npm run cover
 ```
 
-### Lint
+#### Lint
 
 Run the source tree through [jshint][] and [jscs][]:
 
@@ -74,7 +75,7 @@ Run the source tree through [jshint][] and [jscs][]:
 npm run lint
 ```
 
-### Clean
+#### Clean
 
 Remove generated files:
 
@@ -82,7 +83,7 @@ Remove generated files:
 npm run clean
 ```
 
-### Docs
+#### Docs
 
 To build all documentation files:
 
@@ -90,7 +91,7 @@ To build all documentation files:
 mk docs
 ```
 
-### Readme
+#### Readme
 
 To build the readme file:
 

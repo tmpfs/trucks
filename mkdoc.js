@@ -138,72 +138,80 @@ mk.task(build);
 mk.task(test);
 mk.task(cover);
 
+// @task standalone build the standalone docs
+function standalone(cb) {
+  doc(
+    'documents/standalone.md', 'manual/standalone.md',
+    {toc: {depth: 2}}, cb);
+}
+
 // @task manual build the manual docs
 function manual(cb) {
   doc(
     'documents/manual.md', 'manual/readme.md',
-    {toc: {depth: 2, max: 3}}, cb);
+    {toc: {depth: 2}}, cb);
 }
 
 // @task introduction build the introduction docs
 function introduction(cb) {
   doc(
     'documents/introduction.md', 'manual/introduction.md',
-    {toc: {depth: 2, max: 3}}, cb);
+    {toc: {depth: 2}}, cb);
 }
 
 // @task components build the components docs
 function components(cb) {
   doc(
     'documents/components.md', 'manual/components.md',
-    {toc: {depth: 2, max: 3}}, cb);
+    {toc: {depth: 2}}, cb);
 }
 
 // @task plugins build the plugins docs
 function plugins(cb) {
   doc(
     'documents/plugins.md', 'manual/plugins.md',
-    {toc: {depth: 2, max: 3}}, cb);
+    {toc: {depth: 2}}, cb);
 }
 
 // @task protocols build the protocols docs
 function protocols(cb) {
   doc(
     'documents/protocols.md', 'manual/protocols.md',
-    {toc: {depth: 2, max: 3}}, cb);
+    {toc: {depth: 2}}, cb);
 }
 
 // @task transforms build the transforms docs
 function transforms(cb) {
   doc(
     'documents/transforms.md', 'manual/transforms.md',
-    {toc: {depth: 2, max: 3}}, cb);
+    {toc: {depth: 2}}, cb);
 }
 
 // @task compiler build the compiler file
 function compiler(cb) {
   doc(
     'documents/compiler/compiler.md', 'manual/compiler.md',
-    {toc: {depth: 2, max: 3}}, cb);
+    {toc: {depth: 2}}, cb);
 }
 
 // @task developer build the developer docs
 function developer(cb) {
   doc(
     'documents/developer.md', 'manual/developer.md',
-    {toc: {depth: 2, max: 3}}, cb);
+    {toc: {depth: 2}}, cb);
 }
 
 // @task readme build the readme docs
 function readme(cb) {
   doc(
     'documents/readme.md', 'README.md',
-    {toc: {depth: 2, max: 3}}, cb);
+    {toc: {depth: 2}}, cb);
 }
 
 // @task docs build all docs
 function docs(cb) {cb();}
 
+mk.task(standalone);
 mk.task(manual);
 mk.task(introduction);
 mk.task(components);

@@ -85,19 +85,25 @@ const trucks = require('trucks-compiler')
       };
 ```
 
-Typically you should not need to modify the `plugins` list but it can be useful when you need a subset of the core compiler phases to be executed, for example if you wanted to inspect the component tree without writing any files.
+Typically you should not need to modify the `plugins` list but it can be useful when you need a subset of the core compiler phases to be executed, for example to inspect the component tree without writing any files.
 
 #### Protocol Plugins
 
-Protocol plugins are initialized by the [load][] phase (see the [file][resolver-file] plugin) they are responsible for registering a protocol (eg: `file:`) with a class that will resolve the URL to component files or an alternative compiler configuration.
+Protocol plugins are initialized by the [load][] phase they are responsible for registering a protocol (eg: `file:`) with a class that will resolve the URL to component files or an alternative compiler configuration.
+
+See the [http][resolver-http] plugin.
 
 #### Transform Plugins
 
-Transform plugins are executed by the [transform][] phase (see the [csp][transform-csp] plugin) when the entire component tree is ready. They should perform transformations on the component tree creating output files when needed.
+Transform plugins are executed by the [transform][] phase when the entire component tree is ready. They should perform transformations on the component tree creating output files when needed.
+
+See the [csp][transform-csp] plugin.
 
 #### Generator Plugins
 
-Generator plugins are executed by the [generator][] phase (see the [page][generator-page] plugin) and may be used to create additional output files or perform extra processing after transformations have been applied.
+Generator plugins are executed by the [generator][] phase and may be used to create additional output files or perform extra processing after transformations have been applied.
+
+See the [page][generator-page] plugin.
 
 ### Writing Plugins
 
@@ -122,7 +128,7 @@ To load a particular plugin use the corresponding array option:
 ```javascript
 const options = {
   files: ['components.html'],
-  plugins: ['load']
+  plugins: [trucks.LOAD]
 };
 ```
 

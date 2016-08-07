@@ -1,10 +1,14 @@
 # Manual
 
+View the manual as a [single page][standalone-manual].
+
 * [Introduction](introduction.md) Motivation & Rationale
 * [Components](components.md) Component Guide
 * [Plugins](plugins.md) Plugin Guide
 * [Protocols](protocols.md) Protocol Plugins
 * [Transforms](transforms.md) Transform Plugins
-* [Compiler](compiler.md) Compiler Information 
+    
+# Appendix
+
 * [Developer](developer.md) Developer Documentation
 

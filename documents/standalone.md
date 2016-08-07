@@ -24,6 +24,8 @@
 
 <? @include include/transforms.md ?>
 
+# Appendix
+
 ## Developer
 
 <? @include include/developer.md ?>

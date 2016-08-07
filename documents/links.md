@@ -52,6 +52,8 @@
 
 [generator-page]: /packages/generator-page
 
+[standalone-manual]: /manual/standalone.md
+
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

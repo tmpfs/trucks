@@ -175,6 +175,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
+[standalone-manual]: https://github.com/tmpfs/trucks/blob/master/manual/standalone.md
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

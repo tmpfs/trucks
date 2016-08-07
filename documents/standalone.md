@@ -12,6 +12,10 @@
 
 <? @include include/components.md ?>
 
+## Packages
+
+<? @include include/packages.md ?>
+
 ## Plugins
 
 <? @include include/plugins.md ?>

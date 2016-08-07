@@ -1,45 +1,101 @@
-## Introduction
+## Packages
 
 ---
 
-- [Introduction](#introduction)
-  - [Polymer](#polymer)
-  - [Skate](#skate)
-  - [React](#react)
-  - [Trucks](#trucks)
+- [Packages](#packages)
+  - [Package Dependencies](#package-dependencies)
+  - [Package Example](#package-example)
 
 ---
 
-[Web components][webcomponents] are a collection of emerging standards that allow developers to create re-usable custom user interface elements.
+The recommended way to package a component is to create an [npm][] package add a `components.html` entry point and `trucks.js` compiler configuration.
 
-The web components specifications are:
+Once the package has been published to the registry it can be installed using the `npm:` protocol:
 
-* [Shadow DOM][shadow-dom]
-* [Custom Elements][custom-elements]
-* [HTML Imports][html-imports]
-* [HTML Templates][html-templates]
+```shell
+trucks npm://trucks-example-skate-component
+```
 
-At the time of writing very few browsers support all of these emerging standards so polyfills are required.
+```html
+<link rel="import" href="npm://trucks-example-skate-component@^1.0.0">
+```
 
-There are several problems with the state of the current frameworks.
+Using [npm][] is the preferred mechanism for semantic versioning and so that component dependencies can be automatically resolved at compile time.
 
-### Polymer
+### Package Dependencies
 
-The [polymer project][polymer] has a large suite of components but these components are all defined using inline scripts and inline styles which is very convenient from an authoring point of view (component encapsulation) but has issues when you need a strict [content security policy][csp] that disables inline styles and scripts.
+If you need to add compiler plugins to your package you should add them to the `dependencies` section so that they are installed at compile time.
 
-### Skate
+### Package Example
 
-The [skatejs][] project has a very efficient design using a virtual dom that incrementally renders component view changes. It is the smallest of the frameworks and because it does not depend upon [HTML Templates][html-templates] or [HTML Imports][html-imports] a component can be created using javascript and css but this makes it difficult to easily encapsulate a component definition into a single file.
+An example `package.json` and corresponding `trucks.js` compiler configuration:
 
-### React
+```json
+{
+  "name": "trucks-example-skate-component",
+  "version": "1.0.5",
+  "description": "Skate compiler transform example",
+  "author": "muji <noop@xpm.io>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmpfs/trucks"
+  },
+  "engines": {
+    "node": ">=4.0"
+  },
+  "dependencies": {
+    "skatejs": "~1.0.0-beta.19",
+    "trucks-generator-page": "~1.0.1",
+    "trucks-transform-bundle": "*",
+    "trucks-transform-csp": "*",
+    "trucks-transform-skate": "*",
+    "trucks-transform-trim": "*",
+    "trucks-transform-usage": "*"
+  },
+  "devDependencies": {
+    "express": "~4.14.0"
+  },
+  "scripts": {
+    "clean": "rm -rf build",
+    "prebuild": "npm run clean",
+    "build": "trucks"
+  }
+}
+```
 
-The [react framework][react] is [not tracking the webcomponents standards][react-webcomponents] and therefore for those that prefer to use web standards it's not really an option. But you can compile [skatejs][] component definitions to react components using the [react integration][react-integration] module.
+```javascript
+const options = {
+  files: [__dirname + '/components.html'],
+  transforms: ['trim', 'csp', 'skate', 'bundle', 'usage'],
+  generators: ['page'],
+  out: 'build',
+  force: true,
+  css: false,
+  html: false,
+  page: {
+    files: {
+      'template.html': 'index.html'
+    } 
+  },
+  write: {
+    exclude: /\.?usage.html$/
+  },
+  conf: {
+    transforms: {
+      csp: {
+        sha: 'sha256',
+        statics: true 
+      },
+      bundle: {
+        js: [require.resolve('skatejs/dist/index-with-deps.js')]
+      }
+    }
+  }
+}
 
-### Trucks
-
-The [trucks][] library aims to bring component encapsulation to [skatejs][] and allow [polymer][] component definitions to be compiled to bypass the [content security policy][csp] problem.
-
-Another benefit of this library is that it converts [HTML Imports][html-imports] to *compile time only* which is important as [Mozilla will not ship HTML Imports][mozilla-webcomponents], one less polyfill!
+module.exports = options;
+```
 
 ---
 

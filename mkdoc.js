@@ -171,6 +171,14 @@ function components(cb) {
     {toc: {depth: 2}}, cb);
 }
 
+// @task packages build the packages docs
+function packages(cb) {
+  doc(
+    'documents/packages.md', 'manual/packages.md',
+    {toc: {depth: 2}}, cb);
+}
+
+
 // @task plugins build the plugins docs
 function plugins(cb) {
   doc(
@@ -220,6 +228,7 @@ mk.task(standalone);
 mk.task(manual);
 mk.task(introduction);
 mk.task(components);
+mk.task(packages);
 mk.task(plugins);
 mk.task(protocols);
 mk.task(transforms);
@@ -235,6 +244,7 @@ mk.task([
   manual,
   introduction,
   components,
+  packages,
   plugins,
   protocols,
   transforms,

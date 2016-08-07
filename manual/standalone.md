@@ -13,6 +13,9 @@
   - [Style Scopes](#style-scopes)
   - [Dependencies](#dependencies)
   - [Private Dependencies](#private-dependencies)
+- [Packages](#packages)
+  - [Package Dependencies](#package-dependencies)
+  - [Package Example](#package-example)
 - [Plugins](#plugins)
   - [Plugin Types](#plugin-types)
     - [Core Plugins](#core-plugins)
@@ -275,6 +278,97 @@ A component file can declare multiple components in a single file which can be u
     skate.define('{{id}}', {/* component implementation */});
   </script>
 </dom-module>
+```
+
+## Packages
+
+The recommended way to package a component is to create an [npm][] package add a `components.html` entry point and `trucks.js` compiler configuration.
+
+Once the package has been published to the registry it can be installed using the `npm:` protocol:
+
+```shell
+trucks npm://trucks-example-skate-component
+```
+
+```html
+<link rel="import" href="npm://trucks-example-skate-component@^1.0.0">
+```
+
+Using [npm][] is the preferred mechanism for semantic versioning and so that component dependencies can be automatically resolved at compile time.
+
+### Package Dependencies
+
+If you need to add compiler plugins to your package you should add them to the `dependencies` section so that they are installed at compile time.
+
+### Package Example
+
+An example `package.json` and corresponding `trucks.js` compiler configuration:
+
+```json
+{
+  "name": "trucks-example-skate-component",
+  "version": "1.0.5",
+  "description": "Skate compiler transform example",
+  "author": "muji <noop@xpm.io>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tmpfs/trucks"
+  },
+  "engines": {
+    "node": ">=4.0"
+  },
+  "dependencies": {
+    "skatejs": "~1.0.0-beta.19",
+    "trucks-generator-page": "~1.0.1",
+    "trucks-transform-bundle": "*",
+    "trucks-transform-csp": "*",
+    "trucks-transform-skate": "*",
+    "trucks-transform-trim": "*",
+    "trucks-transform-usage": "*"
+  },
+  "devDependencies": {
+    "express": "~4.14.0"
+  },
+  "scripts": {
+    "clean": "rm -rf build",
+    "prebuild": "npm run clean",
+    "build": "trucks"
+  }
+}
+```
+
+```javascript
+const options = {
+  files: [__dirname + '/components.html'],
+  transforms: ['trim', 'csp', 'skate', 'bundle', 'usage'],
+  generators: ['page'],
+  out: 'build',
+  force: true,
+  css: false,
+  html: false,
+  page: {
+    files: {
+      'template.html': 'index.html'
+    } 
+  },
+  write: {
+    exclude: /\.?usage.html$/
+  },
+  conf: {
+    transforms: {
+      csp: {
+        sha: 'sha256',
+        statics: true 
+      },
+      bundle: {
+        js: [require.resolve('skatejs/dist/index-with-deps.js')]
+      }
+    }
+  }
+}
+
+module.exports = options;
 ```
 
 ## Plugins
@@ -574,7 +668,7 @@ More developer documentation is in the [appendix](appendix.md).
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 8, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents

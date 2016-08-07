@@ -84,7 +84,7 @@ function ftp(state, conf) {
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 8, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents

@@ -31,8 +31,6 @@ function dirs(cb) {
       result.push(item); 
     })
 
-    //const pkg = require('./package.json');
-    //result.unshift({file: './', package: pkg, name: pkg.name});
     cb(null, result);
   })
 }

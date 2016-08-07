@@ -26,7 +26,7 @@ Typically you should not need to modify the `plugins` list but it can be useful 
 
 #### Protocol Plugins
 
-Protocol plugins are initialized by the [load][] phase they are responsible for registering a protocol (eg: `file:`) with a class that will resolve the URL to component files or an alternative compiler configuration. See the [http][resolver-http] plugin implementation.
+Protocol plugins are initialized by the [load][] phase they are responsible for registering a protocol with a class that will resolve the URL to component files or an alternative compiler configuration. See the [http][resolver-http] plugin implementation.
 
 #### Transform Plugins
 

@@ -35,6 +35,8 @@ Compiles web components to separate files for javascript, styles and template ma
 + `--print-tree` Print the component tree hierarchy
 + `--print-manifest` Print the generated files manifest
 + `--print-stack` Print stack trace on error
++ `-q, --quiet` Suppress all log levels
++ `-v, --verbose` Enable all log levels
 + `-h, --help` Display help and exit
 + `--version` Print the version and exit
 

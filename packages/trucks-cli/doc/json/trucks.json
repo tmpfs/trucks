@@ -210,6 +210,26 @@
       "type": "flag",
       "name": "--print-stack"
     },
+    "quiet": {
+      "key": "quiet",
+      "description": "Suppress all log levels.",
+      "names": [
+        "-q",
+        "--quiet"
+      ],
+      "type": "flag",
+      "name": "--quiet"
+    },
+    "verbose": {
+      "key": "verbose",
+      "description": "Enable all log levels.",
+      "names": [
+        "-v",
+        "--verbose"
+      ],
+      "type": "flag",
+      "name": "--verbose"
+    },
     "help": {
       "key": "help",
       "description": "Display help and exit",

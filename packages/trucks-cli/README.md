@@ -85,12 +85,12 @@ Completion is available for zsh. To install copy [_trucks](https://github.com/tm
 ## Help
 
 ```
-Usage: trucks [-fh] [--force] [--secure] [--print-imports] [--print-tree]
-              [--print-manifest] [--print-stack] [--help] [--version] [--out
-              <dir>] [--name <val>] [--html <file>] [--css <file>] [--js
-              <file>] [--transforms <id...>] [--protocols <id...>] [--rc
-              <file...>] [--extract <dir>] [--inject <dir>] [--manifest <file>]
-              [files...]
+Usage: trucks [-fqvh] [--force] [--secure] [--print-imports] [--print-tree]
+              [--print-manifest] [--print-stack] [--quiet] [--verbose] [--help]
+              [--version] [--out <dir>] [--name <val>] [--html <file>] [--css
+              <file>] [--js <file>] [--transforms <id...>] [--protocols
+              <id...>] [--rc <file...>] [--extract <dir>] [--inject <dir>]
+              [--manifest <file>] [files...]
 
   Compiles web components.
 
@@ -113,10 +113,12 @@ Options
   --print-tree            Print the component tree hierarchy
   --print-manifest        Print the generated files manifest
   --print-stack           Print stack trace on error
+  -q, --quiet             Suppress all log levels.
+  -v, --verbose           Enable all log levels.
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks@1.0.15
+trucks@1.0.20
 ```
 
 ## Developer
@@ -181,7 +183,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 6, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
@@ -230,6 +232,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 6, 2016
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
+[standalone-manual]: https://github.com/tmpfs/trucks/blob/master/manual/standalone.md
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

@@ -22,6 +22,8 @@ _trucks(){
     "--print-tree[Print the component tree hierarchy]" 
     "--print-manifest[Print the generated files manifest]" 
     "--print-stack[Print stack trace on error]" 
+    "(-q --quiet)"{-q,--quiet}"[Suppress all log levels.]" 
+    "(-v --verbose)"{-v,--verbose}"[Enable all log levels.]" 
     "(-h --help)"{-h,--help}"[Display help and exit]" 
     "--version[Print the version and exit]"
   )

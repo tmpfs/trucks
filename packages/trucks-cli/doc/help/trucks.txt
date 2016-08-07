@@ -1,9 +1,9 @@
-Usage: trucks [-fh] [--force] [--secure] [--print-imports] [--print-tree]
-              [--print-manifest] [--print-stack] [--help] [--version] [--out
-              <dir>] [--name <val>] [--html <file>] [--css <file>] [--js
-              <file>] [--transforms <id...>] [--protocols <id...>] [--rc
-              <file...>] [--extract <dir>] [--inject <dir>] [--manifest <file>]
-              [files...]
+Usage: trucks [-fqvh] [--force] [--secure] [--print-imports] [--print-tree]
+              [--print-manifest] [--print-stack] [--quiet] [--verbose] [--help]
+              [--version] [--out <dir>] [--name <val>] [--html <file>] [--css
+              <file>] [--js <file>] [--transforms <id...>] [--protocols
+              <id...>] [--rc <file...>] [--extract <dir>] [--inject <dir>]
+              [--manifest <file>] [files...]
 
   Compiles web components.
 
@@ -26,7 +26,9 @@ Options
   --print-tree            Print the component tree hierarchy
   --print-manifest        Print the generated files manifest
   --print-stack           Print stack trace on error
+  -q, --quiet             Suppress all log levels.
+  -v, --verbose           Enable all log levels.
   -h, --help              Display help and exit
   --version               Print the version and exit
 
-trucks@1.0.17
+trucks@1.0.20

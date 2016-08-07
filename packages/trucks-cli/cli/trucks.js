@@ -7,7 +7,8 @@ const path = require('path')
 
 /* istanbul ignore next: not going to test DEBUG mode */
 const trucks = require(
-    process.env.DEBUG ? 'trucks-compiler/src' : 'trucks-compiler')
+        process.env.DEBUG ? 'trucks-compiler/src' : 'trucks-compiler')
+    , Logger = trucks.Logger;
 
 // override package name
 pkg.name = 'trucks';
@@ -70,6 +71,17 @@ function main(argv, conf, cb) {
     }
 
     let plugins = [];
+
+    // logging options
+    this.log = {};
+
+    if(this.quiet) {
+      this.log.level = Logger.NONE;
+    }
+
+    if(this.verbose) {
+      this.log.level = Logger.ALL; 
+    }
 
     this.conf = this.conf || {};
 

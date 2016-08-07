@@ -152,6 +152,13 @@ function manual(cb) {
     {toc: {depth: 2}}, cb);
 }
 
+// @task appendix build the appendix docs
+function appendix(cb) {
+  doc(
+    'documents/appendix.md', 'manual/appendix.md',
+    {toc: {depth: 2}}, cb);
+}
+
 // @task introduction build the introduction docs
 function introduction(cb) {
   doc(
@@ -190,7 +197,7 @@ function transforms(cb) {
 // @task compiler build the compiler file
 function compiler(cb) {
   doc(
-    'documents/compiler/compiler.md', 'manual/compiler.md',
+    'documents/compiler.md', 'manual/compiler.md',
     {toc: {depth: 2}}, cb);
 }
 
@@ -218,17 +225,23 @@ mk.task(components);
 mk.task(plugins);
 mk.task(protocols);
 mk.task(transforms);
+
+mk.task(appendix);
 mk.task(compiler);
 mk.task(developer);
+
 mk.task(readme);
+
 mk.task([
-  compiler,
-  developer,
-  components,
+  standalone,
+  manual,
   introduction,
+  components,
   plugins,
   protocols,
   transforms,
-  manual,
+  appendix,
+  compiler,
+  developer,
   readme
 ], docs);

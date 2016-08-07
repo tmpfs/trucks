@@ -24,10 +24,8 @@
 
 <? @include include/transforms.md ?>
 
-# Appendix
+## Appendix
 
-## Developer
-
-<? @include include/developer.md ?>
+More developer documentation is in the [appendix](appendix.md).
 
 <? @include links.md ?>

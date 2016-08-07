@@ -7,9 +7,7 @@ View the standalone manual as a [single page][standalone-manual].
 * [Plugins](plugins.md) Plugin Guide
 * [Protocols](protocols.md) Protocol Plugins
 * [Transforms](transforms.md) Transform Plugins
+
+More developer documentation is in the [appendix](appendix.md).
     
-# Appendix
-
-* [Developer](developer.md) Developer Documentation
-
 <? @include links.md ?>

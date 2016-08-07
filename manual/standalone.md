@@ -31,15 +31,7 @@
   - [Lifecycle](#lifecycle)
   - [Visitors](#visitors)
   - [Configuration](#configuration)
-- [Developer](#developer)
-  - [Scripts](#scripts)
-    - [Build](#build)
-    - [Test](#test)
-    - [Cover](#cover)
-    - [Lint](#lint)
-    - [Clean](#clean)
-    - [Docs](#docs)
-    - [Readme](#readme)
+- [Appendix](#appendix)
 
 ---
 
@@ -461,10 +453,8 @@ const options = {
 You can now use HTTP and HTTPS imports:
 
 ```html
-<link rel="import" href="https://domain.com/components.html">
+<link rel="import" href="https://example.com/components.html">
 ```
-
-Plugin functions are invoked synchronously before the [load][] plugin executes; they allow HTML imports to be mapped to different protocols.
 
 ### Writing Protocol Plugins
 
@@ -578,92 +568,9 @@ const options = {
 };
 ```
 
-## Developer
+## Appendix
 
-Sources are ES6 code transpiled for `node@4.x` compatibility.
-
-Install [mkdoc][] `npm i -g mkdoc` and then install dependencies for all packages with `npm i && mk install`.
-
-You should now be able to use the scripts and tasks, list tasks with `mk --tasks`.
-
-It is a good idea to run the `build` task before tests; it is recommended that before pushing code the command `mk build test` is run.
-
-At the top-level you run the following commands for all packages:
-
-* `mk install` Install dependencies.
-* `mk test` Run tests.
-* `mk cover` Run code coverage.
-* `mk build` Compile sources.
-* `mk lint` Lint sources.
-* `mk docs` Build top-level documentation
-
-Build a coverage report for all packages with:
-
-```
-mk cover && npm run report
-```
-
-Note that tests are not included in the npm packages you should clone the repository to run the test suites.
-
-### Scripts
-
-In the scope of a package the following scripts are available.
-
-#### Build
-
-Convert the ES6 sources for a package:
-
-```
-npm run build
-```
-
-#### Test
-
-To run the test suite:
-
-```
-npm test
-```
-
-#### Cover
-
-To generate code coverage:
-
-```
-npm run cover
-```
-
-#### Lint
-
-Run the source tree through [jshint][] and [jscs][]:
-
-```
-npm run lint
-```
-
-#### Clean
-
-Remove generated files:
-
-```
-npm run clean
-```
-
-#### Docs
-
-To build all documentation files:
-
-```
-mk docs
-```
-
-#### Readme
-
-To build the readme file:
-
-```
-mk readme
-```
+More developer documentation is in the [appendix](appendix.md).
 
 ---
 
@@ -716,6 +623,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
+[standalone-manual]: https://github.com/tmpfs/trucks/blob/master/manual/standalone.md
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

@@ -1,5 +1,3 @@
-## Compiler
-
 The compiler executes the following plugins:
 
 * [load][] Load all source HTML files given with the `files` option and resolve the HTML imports.

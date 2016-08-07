@@ -177,12 +177,23 @@ function main(argv, conf, cb) {
       }
 
       if(state.manifest) {
-        var contents = JSON.stringify(state.manifest, undefined, 2) + '\n';
+        var contents = JSON.stringify(state.manifest, undefined, 2) + '\n'
+          , writesManifest =
+              (this.manifest === String(this.manifest) && this.manifest);
+
         if(this.printManifest) {
-          conf.output.write(contents);
+          // let the manifest file write callback
+          if(writesManifest) {
+            conf.output.write(contents);
+          // callback once the write flushes
+          }else{
+            return conf.output.write(contents, () => {
+              cb(null, state, this); 
+            });
+          }
         }
 
-        if(this.manifest === String(this.manifest)) {
+        if(writesManifest) {
           var filepath = state.absolute(this.manifest);
           fs.writeFile(filepath, contents, function(err) {
             cb(err, state, this);

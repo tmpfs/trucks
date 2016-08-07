@@ -3,6 +3,7 @@
 ---
 
 - [Packages](#packages)
+  - [Private Packages](#private-packages)
   - [Package Dependencies](#package-dependencies)
   - [Package Example](#package-example)
 
@@ -20,7 +21,11 @@ trucks npm://trucks-example-skate-component
 <link rel="import" href="npm://trucks-example-skate-component@^1.0.0">
 ```
 
-Using [npm][] is the preferred mechanism for semantic versioning and so that component dependencies can be automatically resolved at compile time.
+Using [npm][] is the preferred mechanism for semantic versioning support and so that component dependencies can be automatically resolved at compile time.
+
+### Private Packages
+
+In a corporate environment you may need to share components without exposing them to the public; you can either configure a private [npm][] registry or serve component packages from an internal web server and use the `https:` protocol.
 
 ### Package Dependencies
 

@@ -72,9 +72,6 @@ function main(argv, conf, cb) {
     let plugins = [];
 
     this.conf = this.conf || {};
-    //this.conf.plugins = this.conf.plugins || {};
-    //this.conf.transforms = this.conf.transforms || {};
-    //this.conf.protocols = this.conf.protocols || {};
 
     if(this.secure !== undefined) {
       //this.conf = this.conf || {};
@@ -82,6 +79,12 @@ function main(argv, conf, cb) {
       this.conf.protocols.http = {
         secure: this.secure
       }
+    }
+
+    // manifest disabled
+    if(this.manifest === false) {
+      this.write = this.write || {};
+      this.write.manifest = false;
     }
 
     // check autoconf in cwd
@@ -163,7 +166,7 @@ function main(argv, conf, cb) {
       delete this.transforms; 
     }
 
-    if(this.printManifest && !this.manifest) {
+    if(this.printManifest && this.manifest === undefined) {
       this.manifest = true; 
     }
 
@@ -173,7 +176,9 @@ function main(argv, conf, cb) {
       }
 
       if(this.printImports || this.printTree) {
-        conf.output.write(state.result.tree.toString()); 
+        return conf.output.write(state.result.tree.toString(), () => {
+          cb(null, state, this);
+        }); 
       }
 
       if(state.manifest) {

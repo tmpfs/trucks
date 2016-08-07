@@ -6,10 +6,6 @@ The compiler executes the following plugins:
 * [generate][] Convert the transformed components to css and javascript strings.
 * [write][] Write the generated styles and javascript to files.
 
-***
-<!-- @toc -->
-***
-
 ### Load
 
 Given a components file [components.html](/documents/compiler/components.html) such as:

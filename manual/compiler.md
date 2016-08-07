@@ -19,10 +19,6 @@ The compiler executes the following plugins:
 * [generate][] Convert the transformed components to css and javascript strings.
 * [write][] Write the generated styles and javascript to files.
 
----
-
----
-
 ### Load
 
 Given a components file [components.html](https://github.com/tmpfs/trucks/blob/master/documents/compiler/components.html) such as:

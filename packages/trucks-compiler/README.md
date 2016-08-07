@@ -503,6 +503,24 @@ Creates a component node.
 * `template` Object primary template for the component.
 * `parent` Object component owner (module).
 
+#### #getLevel
+
+```javascript
+static getLevel([lvl])
+```
+
+Get an integer level for a bitwise level integer or a string level.
+
+When a string is given then that level and all levels above it are
+enabled.
+
+If the given argument is not a valid log level identifier or integer
+`undefined` is returned.
+
+Returns an integer log level.
+
+* `lvl` String|Number log level.
+
 ## Documents
 
 For insights into the compiler phases and data structures see [COMPILER](https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler/doc/COMPILER.md).
@@ -562,6 +580,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
+[standalone-manual]: https://github.com/tmpfs/trucks/blob/master/manual/standalone.md
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

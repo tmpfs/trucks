@@ -1,9 +1,11 @@
-const TRACE = 'trace'
+const NONE = 'none'
+    , TRACE = 'trace'
     , DEBUG = 'debug'
     , INFO = 'info'
     , WARN = 'warn'
     , ERROR = 'error'
     , FATAL = 'fatal'
+    , ALL = 'all'
     , LEVELS = [
         TRACE,
         DEBUG,
@@ -22,6 +24,16 @@ const TRACE = 'trace'
         fatal: 32,
         all: 63
       }
+    , KEYS = [
+        {key: NONE,  value: BITWISE.none},
+        {key: TRACE,  value: BITWISE.trace},
+        {key: DEBUG,  value: BITWISE.debug},
+        {key: INFO,  value: BITWISE.info},
+        {key: WARN,  value: BITWISE.warn},
+        {key: ERROR,  value: BITWISE.error},
+        {key: FATAL,  value: BITWISE.fatal},
+        {key: ALL,  value: BITWISE.all},
+      ]
 
 class Logger {
   constructor(options) {
@@ -129,9 +141,69 @@ class Logger {
   }
 }
 
-// bitwise level constants
-for(let key in BITWISE) {
-  Logger[key.toUpperCase()] = BITWISE[key];
+/**
+ *  Get an integer level for a bitwise level integer or a string level.
+ *
+ *  When a string is given then that level and all levels above it are 
+ *  enabled.
+ *
+ *  If the given argument is not a valid log level identifier or integer 
+ *  `undefined` is returned.
+ *
+ *  @static {function} getLevel
+ *  @param {String|Number} [lvl] log level.
+ *
+ *  @returns an integer log level.
+ */
+function getLevel(lvl) {
+
+  // got a level identifier
+  if(lvl === String(lvl)) {
+
+    // unknown level identifier - invalid
+    if(BITWISE[lvl] === undefined) {
+      return; 
+    }
+
+    if(lvl === NONE) {
+      return BITWISE.none;
+    }else if(lvl === ALL) {
+      return BITWISE.all;
+    }
+
+    let i
+      , k
+      , v
+      , match;
+
+    // do not compare against `none` or `all`
+    for(i = 1;i < KEYS.length - 1;i++) {
+      k = KEYS[i].key;
+      v = KEYS[i].value;
+
+      // got the level match
+      if(lvl === k) {
+        match = v;
+      // got subsequent levels to enable
+      }else if(match !== undefined) {
+        match |= v; 
+      }
+    }
+
+    return match; 
+  }else if(lvl === parseInt(lvl)) {
+    return lvl;
+  }
 }
+
+Logger.getLevel = getLevel;
+
+for(let key in BITWISE) {
+  // bitwise level constants
+  Logger[key.toUpperCase()] = BITWISE[key];
+  // string key constants
+  Logger[key.toUpperCase() + '_KEY'] = key;
+}
+
 
 module.exports = Logger;

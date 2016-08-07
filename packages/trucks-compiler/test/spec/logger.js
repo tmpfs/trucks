@@ -15,6 +15,42 @@ describe('trucks:', function() {
     done();
   })
 
+  it('should get level integer for string (none)', function(done) {
+    let res = Logger.getLevel(Logger.NONE_KEY);
+    expect(res).to.eql(Logger.NONE);
+    done();
+  });
+
+  it('should get level integer for string (info)', function(done) {
+    let res = Logger.getLevel(Logger.INFO_KEY);
+    expect(res).to.eql(60);   // 4 | 8 | 16 | 32
+    done();
+  });
+
+  it('should get level integer for string (all)', function(done) {
+    let res = Logger.getLevel(Logger.ALL_KEY);
+    expect(res).to.eql(Logger.ALL);
+    done();
+  });
+
+  it('should get level integer for integer', function(done) {
+    let res = Logger.getLevel(Logger.FATAL);
+    expect(res).to.eql(Logger.FATAL);
+    done();
+  });
+
+  it('should get undefined on bad argument type', function(done) {
+    let res = Logger.getLevel({});
+    expect(res).to.eql(undefined);
+    done();
+  });
+
+  it('should get undefined on bad log level string', function(done) {
+    let res = Logger.getLevel('foo');
+    expect(res).to.eql(undefined);
+    done();
+  });
+
   it('should log info message', function(done) {
     const stream = fs.createWriteStream('target/mock-log.log');
 

@@ -309,4 +309,6 @@ class OutputFile {
   }
 }
 
+CompilerState.Logger = Logger;
+
 module.exports = CompilerState;

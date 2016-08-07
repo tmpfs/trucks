@@ -198,4 +198,7 @@ PHASES.forEach((phase) => {
   trucks[phase.toUpperCase()] = phase;
 })
 
+trucks.State = State;
+trucks.Logger = State.Logger;
+
 module.exports = trucks;

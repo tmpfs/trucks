@@ -23,6 +23,10 @@ describe('cli:', function() {
           output: stream 
         },
         (err, state) => {
+          // NOTE: debug ci failure
+          if(err) {
+            console.dir(err); 
+          }
           expect(err).to.eql(null);
           expect(state).to.be.an('object');
           expect(fs.statSync(file).size).to.be.gt(0);

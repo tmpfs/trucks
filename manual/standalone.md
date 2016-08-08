@@ -474,7 +474,7 @@ Use the `log` property to write log messages:
 ```javascript
 function plugin(state, conf) {
   const log = state.log;
-  log.info('plugin initialized %s', Date.now());
+  log.debug('plugin initialized %s', Date.now());
   return function(state, cb) {
     cb(null, state); 
   }

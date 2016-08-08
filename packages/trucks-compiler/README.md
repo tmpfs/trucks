@@ -115,6 +115,70 @@ Closures returned by the plugin functions are executed asynchronously (except pr
 
 Plugin functions may return an array of plugin functions which is useful to group related plugins, see the [sources][] plugin for an example.
 
+#### Compiler State
+
+The `state` argument passed to plugin functions and closures represents the current state of the comiler and includes many important properties and methods.
+
+##### Computer Options
+
+Use the `options` property to access the computed compiler options:
+
+```javascript
+function plugin(state, conf) {
+  const options = state.options;
+  return function(state, cb) {
+    if(options.flag) {
+      // perform operation 
+    }
+    cb(null, state); 
+  }
+}
+```
+
+##### Log Messages
+
+Use the `log` property to write log messages:
+
+```javascript
+function plugin(state, conf) {
+  const options = state.options
+      , log = state.log;
+  log.info('plugin initialized %s', Date.now());
+  return function(state, cb) {
+    log.debug('output directory %s', options.out);
+    cb(null, state); 
+  }
+}
+```
+
+##### Creating Files
+
+Call the `getFile()` function to create a file that will be written to disc. The compiler state manages a cache of output files by absolute path so if `getFile()` is called multiple times it will return an existing output file.
+
+```javascript
+function plugin(state, conf) {
+  const file = state.getFile('index.html');
+  return function(state, cb) {
+    const contents = '';
+    // append contents to the file
+    file.append(contents);
+    cb(null, state); 
+  }
+}
+```
+
+The cache of output files is readable using the `output` property:
+
+```javascript
+function plugin(state, conf) {
+  const log = state.log;
+  log.debug('files %j', state.output);
+  return function(state, cb) {
+    cb(null, state); 
+  }
+}
+```
+
 ### Loading Plugins
 
 To load a particular plugin use the corresponding array option:
@@ -255,7 +319,9 @@ const options = {
   // map of component identifiers to stylesheets
   // used by the `style-extract` and `style-inject` transforms
   // non-absolute paths are resolved relative to the output directory
-  stylesheets: undefined
+  stylesheets: undefined,
+  // configuration for the logger
+  log: undefined
 }
 
 module.exports = options;
@@ -291,6 +357,7 @@ Returns compiler state.
 * `css` String path to write the generated stylesheet.
 * `js` String path to write the generated javascript.
 * `eol` String override the default EOL for concatenation.
+* `log` Object logger configuration.
 
 ### CompilerState
 
@@ -531,7 +598,7 @@ MIT
 
 ---
 
-Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
+Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 8, 2016
 
 [skatejs]: https://github.com/skatejs/skatejs
 [webcomponents]: https://github.com/w3c/webcomponents
@@ -580,7 +647,7 @@ Created by [mkdoc](https://github.com/mkdoc/mkdoc) on August 7, 2016
 [resolver-http]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-http
 [resolver-npm]: https://github.com/tmpfs/trucks/blob/master/packages/resolver-npm
 [generator-page]: https://github.com/tmpfs/trucks/blob/master/packages/generator-page
-[standalone-manual]: https://github.com/tmpfs/trucks/blob/master/manual/standalone.md
+[manual-standalone]: https://github.com/tmpfs/trucks/blob/master/manual/standalone.md
 [less-css]: http://lesscss.org/
 [sass-css]: http://sass-lang.com/
 [stylus-css]: http://stylus-lang.com/

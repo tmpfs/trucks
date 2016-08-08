@@ -26,6 +26,10 @@
     - [Transform Plugins](#transform-plugins)
     - [Generator Plugins](#generator-plugins)
   - [Writing Plugins](#writing-plugins)
+    - [Compiler State](#compiler-state)
+      - [Computer Options](#computer-options)
+      - [Log Messages](#log-messages)
+      - [Creating Files](#creating-files)
   - [Loading Plugins](#loading-plugins)
   - [Configuring Plugins](#configuring-plugins)
 - [Protocols](#protocols)
@@ -439,6 +443,70 @@ function plugin(state, conf) {
 Closures returned by the plugin functions are executed asynchronously (except protocol plugins which are synchronous) in series and may modify the state object.
 
 Plugin functions may return an array of plugin functions which is useful to group related plugins, see the [sources][] plugin for an example.
+
+#### Compiler State
+
+The `state` argument passed to plugin functions and closures represents the current state of the comiler and includes many important properties and methods.
+
+##### Computer Options
+
+Use the `options` property to access the computed compiler options:
+
+```javascript
+function plugin(state, conf) {
+  const options = state.options;
+  return function(state, cb) {
+    if(options.flag) {
+      // perform operation 
+    }
+    cb(null, state); 
+  }
+}
+```
+
+##### Log Messages
+
+Use the `log` property to write log messages:
+
+```javascript
+function plugin(state, conf) {
+  const options = state.options
+      , log = state.log;
+  log.info('plugin initialized %s', Date.now());
+  return function(state, cb) {
+    log.debug('output directory %s', options.out);
+    cb(null, state); 
+  }
+}
+```
+
+##### Creating Files
+
+Call the `getFile()` function to create a file that will be written to disc. The compiler state manages a cache of output files by absolute path so if `getFile()` is called multiple times it will return an existing output file.
+
+```javascript
+function plugin(state, conf) {
+  const file = state.getFile('index.html');
+  return function(state, cb) {
+    const contents = '';
+    // append contents to the file
+    file.append(contents);
+    cb(null, state); 
+  }
+}
+```
+
+The cache of output files is readable using the `output` property:
+
+```javascript
+function plugin(state, conf) {
+  const log = state.log;
+  log.debug('files %j', state.output);
+  return function(state, cb) {
+    cb(null, state); 
+  }
+}
+```
 
 ### Loading Plugins
 

@@ -49,7 +49,9 @@ const options = {
   // map of component identifiers to stylesheets
   // used by the `style-extract` and `style-inject` transforms
   // non-absolute paths are resolved relative to the output directory
-  stylesheets: undefined
+  stylesheets: undefined,
+  // configuration for the logger
+  log: undefined
 }
 
 module.exports = options;

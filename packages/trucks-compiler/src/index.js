@@ -140,6 +140,7 @@ function options(state, cb) {
  *  @option {String} [css] path to write the generated stylesheet.
  *  @option {String} [js] path to write the generated javascript.
  *  @option {String} [eol] override the default EOL for concatenation.
+ *  @option {Object} [log] logger configuration.
  *
  *  @returns compiler state.
  */

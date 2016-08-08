@@ -54,7 +54,7 @@ Plugin functions may return an array of plugin functions which is useful to grou
 
 #### Compiler State
 
-The `state` argument passed to plugin functions and closures represents the current state of the comiler and includes many important properties and methods.
+The `state` argument passed to plugin functions and closures represents the current state of the compiler and includes many important properties and methods.
 
 ##### Computed Options
 

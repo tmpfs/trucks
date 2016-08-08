@@ -1,12 +1,12 @@
 /**
- *  Registry for a mapping between protocol schemes and resolver classes.
+ *  Registry for a mapping between protocols and resolver classes.
  *
  *  @public {class} Registry
  */
 class Registry {
 
   /**
-   *  Create a new scheme registry.
+   *  Create a new protocol registry.
    *
    *  @public {constructor} Registry
    */
@@ -17,7 +17,7 @@ class Registry {
   }
 
   /**
-   *  Set the default scheme resolver.
+   *  Set the default protocol resolver.
    *
    *  @public {function} setDefault
    *  @param {Function} val resolver class.
@@ -27,7 +27,7 @@ class Registry {
   }
 
   /**
-   *  Get the default scheme resolver.
+   *  Get the default protocol resolver.
    *
    *  Will be `null` if no plugins have registered a default handler by calling 
    *  the `setDefault` method.
@@ -40,7 +40,7 @@ class Registry {
   }
 
   /**
-   *  Get the resolver class for a given scheme.
+   *  Get the resolver class for a given protocol.
    *
    *  If the scheme is invalid (false) then a default scheme is returned, if no 
    *  default scheme has been registered the return value is `null`.
@@ -60,7 +60,7 @@ class Registry {
   }
 
   /**
-   *  Register a resolver class for a scheme.
+   *  Register a resolver class for a protocol.
    *
    *  Scheme names should include a trailing colon.
    *
@@ -82,7 +82,7 @@ class Registry {
    *  @public {function} factory
    *  @param {Object} state compiler state.
    *  @param {String} href the URL to resolve.
-   *  @param {Object} parent a parent resolver instance.
+   *  @param {Object} parent owner protocol resolver.
    */
   factory(state, href, parent) {
     let Type

@@ -456,7 +456,7 @@ Returns string file contents.
 
 ### Registry
 
-Registry for a mapping between protocol schemes and resolver classes.
+Registry for a mapping between protocols and resolver classes.
 
 #### Registry
 
@@ -464,7 +464,7 @@ Registry for a mapping between protocol schemes and resolver classes.
 public Registry()
 ```
 
-Create a new scheme registry.
+Create a new protocol registry.
 
 #### setDefault
 
@@ -472,7 +472,7 @@ Create a new scheme registry.
 public setDefault(val)
 ```
 
-Set the default scheme resolver.
+Set the default protocol resolver.
 
 * `val` Function resolver class.
 
@@ -482,7 +482,7 @@ Set the default scheme resolver.
 public getDefault()
 ```
 
-Get the default scheme resolver.
+Get the default protocol resolver.
 
 Will be `null` if no plugins have registered a default handler by calling
 the `setDefault` method.
@@ -495,7 +495,7 @@ Returns a default resolver class.
 public getResolver(scheme)
 ```
 
-Get the resolver class for a given scheme.
+Get the resolver class for a given protocol.
 
 If the scheme is invalid (false) then a default scheme is returned, if no
 default scheme has been registered the return value is `null`.
@@ -512,7 +512,7 @@ Returns a resolver class for the scheme.
 public register(scheme, resolver)
 ```
 
-Register a resolver class for a scheme.
+Register a resolver class for a protocol.
 
 Scheme names should include a trailing colon.
 
@@ -529,7 +529,7 @@ Create a new resolver for an `href`.
 
 * `state` Object compiler state.
 * `href` String the URL to resolve.
-* `parent` Object a parent resolver instance.
+* `parent` Object owner protocol resolver.
 
 ### ComponentTree < ComponentImport
 

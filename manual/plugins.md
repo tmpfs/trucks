@@ -149,7 +149,6 @@ function plugin(state, conf) {
   const file = state.getFile('index.html');
   return function(state, cb) {
     const contents = '';
-    // append contents to the file
     file.append(contents);
     cb(null, state); 
   }

@@ -10,9 +10,12 @@
     - [Generator Plugins](#generator-plugins)
   - [Writing Plugins](#writing-plugins)
     - [Compiler State](#compiler-state)
-      - [Computer Options](#computer-options)
+      - [Computed Options](#computed-options)
       - [Log Messages](#log-messages)
+      - [Abstract Syntax Treee](#abstract-syntax-treee)
+      - [Component Classes](#component-classes)
       - [Creating Files](#creating-files)
+      - [Protocol Registry](#protocol-registry)
   - [Loading Plugins](#loading-plugins)
   - [Configuring Plugins](#configuring-plugins)
 
@@ -76,7 +79,7 @@ Plugin functions may return an array of plugin functions which is useful to grou
 
 The `state` argument passed to plugin functions and closures represents the current state of the comiler and includes many important properties and methods.
 
-##### Computer Options
+##### Computed Options
 
 Use the `options` property to access the computed compiler options:
 
@@ -102,7 +105,37 @@ function plugin(state, conf) {
       , log = state.log;
   log.info('plugin initialized %s', Date.now());
   return function(state, cb) {
-    log.debug('output directory %s', options.out);
+    cb(null, state); 
+  }
+}
+```
+
+##### Abstract Syntax Treee
+
+Use the `tree` property to access the abstract syntax tree:
+
+```javascript
+function plugin(state, conf) {
+  return function(state, cb) {
+    console.dir(state.tree);
+    cb(null, state); 
+  }
+}
+```
+
+Note this assumes the [load][] and [parse][] plugins have been executed so the entire tree is available.
+
+##### Component Classes
+
+Use the `components` property to access the component classes:
+
+```javascript
+function plugin(state, conf) {
+  const log = state.log
+      , components = state.components
+      , Tree = components.Tree;
+  return function(state, cb) {
+    log.info('is tree: %s', (state.tree instanceof Tree)); 
     cb(null, state); 
   }
 }
@@ -124,17 +157,11 @@ function plugin(state, conf) {
 }
 ```
 
-The cache of output files is readable using the `output` property:
+The cache of output files is readable using the `output` property.
 
-```javascript
-function plugin(state, conf) {
-  const log = state.log;
-  log.debug('files %j', state.output);
-  return function(state, cb) {
-    cb(null, state); 
-  }
-}
-```
+##### Protocol Registry
+
+Read only access to the protocol registry is exposed on the compiler state via the `registry` property.
 
 ### Loading Plugins
 

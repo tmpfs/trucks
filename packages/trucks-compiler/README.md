@@ -25,7 +25,6 @@ npm i trucks-compiler --save-dev
   - [CompilerState](#compilerstate)
   - [OutputFile](#outputfile)
   - [Registry](#registry)
-  - [Registry](#registry-1)
   - [ComponentTree < ComponentImport](#componenttree-componentimport)
   - [ComponentFile < ComponentImport](#componentfile-componentimport)
   - [ComponentModule < ComponentNode](#componentmodule-componentnode)
@@ -459,7 +458,11 @@ Returns string file contents.
 
 Registry for a mapping between protocol schemes and resolver classes.
 
-### Registry
+#### Registry
+
+```javascript
+public Registry()
+```
 
 Create a new scheme registry.
 

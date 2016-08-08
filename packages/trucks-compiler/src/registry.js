@@ -8,7 +8,7 @@ class Registry {
   /**
    *  Create a new scheme registry.
    *
-   *  @public {class} Registry
+   *  @public {constructor} Registry
    */
   constructor() {
     this._schemes = {}; 

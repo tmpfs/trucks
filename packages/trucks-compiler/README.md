@@ -33,7 +33,6 @@ npm i trucks-compiler --save-dev
   - [ComponentStyle < ComponentTrait](#componentstyle-componenttrait)
   - [ComponentScript < ComponentTrait](#componentscript-componenttrait)
   - [Component < ComponentNode](#component-componentnode)
-- [Documents](#documents)
 - [License](#license)
 
 ---
@@ -609,10 +608,6 @@ If the given argument is not a valid log level identifier or integer
 Returns an integer log level.
 
 * `lvl` String|Number log level.
-
-## Documents
-
-For insights into the compiler phases and data structures see [COMPILER](https://github.com/tmpfs/trucks/blob/master/packages/trucks-compiler/doc/COMPILER.md).
 
 ## License
 

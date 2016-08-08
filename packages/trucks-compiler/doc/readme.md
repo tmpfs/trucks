@@ -32,9 +32,5 @@ This document shows the default options used when none are provided.
 
 <? @exec mkapi src/index.js src/state.js src/registry.js src/component.js src/logger.js src/middleware.js --level=3 ?>
 
-## Documents
-
-For insights into the compiler phases and data structures see [COMPILER](/packages/trucks-compiler/doc/COMPILER.md).
-
 <? @include ../../../documents/license.md ?>
 <? @include ../../../documents/links.md ?>
